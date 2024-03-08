@@ -9,12 +9,13 @@ import {
 	AppstoreOutlined,
 	FireOutlined,
 	DollarOutlined,
-	ControlOutlined,
+	FundOutlined,
 	MenuUnfoldOutlined,
 	MenuFoldOutlined,
 	UserOutlined,
 	LogoutOutlined,
-	TeamOutlined
+	TeamOutlined,
+	FileDoneOutlined
 } from '@ant-design/icons'
 import { Layout, Menu, theme, Button, message, Avatar, Dropdown, Divider } from 'antd'
 import { ContextBooking } from '../context/booking.context'
@@ -128,9 +129,14 @@ export default function LayoutApp({ children }) {
 
 	const items = [
 		getItem('Обзор', 'overview', <HomeOutlined />),
+		getItem('Статистика и отчеты', 'statisticAndReports', <FundOutlined />),
 		getItem('Оформление', 'frontdesk', <EditOutlined />),
 		getItem('Гости', 'guest', <AuditOutlined />),
-		getItem('Комнаты', 'room', <AppstoreOutlined />),
+		getItem('Номера', 'room', <AppstoreOutlined />, [
+			getItem('Все номера', 'allRoom'),
+			getItem('Обслуживание', 'serviceRoom')
+		]),
+		getItem('Услуги', 'services', <FileDoneOutlined />),
 		getItem('Акции', 'deal', <FireOutlined />),
 		getItem('Расценки', 'rate', <DollarOutlined />),
 		getItem('Сотрудники', 'employee', <TeamOutlined />, [

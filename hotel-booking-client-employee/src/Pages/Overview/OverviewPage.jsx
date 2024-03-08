@@ -141,7 +141,7 @@ const OverviewPage = () => {
 									<div>
 										<img
 											src={
-												profitThenLastMonth(data.revenuePerMonth?.current_month, data.revenuePerMonth?.last_month) > 0
+												profitThenLastMonth(data.revenuePerMonth?.current_month, data.revenuePerMonth?.last_month) >= 0
 													? 'image/plus.png'
 													: 'image/minus.png'
 											}
@@ -155,7 +155,7 @@ const OverviewPage = () => {
 									>
 										<p
 											className={
-												profitThenLastMonth(data.revenuePerMonth?.current_month, data.revenuePerMonth?.last_month) > 0
+												profitThenLastMonth(data.revenuePerMonth?.current_month, data.revenuePerMonth?.last_month) >= 0
 													? 'plusRevenue'
 													: 'negativeRevenue'
 											}
@@ -195,7 +195,7 @@ const OverviewPage = () => {
 							<div className='overview-card__room'>
 								<p style={{ marginBottom: '3vh' }}>Статистика комнат</p>
 								<div className='d-f jc-sb status-room__text'>
-									<div style={{ width: '45%' }}> 
+									<div style={{ width: '45%' }}>
 										<div className='d-f fd-c status-room__list'>
 											<div>
 												<p>Свободные комнаты</p>

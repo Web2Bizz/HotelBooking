@@ -1,13 +1,22 @@
-import React from 'react'
-import { Divider } from 'antd'
+import { Button } from 'antd'
 import DataCleanerListTask from './DataCleanerListTask'
+import { useState } from 'react'
+import ManualAddTaskCleaner from './ManualAddTaskCleaner'
 
 const ListTaskCleaner = (props) => {
+	const [modalOpen, setModalOpen] = useState(false);
 	return (
+		<>
+		<ManualAddTaskCleaner modalOpen={modalOpen} setModalOpen={setModalOpen}/>
 		<div className='list-view' key={props.key}>
-			<h4>Задачи уборщиков</h4>
+			<div className='d-flex justify-content-between'>
+				<h4>Задачи уборщиков</h4>
+				<Button type='primary' onClick={() => setModalOpen(true)}>Создать задачу</Button>
+			</div>
 			<DataCleanerListTask />
 		</div>
+
+		</>
 	)
 }
 

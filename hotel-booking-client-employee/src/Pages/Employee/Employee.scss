@@ -82,7 +82,7 @@
 }
 
 .list-view {
-	opacity: 0;
+	opacity: 1;
 	overflow: hidden;
 	animation: list-view 1s forwards;
 }
@@ -149,4 +149,19 @@
 	display: flex;
 	flex-direction: column;
 	align-items: flex-end;
+}
+
+.listView-enter {
+	opacity: 0;
+}
+.listView-enter-active {
+	opacity: 1;
+	transition: opacity 400ms;
+}
+.listView-exit {
+	opacity: 1;
+}
+.listView-exit-active {
+	opacity: 0;
+	transition: opacity 400ms;
 }

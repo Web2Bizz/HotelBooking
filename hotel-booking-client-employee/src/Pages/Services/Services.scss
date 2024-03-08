@@ -1,0 +1,44 @@
+.page-without-services {
+	padding: 10vh 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	img {
+		width: 15vh;
+		padding-bottom: 2vh;
+	}
+}
+
+.group-tab-modal-inputs {
+	display: flex;
+	p {
+		width: 20%;
+	}
+	div {
+		width: 80%;
+	}
+}
+
+.tabCreateStep-inputs {
+	display: flex;
+	p {
+		width: 10%;
+	}
+	margin-top: 1vh;
+	.tabCreateStep-container {
+		width: 40%;
+	}
+}
+
+.tabCreateStep-radio {
+	width: 100%;
+	p {
+		margin: 0 !important;
+	}
+	span {
+		color: rgb(161, 161, 161);
+		font-size: 1.5vh;
+		line-height: 1;
+	}
+}

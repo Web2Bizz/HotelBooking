@@ -150,11 +150,16 @@ export const messageGenerate = (success, error) => {
 }
 
 export const numberWithSpaces = (x) => {
-	return x?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+	let value = x?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+	if (x === null || x === undefined) return 0
+	return value
 }
 
 export const profitThenLastMonth = (present, last) => {
-  if (present > last) {
+	if (parent === null || last === null) {
+		return 0
+	}
+	if (present > last) {
 		return '+' + (((present - last) / present) * 100).toFixed(1)
 	} else {
 		return '-' + (((last - present) / last) * 100).toFixed(1)

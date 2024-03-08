@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Radio, Button, Space, Table, Tag, message, Dropdown, Modal, Input } from 'antd';
 import { MoreOutlined, ExclamationCircleFilled, SearchOutlined } from '@ant-design/icons';
-import { isEmpty, getColorTag } from '../../services/functionService';
+import { isEmpty, getColorTag } from '../../../services/functionService';
 import './Room.scss';
 import RoomCreate from './RoomCreate';
-import Loading from '../../components/Loading/Loading';
+import Loading from '../../../components/Loading/Loading';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   resetMessagesAction,
   roomDeleteAction,
   roomGetAction,
-} from '../../store/actions/roomAction';
+} from '../../../store/actions/roomAction';
 
 const Room = () => {
   //

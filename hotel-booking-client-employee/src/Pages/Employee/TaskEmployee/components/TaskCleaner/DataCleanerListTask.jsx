@@ -1,9 +1,8 @@
-import React, { useState, useCallback } from 'react'
-import { List, Tag, Button, Select } from 'antd'
-import ContentAddEmployeeTask from './ContentAddEmployeeTask'
+import React from 'react'
+import { List } from 'antd'
+import ListItemTask from './ListItemTask'
 
 const DataCleanerListTask = () => {
-	const [addTaskEmployee, setAddTaskEmployee] = useState(false)
 	const dataCleanerTasks = [
 		{
 			id: '231',
@@ -34,54 +33,13 @@ const DataCleanerListTask = () => {
 			color: 'green'
 		}
 	]
-	const setListActions = (item) => {
-		let list = [<Tag color={item.color}>{item.status}</Tag>]
-		switch (item.status) {
-			case 'Выполняется':
-				list.unshift(<Button>Завершить</Button>)
-				list.unshift(
-					<div className='list-employee-complete'>
-						<p>Выполняет:</p>
-						<p>Давыдов Петр Сергеевич</p>
-					</div>
-				)
-				return list
-			case 'Выполнена':
-				list.unshift(
-					<div className='list-employee-complete'>
-						<p>Выполнил:</p>
-						<p>Понамарев Виктор Александрович</p>
-					</div>
-				)
-				return list
-			case 'Не назначена':
-				list.unshift(
-					<div className='list-employee-complete'>
-						<Button onClick={() => setAddTaskEmployee(!addTaskEmployee)}>
-							{addTaskEmployee ? 'Отмена' : 'Назначить'}
-						</Button>
-					</div>
-				)
-				return list
-			default:
-				break
-		}
-	}
-
 	return (
 		<List
 			className='cleaner-list-task'
 			itemLayout='vertical'
 			pagination={{ defaultPageSize: 5 }}
 			dataSource={dataCleanerTasks}
-			renderItem={(item) => (
-				<List.Item extra={setListActions(item)}>
-					{/* <Skeleton avatar title={false} loading={item.loading} active> */}
-					<List.Item.Meta avatar={'#' + item.id} title={item.title} description={item.description} />
-					<ContentAddEmployeeTask status={item.status} addTaskEmployee={addTaskEmployee} />
-					{/* </Skeleton> */}
-				</List.Item>
-			)}
+			renderItem={(item) => <ListItemTask item={item} />}
 		/>
 	)
 }

@@ -5,7 +5,7 @@ dotenv.config();
 const USERNAME = 'postgres';
 const PASSWORD = 'root';
 const HOST = 'localhost';
-const DATABASE = 'BookingHotel';
+const DATABASE = 'bookingHotel';
 
 const conStringPri = `postgres://${USERNAME}:${PASSWORD}@${HOST}/${DATABASE}`;
 const Client = pg.Client;

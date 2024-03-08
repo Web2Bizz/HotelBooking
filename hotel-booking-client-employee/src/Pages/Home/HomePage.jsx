@@ -37,6 +37,7 @@ export default function HomePage() {
 					<div className='d-flex align-items-center'>
 						<img src='/image/logo.svg' alt='logo' style={{ width: '8vh' }} />
 						<p className='landing-logo-text'>BookRoom</p>
+						
 					</div>
 					<div className='d-flex landing-header-tabs'>
 						<p>О нас</p>

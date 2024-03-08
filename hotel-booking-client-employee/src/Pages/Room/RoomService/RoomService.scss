@@ -1,0 +1,50 @@
+.statistic-container {
+	gap: 3vh;
+}
+
+.statistic-block {
+	background-color: rgb(245, 245, 245);
+	width: 100%;
+	border-radius: 1vh;
+	padding: 1vh;
+}
+
+.statistic-progress {
+	div {
+		display: flex;
+		p {
+			width: 30%;
+		}
+	}
+}
+
+.service-room-filters {
+	padding: 2vh 0;
+	display: flex;
+	justify-content: flex-start;
+}
+
+.room-service__list-settings {
+	display: flex;
+	align-items: center;
+	p {
+		padding-left: 1vh;
+		margin: 0;
+	}
+	img {
+		width: 2vh;
+		height: 2vh;
+	}
+}
+
+.roomService__repair-listItem {
+	display: flex;
+	padding-bottom: 1vh;
+	p {
+		width: 20%;
+		padding-right: 1vh;
+	}
+	div {
+		width: 30%;
+	}
+}

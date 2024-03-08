@@ -1,20 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react'
-import {
-	SearchOutlined,
-	FilterOutlined,
-	MoreOutlined,
-	InfoCircleOutlined,
-	ExclamationCircleFilled
-} from '@ant-design/icons'
+import { SearchOutlined, MoreOutlined } from '@ant-design/icons'
 import { Button, Input, Radio, Table, Tag, Space, Dropdown, Tooltip, Modal, message } from 'antd'
 import { isEmpty } from '../../services/functionService.js'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-	BookingDeleteAction,
-	guestsGetAction,
-	makeGuestCheckOutAction,
-	resetMessagesAction
-} from '../../store/actions/bookingAction'
+
 import { getConvertedDate, getListFilter } from '../../services/functionService.js'
 import Loading from '../../components/Loading/Loading.jsx'
 import EmployeeCreate from './EmployeeCreate.jsx'
@@ -26,10 +15,6 @@ export default function AllEmployee() {
 	const [items, setItems] = useState([])
 	const [data, setDate] = useState([])
 	const [onCreateEmployee, setOnCreateEmployee] = useState(false)
-	const handleChange = (pagination, filters, sorter) => {
-		// setFilteredInfo(filters)
-		// setSortedInfo(sorter)
-	}
 	let columnsGuest = [
 		{
 			title: '№ Сотрудника',
@@ -69,6 +54,7 @@ export default function AllEmployee() {
 							</Dropdown>
 						</Space>
 					)
+					// eslint-disable-next-line no-mixed-spaces-and-tabs
 			  }
 			: {}
 	]
@@ -89,7 +75,7 @@ export default function AllEmployee() {
 								<Radio.Button value='a'>Все</Radio.Button>
 								<Radio.Button value='b'>Технический персонал</Radio.Button>
 								<Radio.Button value='c'>Администратор</Radio.Button>
-								<Radio.Button value='d'>Ресепшн</Radio.Button>
+								<Radio.Button value='d'>Ресепшен</Radio.Button>
 								<Radio.Button value='e'>Горничный</Radio.Button>
 								<Radio.Button value='f'>Повар</Radio.Button>
 								<Radio.Button value='g'>Официант</Radio.Button>
@@ -118,7 +104,7 @@ export default function AllEmployee() {
 					/>
 				</>
 			) : (
-				<EmployeeCreate setOnCreateEmployee={setOnCreateEmployee}/>
+				<EmployeeCreate setOnCreateEmployee={setOnCreateEmployee} />
 			)}
 		</>
 	)
