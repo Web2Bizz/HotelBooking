@@ -1,54 +1,20 @@
 import dayjs from 'dayjs'
-import React, { useEffect, useRef, useState } from 'react'
-import { Card, Tag, Input, Table } from 'antd'
-import {
-	FilePdfOutlined,
-	AuditOutlined,
-	AppstoreOutlined,
-	FireOutlined,
-	DollarOutlined,
-	UserOutlined,
-	SearchOutlined
-} from '@ant-design/icons'
+import React, { useEffect, useState } from 'react'
+import { Card, Tag } from 'antd'
 import { getFullDate, numberWithSpaces, profitThenLastMonth } from '../../services/functionService'
 import './OverviewPage.scss'
 import ReactECharts from 'echarts-for-react'
 import { optionVisitors, optionActivityGuest, optionAvailableRooms } from './optionsCharts'
 import QuerysService from '../../services/querysService'
-import { useDispatch, useSelector } from 'react-redux'
-import Loading from '../../components/Loading/Loading'
-import ReactToPrint from 'react-to-print'
-import { columnsGuests, columnsRoom, columnsRate, columnsDeal, columnsUsers } from './optionTables'
 
 const OverviewPage = () => {
 	// #region Вспомогательные переменные
-	const dispatch = useDispatch()
-	let refGuests = useRef(null)
-	let refRoom = useRef(null)
-	let refDeal = useRef(null)
-	let refRate = useRef(null)
-	let refUsers = useRef(null)
-	const [queryData, setQueryData] = useState()
 	const [data, setData] = useState({
-		userInfo: [],
-		guestsData: [],
-		roomData: [],
-		dealData: [],
-		rateData: [],
-		usersData: [],
 		revenuePerMonth: [],
 		roomInformation: [],
 		visitorsInThreeMonths: [],
 		howManyArrivedAndHowManyLeft: []
 	})
-	// #endregion
-
-	// #region Redux
-	const { guests, isLoading: loadGuests } = useSelector((state) => state.bookingStore)
-	const { room, isLoading: loadRoom } = useSelector((state) => state.roomStore)
-	const { deal, isLoading: loadDeal } = useSelector((state) => state.dealStore)
-	const { rate, isLoading: loadRate } = useSelector((state) => state.rateStore)
-	const { users, isLoading: loadUsers } = useSelector((state) => state.userStore)
 	// #endregion
 
 	// #region UseEffect
@@ -59,14 +25,9 @@ const OverviewPage = () => {
 			let VisitorsInThreeMonths = await QuerysService.getVisitorsInThreeMonths()
 			let HowManyArrived = await QuerysService.getHowManyArrived()
 			let HowManyLeft = await QuerysService.getHowManyLeft()
+
 			setData({
 				...data,
-				userInfo: JSON.parse(localStorage.getItem('userInfo')),
-				guestsData: guests,
-				roomData: room,
-				dealData: deal,
-				rateData: rate,
-				usersData: users,
 				revenuePerMonth: RevenuePerMonth.data[0],
 				roomInformation: RoomInformation.data[0],
 				visitorsInThreeMonths: VisitorsInThreeMonths.data[0],
@@ -75,50 +36,11 @@ const OverviewPage = () => {
 			})
 		}
 		querysOverview()
-	}, [guests, room, deal, rate, users])
-	// #endregion
-
-	// #region Функции
-	const querysGet = async (query) => {
-		if (query === 'MostExpensiveBooking') {
-			let data = await QuerysService.getMostExpensiveBooking()
-			setQueryData(
-				`Клиент: ${
-					data.data[0].last_name + ' ' + data.data[0].first_name + ' ' + data.data[0].father_name
-				}, забронировал номер за ${data.data[0].amount_paid} руб.`
-			)
-			return
-		}
-		if (query === 'FrequentlySelectedRoomAllTime') {
-			let data = await QuerysService.getFrequentlySelectedRoomAllTime()
-			setQueryData(`Самый выбираемый номер за все время: #${data.data[0].room_number}`)
-			return
-		}
-		if (query === 'FrequentlySelectedRoomForMonth') {
-			let data = await QuerysService.getFrequentlySelectedRoomForMonth()
-			setQueryData(`Самый выбираемый номер за этот месяц: #${data.data[0].room_number}`)
-			return
-		}
-		if (query === 'AverageCheckPerDayThisMonth') {
-			let data = await QuerysService.getAverageCheckPerDayThisMonth()
-			setQueryData(`Средний чек за день в этом месяце: ${data.data[0].round} руб.`)
-			return
-		}
-		if (query === 'MostVisitedDay') {
-			let data = await QuerysService.getMostVisitedDay()
-			setQueryData(
-				`Самый посещаемый день за все время: ${
-					data.data[0].day + '.' + data.data[0].month + '.' + data.data[0].year
-				} год.`
-			)
-			return
-		}
-	}
+	}, [])
 	// #endregion
 
 	return (
 		<>
-			{(loadGuests || loadUsers || loadRate || loadDeal || loadRoom) && <Loading />}
 			<div>
 				<div className='overview-day'>
 					<p style={{ fontSize: '2vh', paddingBottom: '3vh' }}>{getFullDate(dayjs())}</p>
@@ -279,149 +201,6 @@ const OverviewPage = () => {
 								<ReactECharts option={optionAvailableRooms(data.roomInformation)} />
 							</div>
 						</Card>
-					</div>
-					{data.userInfo.role === 'admin' && (
-						<>
-							<div>
-								<Card>
-									<p>
-										Вывод файлов в pdf <FilePdfOutlined />
-									</p>
-									<div className='d-f fd-r jc-sb pdfCard' style={{ marginTop: '1vh' }}>
-										<ReactToPrint
-											trigger={() => (
-												<Card hoverable style={{ backgroundColor: '#5571c9' }}>
-													<p>
-														Вывести таблицу Гости <AuditOutlined />
-													</p>
-												</Card>
-											)}
-											content={() => refGuests}
-										/>
-										<ReactToPrint
-											trigger={() => (
-												<Card hoverable style={{ backgroundColor: '#5571c9' }}>
-													<p>
-														Вывести таблицу Комнаты <AppstoreOutlined />
-													</p>
-												</Card>
-											)}
-											content={() => refRoom}
-										/>
-										<ReactToPrint
-											trigger={() => (
-												<Card hoverable style={{ backgroundColor: '#5571c9' }}>
-													<p>
-														Вывести таблицу Акции <FireOutlined />
-													</p>
-												</Card>
-											)}
-											content={() => refDeal}
-										/>
-										<ReactToPrint
-											trigger={() => (
-												<Card hoverable style={{ backgroundColor: '#5571c9' }}>
-													<p>
-														Вывести таблицу Расценки <DollarOutlined />
-													</p>
-												</Card>
-											)}
-											content={() => refRate}
-										/>
-										<ReactToPrint
-											trigger={() => (
-												<Card hoverable style={{ backgroundColor: '#5571c9' }}>
-													<p>
-														Вывести всех Пользователей <UserOutlined />
-													</p>
-												</Card>
-											)}
-											content={() => refUsers}
-										/>
-									</div>
-								</Card>
-							</div>
-							<div style={{ marginTop: '3.5vh' }}>
-								<Card>
-									<p>
-										Запросы на интересующие темы <SearchOutlined />
-									</p>
-									<Input
-										type='text'
-										readOnly={true}
-										style={{ fontSize: '2.5vh', margin: '2vh 0' }}
-										placeholder='Здесь появиться запись по запросу...'
-										value={queryData ? queryData : null}
-									/>
-
-									<div className='d-f fd-r jc-sb pdfCard' style={{ marginTop: '1vh' }}>
-										<Card
-											hoverable
-											style={{ backgroundColor: '#3B92FF' }}
-											onClick={() => querysGet('MostExpensiveBooking')}
-										>
-											<p>Самое дорогое бронирование</p>
-										</Card>
-										<Card
-											hoverable
-											style={{ backgroundColor: '#3B92FF' }}
-											onClick={() => querysGet('FrequentlySelectedRoomAllTime')}
-										>
-											<p>Самый выбираемый номер за все время</p>
-										</Card>
-										<Card
-											hoverable
-											style={{ backgroundColor: '#3B92FF' }}
-											onClick={() => querysGet('FrequentlySelectedRoomForMonth')}
-										>
-											<p>Самый выбираемый номер за этот месяц</p>
-										</Card>
-										<Card
-											hoverable
-											style={{ backgroundColor: '#3B92FF' }}
-											onClick={() => querysGet('AverageCheckPerDayThisMonth')}
-										>
-											<p>Средний чек за день в этом месяце</p>
-										</Card>
-										<Card hoverable style={{ backgroundColor: '#3B92FF' }} onClick={() => querysGet('MostVisitedDay')}>
-											<p>Самый посещаемый день за все время</p>
-										</Card>
-									</div>
-								</Card>
-							</div>
-						</>
-					)}
-				</div>
-				<div style={{ display: 'none' }}>
-					<div ref={(el) => (refGuests = el)}>
-						<h2 className='d-f jc-c'>Таблица гости</h2>
-						<Table
-							pagination={false}
-							style={{ marginTop: '10px' }}
-							columns={columnsGuests}
-							dataSource={data.guestsData ? data.guestsData : null}
-						/>
-					</div>
-					<div ref={(el) => (refRate = el)}>
-						<h2 className='d-f jc-c'>Таблица расценки</h2>
-						<Table pagination={false} style={{ marginTop: '10px' }} columns={columnsRate} dataSource={data.rateData} />
-					</div>
-					<div ref={(el) => (refRoom = el)}>
-						<h2 className='d-f jc-c'>Таблица комнаты</h2>
-						<Table pagination={false} style={{ marginTop: '10px' }} columns={columnsRoom} dataSource={data.roomData} />
-					</div>
-					<div ref={(el) => (refDeal = el)}>
-						<h2 className='d-f jc-c'>Таблица акции</h2>
-						<Table pagination={false} style={{ marginTop: '10px' }} columns={columnsDeal} dataSource={data.dealData} />
-					</div>
-					<div ref={(el) => (refUsers = el)}>
-						<h2 className='d-f jc-c'>Таблица пользователи</h2>
-						<Table
-							pagination={false}
-							style={{ marginTop: '10px' }}
-							columns={columnsUsers}
-							dataSource={data.usersData}
-						/>
 					</div>
 				</div>
 			</div>
