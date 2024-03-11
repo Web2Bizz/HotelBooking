@@ -15,7 +15,6 @@ export default function TaskEmployee() {
 	useEffect(() => {
 		if (selectedRole === 'Администраторы') {
 			dispatch(guestsGetAction())
-			console.log(guests)
 		}
 	}, [selectedRole])
 	// #endregion

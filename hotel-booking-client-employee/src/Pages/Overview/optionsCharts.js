@@ -56,7 +56,6 @@ export const optionVisitors = (data) => {
 }
 
 export const optionActivityGuest = (arrived, reserved) => {
-	console.log(arrived, reserved)
 	let arrivedData = []
 	let reservedData = []
 	const getValues = (data) => {

@@ -1,5 +1,5 @@
-import AdditionalsService from '../service/additionals.service.js';
-import ApiError from '../exceptions/api-error.js';
+import AdditionalsService from "../service/additionals.service.js";
+import ApiError from "../exceptions/api-error.js";
 
 const additionalsService = new AdditionalsService();
 
@@ -19,7 +19,7 @@ class AdditionalsController {
     try {
       const { status, color } = req.body;
       await additionalsService.createStatusRoom(status, color);
-      return res.json('Статус добавлена');
+      return res.json("Статус добавлена");
     } catch (e) {
       next(e);
     }
@@ -28,7 +28,7 @@ class AdditionalsController {
     try {
       const { status, color, id_status } = req.body;
       await additionalsService.editStatusRoom(status, color, id_status);
-      return res.json('Статус изменен');
+      return res.json("Статус изменен");
     } catch (e) {
       next(e);
     }
@@ -37,7 +37,7 @@ class AdditionalsController {
     try {
       const { id } = req.params;
       await additionalsService.deleteStatusRoom(id);
-      return res.json('Статус удален');
+      return res.json("Статус удален");
     } catch (e) {
       next(e);
     }
@@ -58,7 +58,7 @@ class AdditionalsController {
     try {
       const { facility } = req.body;
       await additionalsService.createFacilityRoom(facility);
-      return res.json('Услуга добавлена');
+      return res.json("Услуга добавлена");
     } catch (e) {
       next(e);
     }
@@ -67,7 +67,7 @@ class AdditionalsController {
     try {
       const { id_facility, facility } = req.body;
       await additionalsService.editFacilityRoom(id_facility, facility);
-      return res.json('Услуга изменена');
+      return res.json("Услуга изменена");
     } catch (e) {
       next(e);
     }
@@ -76,7 +76,7 @@ class AdditionalsController {
     try {
       const { id } = req.params;
       await additionalsService.deleteFacilityRoom(id);
-      return res.json('Услуга удалена');
+      return res.json("Услуга удалена");
     } catch (e) {
       next(e);
     }
@@ -97,7 +97,7 @@ class AdditionalsController {
     try {
       const { room_type } = req.body;
       await additionalsService.createTypeRoom(room_type);
-      return res.json('Тип добавлен');
+      return res.json("Тип добавлен");
     } catch (e) {
       next(e);
     }
@@ -106,7 +106,7 @@ class AdditionalsController {
     try {
       const { id_room_type, room_type } = req.body;
       await additionalsService.editTypeRoom(id_room_type, room_type);
-      return res.json('Тип изменен');
+      return res.json("Тип изменен");
     } catch (e) {
       next(e);
     }
@@ -115,7 +115,7 @@ class AdditionalsController {
     try {
       const { id } = req.params;
       await additionalsService.deleteTypeRoom(id);
-      return res.json('Тип удален');
+      return res.json("Тип удален");
     } catch (e) {
       next(e);
     }
@@ -136,7 +136,7 @@ class AdditionalsController {
     try {
       const { status_deal, color } = req.body;
       await additionalsService.createStatusDeal(status_deal, color);
-      return res.json('Статус акции добавлен');
+      return res.json("Статус акции добавлен");
     } catch (e) {
       next(e);
     }
@@ -144,8 +144,12 @@ class AdditionalsController {
   async EditStatusDeal(req, res, next) {
     try {
       const { id_status_deal, status_deal, color } = req.body;
-      await additionalsService.editStatusDeal(id_status_deal, status_deal, color);
-      return res.json('Статус акции изменен');
+      await additionalsService.editStatusDeal(
+        id_status_deal,
+        status_deal,
+        color
+      );
+      return res.json("Статус акции изменен");
     } catch (e) {
       next(e);
     }
@@ -154,7 +158,7 @@ class AdditionalsController {
     try {
       const { id } = req.params;
       await additionalsService.deleteStatusDeal(id);
-      return res.json('Статус акции удален');
+      return res.json("Статус акции удален");
     } catch (e) {
       next(e);
     }
@@ -174,21 +178,25 @@ class AdditionalsController {
   async CreateCancelPolicy(req, res, next) {
     try {
       const { cancellation_policy, description } = req.body;
-      await additionalsService.createCancelPolicy(cancellation_policy, description);
-      return res.json('Политика отмены добавлена');
+      await additionalsService.createCancelPolicy(
+        cancellation_policy,
+        description
+      );
+      return res.json("Политика отмены добавлена");
     } catch (e) {
       next(e);
     }
   }
   async EditCancelPolicy(req, res, next) {
     try {
-      const { id_cancellation_policy, cancellation_policy, description } = req.body;
+      const { id_cancellation_policy, cancellation_policy, description } =
+        req.body;
       await additionalsService.editCancelPolicy(
         id_cancellation_policy,
         cancellation_policy,
-        description,
+        description
       );
-      return res.json('Политика отмены изменена');
+      return res.json("Политика отмены изменена");
     } catch (e) {
       next(e);
     }
@@ -197,7 +205,7 @@ class AdditionalsController {
     try {
       const { id } = req.params;
       await additionalsService.deleteCancelPolicy(id);
-      return res.json('Политика отмены удалена');
+      return res.json("Политика отмены удалена");
     } catch (e) {
       next(e);
     }
@@ -215,6 +223,15 @@ class AdditionalsController {
   async GetStatusGuest(req, res, next) {
     try {
       const response = await additionalsService.getStatusGuest();
+      return res.json(response.rows);
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  async GetRepairStatus(req, res, next) {
+    try {
+      const response = await additionalsService.getRepairStatus();
       return res.json(response.rows);
     } catch (e) {
       next(e);

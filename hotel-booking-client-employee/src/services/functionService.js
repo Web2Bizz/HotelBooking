@@ -28,9 +28,10 @@ export const getColorTag = (status, field, allStatus) => {
 // Get converted date
 //
 export const getConvertedDate = (date) => {
-	let day = date.substr(8, 2)
-	let month = date.substr(5, 2)
-	let year = date.substr(0, 4)
+	if (date === null || date === undefined) return ''
+	let day = date?.substr(8, 2)
+	let month = date?.substr(5, 2)
+	let year = date?.substr(0, 4)
 	return day + '.' + month + '.' + year
 }
 

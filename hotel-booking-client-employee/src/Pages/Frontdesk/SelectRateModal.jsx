@@ -16,7 +16,6 @@ const SelectRateModal = ({
 	}
 
 	const nextStep = (item) => {
-		console.log(item)
 		setDataBooking({ ...dataBooking, rate: item })
 		onChangeStep(1)
 	}

@@ -27,7 +27,8 @@ import {
 	getStatusDealAction,
 	getCancelPolicyAction,
 	getStatusGuestAction,
-	getStatusGuestRoomAction
+	getStatusGuestRoomAction,
+	getStatusRepairAction
 } from '../store/actions/additionalsAction'
 import Loading from '../components/Loading/Loading'
 import { LoadingAction, logoutAction, resetMessagesAction, userGetAction } from '../store/actions/userAction'
@@ -59,9 +60,7 @@ export default function LayoutApp({ children }) {
 	}, [])
 
 	useEffect(() => {
-		console.log(guests)
 		if (guests.length) {
-			console.log(guests)
 			dispatch(checkAndChangeStatusGuestAction(guests))
 		}
 	}, [guests])
@@ -90,6 +89,7 @@ export default function LayoutApp({ children }) {
 			dispatch(rateGetAction())
 			dispatch(getStatusGuestAction())
 			dispatch(getStatusGuestRoomAction())
+			dispatch(getStatusRepairAction())
 		}
 
 		dispatch(LoadingAction(false))

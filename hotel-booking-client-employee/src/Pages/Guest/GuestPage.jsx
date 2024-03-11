@@ -112,7 +112,7 @@ const GuestPage = () => {
 	}
 	const setGuestArrive = () => {
 		setFilteredInfo({
-			status: ['Прибыл', 'Должен прибыть' ]
+			status: ['Прибыл', 'Должен прибыть']
 		})
 	}
 	const setGuestReserved = () => {

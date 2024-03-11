@@ -22,6 +22,12 @@ const RoomCreate = (props) => {
 	const [typeRoomf, setTypeRoomf] = useState()
 	const [numberRoomf, setNumberRoomf] = useState()
 
+	//Data
+	//Количество этажей
+	const [floorCount, setFloorCount] = useState(5)
+	//Вспомогательная переменная для типов комнат
+	const [typeRoomIndex, setTypeRoomIndex] = useState(10)
+
 	//State
 	const dispatch = useDispatch()
 	const { room, isLoading, error, success } = useSelector((state) => state.roomStore)
@@ -74,6 +80,22 @@ const RoomCreate = (props) => {
 				typeRoom.map((sub) => {
 					if (item.room_type === sub.room_type) {
 						id_room_type = sub.id_room_type
+					}
+					switch (item.room_type) {
+						case 'VIP':
+							setTypeRoomIndex(0)
+							break
+						case 'Одна кровать':
+							setTypeRoomIndex(1)
+							break
+						case 'Две кровати':
+							setTypeRoomIndex(2)
+							break
+						case 'Три кровати':
+							setTypeRoomIndex(3)
+							break
+						default:
+							break
 					}
 				})
 				let id_status
@@ -144,11 +166,47 @@ const RoomCreate = (props) => {
 			dispatch(roomEditAction(props.editRow, typeRoomf, floorRoomf, statusRoomf, numberRoomf, targetKeys))
 			return
 		} else {
-			if (isEmpty(typeRoomf) || isEmpty(floorRoomf) || isEmpty(statusRoomf) || isEmpty(numberRoomf)) {
+			if (isEmpty(typeRoomf) || isEmpty(floorRoomf) || isEmpty(numberRoomf)) {
 				errorEmptyField()
 			} else {
 				dispatch(roomCreateAction(typeRoomf, floorRoomf, statusRoomf, numberRoomf, targetKeys))
 			}
+		}
+	}
+
+	const makeArrayOfFloorsBlocks = () => {
+		let floorBlocks = []
+		for (let i = floorCount; i > 0; i--) {
+			floorBlocks.push(
+				<div className={floorRoomf === i ? 'selected-floor' : ''} key={i} onClick={() => setFloorRoomf(i)}>
+					{i} Этаж
+				</div>
+			)
+		}
+		return floorBlocks
+	}
+
+	const onTypeRoomClick = (typeRoom) => {
+		const data = typeData()
+		switch (typeRoom) {
+			case 'vip':
+				setTypeRoomf(data[0].value)
+				setTypeRoomIndex(0)
+				break
+			case 'x1':
+				setTypeRoomf(data[1].value)
+				setTypeRoomIndex(1)
+				break
+			case 'x2':
+				setTypeRoomf(data[2].value)
+				setTypeRoomIndex(2)
+				break
+			case 'x3':
+				setTypeRoomf(data[3].value)
+				setTypeRoomIndex(3)
+				break
+			default:
+				break
 		}
 	}
 
@@ -172,66 +230,76 @@ const RoomCreate = (props) => {
 			</div>
 			<div>
 				<div className='d-flex' style={{ gap: '3vh' }}>
-					<Card title='Этаж номера' style={{ width: '30%' }}>
-						<p style={{ color: 'gray' }}>В данном пункте, выбираеться этаж, на котором расположен номер</p>
-						<div className='d-flex justify-content-center align-items-center' style={{ height: '100%' }}>
-							<div>
-								<div className='create-room__choise-room_roof'></div>
-								<div className='create-room__choise-room_wall'>
-									<div className='create-room__choise-room_signboard'>Отель</div>
-									<div className='create-room__choise-room_floor'>
-										<div>
-											<p>5 Этаж</p>
-										</div>
-										<div className='selected-floor'>
-											<p>4 Этаж</p>
-										</div>
-										<div>
-											<p>3 Этаж</p>
-										</div>
-										<div>
-											<p>2 Этаж</p>
-										</div>
-										<div>
-											<p>1 Этаж</p>
-										</div>
+					<div className='gap-4 d-flex flex-column'>
+						<Card className='number-room-container' title='Номер номера'>
+							<p style={{ color: 'gray' }}>В данном пункте, выбираеться номер, гостиничного номера </p>
+							<div className='w-100'>
+								<InputNumber
+									min={100}
+									max={999}
+									placeholder='Введите номер комнаты...'
+									value={numberRoomf}
+									onChange={(e) => setNumberRoomf(e)}
+								/>
+							</div>
+						</Card>
+						<Card className='floor-room-container' title='Этаж номера'>
+							<p style={{ color: 'gray' }}>В данном пункте, выбираеться этаж, на котором расположен номер</p>
+							<div className='d-flex justify-content-center align-items-center' style={{ height: '100%' }}>
+								<div>
+									<div className='create-room__choise-room_roof'></div>
+									<div className='create-room__choise-room_wall'>
+										<div className='create-room__choise-room_signboard'>Отель</div>
+										<div className='create-room__choise-room_floor'>{makeArrayOfFloorsBlocks()}</div>
 									</div>
 								</div>
 							</div>
-						</div>
-					</Card>
+						</Card>
+					</div>
 					<div className='d-flex flex-column' style={{ gap: '3vh' }}>
 						<Card title='Тип номера'>
 							<div className='roomType-img'>
 								<p style={{ color: 'gray' }}>
 									В данном пункте, выбирается тип номера для проживания, основываясь на количестве кроватей
 								</p>
-								<Card>
-									<div className='roomType__card'>
-										<div>
-											<img src='public/image/x1.svg' alt='x1' />
-										</div>
-										<div>
-											<img src='public/image/x2.svg' alt='x2' />
-										</div>
-										<div className='roomType__card_selected'>
-											<img src='public/image/x3.svg' alt='x4' />
-										</div>
-										<div>
-											<img src='public/image/vip.svg' alt='vip' />
-										</div>
+
+								<div className='roomType__card'>
+									<div
+										className={typeRoomIndex === 0 ? 'roomType__card_selected' : ''}
+										onClick={() => onTypeRoomClick('vip')}
+									>
+										<img src='image/vip.svg' alt='vip' />
 									</div>
-								</Card>
+									<div
+										className={typeRoomIndex === 1 ? 'roomType__card_selected' : ''}
+										onClick={() => onTypeRoomClick('x1')}
+									>
+										<img src='image/x1.svg' alt='x1' />
+									</div>
+									<div
+										className={typeRoomIndex === 2 ? 'roomType__card_selected' : ''}
+										onClick={() => onTypeRoomClick('x2')}
+									>
+										<img src='image/x2.svg' alt='x2' />
+									</div>
+									<div
+										className={typeRoomIndex === 3 ? 'roomType__card_selected' : ''}
+										onClick={() => onTypeRoomClick('x3')}
+									>
+										<img src='image/x3.svg' alt='x3' />
+									</div>
+								</div>
 							</div>
 						</Card>
-						<Card title='Удобства номера'>
+						<Card title='Удобства номера' className='facility-room-container'>
 							<p style={{ color: 'gray' }}>
 								В данном пункте, выбируються удобства и услуги номера. В списке представлены все опции которые
 								предоставляются отелем.
 							</p>
 							<Transfer
 								listStyle={{
-									width: '100%'
+									width: '100%',
+									height: '300px'
 								}}
 								dataSource={mockData}
 								filterOption={filterOption}

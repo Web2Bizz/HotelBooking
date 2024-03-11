@@ -65,38 +65,33 @@ class QueryController {
   async getRoomInformation(req, res, next) {
     const response = await client.query(
       `select 
-      count(R.id_room) as all_rooms,
+      count(id_room) as all_rooms,
+      
       (select count(id_status) from public.room
       where id_status = '024e26c7-5e33-4f35-a88e-e6f5c9322e02') as available_room,
+      
       (select count(id_status) from public.room
       where id_status != '024e26c7-5e33-4f35-a88e-e6f5c9322e02') as reserved_room,
-      (select count(G.id_status_guest_room) as count_clear_room_available
-      from public.guests as G 
-      join public.room as R on G.id_room = R.id_room 
-      where id_status_guest_room = '8c18094a-7f8b-4ad8-8023-e4419371c3b5' and R.id_status = '024e26c7-5e33-4f35-a88e-e6f5c9322e02'),
-      (select count(G.id_status_guest_room) as count_clear_room_reserved
-      from public.guests as G 
-      join public.room as R on G.id_room = R.id_room 
-      where id_status_guest_room = '8c18094a-7f8b-4ad8-8023-e4419371c3b5' and R.id_status != '024e26c7-5e33-4f35-a88e-e6f5c9322e02'),
-      (select count(id_status_guest_room) as count_dirty_room_available
-      from public.guests as G
-      join public.room as R on G.id_room = R.id_room 
-      where id_status_guest_room = '0623770d-2d02-495c-a60c-f757e29bd226' and R.id_status = '024e26c7-5e33-4f35-a88e-e6f5c9322e02'),
-      (select count(id_status_guest_room) as count_dirty_room_reserved
-      from public.guests as G
-      join public.room as R on G.id_room = R.id_room 
-      where id_status_guest_room = '0623770d-2d02-495c-a60c-f757e29bd226' and R.id_status != '024e26c7-5e33-4f35-a88e-e6f5c9322e02'),
-      (select count(id_status_guest_room) as count_wating_room_available
-      from public.guests as G
-      join public.room as R on G.id_room = R.id_room 
-      where id_status_guest_room = '76504da9-eff2-4fdd-becb-43b4ade0ef92' and R.id_status = '024e26c7-5e33-4f35-a88e-e6f5c9322e02'),
-      (select count(id_status_guest_room) as count_wating_room_reserved
-      from public.guests as G
-      join public.room as R on G.id_room = R.id_room 
-      where id_status_guest_room = '76504da9-eff2-4fdd-becb-43b4ade0ef92' and R.id_status != '024e26c7-5e33-4f35-a88e-e6f5c9322e02')
-      from public.room as R
-      join public.roomstatus as RS on R.id_status = RS.id_status
-      `
+      
+      (select count(id_room_service_status) from public.room  
+      where id_room_service_status = '8c18094a-7f8b-4ad8-8023-e4419371c3b5' and id_status = '024e26c7-5e33-4f35-a88e-e6f5c9322e02') as count_clear_room_available,
+      
+      (select count(id_room_service_status) from public.room 
+      where id_room_service_status = '8c18094a-7f8b-4ad8-8023-e4419371c3b5' and id_status != '024e26c7-5e33-4f35-a88e-e6f5c9322e02') as count_clear_room_reserved,
+      
+      (select count(id_room_service_status) from public.room  
+      where (id_room_service_status = '0623770d-2d02-495c-a60c-f757e29bd226' or id_room_service_status = '2e74346c-439f-4c06-9fd8-428a9abbcc97') and id_status = '024e26c7-5e33-4f35-a88e-e6f5c9322e02') as count_dirty_room_available,
+      
+      (select count(id_room_service_status) from public.room 
+      where (id_room_service_status = '0623770d-2d02-495c-a60c-f757e29bd226' or id_room_service_status = '2e74346c-439f-4c06-9fd8-428a9abbcc97') and id_status != '024e26c7-5e33-4f35-a88e-e6f5c9322e02') as count_dirty_room_reserved,
+      
+      (select count(id_room_service_status) from public.room  
+      where id_room_service_status = '76504da9-eff2-4fdd-becb-43b4ade0ef92' and id_status = '024e26c7-5e33-4f35-a88e-e6f5c9322e02') as count_wating_room_available,
+      
+      (select count(id_room_service_status) from public.room 
+      where id_room_service_status = '76504da9-eff2-4fdd-becb-43b4ade0ef92' and id_status != '024e26c7-5e33-4f35-a88e-e6f5c9322e02') as count_wating_room_reserved
+      
+      from public.room`
     );
     return res.json(response.rows);
   }

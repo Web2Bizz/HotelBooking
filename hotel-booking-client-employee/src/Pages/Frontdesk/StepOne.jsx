@@ -50,7 +50,6 @@ const StepOne = ({
 			let room = data[i].number_room
 			for (let j = 0; j < guests.length; j++) {
 				if (room === '#' + guests[j].room_number) {
-					console.log(guests[j].room_number)
 					if (
 						betweenDates(
 							dayjs(departure_date).format('YYYY-MM-DD'),

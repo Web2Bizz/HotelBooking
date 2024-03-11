@@ -1,7 +1,7 @@
 import './../../RoomService.scss'
 import { Progress } from 'antd'
 
-const RoomServiceStatistic = () => {
+const RoomServiceStatistic = ({ data }) => {
 	return (
 		<>
 			<div className='d-flex statistic-container'>
@@ -9,16 +9,16 @@ const RoomServiceStatistic = () => {
 					<p style={{ fontSize: '2vh' }}>Занятость номеров</p>
 					<div className='statistic-progress'>
 						<div>
-							<p>Свободен (100%)</p>
-							<Progress percent={100} />
+							<p>Свободен</p>
+							<Progress percent={data?.free_percentage} />
 						</div>
 						<div>
-							<p>Занят (50%)</p>
-							<Progress percent={50} />
+							<p>Занят</p>
+							<Progress percent={data?.busy_percentage} />
 						</div>
 						<div>
-							<p>Ремонт (0%)</p>
-							<Progress percent={0} />
+							<p>Ремонт</p>
+							<Progress percent={data?.repair_percentage} />
 						</div>
 					</div>
 				</div>
@@ -27,15 +27,15 @@ const RoomServiceStatistic = () => {
 					<div className='statistic-progress'>
 						<div>
 							<p>Грязно</p>
-							<Progress percent={100} />
+							<Progress percent={data?.dirty_percentage} />
 						</div>
 						<div>
 							<p>Убрано</p>
-							<Progress percent={0} />
+							<Progress percent={data?.cleaned_percentage} />
 						</div>
 						<div>
-							<p>Проверено</p>
-							<Progress percent={0} />
+							<p>Проверяется</p>
+							<Progress percent={data?.checked_percentage} />
 						</div>
 					</div>
 				</div>

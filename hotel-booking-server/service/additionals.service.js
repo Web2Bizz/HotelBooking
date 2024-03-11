@@ -1,5 +1,5 @@
-import client from '../db.js';
-import ApiError from '../exceptions/api-error.js';
+import client from "../db.js";
+import ApiError from "../exceptions/api-error.js";
 
 class AdditionalsService {
   //
@@ -12,28 +12,33 @@ class AdditionalsService {
   async createStatusRoom(status, color) {
     let hasAlreadyField = await client.query(
       `select status from public.roomstatus where status = $1`,
-      [status],
+      [status]
     );
     console.log(hasAlreadyField.rows[0]);
-    if (hasAlreadyField.rows[0] !== null && hasAlreadyField.rows[0] !== undefined) {
-      throw ApiError.BadRequest('Такое поле уже существует');
+    if (
+      hasAlreadyField.rows[0] !== null &&
+      hasAlreadyField.rows[0] !== undefined
+    ) {
+      throw ApiError.BadRequest("Такое поле уже существует");
     }
 
     await client.query(
       `insert into public.roomstatus (status, color) 
         values ($1, $2)`,
-      [status, color],
+      [status, color]
     );
   }
   async editStatusRoom(status, color, id_status) {
     await client.query(
       `update public.roomstatus set status = $1, color = $2 
       where id_status = $3`,
-      [status, color, id_status],
+      [status, color, id_status]
     );
   }
   async deleteStatusRoom(id_status) {
-    await client.query(`delete from public.roomstatus where id_status = $1`, [id_status]);
+    await client.query(`delete from public.roomstatus where id_status = $1`, [
+      id_status,
+    ]);
   }
 
   //
@@ -46,26 +51,32 @@ class AdditionalsService {
   async createFacilityRoom(facility) {
     let hasAlreadyField = await client.query(
       `select facility from public.roomfacility where facility = $1`,
-      [facility],
+      [facility]
     );
-    if (hasAlreadyField.rows[0] !== null && hasAlreadyField.rows[0] !== undefined) {
-      throw ApiError.BadRequest('Такое поле уже существует');
+    if (
+      hasAlreadyField.rows[0] !== null &&
+      hasAlreadyField.rows[0] !== undefined
+    ) {
+      throw ApiError.BadRequest("Такое поле уже существует");
     }
     await client.query(
       `insert into public.roomfacility (facility) 
         values ($1)`,
-      [facility],
+      [facility]
     );
   }
   async editFacilityRoom(id_facility, facility) {
     await client.query(
       `update public.roomfacility set facility = $1 
       where id_facility = $2`,
-      [facility, id_facility],
+      [facility, id_facility]
     );
   }
   async deleteFacilityRoom(id_facility) {
-    await client.query(`delete from public.roomfacility where id_facility = $1`, [id_facility]);
+    await client.query(
+      `delete from public.roomfacility where id_facility = $1`,
+      [id_facility]
+    );
   }
 
   //
@@ -78,26 +89,31 @@ class AdditionalsService {
   async createTypeRoom(room_type) {
     let hasAlreadyField = await client.query(
       `select room_type from public.roomtype where room_type = $1`,
-      [room_type],
+      [room_type]
     );
-    if (hasAlreadyField.rows[0] !== null && hasAlreadyField.rows[0] !== undefined) {
-      throw ApiError.BadRequest('Такое поле уже существует');
+    if (
+      hasAlreadyField.rows[0] !== null &&
+      hasAlreadyField.rows[0] !== undefined
+    ) {
+      throw ApiError.BadRequest("Такое поле уже существует");
     }
     await client.query(
       `insert into public.roomtype (room_type) 
         values ($1)`,
-      [room_type],
+      [room_type]
     );
   }
   async editTypeRoom(id_room_type, room_type) {
     await client.query(
       `update public.roomtype set room_type = $1 
       where id_room_type = $2`,
-      [room_type, id_room_type],
+      [room_type, id_room_type]
     );
   }
   async deleteTypeRoom(id_room_type) {
-    await client.query(`delete from public.roomtype where id_room_type = $1`, [id_room_type]);
+    await client.query(`delete from public.roomtype where id_room_type = $1`, [
+      id_room_type,
+    ]);
   }
 
   //
@@ -107,70 +123,88 @@ class AdditionalsService {
     const response = await client.query(`select * from public.dealstatus`);
     return response;
   }
-  async createStatusDeal(status_deal, color = '') {
+  async createStatusDeal(status_deal, color = "") {
     let hasAlreadyField = await client.query(
       `select status_deal from public.dealstatus where status_deal = $1`,
-      [status_deal],
+      [status_deal]
     );
-    if (hasAlreadyField.rows[0] !== null && hasAlreadyField.rows[0] !== undefined) {
-      throw ApiError.BadRequest('Такое поле уже существует');
+    if (
+      hasAlreadyField.rows[0] !== null &&
+      hasAlreadyField.rows[0] !== undefined
+    ) {
+      throw ApiError.BadRequest("Такое поле уже существует");
     }
     await client.query(
       `insert into public.dealstatus (status_deal, color) 
         values ($1, $2)`,
-      [status_deal, color],
+      [status_deal, color]
     );
   }
   async editStatusDeal(id_status_deal, status_deal, color) {
     await client.query(
       `update public.dealstatus set dealstatus = $1, color = $2 
       where id_room_type = $3`,
-      [status_deal, color, id_status_deal],
+      [status_deal, color, id_status_deal]
     );
   }
   async deleteStatusDeal(id_status_deal) {
-    await client.query(`delete from public.dealstatus where id_status_deal = $1`, [id_status_deal]);
+    await client.query(
+      `delete from public.dealstatus where id_status_deal = $1`,
+      [id_status_deal]
+    );
   }
 
   //
   // Cancellation policy
   //
   async getCancelPolicy() {
-    const response = await client.query(`select * from public.cancellationpolicy`);
+    const response = await client.query(
+      `select * from public.cancellationpolicy`
+    );
     return response;
   }
   async createCancelPolicy(cancellation_policy, description, color) {
     let hasAlreadyField = await client.query(
       `select cancellation_policy from public.cancellationpolicy where cancellation_policy = $1`,
-      [cancellation_policy],
+      [cancellation_policy]
     );
-    if (hasAlreadyField.rows[0] !== null && hasAlreadyField.rows[0] !== undefined) {
-      throw ApiError.BadRequest('Такое поле уже существует');
+    if (
+      hasAlreadyField.rows[0] !== null &&
+      hasAlreadyField.rows[0] !== undefined
+    ) {
+      throw ApiError.BadRequest("Такое поле уже существует");
     }
     await client.query(
       `insert into public.cancellationpolicy (cancellation_policy, description) 
         values ($1, $2)`,
-      [cancellation_policy, description],
+      [cancellation_policy, description]
     );
   }
-  async editCancelPolicy(id_cancellation_policy, cancellation_policy, description) {
+  async editCancelPolicy(
+    id_cancellation_policy,
+    cancellation_policy,
+    description
+  ) {
     await client.query(
       `update public.cancellationpolicy set cancellation_policy = $1, description = $2 
       where id_cancellation_policy = $3`,
-      [cancellation_policy, description, id_cancellation_policy],
+      [cancellation_policy, description, id_cancellation_policy]
     );
   }
   async deleteCancelPolicy(id_cancellation_policy) {
-    await client.query(`delete from public.cancellationpolicy where id_cancellation_policy = $1`, [
-      id_cancellation_policy,
-    ]);
+    await client.query(
+      `delete from public.cancellationpolicy where id_cancellation_policy = $1`,
+      [id_cancellation_policy]
+    );
   }
 
   //
   // Status guest room
   //
   async getStatusGuestRoom() {
-    const response = await client.query(`select * from public.statusguestroom`);
+    const response = await client.query(
+      `select * from public.roomservicestatus`
+    );
     return response;
   }
 
@@ -179,6 +213,11 @@ class AdditionalsService {
   //
   async getStatusGuest() {
     const response = await client.query(`select * from public.statusguest`);
+    return response;
+  }
+
+  async getRepairStatus() {
+    const response = await client.query(`select * from public.statusrepair`);
     return response;
   }
 }

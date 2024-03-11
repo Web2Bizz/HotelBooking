@@ -6,6 +6,7 @@ import FrontdeskCreate from './FrontdeskCreate'
 import { useDispatch, useSelector } from 'react-redux'
 import { guestsGetAction, resetMessagesAction } from '../../store/actions/bookingAction'
 import Loading from '../../components/Loading/Loading'
+import { messageGenerate } from '../../services/functionService'
 
 const FrontdeskPage = () => {
 	// #region Вспомогательные переменные

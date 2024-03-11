@@ -3,6 +3,7 @@ import { Card, Button, Divider, Result } from 'antd'
 import { ArrowLeftOutlined } from '@ant-design/icons'
 import { useDispatch, useSelector } from 'react-redux'
 import { bookingCreateAction, guestsGetAction } from '../../store/actions/bookingAction'
+import { roomGetAction } from '../../store/actions/roomAction'
 import { isEmpty } from '../../services/functionService'
 import { resetMessages } from '../../store/reducers/bookingReducer'
 import { useNavigate } from 'react-router-dom'
@@ -37,6 +38,7 @@ const StepThird = ({ dataBooking, onChangeStep, setOnCreateBooking }) => {
 			)
 		)
 		dispatch(guestsGetAction())
+		dispatch(roomGetAction())
 		setOpenSuccess(true)
 	}
 

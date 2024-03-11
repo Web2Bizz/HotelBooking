@@ -1,20 +1,84 @@
+import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { ArrowLeftOutlined } from '@ant-design/icons'
-import { Button, Card, Divider, Input, DatePicker } from 'antd'
+import { Button, Card, Divider, Input, DatePicker, Form, message } from 'antd'
 const { TextArea } = Input
+import '../../RoomService.scss'
+import { repairApplicationCreateAction } from '../../../../../store/actions/repairRoomAction'
 
 export default function RoomServiceRepair(props) {
 	const onBackButton = () => {
 		props.setIsRepair(false)
 	}
-	const onChange = (value, dateString) => {
-		console.log('Selected Time: ', value)
-		console.log('Formatted Selected Time: ', dateString)
+
+	const [messageApi, contextHolder] = message.useMessage()
+	const dispatch = useDispatch()
+	const { error } = useSelector((state) => state.repairRoomStore)
+
+	const [formsData, setFormsData] = useState([
+		{ id_room: props.selectedRoom, name_work: '', description_work: '', start_date: '', end_date: '' }
+	])
+	const [formRefs, setFormRefs] = useState([React.createRef()])
+
+	const handleAddForm = () => {
+		setFormsData([
+			...formsData,
+			{ id_room: props.selectedRoom, name_work: '', description_work: '', start_date: '', end_date: '' }
+		])
+		setFormRefs([...formRefs, React.createRef()])
 	}
-	const onOk = (value) => {
-		console.log('onOk: ', value)
+
+	const handleDeleteForm = (index) => {
+		if (formsData.length === 1) {
+			return // Не удаляем последнюю форму
+		}
+		const updatedFormsData = formsData.filter((formData, idx) => idx !== index)
+		setFormsData(updatedFormsData)
+		const updatedFormRefs = [...formRefs]
+		updatedFormRefs.splice(index, 1)
+		setFormRefs(updatedFormRefs)
 	}
+
+	const handleChange = (index, key, value) => {
+		const updatedFormsData = formsData.map((formData, idx) => {
+			if (idx === index) {
+				return { ...formData, [key]: value }
+			}
+			return formData
+		})
+
+		setFormsData(updatedFormsData)
+	}
+
+	const validateStartDate = (_, value) => {
+		const today = new Date()
+		return value && value > today
+			? Promise.resolve()
+			: Promise.reject('Дата начала должна быть больше сегодняшней даты')
+	}
+
+	const validateEndDate = (_, value, formData) => {
+		return value && formData.start_date && value > formData.start_date
+			? Promise.resolve()
+			: Promise.reject('Дата окончания должна быть больше даты начала')
+	}
+
+	const handleSubmit = () => {
+		// Валидация форм
+		const formValidationPromises = formRefs.map((formRef) => formRef.current.validateFields())
+		Promise.all(formValidationPromises)
+			.then(() => {
+				dispatch(repairApplicationCreateAction(formsData))
+				props.setIsRepair(false)
+			})
+			.catch((e) => {
+				messageApi.error(error)
+			})
+	}
+
 	return (
 		<>
+			{contextHolder}
 			<h2>Ремонт</h2>
 			<Button type='text' icon={<ArrowLeftOutlined />} onClick={() => onBackButton()}>
 				Назад
@@ -22,40 +86,78 @@ export default function RoomServiceRepair(props) {
 			<Card style={{ marginTop: '1vh', marginBottom: '1vh' }}>
 				<p>Список плановых ремонтов</p>
 				<Divider />
-				<div className='d-flex flex-column'>
-					<div className='roomService__repair-listItem'>
-						<p>Название работ</p>
-						<div>
-							<Input />
-						</div>
-					</div>
-					<div className='roomService__repair-listItem'>
-						<p>Описание ремонта</p>
-						<div>
-							<TextArea
-								// value={value}
-								// onChange={(e) => setValue(e.target.value)}
-								autoSize={{ minRows: 3, maxRows: 5 }}
+				{formsData.map((formData, idx) => (
+					<Form
+						key={idx}
+						variant='filled'
+						style={{ maxWidth: 600 }}
+						className='repair-form-container'
+						ref={formRefs[idx]}
+					>
+						<Form.Item
+							label='Название работ'
+							name='name_work'
+							rules={[{ required: true, message: 'Пожалуйста введите название работы' }]}
+						>
+							<Input
+								type='text'
+								value={formData.name_work || ''}
+								onChange={(e) => handleChange(idx, 'name_work', e.target.value)}
+								placeholder='Ремонт двери'
 							/>
-						</div>
-					</div>
-					<div className='roomService__repair-listItem'>
-						<p>Недоступен для заселения с</p>
-						<div style={{ width: '40%' }}>
-							<DatePicker showTime onChange={onChange} onOk={onOk} />
-						</div>
-					</div>
-					<div className='roomService__repair-listItem'>
-						<p>Недоступен для заселения по</p>
-						<div style={{ width: '40%' }}>
-							<DatePicker showTime onChange={onChange} onOk={onOk} />
-						</div>
-					</div>
-				</div>
+						</Form.Item>
+						<Form.Item
+							label='Описание ремонта'
+							name='description_work'
+							rules={[{ required: true, message: 'Пожалуйста введите описание работы' }]}
+						>
+							<TextArea
+								type='text'
+								value={formData.description_work || ''}
+								onChange={(e) => handleChange(idx, 'description_work', e.target.value)}
+								autoSize={{ minRows: 3, maxRows: 5 }}
+								placeholder='Починить дверь на 5 этаже в комнате №234'
+							/>
+						</Form.Item>
+						<Form.Item
+							label='Недоступен для заселения с'
+							name='start_date'
+							rules={[{ required: true, message: 'Пожалуйста введите дату начала' }, { validator: validateStartDate }]}
+						>
+							<DatePicker
+								showTime
+								value={formData.start_date || null}
+								onChange={(date) => handleChange(idx, 'start_date', date)}
+								needConfirm={false}
+							/>
+						</Form.Item>
+						<Form.Item
+							label='Недоступен для заселения по'
+							name='end_date'
+							rules={[
+								{ required: true, message: 'Пожалуйста введите дату окончания' },
+								{ validator: (_, value) => validateEndDate(_, value, formData) }
+							]}
+						>
+							<DatePicker
+								showTime
+								value={formData.end_date || null}
+								onChange={(date) => handleChange(idx, 'end_date', date)}
+								needConfirm={false}
+							/>
+						</Form.Item>
+						{idx > 0 && <button onClick={() => handleDeleteForm(idx)}>Удалить форму</button>}
+						<Divider />
+					</Form>
+				))}
 				<Divider />
-				<a style={{ color: '#3B92FF' }}>+ Добавить еще период ремонта</a>
+				<a onClick={handleAddForm} style={{ color: '#3B92FF' }}>
+					+ Добавить еще период ремонта
+				</a>
 			</Card>
-			<Button type='primary'>Сохранить</Button>
+			<Button type='primary' onClick={handleSubmit}>
+				Сохранить
+			</Button>
 		</>
 	)
 }
