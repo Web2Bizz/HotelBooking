@@ -1,0 +1,29 @@
+.settings-hotel-container {
+	.ant-card {
+		margin-top: 2.5vh;
+	}
+}
+
+.settings-hotel-button {
+	margin-top: 2vh;
+	display: flex;
+	width: 100%;
+	justify-content: end;
+}
+
+.settings-hotel-logo {
+	width: 100px;
+	height: 100px;
+	border-radius: 1vh;
+	background-color: #dddd;
+}
+
+.settings-hotel-logo-container {
+	display: flex;
+	justify-content: start;
+
+	.ant-upload-wrapper {
+		width: 100px;
+		margin-right: 2vh;
+	}
+}

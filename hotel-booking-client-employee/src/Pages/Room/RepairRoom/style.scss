@@ -1,0 +1,71 @@
+.statistic-repair-room-container {
+	display: flex;
+	width: 100%;
+	margin: 2vh 0;
+	justify-content: space-between;
+	.card-statistic {
+		border-radius: 1vh;
+		width: 30%;
+	}
+}
+
+.statistic-repair-room__complete {
+	padding: 2vh;
+	background-color: #f0f5ff;
+	border: 1px solid #adc6ff;
+	.overview-card__overview__block__text p {
+		color: #1d39c4 !important;
+	}
+}
+
+.statistic-repair-room__new {
+	padding: 2vh;
+	background-color: #f6ffed;
+	border: 1px solid #b7eb8f;
+	.overview-card__overview__block__text p {
+		color: #4aa722 !important;
+	}
+}
+
+.statistic-repair-room__inProgress {
+	padding: 2vh;
+	background-color: #fffbe6;
+	border: 1px solid #ffe58f;
+	.overview-card__overview__block__text p {
+		color: #d89219 !important;
+	}
+}
+
+.planing-wrapper {
+	.ant-card-body {
+		padding: 10px 24px;
+	}
+}
+
+.planing-container {
+	display: flex;
+	p {
+		margin: 0;
+		color: gray;
+	}
+}
+
+.planing-info {
+	width: 65%;
+}
+
+.planing-radio {
+	width: 35%;
+	border-left: 1px solid #ddd;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.planing-info-date {
+	display: flex;
+	margin-bottom: 1vh;
+	div {
+		margin-right: 5vh;
+	}
+}
