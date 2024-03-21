@@ -69,7 +69,7 @@ class RepairRoomService {
     const response = await client.query(`
     select 
     RR.id_repair, RR.name_work, RR.description_work, RR.start_date, RR.end_date, 
-    R.room_number, SR.status_repair, SR.color
+    R.room_number, R.id_room, SR.status_repair, SR.color
     from repairroom as RR
     inner join room as R on RR.id_room = R.id_room
     inner join statusrepair as SR on RR.id_status_repair = SR.id_status_repair

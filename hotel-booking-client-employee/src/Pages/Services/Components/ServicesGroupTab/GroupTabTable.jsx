@@ -50,42 +50,20 @@ export default function GroupTabTable() {
 		{
 			label: (
 				<div className='room-service__list-settings'>
-					<img src='image/roomService_cleaning.svg' />
-					<p>Требует уборки</p>
+					<img src='image/edit.png' />
+					<p>Редактировать группу услуг</p>
 				</div>
 			),
-			key: 'cleaning'
+			key: 'edit-service'
 		},
 		{
 			label: (
 				<div className='room-service__list-settings'>
-					<img src='image/roomService_cleanRoom.svg' />
-
-					<p>Убран</p>
+					<img src='image/delete.png' />
+					<p>Удалить группу услуг</p>
 				</div>
 			),
-			key: 'clean'
-		},
-		{
-			label: (
-				<div className='room-service__list-settings'>
-					<img src='image/roomService_checked.svg' />
-					<p>Проверен</p>
-				</div>
-			),
-			key: 'checked'
-		},
-		{
-			type: 'divider'
-		},
-		{
-			label: (
-				<div className='room-service__list-settings'>
-					<img src='image/roomService_repair.svg' />
-					<p>Ремонт</p>
-				</div>
-			),
-			key: 'repair'
+			key: 'delete-service'
 		}
 	])
 	const onClick = ({ key }) => {

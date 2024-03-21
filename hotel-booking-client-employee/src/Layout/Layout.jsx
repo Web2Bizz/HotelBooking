@@ -15,7 +15,8 @@ import {
 	UserOutlined,
 	LogoutOutlined,
 	TeamOutlined,
-	FileDoneOutlined
+	FileDoneOutlined,
+	SettingOutlined
 } from '@ant-design/icons'
 import { Layout, Menu, theme, Button, message, Avatar, Dropdown, Divider } from 'antd'
 import { ContextBooking } from '../context/booking.context'
@@ -130,11 +131,13 @@ export default function LayoutApp({ children }) {
 	const items = [
 		getItem('Обзор', 'overview', <HomeOutlined />),
 		getItem('Статистика и отчеты', 'statisticAndReports', <FundOutlined />),
+		getItem('Настройка отеля', 'setting-hotel', <SettingOutlined />),
 		getItem('Оформление', 'frontdesk', <EditOutlined />),
 		getItem('Гости', 'guest', <AuditOutlined />),
 		getItem('Номера', 'room', <AppstoreOutlined />, [
 			getItem('Все номера', 'allRoom'),
-			getItem('Обслуживание', 'serviceRoom')
+			getItem('Обслуживание', 'serviceRoom'),
+			getItem('Ремонт номеров', 'repairRoom')
 		]),
 		getItem('Услуги', 'services', <FileDoneOutlined />),
 		getItem('Акции', 'deal', <FireOutlined />),

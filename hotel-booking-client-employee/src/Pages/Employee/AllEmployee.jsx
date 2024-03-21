@@ -100,7 +100,6 @@ export default function AllEmployee() {
 						style={{ marginTop: '10px' }}
 						columns={columnsGuest}
 						dataSource={isEmpty(data) ? [] : data}
-						onChange={handleChange}
 					/>
 				</>
 			) : (

@@ -1,5 +1,6 @@
 import PageWithoutServices from './PageWithoutServices'
 import { Card, Button } from 'antd'
+import ServiceTabTable from './ServiceTabTable'
 
 export default function ServicesTab(props) {
 	return (
@@ -8,7 +9,8 @@ export default function ServicesTab(props) {
 				+ Создать услугу
 			</Button>
 			<Card>
-				<PageWithoutServices />
+				<ServiceTabTable />
+				{/* <PageWithoutServices /> */}
 			</Card>
 		</>
 	)

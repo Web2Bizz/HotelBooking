@@ -1,4 +1,4 @@
-import { Card, Radio, Space, Input } from 'antd'
+import { Card, Radio, Space, Input, Form } from 'antd'
 import { useState } from 'react'
 import './../../Services.scss'
 
@@ -10,9 +10,8 @@ export default function TabCreateStep1() {
 	}
 	return (
 		<Card style={{ marginTop: '1vh' }}>
-			<div>
-				<div className='tabCreateStep-inputs'>
-					<p>Тип</p>
+			<Form>
+				<Form.Item label='Тип услуги' name='type-service' rules={[{ required: true, message: 'Please input!' }]}>
 					<div className='tabCreateStep-container'>
 						<Radio.Group onChange={onChange} value={value}>
 							<Space direction='vertical'>
@@ -31,14 +30,13 @@ export default function TabCreateStep1() {
 							</Space>
 						</Radio.Group>
 					</div>
-				</div>
-				<div className='tabCreateStep-inputs'>
-					<p>Название</p>
+				</Form.Item>
+				<Form.Item label='Название услуги' name='name-service' rules={[{ required: true, message: 'Please input!' }]}>
 					<div className='tabCreateStep-container'>
 						<Input />
 					</div>
-				</div>
-			</div>
+				</Form.Item>
+			</Form>
 		</Card>
 	)
 }

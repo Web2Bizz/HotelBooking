@@ -2,7 +2,7 @@ import { createBrowserRouter } from 'react-router-dom'
 import OverviewPage from '../Pages/Overview/OverviewPage'
 import FrontdeskPage from '../Pages/Frontdesk/FrontdeskPage'
 import GuestPage from '../Pages/Guest/GuestPage'
-import { DealPage, RoomPage, RoomService } from '../Pages'
+import { DealPage, RoomPage, RoomService, RepairRoom, RegistrationHotel, SettingsHotel } from '../Pages'
 import RatePage from '../Pages/Rate/RatePage'
 import LoginPage from '../Pages/Login/LoginPage'
 import RegistrationPage from './../Pages/Registration/RegistrationPage'
@@ -63,6 +63,14 @@ export const routes = createBrowserRouter([
 				)
 			},
 			{
+				path: 'repairRoom',
+				element: (
+					<LayoutApp>
+						<RepairRoom />
+					</LayoutApp>
+				)
+			},
+			{
 				path: 'deal',
 				element: (
 					<LayoutApp>
@@ -119,6 +127,14 @@ export const routes = createBrowserRouter([
 				)
 			},
 			{
+				path: 'setting-hotel',
+				element: (
+					<LayoutApp>
+						<SettingsHotel />
+					</LayoutApp>
+				)
+			},
+			{
 				path: 'login',
 				element: <LoginPage />
 			},
@@ -127,5 +143,9 @@ export const routes = createBrowserRouter([
 				element: <RegistrationPage />
 			}
 		]
+	},
+	{
+		path: '/registration-hotel',
+		element: <RegistrationHotel />
 	}
 ])

@@ -9,6 +9,7 @@ import {
 	roomForServiceGetAction,
 	resetMessagesAction
 } from '../../../store/actions/roomServiceService'
+import { resetMessagesAction as repairResetMessagesAction } from '../../../store/actions/repairRoomAction'
 import { messageGenerate } from '../../../services/functionService'
 import { getConvertedDate } from '../../../services/functionService'
 
@@ -22,6 +23,7 @@ export default function RoomService() {
 		(state) => state.roomServiceStore
 	)
 	const { success: repairRoomSuccess } = useSelector((state) => state.repairRoomStore)
+	console.log(success)
 
 	// #region UseEffect
 	useEffect(() => {
@@ -38,6 +40,10 @@ export default function RoomService() {
 	useEffect(() => {
 		if (repairRoomSuccess === '') return
 		messageApi.success(repairRoomSuccess)
+		dispatch(statisticServiceRoomGetAction())
+		dispatch(roomForServiceGetAction())
+		dispatch(repairResetMessagesAction())
+		loadData()
 	}, [repairRoomSuccess])
 
 	useEffect(() => {
@@ -46,6 +52,7 @@ export default function RoomService() {
 		dispatch(statisticServiceRoomGetAction())
 		dispatch(roomForServiceGetAction())
 		dispatch(resetMessagesAction())
+		loadData()
 	}, [error, success])
 	// #endregion
 
@@ -79,7 +86,7 @@ export default function RoomService() {
 	return !isRepair ? (
 		<>
 			{contextHolder}
-			<h2>Обслуживание комнат</h2>
+			<h2>Обслуживание номеров</h2>
 			<Collapse
 				items={[{ key: '1', label: 'Статистика', children: <RoomServiceStatistic data={statisticServiceRoom[0]} /> }]}
 				defaultActiveKey={['1']}
