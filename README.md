@@ -1,5 +1,25 @@
 # Hotel Booking
 
+## Installation
+
+С помощью npm:<br/>
+<code>npm i -g pm2</code>
+
+С помощью yarn:<br/>
+<code>yarn add pm2 --global</code>
+
+## Launch
+
+<code>pm2 start ecosystem.config.js</code>
+
+## Restart
+
+<code>pm2 restart ecosystem.config.js</code>
+
+## HAS TO DIE!!!
+
+<code>pm2 kill</code>
+
 ## Description
 
 Project description goes here
