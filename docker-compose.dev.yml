@@ -62,7 +62,7 @@ services:
       - '8000:5173'
     restart: always
     environment:
-      - API_URL=http://backend:6000
+      - API_URL=http://localhost:6000
     depends_on:
       - backend
     networks:
