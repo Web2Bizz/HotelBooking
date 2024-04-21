@@ -62,7 +62,7 @@ services:
       - '8000:5173'
     restart: always
     environment:
-      - API_URL=http://backend:5001
+      - API_URL=http://backend:6000
     depends_on:
       - backend
     networks:
@@ -76,6 +76,12 @@ services:
     ports:
       - '6000:5001'
     restart: always
+    environment:
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=BHotel
     depends_on:
       - postgres
     networks:
