@@ -1,5 +1,5 @@
 FROM nginx:alpine
 
-EXPOSE 3000
+EXPOSE 9090
 
 ENTRYPOINT ["nginx", "-g", "daemon off;"]

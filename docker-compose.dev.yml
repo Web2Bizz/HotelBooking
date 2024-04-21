@@ -62,7 +62,7 @@ services:
       - '8000:5173'
     restart: always
     environment:
-      - API_URL=http://localhost:6000
+      - VITE_API_URL=http://localhost:9090/api
     depends_on:
       - backend
     networks:
@@ -74,7 +74,7 @@ services:
       context: hotel-booking-server
       dockerfile: Dockerfile
     ports:
-      - '6000:5001'
+      - '8801:5001'
     restart: always
     environment:
       - POSTGRES_HOST=postgres
