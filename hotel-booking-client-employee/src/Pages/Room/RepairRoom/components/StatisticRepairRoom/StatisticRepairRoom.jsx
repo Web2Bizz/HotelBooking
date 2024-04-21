@@ -1,12 +1,32 @@
 import '../../style.scss'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { repairApplicationsStatisticGetAction, resetMessagesAction } from '../../../../../store/actions/repairRoomAction.js'
+import { messageGenerate } from '../../../../../services/functionService.js'
 
 export default function StatisticRepairRoom() {
+
+	const { repairApplicationsStatistic, isLoading, success, error } = useSelector((state) => state.repairRoomStore)
+	const dispatch = useDispatch();
+
+	console.log(repairApplicationsStatistic)
+
+	useEffect(() => {
+		dispatch(repairApplicationsStatisticGetAction())
+	}, [])
+
+	useEffect(() => {
+		if (error === '' && success === '') return
+		dispatch(repairApplicationsStatisticGetAction())
+	}, [error, success, isLoading])
+
+
 	return (
 		<>
 			<div className='statistic-repair-room-container '>
 				<div className='d-f jc-sb ai-c card-statistic statistic-repair-room__new'>
 					<div className='overview-card__overview__block__text' style={{ width: '100%', paddingLeft: '2vh' }}>
-						<p>32</p>
+						<p>{repairApplicationsStatistic[0]?.new}</p>
 						<p>Новые заявки</p>
 					</div>
 					<div>
@@ -15,7 +35,7 @@ export default function StatisticRepairRoom() {
 				</div>
 				<div className='d-f jc-sb ai-c card-statistic statistic-repair-room__inProgress'>
 					<div className='overview-card__overview__block__text' style={{ width: '100%', paddingLeft: '2vh' }}>
-						<p>1</p>
+						<p>{repairApplicationsStatistic[0]?.inproccess}</p>
 						<p>В процессе</p>
 					</div>
 					<div>
@@ -24,7 +44,7 @@ export default function StatisticRepairRoom() {
 				</div>
 				<div className='d-f jc-sb ai-c card-statistic statistic-repair-room__complete'>
 					<div className='overview-card__overview__block__text' style={{ width: '100%', paddingLeft: '2vh' }}>
-						<p>4</p>
+						<p>{repairApplicationsStatistic[0]?.done}</p>
 						<p>Завершены</p>
 					</div>
 					<div>

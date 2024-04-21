@@ -60,13 +60,9 @@ additionalsRouter.delete(
 );
 
 additionalsRouter.get("/getStatusGuest", additionalsController.GetStatusGuest);
-additionalsRouter.get(
-  "/getStatusGuestRoom",
-  additionalsController.GetStatusGuestRoom
-);
-additionalsRouter.get(
-  "/getRepairStatus",
-  additionalsController.GetRepairStatus
-);
+
+additionalsRouter.get("/getStatusGuestRoom", additionalsController.GetStatusGuestRoom);
+additionalsRouter.get("/getRepairStatus", additionalsController.GetRepairStatus);
+additionalsRouter.get("/getPersonalDataStoragePolicy", additionalsController.GetPersonalDataStoragePolicy);
 
 export default additionalsRouter;

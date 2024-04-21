@@ -14,7 +14,6 @@ class AdditionalsService {
       `select status from public.roomstatus where status = $1`,
       [status]
     );
-    console.log(hasAlreadyField.rows[0]);
     if (
       hasAlreadyField.rows[0] !== null &&
       hasAlreadyField.rows[0] !== undefined
@@ -218,6 +217,11 @@ class AdditionalsService {
 
   async getRepairStatus() {
     const response = await client.query(`select * from public.statusrepair`);
+    return response;
+  }
+
+  async getPersonalDataStoragePolicy() {
+    const response = await client.query(`select * from public.personaldatastoragepolicy`);
     return response;
   }
 }

@@ -9,5 +9,6 @@ bookingRouter.get('/getGuests', bookingController.GetGuests);
 bookingRouter.delete('/deleteBooking/:id', bookingController.DeleteBooking);
 bookingRouter.put('/checkAndChangeStatusGuest', bookingController.CheckAndChangeStatusGuest);
 bookingRouter.put('/makeGuestCheckOut', bookingController.MakeGuestCheckOut);
+bookingRouter.put('/checkPersonalDataStoragePolicy', bookingController.CheckPersonalDataStoragePolicy);
 
 export default bookingRouter;

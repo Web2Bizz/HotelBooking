@@ -41,7 +41,7 @@ export default function AdminListComplaintModal({ setModalOpen, modalOpen }) {
 							<div style={{ paddingLeft: '1vh' }}>
 								<p>Пупа Лупа Александрович</p>
 								<div className='d-flex'>
-									<p style={{ paddingRight: '1vh', color: 'gray' }}>Номер комнаты:</p>
+									<p style={{ paddingRight: '1vh', color: 'gray' }}>Номер номера:</p>
 									<span>413</span>
 								</div>
 								<div className='d-flex'>

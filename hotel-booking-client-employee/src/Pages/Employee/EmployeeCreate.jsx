@@ -54,7 +54,6 @@ export default function EmployeeCreate(props) {
 		form.submit()
 	}
 
-
 	return (
 		<>
 			<h2>Добавление сотрудника</h2>
@@ -136,7 +135,9 @@ export default function EmployeeCreate(props) {
 					</div>
 					<div style={{ width: '40%' }}>
 						<p>Загрузить аватар пользователя:</p>
-						<div className='upload-user-avatar'><PlusOutlined/> <p>Загрузить изображение</p></div>
+						<div className='upload-user-avatar'>
+							<PlusOutlined /> <p>Загрузить изображение</p>
+						</div>
 					</div>
 				</div>
 			</Card>
@@ -171,7 +172,7 @@ export default function EmployeeCreate(props) {
 						<InputNumber
 							min={1000}
 							max={9999}
-							placeholder='Введите номер комнаты...'
+							placeholder='Введите номер акции...'
 							value={dataField.numberDealf}
 							onChange={(e) => setDataField({ ...dataField, numberDealf: e })}
 						/>

@@ -33,6 +33,18 @@ const roomSlice = createSlice({
       state.error = action.payload;
     },
 
+    roomEditStatus(state) {
+      state.isLoading = true;
+    },
+    roomEditStatusSuccess(state, action) {
+      state.isLoading = false;
+      state.success = action.payload;
+    },
+    roomEditStatusError(state, action) {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+
     roomGet(state) {
       state.isLoading = true;
     },
@@ -78,6 +90,9 @@ export const {
   roomEdit,
   roomEditError,
   roomEditSuccess,
+  roomEditStatus,
+  roomEditStatusSuccess,
+  roomEditStatusError,
 
   resetMessages,
 } = roomSlice.actions;

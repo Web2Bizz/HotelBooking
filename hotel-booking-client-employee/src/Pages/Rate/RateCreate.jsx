@@ -216,11 +216,11 @@ const RateCreate = (props) => {
 		<>
 			{contextHolder}
 			{props.onEditRate ? (
-				<h2>Редактирование расценки / Расценка комнаты</h2>
+				<h2>Редактирование расценки / Расценка номеров</h2>
 			) : (
 				<h2>
 					Создание расценки
-					{isCreateDiscount ? ' / Расценка со скидкой ' : isCreateRoom ? ' / Расценка комнаты ' : ''}
+					{isCreateDiscount ? ' / Расценка со скидкой ' : isCreateRoom ? ' / Расценка номеров ' : ''}
 				</h2>
 			)}
 			<Button type='text' icon={<ArrowLeftOutlined />} onClick={() => onBackButton()}>
@@ -230,7 +230,7 @@ const RateCreate = (props) => {
 				<>
 					<Row gutter={20}>
 						<Col span={4.5}>
-							<Card title='Тип комнаты' bordered={true}>
+							<Card title='Тип номера' bordered={true}>
 								<Select
 									placeholder='Выберите тип...'
 									style={{ width: 220 }}
@@ -296,7 +296,7 @@ const RateCreate = (props) => {
 						style={{ width: 340 }}
 						cover={<img className='img-card' src='image/price-list.png' />}
 					>
-						<Meta title='Расценка комнаты' description='Добавить расценку на определенный тип комнат' />
+						<Meta title='Расценка номера' description='Добавить расценку на определенный тип номеров' />
 					</Card>
 					<Card
 						onClick={() => setIsCreateDiscount(true)}
@@ -306,7 +306,7 @@ const RateCreate = (props) => {
 					>
 						<Meta
 							title='Расценка со скидкой'
-							description='Добавить расценку с учетом скидки, на определенный тип комнаты'
+							description='Добавить расценку с учетом скидки, на определенный тип номеров'
 						/>
 					</Card>
 				</div>

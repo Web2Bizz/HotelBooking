@@ -237,6 +237,15 @@ class AdditionalsController {
       next(e);
     }
   }
+
+  async GetPersonalDataStoragePolicy(req, res, next) {
+    try {
+      const response = await additionalsService.getPersonalDataStoragePolicy();
+      return res.json(response.rows);
+    } catch (e) {
+      next(e);
+    }
+  }
 }
 
 export default AdditionalsController;

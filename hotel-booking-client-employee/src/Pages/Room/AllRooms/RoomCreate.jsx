@@ -25,7 +25,7 @@ const RoomCreate = (props) => {
 	//Data
 	//Количество этажей
 	const [floorCount, setFloorCount] = useState(5)
-	//Вспомогательная переменная для типов комнат
+	//Вспомогательная переменная для типов номеров
 	const [typeRoomIndex, setTypeRoomIndex] = useState(10)
 
 	//State
@@ -237,7 +237,7 @@ const RoomCreate = (props) => {
 								<InputNumber
 									min={100}
 									max={999}
-									placeholder='Введите номер комнаты...'
+									placeholder='Введите номер номера...'
 									value={numberRoomf}
 									onChange={(e) => setNumberRoomf(e)}
 								/>
@@ -324,7 +324,7 @@ const RoomCreate = (props) => {
 						children: (
 							<Row gutter={20}>
 								<Col span={5}>
-									<Card title='Этаж комнаты' bordered={true}>
+									<Card title='Этаж номера' bordered={true}>
 										<Select
 											placeholder='Выберите этаж...'
 											style={{ width: 160 }}
@@ -341,7 +341,7 @@ const RoomCreate = (props) => {
 									</Card>
 								</Col>
 								<Col span={4.5}>
-									<Card title='Статус комнаты' bordered={true}>
+									<Card title='Статус номера' bordered={true}>
 										<Select
 											placeholder='Выберите статус...'
 											value={statusRoomf}
@@ -352,7 +352,7 @@ const RoomCreate = (props) => {
 									</Card>
 								</Col>
 								<Col span={4.5}>
-									<Card title='Тип комнаты' bordered={true}>
+									<Card title='Тип номера' bordered={true}>
 										<Select
 											placeholder='Выберите тип...'
 											style={{ width: 220 }}
@@ -363,11 +363,11 @@ const RoomCreate = (props) => {
 									</Card>
 								</Col>
 								<Col span={4.5}>
-									<Card title='Номер комнаты' bordered={true}>
+									<Card title='Номер номера' bordered={true}>
 										<InputNumber
 											min={100}
 											max={999}
-											placeholder='Введите номер комнаты...'
+											placeholder='Введите номер номера...'
 											value={numberRoomf}
 											onChange={(e) => setNumberRoomf(e)}
 										/>

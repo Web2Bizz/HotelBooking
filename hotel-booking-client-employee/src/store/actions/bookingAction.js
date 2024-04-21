@@ -12,7 +12,10 @@ import {
 	resetMessages,
 	makeGuestCheckOut,
 	makeGuestCheckOutError,
-	makeGuestCheckOutSuccess
+	makeGuestCheckOutSuccess,
+	checkPersonalDataStoragePolicyError,
+	checkPersonalDataStoragePolicySuccess,
+	checkPersonalDataStoragePolicy,
 } from '../reducers/bookingReducer'
 
 export const bookingCreateAction =
@@ -88,6 +91,16 @@ export const checkAndChangeStatusGuestAction = (data) => async (dispatch) => {
 		await BookingService.checkAndChangeStatusGuest(data)
 	} catch (e) {
 		dispatch(makeGuestCheckOutError(e.response?.data.message))
+	}
+}
+
+export const checkPersonalDataStoragePolicyAction = () => async (dispatch) => {
+	try {
+		dispatch(checkPersonalDataStoragePolicy())
+		await BookingService.checkPersonalDataStoragePolicy()
+		dispatch(checkPersonalDataStoragePolicySuccess('Данные успешно изменены'))
+	} catch (e) {
+		dispatch(checkPersonalDataStoragePolicyError(e.response?.data.message))
 	}
 }
 

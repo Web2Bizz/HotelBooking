@@ -45,4 +45,8 @@ export default class BookingService {
 	static async makeGuestCheckOut(id_guest) {
 		return await $api.put('/booking/makeGuestCheckOut', { id_guest })
 	}
+
+	static async checkPersonalDataStoragePolicy() {
+		return await $api.put('/booking/checkPersonalDataStoragePolicy')
+	}
 }

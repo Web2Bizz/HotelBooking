@@ -13,6 +13,7 @@ import bookingRouter from "./routes/booking.routes.js";
 import querysRouter from "./routes/querys.routes.js";
 import roomServiceRouter from "./routes/roomService.routes.js";
 import repairRoomRouter from "./routes/roomRepair.routes.js";
+import hotelSettingsRouter from "./routes/hotelSettigs.routes.js";
 
 dotenv.config();
 const PORT = process.env.PORT || 8080;
@@ -55,6 +56,7 @@ app.use("/booking", bookingRouter);
 app.use("/querys", querysRouter);
 app.use("/roomService", roomServiceRouter);
 app.use("/repairRoom", repairRoomRouter);
+app.use("/hotelSettings", hotelSettingsRouter);
 
 app.use(errorMiddleware);
 

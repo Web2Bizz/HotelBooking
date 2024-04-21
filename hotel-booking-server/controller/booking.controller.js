@@ -20,7 +20,6 @@ class BookingController {
         email,
         idRate,
       } = req.body;
-      console.log(idRate)
       await bookingService.createBooking(
         firstName,
         lastName,
@@ -74,6 +73,14 @@ class BookingController {
       const { id_guest } = req.body;
       await bookingService.makeGuestCheckOut(id_guest);
       return res.json('Статус гостя изменен');
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  async CheckPersonalDataStoragePolicy(req, res, next) {
+    try {
+      await bookingService.checkPersonalDataStoragePolicy();
     } catch (e) {
       next(e);
     }

@@ -9,6 +9,10 @@ repairRoomRouter.get(
   repairRoomController.GetRepairApplications
 );
 repairRoomRouter.get(
+		"/getRepairApplicationsStatistic",
+		repairRoomController.GetRepairApplicationsStatistic
+);
+repairRoomRouter.get(
   "/getRepairApplicationById/:id",
   repairRoomController.GetRepairApplicationById
 );

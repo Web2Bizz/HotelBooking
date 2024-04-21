@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useLayoutEffect } from 'react'
 import { Divider, Button, Space, Tag, message } from 'antd'
 import './FrontdeskPage.scss'
 import CalendarComp from '../../components/Calendar/Calendar'
@@ -105,7 +105,7 @@ const FrontdeskPage = () => {
 						</div>
 						<div className='headerFrontdesk-create'>
 							<Button type='primary' onClick={() => onCreateBookingClick()}>
-								Оформить комнату
+								Оформить клиента
 							</Button>
 						</div>
 					</div>

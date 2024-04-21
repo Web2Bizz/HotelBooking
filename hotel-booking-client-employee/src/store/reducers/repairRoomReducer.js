@@ -4,6 +4,7 @@ const repairRoomSlice = createSlice({
 	name: 'repairRoomStore',
 	initialState: {
 		repairApplications: [],
+		repairApplicationsStatistic: [],
 		repairApplicationById: [],
 		isLoading: false,
 		error: '',
@@ -18,6 +19,18 @@ const repairRoomSlice = createSlice({
 			state.repairApplications = action.payload.data
 		},
 		repairApplicationsGetError(state, action) {
+			state.isLoading = false
+			state.error = action.payload
+		},
+
+		repairApplicationsStatisticGet(state) {
+			state.isLoading = true
+		},
+		repairApplicationsStatisticGetSuccess(state, action) {
+			state.isLoading = false
+			state.repairApplicationsStatistic = action.payload.data
+		},
+		repairApplicationsStatisticGetError(state, action) {
 			state.isLoading = false
 			state.error = action.payload
 		},
@@ -109,6 +122,9 @@ export const {
 	repairApplicationsGet,
 	repairApplicationsGetError,
 	repairApplicationsGetSuccess,
+	repairApplicationsStatisticGet,
+	repairApplicationsStatisticGetError,
+	repairApplicationsStatisticGetSuccess,
 
 	resetMessages
 } = repairRoomSlice.actions

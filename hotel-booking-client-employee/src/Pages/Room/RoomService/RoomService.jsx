@@ -23,7 +23,6 @@ export default function RoomService() {
 		(state) => state.roomServiceStore
 	)
 	const { success: repairRoomSuccess } = useSelector((state) => state.repairRoomStore)
-	console.log(success)
 
 	// #region UseEffect
 	useEffect(() => {
@@ -72,7 +71,8 @@ export default function RoomService() {
 						item?.count_adults + item?.count_children !== 0 ? item?.count_adults + item?.count_children : '',
 					departureDate: getConvertedDate(item?.departure_date),
 					arrivalDate: getConvertedDate(item?.arrival_date),
-					repair: item?.id_repair === null || item?.id_repair === undefined ? false : true,
+					repair:
+						item?.id_repair === null || item?.id_repair === undefined || item?.id_repair.length === 0 ? false : true,
 					status: item?.status_guest_room,
 					idStatus: item?.id_status_guest_room,
 					color_occupancy: item?.color,

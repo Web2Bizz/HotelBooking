@@ -9,7 +9,6 @@ export default function TableRoom(props) {
 	const [searchText, setSearchText] = useState('')
 
 	const [selectedRow, setSelectedRow] = useState()
-
 	const dispatch = useDispatch()
 
 	//filters
@@ -55,13 +54,12 @@ export default function TableRoom(props) {
 
 	const [filteredInfo, setFilteredInfo] = useState({})
 	const handleChange = (pagination, filters, sorter) => {
-		console.log('Various parameters', pagination, filters)
 		setFilteredInfo(filters)
 	}
 
 	const columns = [
 		{
-			title: 'Номер комнаты',
+			title: 'Номер номера',
 			dataIndex: 'numberRoom',
 			key: 'numberRoom',
 			render: (text) => <h5>{text}</h5>,
@@ -85,7 +83,7 @@ export default function TableRoom(props) {
 			onFilter: (value, record) => record.floor.toString().includes(value)
 		},
 		{
-			title: 'Тип комнаты',
+			title: 'Тип номера',
 			dataIndex: 'typeRoom',
 			key: 'typeRoom',
 			align: 'center',
@@ -161,6 +159,8 @@ export default function TableRoom(props) {
 			)
 		}
 	]
+
+	console.log(props.data)
 
 	const [items, setItems] = useState([
 		{

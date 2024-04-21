@@ -28,4 +28,7 @@ export default class AdditionalsService {
 	static async getRepairStatus() {
 		return await $api.get('/additionals/getRepairStatus')
 	}
+	static async getPersonalDataStoragePolicy() {
+		return await $api.get('/additionals/getPersonalDataStoragePolicy')
+	}
 }

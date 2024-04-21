@@ -159,7 +159,7 @@ export const optionAvailableRooms = (data) => {
 
 	let options = {
 		title: {
-			text: 'Свободные комнаты',
+			text: 'Свободные номера',
 			show: false
 		},
 		tooltip: {

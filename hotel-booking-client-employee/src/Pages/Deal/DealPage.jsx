@@ -160,7 +160,7 @@ const DealPage = () => {
 				String(record.end_date).toLowerCase().includes(value.toLowerCase())
 		},
 		{
-			title: 'Тип  комнаты',
+			title: 'Тип  номера',
 			dataIndex: 'room_type',
 			key: 'room_type',
 

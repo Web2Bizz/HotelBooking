@@ -1,5 +1,4 @@
-import { Table, Space, Card, Input, Modal } from 'antd'
-import { SearchOutlined } from '@ant-design/icons'
+import { Table, Space, Modal } from 'antd'
 import { useSelector } from 'react-redux'
 import { useState, useRef, useEffect } from 'react'
 import ReactToPrint from 'react-to-print'
@@ -97,8 +96,8 @@ export default function StatisticAndReports() {
 		},
 		{
 			key: '2',
-			title: 'Все комнаты',
-			description: 'Данные о всех комнатах отеля',
+			title: 'Все номера',
+			description: 'Данные о всех номерах отеля',
 			refReport: refRoom
 		},
 		{
@@ -124,7 +123,7 @@ export default function StatisticAndReports() {
 	// #region Отчеты общего назначения
 	const StatisticalReportsColumns = [
 		{
-			title: 'Отчет',
+			title: 'Статистика',
 			dataIndex: 'title',
 			key: 'title',
 			render: (text, record) => (
@@ -136,7 +135,7 @@ export default function StatisticAndReports() {
 			)
 		},
 		{
-			title: 'Описание отчета',
+			title: 'Описание статистики',
 			key: 'description',
 			dataIndex: 'description'
 		}
@@ -244,7 +243,7 @@ export default function StatisticAndReports() {
 					<Table pagination={false} style={{ marginTop: '10px' }} columns={columnsRate} dataSource={data.rateData} />
 				</div>
 				<div ref={(el) => (refRoom.current = el)}>
-					<h2 className='d-f jc-c'>Таблица комнаты</h2>
+					<h2 className='d-f jc-c'>Таблица номера</h2>
 					<Table pagination={false} style={{ marginTop: '10px' }} columns={columnsRoom} dataSource={data.roomData} />
 				</div>
 				<div ref={(el) => (refDeal.current = el)}>

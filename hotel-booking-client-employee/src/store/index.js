@@ -7,6 +7,7 @@ import userReducer from './reducers/userReducer'
 import bookingReducer from './reducers/bookingReducer'
 import roomServiceReducer from './reducers/roomServiceReducer'
 import repairRoomReducer from './reducers/repairRoomReducer'
+import hotelSettingsReducer from './reducers/hotelSettingsReducer.js'
 
 const rootReducer = combineReducers({
 	roomStore: roomReducer,
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
 	userStore: userReducer,
 	bookingStore: bookingReducer,
 	roomServiceStore: roomServiceReducer,
-	repairRoomStore: repairRoomReducer
+	repairRoomStore: repairRoomReducer,
+	hotelSettingsStore: hotelSettingsReducer
 })
 
 export const store = configureStore({

@@ -103,7 +103,7 @@ const OverviewPage = () => {
 								<div className='d-f jc-sb ai-c' style={{ backgroundColor: '#5571C9', padding: '2vh' }}>
 									<div className='overview-card__overview__block__text' style={{ width: '100%', paddingLeft: '2vh' }}>
 										<p>{data.roomInformation?.all_rooms}</p>
-										<p>Комнат</p>
+										<p>Номеров</p>
 									</div>
 									<div>
 										<img src='image/3.png' alt='img' style={{ width: '8vh', height: '8vh' }} />
@@ -115,12 +115,12 @@ const OverviewPage = () => {
 					<div className='d-f overview-card__room__container'>
 						<Card style={{ width: '60%' }}>
 							<div className='overview-card__room'>
-								<p style={{ marginBottom: '3vh' }}>Статистика комнат</p>
+								<p style={{ marginBottom: '3vh' }}>Статистика номеров</p>
 								<div className='d-f jc-sb status-room__text'>
 									<div style={{ width: '45%' }}>
 										<div className='d-f fd-c status-room__list'>
 											<div>
-												<p>Свободные комнаты</p>
+												<p>Свободные номера</p>
 												<Tag>
 													<p>{data.roomInformation?.available_room}</p>
 												</Tag>
@@ -148,7 +148,7 @@ const OverviewPage = () => {
 									<div style={{ width: '45%' }}>
 										<div className='d-f fd-c status-room__list'>
 											<div>
-												<p>Забронированные комнаты</p>
+												<p>Забронированные номера</p>
 												<Tag>
 													<p>{data.roomInformation?.reserved_room}</p>
 												</Tag>
@@ -197,7 +197,7 @@ const OverviewPage = () => {
 						</Card>
 						<Card style={{ width: '28%', marginBottom: '3vh' }}>
 							<div className='overview-card__guests'>
-								<p>Свободные комнаты</p>
+								<p>Свободные номера</p>
 								<ReactECharts option={optionAvailableRooms(data.roomInformation)} />
 							</div>
 						</Card>

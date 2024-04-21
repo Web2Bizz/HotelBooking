@@ -114,6 +114,58 @@ class BookingService {
       [id_guest]
     );
   }
+
+  async checkPersonalDataStoragePolicy() {
+    const pdspResult = await client.query(
+        `select personal_data_storage_policy from hotelproperties as hp 
+          inner join personaldatastoragepolicy as pdsp 
+          on pdsp.id_personal_data_storage_policy = hp.id_personal_data_storage_policy`
+    )
+    if (pdspResult.rows.length === 0) {
+      console.log("Запись с указанным id_personal_data_storage_policy не найдена.");
+      return;
+    }
+
+    const pdsp = pdspResult.rows[0].personal_data_storage_policy;
+
+    switch (pdsp) {
+      case 'Неделя': {
+        const currentDate = new Date();
+        const weekAgo = new Date(currentDate.getTime() - 7 * 24 * 60 * 60 * 1000); // Неделя назад
+        await client.query(
+            `DELETE FROM booking WHERE departure_date < $1`, [weekAgo]
+        );
+        console.log('Удалены записи с departure_date более недели назад.');
+        break;
+      }
+      case 'Один год': {
+        const currentDate = new Date();
+        const oneYearAgo = new Date(currentDate.getTime() - 365 * 24 * 60 * 60 * 1000); // Один год назад
+        await client.query(
+            `DELETE FROM booking WHERE departure_date < $1`, [oneYearAgo]
+        );
+        console.log('Удалены записи с departure_date более года назад.');
+        break;
+      }
+      case 'Удаление после выезда': {
+        const currentDate = new Date();
+        const dayAgo = new Date(currentDate.getTime() - 1 * 24 * 60 * 60 * 1000); // Один день назад
+        await client.query(
+            `DELETE FROM booking WHERE departure_date < $1`, [dayAgo]
+        );
+        console.log('Удалены записи с departure_date более чем на день в прошлом.');
+        break;
+      }
+      case 'Бесконечно': {
+        console.log('Для данного значения personal_data_storage_policy данные хранятся бессрочно. Удаление не требуется.');
+        break;
+      }
+      default: {
+        console.log('Для данного значения personal_data_storage_policy нет определенных действий.');
+        break;
+      }
+    }
+  }
 }
 
 export default BookingService;

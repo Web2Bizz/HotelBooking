@@ -14,16 +14,9 @@ class RepairRoomController {
   }
   async EditRepairApplication(req, res, next) {
     try {
-      const { id_repair, name_work, description_work, start_date, end_date } =
-        req.body;
-      await repairRoomService.editRepairApplication(
-        id_repair,
-        name_work,
-        description_work,
-        start_date,
-        end_date
-      );
-      return res.json("Заявка изменена");
+      const { applications } = req.body;
+      await repairRoomService.editRepairApplication(applications);
+      return res.json("Заявки изменены");
     } catch (e) {
       next(e);
     }
@@ -48,6 +41,14 @@ class RepairRoomController {
       next(e);
     }
   }
+  async GetRepairApplicationsStatistic(req, res, next) {
+    try {
+      const response = await repairRoomService.getRepairApplicationsStatistic();
+      return res.json(response.rows);
+    } catch (e) {
+      next(e);
+    }
+  }
   async GetRepairApplicationById(req, res, next) {
     try {
       const { id_room } = req.params;
@@ -61,8 +62,8 @@ class RepairRoomController {
   }
   async DeleteRepairApplication(req, res, next) {
     try {
-      const { id_repair } = req.params;
-      await repairRoomService.deleteRepairApplication(id_repair);
+      const { id } = req.params;
+      await repairRoomService.deleteRepairApplication(id);
       return res.json("Заявка удалена");
     } catch (e) {
       next(e);

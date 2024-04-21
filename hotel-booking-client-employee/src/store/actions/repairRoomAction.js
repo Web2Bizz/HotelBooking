@@ -18,6 +18,9 @@ import {
 	repairApplicationsGet,
 	repairApplicationsGetError,
 	repairApplicationsGetSuccess,
+	repairApplicationsStatisticGet,
+	repairApplicationsStatisticGetError,
+	repairApplicationsStatisticGetSuccess,
 	resetMessages
 } from '../reducers/repairRoomReducer'
 
@@ -41,11 +44,21 @@ export const repairApplicationsGetAction = () => async (dispatch) => {
 	}
 }
 
+export const repairApplicationsStatisticGetAction = () => async (dispatch) => {
+	try {
+		dispatch(repairApplicationsStatisticGet())
+		let response = await RepairRoomService.getRepairApplicationsStatistic()
+		dispatch(repairApplicationsStatisticGetSuccess({ data: response.data }))
+	} catch (e) {
+		dispatch(repairApplicationsStatisticGetError(e.response?.data.message))
+	}
+}
+
 export const repairApplicationEditAction =
-	(id_repair, name_work, description_work, start_date, end_date) => async (dispatch) => {
+	(applications) => async (dispatch) => {
 		try {
 			dispatch(repairApplicationEdit())
-			await RepairRoomService.editRepairApplication(id_repair, name_work, description_work, start_date, end_date)
+			await RepairRoomService.editRepairApplication(applications)
 			dispatch(repairApplicationEditSuccess('Заявка успешно изменена'))
 		} catch (e) {
 			dispatch(repairApplicationEditError(e.response?.data.message))
@@ -55,6 +68,7 @@ export const repairApplicationEditAction =
 export const repairApplicationStatusEditAction = (id_repair, id_status_repair) => async (dispatch) => {
 	try {
 		dispatch(repairApplicationStatusEdit())
+		console.log(id_repair, id_status_repair)
 		await RepairRoomService.editRepairApplicationStatus(id_repair, id_status_repair)
 		dispatch(repairApplicationStatusEditSuccess('Статус заявки успешно изменен'))
 	} catch (e) {
@@ -75,8 +89,8 @@ export const repairApplicationCreateAction = (applications) => async (dispatch) 
 export const repairApplicationDeleteAction = (id_repair) => async (dispatch) => {
 	try {
 		dispatch(repairApplicationDelete())
-		await RepairRoomService.deleteRoom(id_repair)
-		dispatch(repairApplicationDeleteSuccess('Комната успешно удалена'))
+		await RepairRoomService.deleteRepairApplication(id_repair)
+		dispatch(repairApplicationDeleteSuccess('Заявка успешно удалена'))
 	} catch (e) {
 		dispatch(repairApplicationDeleteError(e.response?.data.message))
 	}

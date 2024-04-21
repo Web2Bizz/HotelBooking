@@ -11,6 +11,7 @@ const roomSlice = createSlice({
 		statusGuest: [],
 		statusGuestRoom: [],
 		statusRepair: [],
+		personalDataStoragePolicy: [],
 		isLoading: false,
 		error: '',
 		success: ''
@@ -112,10 +113,23 @@ const roomSlice = createSlice({
 		},
 		statusRepairGetSuccess(state, action) {
 			state.isLoading = false
-			state.statusGuestRoom = action.payload.data
+			state.statusRepair = action.payload.data
 			state.success = action.payload.successLoad
 		},
 		statusRepairGetError(state, action) {
+			state.isLoading = false
+			state.error = action.payload
+		},
+
+		personalDataStoragePolicyGet(state) {
+			state.isLoading = true
+		},
+		personalDataStoragePolicyGetSuccess(state, action) {
+			state.isLoading = false
+			state.personalDataStoragePolicy = action.payload.data
+			state.success = action.payload.successLoad
+		},
+		personalDataStoragePolicyGetError(state, action) {
 			state.isLoading = false
 			state.error = action.payload
 		}
@@ -147,5 +161,8 @@ export const {
 	statusGuestRoomGetSuccess,
 	statusRepairGet,
 	statusRepairGetError,
-	statusRepairGetSuccess
+	statusRepairGetSuccess,
+	personalDataStoragePolicyGet,
+	personalDataStoragePolicyGetError,
+	personalDataStoragePolicyGetSuccess
 } = roomSlice.actions

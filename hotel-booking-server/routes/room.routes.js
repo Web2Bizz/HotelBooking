@@ -7,6 +7,7 @@ const roomRouter = new Router();
 roomRouter.get('/getRoom', roomController.GetRoom);
 roomRouter.post('/createRoom', roomController.CreateRoom);
 roomRouter.put('/editRoom', roomController.EditRoom);
+roomRouter.put('/editRoomStatus', roomController.EditRoomStatus);
 roomRouter.delete('/deleteRoom/:id', roomController.DeleteRoom);
 
 export default roomRouter;

@@ -23,6 +23,10 @@ export default class RoomService {
   static async getRoom() {
     return await $api.get('/room/getRoom');
   }
+  static async editRoomStatus(id_room) {
+    return await $api.put('/room/editRoomStatus', { id_room});
+  }
+
   static async deleteRoom(id_room) {
     return await $api.delete(`/room/deleteRoom/${id_room}`);
   }

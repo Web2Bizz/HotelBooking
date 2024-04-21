@@ -57,6 +57,18 @@ const bookingSlice = createSlice({
 			state.error = action.payload
 		},
 
+		checkPersonalDataStoragePolicy(state) {
+			state.isLoading = true
+		},
+		checkPersonalDataStoragePolicySuccess(state, action) {
+			state.isLoading = false
+			state.success = action.payload
+		},
+		checkPersonalDataStoragePolicyError(state, action) {
+			state.isLoading = false
+			state.error = action.payload
+		},
+
 		resetMessages(state) {
 			state.error = ''
 			state.success = ''
@@ -78,6 +90,9 @@ export const {
 	makeGuestCheckOut,
 	makeGuestCheckOutError,
 	makeGuestCheckOutSuccess,
+	checkPersonalDataStoragePolicyError,
+	checkPersonalDataStoragePolicySuccess,
+	checkPersonalDataStoragePolicy,
 
 	resetMessages
 } = bookingSlice.actions

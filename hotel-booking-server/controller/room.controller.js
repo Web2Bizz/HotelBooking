@@ -37,6 +37,15 @@ class RoomController {
       next(e);
     }
   }
+  async EditRoomStatus(req, res, next){
+    try{
+      const {id_room} = req.body;
+      await roomService.editRoomStatus(id_room)
+      return res.json('Статус изменен');
+    } catch (e){
+      next(e)
+    }
+  }
   async DeleteRoom(req, res, next) {
     try {
       const { id } = req.params;

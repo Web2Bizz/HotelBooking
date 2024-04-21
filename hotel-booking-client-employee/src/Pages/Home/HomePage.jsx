@@ -37,11 +37,10 @@ export default function HomePage() {
 					<div className='d-flex align-items-center'>
 						<img src='/image/logo.svg' alt='logo' style={{ width: '8vh' }} />
 						<p className='landing-logo-text'>BookRoom</p>
-						
 					</div>
 					<div className='d-flex landing-header-tabs'>
 						<p>О нас</p>
-						<p>Комнаты</p>
+						<p>Номера</p>
 						<p>Услуги</p>
 						<p>Расценки</p>
 						<Button type='primary' onClick={() => navigation('/login')}>

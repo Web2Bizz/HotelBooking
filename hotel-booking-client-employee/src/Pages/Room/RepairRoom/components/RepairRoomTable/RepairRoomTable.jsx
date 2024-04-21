@@ -1,14 +1,21 @@
-import { useState, useEffect } from 'react'
-import { Space, Dropdown, Table, Button, Tag } from 'antd'
-import { MoreOutlined } from '@ant-design/icons'
+import React, { useState, useEffect } from 'react'
+import { Space, Dropdown, Table, Button, Tag, message, Input, Modal } from 'antd'
+import { ExclamationCircleFilled, MoreOutlined, SearchOutlined } from '@ant-design/icons'
 import { useDispatch, useSelector } from 'react-redux'
-import { repairApplicationsGetAction } from '../../../../../store/actions/repairRoomAction'
-import { getConvertedDate } from '../../../../../services/functionService'
+import {
+	repairApplicationDeleteAction,
+	repairApplicationsGetAction,
+	resetMessagesAction
+} from '../../../../../store/actions/repairRoomAction'
+import { getConvertedDate, messageGenerate } from '../../../../../services/functionService'
+import { roomEditStatusAction } from '../../../../../store/actions/roomAction.js'
 
-export default function RepairRoomTable(props) {
-	const [data, setData] = useState([])
+export default function RepairRoomTable({ setSelectedRoom, setIsRepair, data, setData, setIsEdit, setIsPlaning }) {
+	const [messageApi, contextHolder] = message.useMessage()
 	const dispatch = useDispatch()
 	const { repairApplications, isLoading, success, error } = useSelector((state) => state.repairRoomStore)
+	//serach
+	const [searchText, setSearchText] = useState('')
 
 	// #region UseEffect
 	useEffect(() => {
@@ -16,40 +23,36 @@ export default function RepairRoomTable(props) {
 		loadData()
 	}, [])
 
-	// useEffect(() => {
-	// 	loadData()
-	// 	// eslint-disable-next-line
-	// }, [roomForService, statisticServiceRoom])
+	useEffect(() => {
+		loadData()
+		// eslint-disable-next-line
+	}, [repairApplications])
 
-	// useEffect(() => {
-	// 	if (repairRoomSuccess === '') return
-	// 	messageApi.success(repairRoomSuccess)
-	// }, [repairRoomSuccess])
-
-	// useEffect(() => {
-	// 	if (error === '' && success === '') return
-	// 	messageApi.open(messageGenerate(success, error))
-	// 	dispatch(statisticServiceRoomGetAction())
-	// 	dispatch(roomForServiceGetAction())
-	// 	dispatch(resetMessagesAction())
-	// }, [error, success])
+	useEffect(() => {
+		if (error === '' && success === '') return
+		messageApi.open(messageGenerate(success, error))
+		dispatch(resetMessagesAction())
+		dispatch(repairApplicationsGetAction())
+	}, [error, success, isLoading])
 	// #endregion
 
 	const loadData = () => {
-		console.log(repairApplications)
 		if (repairApplications.length !== 0) {
 			const transformedData = repairApplications.reduce((acc, item, key) => {
 				const existingItem = acc.find((element) => element.room_number === item.room_number.toString())
-
 				if (existingItem) {
 					existingItem.repairs.push({
 						key: key,
+						id_room: item.id_room,
+						id_repair: item.id_repair,
 						name_work: item.name_work,
 						description_work: item.description_work,
 						start_date: getConvertedDate(item.start_date),
 						end_date: getConvertedDate(item.end_date),
 						status_repair: item.status_repair,
-						color: item.color
+						color: item.color,
+						closeroom: item.closeroom,
+						id_status_repair: item.id_status_repair
 					})
 				} else {
 					acc.push({
@@ -58,12 +61,16 @@ export default function RepairRoomTable(props) {
 						repairs: [
 							{
 								key: `${'_' + key}`,
+								id_room: item.id_room,
+								id_repair: item.id_repair,
 								name_work: item.name_work,
 								description_work: item.description_work,
 								start_date: getConvertedDate(item.start_date),
 								end_date: getConvertedDate(item.end_date),
 								status_repair: item.status_repair,
-								color: item.color
+								color: item.color,
+								closeroom: item.closeroom,
+								id_status_repair: item.id_status_repair
 							}
 						]
 					})
@@ -87,15 +94,6 @@ export default function RepairRoomTable(props) {
 		{
 			label: (
 				<div className='room-service__list-settings'>
-					<img src='image/edit.png' />
-					<p>Редактировать работы</p>
-				</div>
-			),
-			key: 'edit-work'
-		},
-		{
-			label: (
-				<div className='room-service__list-settings'>
 					<img src='image/planing.png' />
 					<p>Планирование ремонта</p>
 				</div>
@@ -105,21 +103,23 @@ export default function RepairRoomTable(props) {
 	])
 	const onClick = ({ key }) => {
 		if (key === 'add-work') {
-			props.setIsRepair(true)
+			setIsRepair(true)
 		}
 		if (key === 'planing-work') {
-			props.setIsPlaning(true)
+			setIsPlaning(true)
 		}
 		if (key === 'edit-work') {
-			props.setIsEdit(true)
+			setIsEdit(true)
 		}
 	}
 
 	const columns = [
 		{
-			title: 'Номер комнаты',
+			title: 'Номер номера',
 			dataIndex: 'room_number',
-			key: 'room_number'
+			key: 'room_number',
+			filteredValue: [searchText],
+			onFilter: (value, record) => String(record.room_number).toLowerCase().includes(value.toLowerCase())
 		},
 		{
 			title: 'Действия',
@@ -128,13 +128,30 @@ export default function RepairRoomTable(props) {
 				<Space size='large'>
 					<Dropdown menu={{ items, onClick, record }} trigger={['click']}>
 						<Space>
-							<Button onClick={() => setSelectedRow(record.idRoom)} shape='circle' icon={<MoreOutlined />} />
+							<Button
+								onClick={() => setSelectedRoom(record.repairs[0].id_room)}
+								shape='circle'
+								icon={<MoreOutlined />}
+							/>
 						</Space>
 					</Dropdown>
 				</Space>
 			)
 		}
 	]
+	const { confirm } = Modal
+	const onDeleteAplication = (id) => {
+		confirm({
+			title: 'Вы точно хотите удалить заявку?',
+			icon: <ExclamationCircleFilled />,
+			okText: 'Да',
+			okType: 'danger',
+			cancelText: 'Нет',
+			onOk() {
+				dispatch(repairApplicationDeleteAction(id))
+			}
+		})
+	}
 
 	const expandedRowRender = (record) => {
 		const subColumns = [
@@ -147,11 +164,32 @@ export default function RepairRoomTable(props) {
 				dataIndex: 'status_repair',
 				key: 'status_repair',
 				render: (_, { status_repair, color }) => <Tag color={color}>{status_repair}</Tag>
+			},
+			{
+				title: '',
+				dataIndex: 'action',
+				key: 'action',
+				render: (_, { id_repair }) => <Button onClick={() => onDeleteAplication(id_repair)}>Удалить</Button>
 			}
 		]
 
 		return <Table columns={subColumns} dataSource={record.repairs} pagination={false} />
 	}
 
-	return <Table columns={columns} expandable={{ expandedRowRender }} dataSource={data} size='middle' />
+	return (
+		<>
+			{contextHolder}
+			<div className='d-f justify-content-end'>
+				<Input
+					size={'large'}
+					style={{ width: '16vw', margin: '1vh 0' }}
+					placeholder='Поиск...'
+					prefix={<SearchOutlined />}
+					value={searchText}
+					onChange={(e) => setSearchText(e.target.value)}
+				/>
+			</div>
+			<Table columns={columns} expandable={{ expandedRowRender }} dataSource={data} size='middle' />
+		</>
+	)
 }

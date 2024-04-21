@@ -1,32 +1,70 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { ArrowLeftOutlined } from '@ant-design/icons'
-import { Button, Card, Divider, Input, DatePicker, Form, message } from 'antd'
+import { Button, Card, Divider, Input, DatePicker, Form, message, Checkbox } from 'antd'
 const { TextArea } = Input
 import '../../RoomService.scss'
-import { repairApplicationCreateAction } from '../../../../../store/actions/repairRoomAction'
+import {
+	repairApplicationCreateAction,
+	repairApplicationEditAction
+} from '../../../../../store/actions/repairRoomAction'
+import dayjs from 'dayjs';
+import 'dayjs/locale/ru';
+dayjs.locale('ru');
 
 export default function RoomServiceRepair(props) {
 	const onBackButton = () => {
 		props.setIsRepair(false)
+		props.setIsEdit(false)
 	}
 
 	const [messageApi, contextHolder] = message.useMessage()
 	const dispatch = useDispatch()
 	const { error } = useSelector((state) => state.repairRoomStore)
 
-	const [formsData, setFormsData] = useState([
-		{ id_room: props.selectedRoom, name_work: '', description_work: '', start_date: '', end_date: '' }
-	])
+	const formDataInitialValue = { id_room: props.selectedRoom, name_work: '', description_work: '', start_date: '', end_date: '', closeroom: false }
+
+	const [formsData, setFormsData] = useState([])
 	const [formRefs, setFormRefs] = useState([React.createRef()])
+
+	// Начальное значение форм данных и ссылок на формы
+	// const [formsData, setFormsData] = useState([]);
+	// const [formRefs, setFormRefs] = useState([]);
 
 	const handleAddForm = () => {
 		setFormsData([
 			...formsData,
-			{ id_room: props.selectedRoom, name_work: '', description_work: '', start_date: '', end_date: '' }
+			formDataInitialValue
 		])
 		setFormRefs([...formRefs, React.createRef()])
 	}
+
+	function convertDataArray(dataArray) {
+		const tempArray = []
+		for (let i = 0; i < dataArray.length; i++) {
+			tempArray.push({
+				closeroom: dataArray[i].closeroom,
+				description_work: dataArray[i].description_work,
+				end_date: dataArray[i].end_date,
+				start_date: dataArray[i].start_date,
+				name_work: dataArray[i].name_work,
+				id_room: dataArray[i].id_room
+			})
+		}
+		return tempArray
+	}
+
+	useEffect(() => {
+		if (props.isEdit) {
+			let currentData = props.data.find(obj => obj.repairs[0].id_room === props.selectedRoom).repairs;
+			const convertedData = convertDataArray(currentData);
+			setFormsData(convertedData);
+			setFormRefs(convertedData.map(() => React.createRef())); // Создаем ссылки для каждой формы
+		} else {
+			setFormsData([formDataInitialValue]);
+			setFormRefs([React.createRef()]); // Создаем ссылку для первой формы
+		}
+	}, []);
 
 	const handleDeleteForm = (index) => {
 		if (formsData.length === 1) {
@@ -42,25 +80,42 @@ export default function RoomServiceRepair(props) {
 	const handleChange = (index, key, value) => {
 		const updatedFormsData = formsData.map((formData, idx) => {
 			if (idx === index) {
-				return { ...formData, [key]: value }
+				if (key === 'closeroom') {
+					return { ...formData, [key]: value.target.checked }
+				} else {
+					return { ...formData, [key]: value }
+				}
 			}
 			return formData
 		})
-
 		setFormsData(updatedFormsData)
 	}
 
 	const validateStartDate = (_, value) => {
 		const today = new Date()
-		return value && value > today
+		console.log(value, dayjs(today))
+		return value && value.startOf('day') >= dayjs(today).startOf('day')
 			? Promise.resolve()
-			: Promise.reject('Дата начала должна быть больше сегодняшней даты')
+			: Promise.reject('Дата начала должна быть не раньше сегодняшней даты');
 	}
 
 	const validateEndDate = (_, value, formData) => {
-		return value && formData.start_date && value > formData.start_date
-			? Promise.resolve()
-			: Promise.reject('Дата окончания должна быть больше даты начала')
+		const today = new Date();
+		// Если value (дата окончания) не установлена или равна null, это считается корректным, так как это означает, что поле не заполнено
+		if (!value) {
+			console.log(1)
+			return Promise.resolve('Ошибочка');
+		}
+
+		// Если дата окончания меньше сегодняшней или меньше даты начала, возвращаем ошибку
+		if (dayjs(today) < value || (formData.start_date && value < getConvertedDate(formData.start_date))) {
+			console.log(2)
+			return Promise.reject('Дата окончания должна быть больше или равна сегодняшней дате и дате начала');
+		}
+
+		// Иначе возвращаем успешное разрешение
+		console.log(3)
+		return Promise.resolve();
 	}
 
 	const handleSubmit = () => {
@@ -68,12 +123,25 @@ export default function RoomServiceRepair(props) {
 		const formValidationPromises = formRefs.map((formRef) => formRef.current.validateFields())
 		Promise.all(formValidationPromises)
 			.then(() => {
-				dispatch(repairApplicationCreateAction(formsData))
-				props.setIsRepair(false)
+				if(props.isEdit){
+					dispatch(repairApplicationEditAction(formsData))
+					props.setIsEdit(false)
+				}
+				if(props.isRepair){
+					dispatch(repairApplicationCreateAction(formsData))
+					props.setIsRepair(false)
+				}
 			})
 			.catch((e) => {
-				messageApi.error(error)
+				messageApi.error(e)
 			})
+	}
+
+	const getConvertedDate = (dateString) => {
+		if (!(typeof dateString === 'string' || dateString instanceof String)) return dateString
+		const [day, month, year] = dateString.split('.').map(Number);
+		const date = new Date(year, month - 1, day);
+		return dayjs(date)
 	}
 
 	return (
@@ -85,8 +153,11 @@ export default function RoomServiceRepair(props) {
 			</Button>
 			<Card style={{ marginTop: '1vh', marginBottom: '1vh' }}>
 				<p>Список плановых ремонтов</p>
+				<Checkbox onChange={(e) => handleChange(0, 'closeroom', e)} >Заблокировать номер на период ремонта?</Checkbox>
+
 				<Divider />
 				{formsData.map((formData, idx) => (
+
 					<Form
 						key={idx}
 						variant='filled'
@@ -101,7 +172,7 @@ export default function RoomServiceRepair(props) {
 						>
 							<Input
 								type='text'
-								value={formData.name_work || ''}
+								defaultValue={formsData[idx].name_work}
 								onChange={(e) => handleChange(idx, 'name_work', e.target.value)}
 								placeholder='Ремонт двери'
 							/>
@@ -113,7 +184,7 @@ export default function RoomServiceRepair(props) {
 						>
 							<TextArea
 								type='text'
-								value={formData.description_work || ''}
+								defaultValue={formsData[idx].description_work}
 								onChange={(e) => handleChange(idx, 'description_work', e.target.value)}
 								autoSize={{ minRows: 3, maxRows: 5 }}
 								placeholder='Починить дверь на 5 этаже в комнате №234'
@@ -125,8 +196,8 @@ export default function RoomServiceRepair(props) {
 							rules={[{ required: true, message: 'Пожалуйста введите дату начала' }, { validator: validateStartDate }]}
 						>
 							<DatePicker
-								showTime
-								value={formData.start_date || null}
+
+								defaultValue={formsData[idx].start_date ? getConvertedDate(formsData[idx].start_date) : null}
 								onChange={(date) => handleChange(idx, 'start_date', date)}
 								needConfirm={false}
 							/>
@@ -140,13 +211,12 @@ export default function RoomServiceRepair(props) {
 							]}
 						>
 							<DatePicker
-								showTime
-								value={formData.end_date || null}
+								defaultValue={formsData[idx].start_date ? getConvertedDate(formsData[idx].end_date) : null}
 								onChange={(date) => handleChange(idx, 'end_date', date)}
 								needConfirm={false}
 							/>
 						</Form.Item>
-						{idx > 0 && <button onClick={() => handleDeleteForm(idx)}>Удалить форму</button>}
+						{idx > 0 && <Button onClick={() => handleDeleteForm(idx)}>Удалить форму</Button>}
 						<Divider />
 					</Form>
 				))}

@@ -52,11 +52,11 @@ export const getListFilter = (data, DataField) => {
 
 export const getEndingWords = (num) => {
 	if (num % 10 === 1 && num % 10 !== 11 && num !== 11) {
-		return 'комната'
+		return 'номер'
 	} else if ((num % 10 === 2 || num % 10 === 3 || num % 10 === 4) && (num % 100 < 10 || num % 100 >= 20)) {
-		return 'комнаты'
+		return 'номера'
 	} else {
-		return 'комнат'
+		return 'номеров'
 	}
 }
 

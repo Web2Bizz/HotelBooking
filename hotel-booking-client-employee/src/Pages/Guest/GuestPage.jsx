@@ -165,7 +165,7 @@ const GuestPage = () => {
 			)
 		},
 		{
-			title: 'Номер комнаты',
+			title: 'Номер номера',
 			dataIndex: 'numberRoom',
 			key: 'numberRoom',
 			sorter: (a, b) => a.numberRoom - b.numberRoom

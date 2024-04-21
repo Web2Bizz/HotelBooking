@@ -1,4 +1,6 @@
-import { Form, Input, Card, Collapse, Select } from 'antd'
+import { Form, InputNumber, Card, Collapse, Select } from 'antd'
+import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 
 const PersonalDataStoragePolicyInfo = () => {
 	return (
@@ -24,30 +26,48 @@ const PersonalDataStoragePolicyInfo = () => {
 	)
 }
 
-export default function StepFive() {
+export default function StepFive({ data, setData, form }) {
+	const onValuesChange = (changedValues) => {
+		const updatedData = { ...data, ...changedValues }
+		updatedData.hotel_number_room = parseInt(updatedData.hotel_number_room, 10)
+		updatedData.hotel_number_floor = parseInt(updatedData.hotel_number_floor, 10)
+		setData(updatedData)
+	}
+	const [selectData, setSelectData] = useState([])
+	const { personalDataStoragePolicy } = useSelector((state) => state.additionalsStore)
+	useEffect(() => {
+		loadDataForSelect()
+	}, [])
+	const loadDataForSelect = () => {
+		const temp = personalDataStoragePolicy.map((item) => ({
+			value: item.id_personal_data_storage_policy,
+			label: item.personal_data_storage_policy
+		}))
+		setSelectData(temp)
+	}
 	return (
 		<Card title='Шаг 5. Общие настройки отеля' style={{ width: '100%' }}>
-			<Form>
+			<Form form={form} initialValues={data} onValuesChange={onValuesChange}>
 				<Form.Item
-					label='Количество комнат'
-					name='hotel-number-room'
+					label='Количество номеров'
+					name='hotel_count_room'
 					rules={[{ required: true, message: 'Please input!' }]}
 				>
-					<Input placeholder='100' />
+					<InputNumber placeholder='100' style={{ width: '200px' }} />
 				</Form.Item>
 				<Form.Item
 					label='Количество этажей'
-					name='hotel-number-floor'
+					name='hotel_count_floor'
 					rules={[{ required: true, message: 'Please input!' }]}
 				>
-					<Input placeholder='5' />
+					<InputNumber placeholder='5' style={{ width: '200px' }} />
 				</Form.Item>
 				<Form.Item
 					label='Срок хранения персональных данных с даты выезда гостя'
 					name='id_personal_data_storage_policy'
 					rules={[{ required: true, message: 'Please input!' }]}
 				>
-					<Select />
+					<Select options={selectData} />
 				</Form.Item>
 				<Collapse
 					ghost

@@ -44,6 +44,7 @@ const StepThird = ({ dataBooking, onChangeStep, setOnCreateBooking }) => {
 
 	const onFinish = () => {
 		navigation('/frontdesk')
+		window.location.reload()
 		setOnCreateBooking(false)
 		setOpenSuccess(false)
 	}
@@ -95,11 +96,11 @@ const StepThird = ({ dataBooking, onChangeStep, setOnCreateBooking }) => {
 							<p>{dataBooking.number}</p>
 						</div>
 						<div className='desc-block d-f'>
-							<p>Номер комнаты:ㅤ</p>
+							<p>Номер номера:ㅤ</p>
 							<p>{dataBooking.id_room.room_number}</p>
 						</div>
 						<div className='desc-block d-f'>
-							<p>Тип комнаты:ㅤ</p>
+							<p>Тип номера:ㅤ</p>
 							<p>{dataBooking.room_type}</p>
 						</div>
 						<Divider></Divider>

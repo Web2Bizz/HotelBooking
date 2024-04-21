@@ -23,7 +23,10 @@ import {
 	statusGuestRoomGetSuccess,
 	statusRepairGet,
 	statusRepairGetError,
-	statusRepairGetSuccess
+	statusRepairGetSuccess,
+	personalDataStoragePolicyGet,
+	personalDataStoragePolicyGetError,
+	personalDataStoragePolicyGetSuccess
 } from '../reducers/additionalsReducer'
 
 export const getStatusAction = () => async (dispatch) => {
@@ -97,5 +100,15 @@ export const getStatusRepairAction = () => async (dispatch) => {
 		dispatch(statusRepairGetSuccess({ successLoad: 'Данные успешно загружены', data: response.data }))
 	} catch (e) {
 		dispatch(statusRepairGetError(e.response?.data.message))
+	}
+}
+
+export const getPersonalDataStoragePolicyAction = () => async (dispatch) => {
+	try {
+		dispatch(personalDataStoragePolicyGet())
+		let response = await AdditionalsService.getPersonalDataStoragePolicy()
+		dispatch(personalDataStoragePolicyGetSuccess({ successLoad: 'Данные успешно загружены', data: response.data }))
+	} catch (e) {
+		dispatch(personalDataStoragePolicyGetError(e.response?.data.message))
 	}
 }

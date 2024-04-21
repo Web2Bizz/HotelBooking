@@ -6,7 +6,7 @@ const DataCleanerListTask = () => {
 	const dataCleanerTasks = [
 		{
 			id: '231',
-			title: 'Уборка комнаты',
+			title: 'Уборка номера',
 			description: 'В комнате 431 пролили кофе, нужно прибраться.',
 			status: 'Не назначена',
 			color: 'red'

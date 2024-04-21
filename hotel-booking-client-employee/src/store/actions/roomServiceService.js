@@ -16,7 +16,7 @@ export const statusServiceRoomEditAction = (id_room, id_room_service_status) => 
 	try {
 		dispatch(statusServiceRoomEdit())
 		await RoomServiceService.editStatusServiceRoom(id_room, id_room_service_status)
-		dispatch(statusServiceRoomEditSuccess('Статус комнаты успешно изменен'))
+		dispatch(statusServiceRoomEditSuccess('Статус номера успешно изменен'))
 	} catch (e) {
 		dispatch(statusServiceRoomEditError(e.response?.data.message))
 	}

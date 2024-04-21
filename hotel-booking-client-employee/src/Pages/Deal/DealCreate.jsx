@@ -191,7 +191,7 @@ const DealCreate = (props) => {
 						<InputNumber
 							min={1000}
 							max={9999}
-							placeholder='Введите номер комнаты...'
+							placeholder='Введите номер акции...'
 							value={dataField.numberDealf}
 							onChange={(e) => setDataField({ ...dataField, numberDealf: e })}
 						/>
@@ -240,7 +240,7 @@ const DealCreate = (props) => {
 					</Card>
 				</Col>
 				<Col span={4.5}>
-					<Card title='Тип комнаты' bordered={true}>
+					<Card title='Тип номера' bordered={true}>
 						<Select
 							placeholder='Выберите тип...'
 							style={{ width: 220 }}

@@ -97,7 +97,7 @@ const FrontdeskCreate = (props) => {
 				<Loading />
 			) : (
 				<>
-					<h2>Оформление комнаты</h2>
+					<h2>Оформление клиента</h2>
 					{current === 0 && (
 						<Button
 							style={{ marginTop: '1vh' }}
@@ -113,7 +113,7 @@ const FrontdeskCreate = (props) => {
 						items={[
 							{
 								title: 'Шаг 1',
-								description: 'Поиск подходящей комнаты'
+								description: 'Поиск подходящего номера'
 							},
 							{
 								title: 'Шаг 2',

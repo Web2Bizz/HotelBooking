@@ -165,7 +165,7 @@ const StepOne = ({
 			} else {
 				messageApi.open({
 					type: 'error',
-					content: 'Проверьте доступность комнат'
+					content: 'Проверьте доступность номеров'
 				})
 			}
 		}
@@ -199,7 +199,7 @@ const StepOne = ({
 	// Table columns
 	const columns = [
 		{
-			title: '№ Комнаты',
+			title: '№ Номера',
 			dataIndex: 'number_room',
 			key: 'number_room',
 			filters: loadFilterNumberRoom(),
@@ -209,7 +209,7 @@ const StepOne = ({
 			render: (text) => <h3>{text}</h3>
 		},
 		{
-			title: 'Тип комнаты',
+			title: 'Тип номера',
 			dataIndex: 'room_type',
 			key: 'room_type',
 			filters: loadFilterTypeRoom(),

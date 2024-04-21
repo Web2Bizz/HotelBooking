@@ -60,6 +60,13 @@ class RoomService {
       [id_room_type, room_floor, numberRoom, targetKeys, id_room]
     );
   }
+
+  async editRoomStatus(id_room) {
+    await client.query(`
+    update public.room set id_status = '024e26c7-5e33-4f35-a88e-e6f5c9322e02' where id_room = $1
+    `, [id_room])
+  }
+
   async deleteRoom(id_room) {
     // await client.query(`delete from public.roomandfacility where id_room = $1`, [id_room]);
     await client.query(`delete from public.room where id_room = $1`, [id_room]);

@@ -81,7 +81,7 @@ const SelectRateModal = ({
 				</Button>
 			]}
 		>
-			<p>Пожалуйста выберите расценку для данной комнаты. С учетом скидки или без нее.</p>
+			<p>Пожалуйста выберите расценку для данного номера. С учетом скидки или без нее.</p>
 			<div style={{ maxHeight: '50vh', overflowY: 'scroll', marginTop: '2vh' }}>{rateMap}</div>
 		</Modal>
 	)
