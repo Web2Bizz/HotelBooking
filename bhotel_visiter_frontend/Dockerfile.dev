@@ -5,6 +5,6 @@ COPY . .
 
 RUN ["npm", "i"]
 
-EXPOSE 5001
+EXPOSE 5170
 
 ENTRYPOINT ["npm", "run", "dev"]

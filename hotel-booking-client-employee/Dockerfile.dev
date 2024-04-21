@@ -1,10 +1,10 @@
 FROM node as vite-app
 
-WORKDIR /app/client/admin
+WORKDIR /app
 COPY . .
 
 RUN ["npm", "i"]
 
-EXPOSE 5173
+EXPOSE 5002
 
 ENTRYPOINT ["npm", "run", "dev"]
