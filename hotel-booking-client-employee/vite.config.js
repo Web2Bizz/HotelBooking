@@ -3,12 +3,10 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
 	server: {
-    port: 3001,
-  },
+		host: '0.0.0.0'
+	},
 	plugins: [
 		react(),
-
-		// Workaround
 		{
 			name: 'load+transform-js-files-as-jsx',
 			async transform(code, id) {
@@ -16,18 +14,14 @@ export default defineConfig({
 					return null
 				}
 
-				// Use the exposed transform from vite, instead of directly
-				// transforming with esbuild
 				return transformWithEsbuild(code, id, {
 					loader: 'jsx',
-					jsx: 'automatic' // 👈 this is important
+					jsx: 'automatic'
 				})
 			}
 		}
-		// End workaround
 	],
 
-	// Workaround before renaming .js to .jsx
 	optimizeDeps: {
 		esbuildOptions: {
 			loader: {
@@ -35,5 +29,4 @@ export default defineConfig({
 			}
 		}
 	}
-	// End workaround
 })

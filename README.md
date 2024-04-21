@@ -1,5 +1,15 @@
 # Hotel Booking
 
+## Установка
+
+[Как установить 💾](https://github.com/da-b1rmuda/HotelBooking/INSTALLATION.md)
+
+## Полезные URI
+
+/ - фронтенд
+/pg/ - pgAdmin
+/api - api приложения
+
 ## Description
 
 Project description goes here
