@@ -1,21 +1,21 @@
+import bodyParser from 'body-parser'
+import cookieParser from 'cookie-parser'
+import cors from 'cors'
 import * as dotenv from 'dotenv'
 import express from 'express'
-import cors from 'cors'
-import cookieParser from 'cookie-parser'
-import bodyParser from 'body-parser'
 import errorMiddleware from './middleware/error.middleware.js'
-import roomRouter from './routes/room.routes.js'
 import additionalsRouter from './routes/additionals.routes.js'
-import dealRouter from './routes/deal.routes.js'
-import rateRouter from './routes/rate.routes.js'
-import userRouter from './routes/user.routes.js'
 import bookingRouter from './routes/booking.routes.js'
-import querysRouter from './routes/querys.routes.js'
-import roomServiceRouter from './routes/roomService.routes.js'
-import repairRoomRouter from './routes/roomRepair.routes.js'
+import dealRouter from './routes/deal.routes.js'
 import hotelSettingsRouter from './routes/hotelSettigs.routes.js'
+import querysRouter from './routes/querys.routes.js'
+import rateRouter from './routes/rate.routes.js'
+import roomRouter from './routes/room.routes.js'
+import repairRoomRouter from './routes/roomRepair.routes.js'
+import roomServiceRouter from './routes/roomService.routes.js'
+import userRouter from './routes/user.routes.js'
 
-dotenv.config()
+dotenv.config({ path: `.env.${process.env.NODE_ENV}` })
 const PORT = process.env.PORT || 8080
 
 const app = express()
