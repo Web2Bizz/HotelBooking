@@ -1,0 +1,152 @@
+version: '3.9'
+name: 'bhotel_employee'
+
+services:
+  gateway:
+    build:
+      context: hotel-booking-gateway
+      dockerfile: Dockerfile
+    ports:
+      - '9090:9090'
+    restart: always
+    volumes:
+      - './hotel-booking-gateway/nginx/nginx.conf:/etc/nginx/nginx.conf:ro'
+    depends_on:
+      - pgadmin
+      - app-admin
+    networks:
+      network:
+        ipv4_address: 27.51.1.22
+
+  postgres-admin:
+    image: postgres:latest
+    ports:
+      - '5432:5432'
+    restart: unless-stopped
+    volumes:
+      - postgres-data:/var/lib/postgresql/data/
+      - './hotel-booking-postgres/data-set:/docker-entrypoint-initdb.d'
+    environment:
+      - POSTGRES_DB=BHotel
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - MAX_LOGIN_ATTEMPTS=0
+    networks:
+      network:
+        ipv4_address: 27.51.1.4
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=pgadmin@pgadmin.org
+      - PGADMIN_DEFAULT_PASSWORD=password
+      - PGADMIN_LISTEN_PORT=4789
+      - PGADMIN_CONFIG_SERVER_MODE=False
+    restart: unless-stopped
+    depends_on:
+      - postgres-admin
+    ports:
+      - '5050:4789'
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+      - './hotel-booking-pgadmin/configs:/var/lib/pgadmin/storage/pgadmin_pgadmin.org:ro'
+    networks:
+      network:
+        ipv4_address: 27.51.1.5
+
+  app-admin:
+    build:
+      context: hotel-booking-client-employee
+      dockerfile: Dockerfile.dev
+    ports:
+      - '8000:5002'
+    restart: always
+    environment:
+      - VITE_API_URL=http://localhost:9090/api
+    depends_on:
+      - backend-admin
+    networks:
+      network:
+        ipv4_address: 27.51.1.64
+
+  backend-admin:
+    build:
+      context: hotel-booking-server
+      dockerfile: Dockerfile
+    ports:
+      - '8801:5001'
+    restart: always
+    environment:
+      - CLIENT_URL=http://0.0.0.0:5002
+      - POSTGRES_HOST=postgres-admin
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=BHotel
+    depends_on:
+      - postgres-admin
+    networks:
+      network:
+        ipv4_address: 27.51.1.54
+
+  app-console:
+    build:
+      context: bhotel_visiter_console
+      dockerfile: Dockerfile.dev
+    ports:
+      - '8802:5171'
+    restart: always
+    environment:
+      - VITE_APP_ADMIN_API=http://localhost:9090/api
+      - VITE_APP_TRPC_API=http://localhost:9090/api
+    depends_on:
+      - backend-admin
+    networks:
+      network:
+        ipv4_address: 27.51.2.77
+
+  app-client:
+    build:
+      context: bhotel_visiter_frontend
+      dockerfile: Dockerfile.dev
+    ports:
+      - '8803:5170'
+    restart: always
+    environment:
+      - VITE_APP_ADMIN_API=http://localhost:9090/api
+      - VITE_APP_TRPC_API=http://localhost:9090/api
+    depends_on:
+      - backend-admin
+    networks:
+      network:
+        ipv4_address: 27.51.2.90
+
+  postgres-client:
+    image: postgres:latest
+    ports:
+      - '5433:5432'
+    restart: unless-stopped
+    volumes:
+      - postgres-client-data:/var/lib/postgresql/data/
+      # - './hotel-booking-postgres/data-set:/docker-entrypoint-initdb.d'
+    environment:
+      # - POSTGRES_DB=BHotel
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - MAX_LOGIN_ATTEMPTS=0
+    networks:
+      network:
+        ipv4_address: 27.51.2.4
+
+volumes:
+  postgres-data:
+  postgres-client-data:
+  pgadmin:
+
+networks:
+  network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 27.51.0.0/16
+          gateway: 27.51.0.1
