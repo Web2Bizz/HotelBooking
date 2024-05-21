@@ -2,6 +2,7 @@ import * as dotenv from 'dotenv'
 import pg from 'pg'
 
 dotenv.config({ path: `.env.${process.env.NODE_ENV}` })
+
 const USERNAME = process.env.POSTGRES_USER
 const PASSWORD = process.env.POSTGRES_PASSWORD
 const HOST = process.env.POSTGRES_HOST
