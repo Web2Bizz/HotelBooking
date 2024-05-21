@@ -1,0 +1,29 @@
+.ReviewCard-container {
+	// width: 800px;
+	background-color: white;
+	padding: 25px;
+}
+
+.ReviewCard-header {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 22px;
+}
+
+.ReviewCard-header__user {
+	display: flex;
+
+	div {
+		display: flex;
+		align-items: center;
+	}
+
+	p {
+		margin-left: 15px;
+	}
+
+	span {
+		margin-left: 10px;
+		color: #b4a39a;
+	}
+}

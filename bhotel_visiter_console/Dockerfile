@@ -1,4 +1,4 @@
-FROM node as vite-app
+FROM node:21-alpine3.18 as vite-app
 
 WORKDIR /app
 COPY . .
@@ -8,6 +8,10 @@ RUN ["npm", "run", "build"]
 
 FROM nginx:alpine
 
+WORKDIR /
+
+RUN rm /etc/nginx/conf.d/default.conf
+
 WORKDIR /usr/share/nginx/
 
 RUN rm -rf html
@@ -15,9 +19,8 @@ RUN mkdir html
 
 WORKDIR /
 
-COPY ./nginx/nginx.conf /etc/nginx
 COPY --chmod=765 --from=vite-app ./app/dist /usr/share/nginx/html
 
-EXPOSE 7699
+EXPOSE 5501
 
 ENTRYPOINT ["nginx", "-g", "daemon off;"]

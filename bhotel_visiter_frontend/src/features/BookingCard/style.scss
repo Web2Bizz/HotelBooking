@@ -1,0 +1,51 @@
+.BookingCard-container {
+	background-color: #d9d9d9;
+	display: flex;
+	width: 845px;
+	border-radius: 15px;
+	// margin-bottom: 20px;
+}
+
+.BookingCard-img {
+	background-color: #a3a3a3;
+	width: 268px;
+	height: 268px;
+	border-radius: 15px;
+
+	img {
+		width: 268px;
+		height: 268px;
+	}
+}
+
+.BookingCard-content {
+	padding: 30px 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	flex: 1;
+}
+
+.BookingCard-text {
+	h1 {
+		font-size: 24px;
+	}
+
+	p:first-of-type {
+		margin: 15px 0;
+	}
+}
+
+.BookingCard-buttons {
+	display: flex;
+	justify-content: space-between;
+
+	.ant-btn {
+		height: 60px;
+		padding: 10px 70px;
+		font-size: 20px;
+		span {
+			margin: 0;
+		}
+	}
+}

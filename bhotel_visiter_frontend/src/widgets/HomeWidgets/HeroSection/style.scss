@@ -1,0 +1,29 @@
+.HeroSection-wrapper {
+  background-color: #a3a3a3;
+  height: 700px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.HeroSection-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  h1 {
+    font-size: 64px;
+  }
+
+  p {
+    margin-top: 32px;
+    margin-bottom: 105px;
+    font-size: 32px;
+  }
+
+  .ant-btn {
+    height: 70px;
+    padding: 20px 44px;
+  }
+}

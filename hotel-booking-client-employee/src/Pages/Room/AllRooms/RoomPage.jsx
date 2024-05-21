@@ -117,11 +117,19 @@ const Room = () => {
 		})
 		return tempFilter
 	}
-
+	const [role, setRole] = useState()
+	useEffect(() => {
+		const userInfo = localStorage.getItem('userInfo')
+		if (userInfo) {
+			const role = JSON.parse(userInfo).role
+			setRole(role)
+		} else {
+			console.log('В localStorage нет значения для userInfo')
+		}
+	}, [])
 	const [items, setItems] = useState([])
 	useEffect(() => {
-		const userData = JSON.parse(localStorage.getItem('userInfo'))
-		if (userData.role === 'admin') {
+		if (role === 'admin') {
 			setItems([
 				{
 					label: 'Редактировать',
@@ -131,6 +139,13 @@ const Room = () => {
 					label: 'Удалить',
 					key: 'delete'
 				},
+				{
+					label: 'Разблокировать',
+					key: 'unblocked'
+				}
+			])
+		} else {
+			setItems([
 				{
 					label: 'Разблокировать',
 					key: 'unblocked'
@@ -327,7 +342,7 @@ const Room = () => {
 								value={searchText}
 								onChange={(e) => setSearchText(e.target.value)}
 							/>
-							{items.length > 0 ? (
+							{role === 'admin' ? (
 								<Button
 									size='large'
 									type='primary'

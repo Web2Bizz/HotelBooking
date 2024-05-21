@@ -2,10 +2,11 @@ namespace NodeJS {
   interface ProcessEnv {
     PORT: number;
     HOST: string;
-    DB_NAME: string;
-    DB_HOST: string;
-    DB_PORT: number;
-    DB_USER: string;
-    DB_PASSWORD: string;
+    PG_DATABASE: string;
+    PG_ADDRESS: string;
+    PG_PORT: number;
+    PG_USER: string;
+    PG_PASSWORD: string;
+    ADMIN_API_HOSTNAME: string;
   }
 }

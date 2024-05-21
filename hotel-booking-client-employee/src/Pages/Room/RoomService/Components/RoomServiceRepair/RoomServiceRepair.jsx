@@ -8,9 +8,9 @@ import {
 	repairApplicationCreateAction,
 	repairApplicationEditAction
 } from '../../../../../store/actions/repairRoomAction'
-import dayjs from 'dayjs';
-import 'dayjs/locale/ru';
-dayjs.locale('ru');
+import dayjs from 'dayjs'
+import 'dayjs/locale/ru'
+dayjs.locale('ru')
 
 export default function RoomServiceRepair(props) {
 	const onBackButton = () => {
@@ -22,7 +22,14 @@ export default function RoomServiceRepair(props) {
 	const dispatch = useDispatch()
 	const { error } = useSelector((state) => state.repairRoomStore)
 
-	const formDataInitialValue = { id_room: props.selectedRoom, name_work: '', description_work: '', start_date: '', end_date: '', closeroom: false }
+	const formDataInitialValue = {
+		id_room: props.selectedRoom,
+		name_work: '',
+		description_work: '',
+		start_date: '',
+		end_date: '',
+		closeroom: false
+	}
 
 	const [formsData, setFormsData] = useState([])
 	const [formRefs, setFormRefs] = useState([React.createRef()])
@@ -32,10 +39,7 @@ export default function RoomServiceRepair(props) {
 	// const [formRefs, setFormRefs] = useState([]);
 
 	const handleAddForm = () => {
-		setFormsData([
-			...formsData,
-			formDataInitialValue
-		])
+		setFormsData([...formsData, formDataInitialValue])
 		setFormRefs([...formRefs, React.createRef()])
 	}
 
@@ -56,15 +60,15 @@ export default function RoomServiceRepair(props) {
 
 	useEffect(() => {
 		if (props.isEdit) {
-			let currentData = props.data.find(obj => obj.repairs[0].id_room === props.selectedRoom).repairs;
-			const convertedData = convertDataArray(currentData);
-			setFormsData(convertedData);
-			setFormRefs(convertedData.map(() => React.createRef())); // Создаем ссылки для каждой формы
+			let currentData = props.data.find((obj) => obj.repairs[0].id_room === props.selectedRoom).repairs
+			const convertedData = convertDataArray(currentData)
+			setFormsData(convertedData)
+			setFormRefs(convertedData.map(() => React.createRef())) // Создаем ссылки для каждой формы
 		} else {
-			setFormsData([formDataInitialValue]);
-			setFormRefs([React.createRef()]); // Создаем ссылку для первой формы
+			setFormsData([formDataInitialValue])
+			setFormRefs([React.createRef()]) // Создаем ссылку для первой формы
 		}
-	}, []);
+	}, [])
 
 	const handleDeleteForm = (index) => {
 		if (formsData.length === 1) {
@@ -96,26 +100,29 @@ export default function RoomServiceRepair(props) {
 		console.log(value, dayjs(today))
 		return value && value.startOf('day') >= dayjs(today).startOf('day')
 			? Promise.resolve()
-			: Promise.reject('Дата начала должна быть не раньше сегодняшней даты');
+			: Promise.reject('Дата начала должна быть не раньше сегодняшней даты')
 	}
 
 	const validateEndDate = (_, value, formData) => {
-		const today = new Date();
+		const today = new Date()
 		// Если value (дата окончания) не установлена или равна null, это считается корректным, так как это означает, что поле не заполнено
 		if (!value) {
 			console.log(1)
-			return Promise.resolve('Ошибочка');
+			return Promise.resolve('Ошибочка')
 		}
 
 		// Если дата окончания меньше сегодняшней или меньше даты начала, возвращаем ошибку
-		if (dayjs(today) < value || (formData.start_date && value < getConvertedDate(formData.start_date))) {
+		if (
+			dayjs(today).startOf('day') > dayjs(value).startOf('day') ||
+			(formData.start_date && value < getConvertedDate(formData.start_date))
+		) {
 			console.log(2)
-			return Promise.reject('Дата окончания должна быть больше или равна сегодняшней дате и дате начала');
+			return Promise.reject('Дата окончания должна быть больше или равна сегодняшней дате и дате начала')
 		}
 
 		// Иначе возвращаем успешное разрешение
 		console.log(3)
-		return Promise.resolve();
+		return Promise.resolve()
 	}
 
 	const handleSubmit = () => {
@@ -123,11 +130,11 @@ export default function RoomServiceRepair(props) {
 		const formValidationPromises = formRefs.map((formRef) => formRef.current.validateFields())
 		Promise.all(formValidationPromises)
 			.then(() => {
-				if(props.isEdit){
+				if (props.isEdit) {
 					dispatch(repairApplicationEditAction(formsData))
 					props.setIsEdit(false)
 				}
-				if(props.isRepair){
+				if (props.isRepair) {
 					dispatch(repairApplicationCreateAction(formsData))
 					props.setIsRepair(false)
 				}
@@ -139,8 +146,8 @@ export default function RoomServiceRepair(props) {
 
 	const getConvertedDate = (dateString) => {
 		if (!(typeof dateString === 'string' || dateString instanceof String)) return dateString
-		const [day, month, year] = dateString.split('.').map(Number);
-		const date = new Date(year, month - 1, day);
+		const [day, month, year] = dateString.split('.').map(Number)
+		const date = new Date(year, month - 1, day)
 		return dayjs(date)
 	}
 
@@ -153,11 +160,10 @@ export default function RoomServiceRepair(props) {
 			</Button>
 			<Card style={{ marginTop: '1vh', marginBottom: '1vh' }}>
 				<p>Список плановых ремонтов</p>
-				<Checkbox onChange={(e) => handleChange(0, 'closeroom', e)} >Заблокировать номер на период ремонта?</Checkbox>
+				<Checkbox onChange={(e) => handleChange(0, 'closeroom', e)}>Заблокировать номер на период ремонта?</Checkbox>
 
 				<Divider />
 				{formsData.map((formData, idx) => (
-
 					<Form
 						key={idx}
 						variant='filled'
@@ -191,19 +197,18 @@ export default function RoomServiceRepair(props) {
 							/>
 						</Form.Item>
 						<Form.Item
-							label='Недоступен для заселения с'
+							label='Начало ремонта:'
 							name='start_date'
 							rules={[{ required: true, message: 'Пожалуйста введите дату начала' }, { validator: validateStartDate }]}
 						>
 							<DatePicker
-
 								defaultValue={formsData[idx].start_date ? getConvertedDate(formsData[idx].start_date) : null}
 								onChange={(date) => handleChange(idx, 'start_date', date)}
 								needConfirm={false}
 							/>
 						</Form.Item>
 						<Form.Item
-							label='Недоступен для заселения по'
+							label='Конец ремонта:'
 							name='end_date'
 							rules={[
 								{ required: true, message: 'Пожалуйста введите дату окончания' },

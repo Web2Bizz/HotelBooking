@@ -13,7 +13,8 @@ import {
 	MenuUnfoldOutlined,
 	MenuFoldOutlined,
 	LogoutOutlined,
-	SettingOutlined
+	SettingOutlined,
+	UserOutlined
 } from '@ant-design/icons'
 import { Layout, Menu, theme, Button, message, Avatar, Dropdown, Divider } from 'antd'
 import { ContextBooking } from '../context/booking.context'
@@ -55,6 +56,17 @@ export default function LayoutApp({ children }) {
 	const dispatch = useDispatch()
 	const [user, setUser] = useState({})
 	const [hotel, setHotel] = useState({})
+
+	const [role, setRole] = useState()
+	useEffect(() => {
+		const userInfo = localStorage.getItem('userInfo')
+		if (userInfo) {
+			const role = JSON.parse(userInfo).role
+			setRole(role)
+		} else {
+			console.log('В localStorage нет значения для userInfo')
+		}
+	}, [])
 
 	useEffect(() => {
 		dispatch(checkPersonalDataStoragePolicyAction())
@@ -171,9 +183,10 @@ export default function LayoutApp({ children }) {
 			getItem('Обслуживание', 'serviceRoom'),
 			getItem('Ремонт номеров', 'repairRoom')
 		]),
-		// getItem('Услуги', 'services', <FileDoneOutlined />),
 		getItem('Акции', 'deal', <FireOutlined />),
-		getItem('Расценки', 'rate', <DollarOutlined />)
+		getItem('Расценки', 'rate', <DollarOutlined />),
+		getItem('Пользователи', 'users', <UserOutlined />)
+		// getItem('Услуги', 'services', <FileDoneOutlined />),
 		// getItem('Сотрудники', 'employee', <TeamOutlined />, [
 		// 	getItem('Все', 'allEmployee'),
 		// 	getItem('График', 'sсheduleEmployee'),
@@ -181,6 +194,31 @@ export default function LayoutApp({ children }) {
 		// ])
 		// getItem('Дополнительно', 'advanced', <ControlOutlined />),
 	]
+
+	const filteredItems = items.filter((item) => {
+		switch (item.key) {
+			case 'overview':
+				return true // Разрешить всегда
+			case 'statisticAndReports':
+				return role === 'admin' // Разрешить только для администратора
+			case 'setting-hotel':
+				return role === 'admin' // Разрешить для администратора и менеджера
+			case 'frontdesk':
+				return role === 'admin' || role === 'manager' // Разрешить для администратора и менеджера
+			case 'guest':
+				return role === 'admin' || role === 'manager' // Разрешить для администратора и менеджера
+			case 'room':
+				return role === 'admin' || role === 'manager' // Разрешить для администратора и менеджера
+			case 'deal':
+				return role === 'admin' || role === 'manager' // Разрешить только для администратора
+			case 'rate':
+				return role === 'admin' || role === 'manager' // Разрешить только для администратора
+			case 'users':
+				return role === 'admin' // Разрешить только для администратора
+			default:
+				return true
+		}
+	})
 
 	//
 	// Menu item click
@@ -233,7 +271,7 @@ export default function LayoutApp({ children }) {
 						onClick={onMenuItemClick}
 						defaultSelectedKeys={['overview']}
 						mode='inline'
-						items={items}
+						items={filteredItems}
 						theme={themeMenu}
 					/>
 				</Sider>
