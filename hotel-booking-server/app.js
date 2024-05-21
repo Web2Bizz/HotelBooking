@@ -15,8 +15,7 @@ import repairRoomRouter from './routes/roomRepair.routes.js'
 import roomServiceRouter from './routes/roomService.routes.js'
 import userRouter from './routes/user.routes.js'
 
-
-dotenv.config({path: __dirname + `.env.${process.env.NODE_ENV}`})
+dotenv.config({ path: `.env.${process.env.NODE_ENV}` })
 const PORT = process.env.PORT || 8080
 
 const app = express()
