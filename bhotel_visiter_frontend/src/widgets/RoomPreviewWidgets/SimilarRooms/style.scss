@@ -1,0 +1,25 @@
+.SimilarRooms-container {
+	h1 {
+		margin-top: 65px;
+		margin-bottom: 25px;
+		font-size: 40px;
+	}
+	display: flex;
+	flex-direction: column;
+}
+
+.SimilarRooms-rooms {
+	// display: flex;
+	// flex-wrap: wrap;
+	// justify-content: space-between;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 10px;
+}
+
+.SimilarRooms-rooms-item {
+	width: 100%;
+	// flex: 0 0 45%;
+	height: 360px;
+	// margin-bottom: 20px;
+}

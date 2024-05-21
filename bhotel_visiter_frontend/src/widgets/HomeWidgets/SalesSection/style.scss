@@ -1,0 +1,24 @@
+.SalesSection-container {
+}
+
+.SalesSection-carouselContent {
+  height: 450px;
+  padding: 62px 52px;
+  background-color: #a3a3a3;
+}
+
+.SalesSection-example {
+  p,
+  span {
+    font-size: 48px;
+  }
+
+  span {
+    font-weight: bold;
+  }
+
+  p:last-of-type {
+    margin-top: 50px;
+    font-size: 24px;
+  }
+}

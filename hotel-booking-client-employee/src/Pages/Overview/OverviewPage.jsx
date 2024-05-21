@@ -1,13 +1,24 @@
+import { Button, Card, Tag } from 'antd'
 import dayjs from 'dayjs'
-import React, { useEffect, useState } from 'react'
-import { Card, Tag } from 'antd'
-import { getFullDate, numberWithSpaces, profitThenLastMonth } from '../../services/functionService'
-import './OverviewPage.scss'
 import ReactECharts from 'echarts-for-react'
-import { optionVisitors, optionActivityGuest, optionAvailableRooms } from './optionsCharts'
+import React, { useEffect, useState } from 'react'
+import { getFullDate, numberWithSpaces, profitThenLastMonth } from '../../services/functionService'
 import QuerysService from '../../services/querysService'
+import './OverviewPage.scss'
+import { optionActivityGuest, optionAvailableRooms, optionVisitors } from './optionsCharts'
 
 const OverviewPage = () => {
+	const [role, setRole] = useState()
+	useEffect(() => {
+		const userInfo = localStorage.getItem('userInfo')
+		if (userInfo) {
+			const role = JSON.parse(userInfo).role
+			setRole(role)
+		} else {
+			console.log('В localStorage нет значения для userInfo')
+		}
+	}, [])
+
 	// #region Вспомогательные переменные
 	const [data, setData] = useState({
 		revenuePerMonth: [],
@@ -46,72 +57,76 @@ const OverviewPage = () => {
 					<p style={{ fontSize: '2vh', paddingBottom: '3vh' }}>{getFullDate(dayjs())}</p>
 				</div>
 				<div className='overview-card__text'>
-					<Card style={{ marginBottom: '3vh' }}>
-						<p>Обзор</p>
-						<div className='d-f overview-card__overview'>
-							<div className='d-f'>
-								<div className='d-f' style={{ marginRight: '11vh' }}>
-									<div className='d-f ai-c'>
-										<img src='image/1.png' alt='img' style={{ width: '8vh', height: '8vh' }} />
-									</div>
-									<div className='overview-card__overview__text d-f fd-c jc-c' style={{ paddingLeft: '2vh' }}>
-										<p>₽{numberWithSpaces(data.revenuePerMonth?.current_month)}</p>
-										<p>Выручка за месяц</p>
-									</div>
-								</div>
+					{role === 'admin' ? (
+						<Card style={{ marginBottom: '3vh' }}>
+							<p>Обзор</p>
+							<div className='d-f overview-card__overview'>
 								<div className='d-f'>
-									<div>
-										<img
-											src={
-												profitThenLastMonth(data.revenuePerMonth?.current_month, data.revenuePerMonth?.last_month) >= 0
-													? 'image/plus.png'
-													: 'image/minus.png'
-											}
-											alt='img'
-											style={{ width: '20vh' }}
-										/>
+									<div className='d-f' style={{ marginRight: '11vh' }}>
+										<div className='d-f ai-c'>
+											<img src='image/1.png' alt='img' style={{ width: '8vh', height: '8vh' }} />
+										</div>
+										<div className='overview-card__overview__text d-f fd-c jc-c' style={{ paddingLeft: '2vh' }}>
+											<p>₽{numberWithSpaces(data.revenuePerMonth?.current_month)}</p>
+											<p>Выручка за месяц</p>
+										</div>
 									</div>
-									<div
-										className='overview-card__overview__text d-f fd-c jc-c'
-										style={{ paddingLeft: '2vh', width: '18vh' }}
-									>
-										<p
-											className={
-												profitThenLastMonth(data.revenuePerMonth?.current_month, data.revenuePerMonth?.last_month) >= 0
-													? 'plusRevenue'
-													: 'negativeRevenue'
-											}
+									<div className='d-f'>
+										<div>
+											<img
+												src={
+													profitThenLastMonth(data.revenuePerMonth?.current_month, data.revenuePerMonth?.last_month) >=
+													0
+														? 'image/plus.png'
+														: 'image/minus.png'
+												}
+												alt='img'
+												style={{ width: '20vh' }}
+											/>
+										</div>
+										<div
+											className='overview-card__overview__text d-f fd-c jc-c'
+											style={{ paddingLeft: '2vh', width: '18vh' }}
 										>
-											{profitThenLastMonth(data.revenuePerMonth?.current_month, data.revenuePerMonth?.last_month)}%
-										</p>
-										<p>
-											Месячный темп <br /> роста
-										</p>
+											<p
+												className={
+													profitThenLastMonth(data.revenuePerMonth?.current_month, data.revenuePerMonth?.last_month) >=
+													0
+														? 'plusRevenue'
+														: 'negativeRevenue'
+												}
+											>
+												{profitThenLastMonth(data.revenuePerMonth?.current_month, data.revenuePerMonth?.last_month)}%
+											</p>
+											<p>
+												Месячный темп <br /> роста
+											</p>
+										</div>
+									</div>
+								</div>
+								<div className='d-f jc-sb overview-card__overview__block' style={{ width: '100%', marginLeft: '6vh' }}>
+									<div className='d-f jc-sb ai-c' style={{ backgroundColor: '#3B92FF', padding: '2vh' }}>
+										<div className='overview-card__overview__block__text' style={{ width: '100%', paddingLeft: '2vh' }}>
+											<p>{data.visitorsInThreeMonths?.count_guests}</p>
+											<p>Новых гостей</p>
+										</div>
+										<div>
+											<img src='image/2.png' alt='img' style={{ width: '8vh', height: '8vh' }} />
+										</div>
+									</div>
+									<div className='d-f jc-sb ai-c' style={{ backgroundColor: '#5571C9', padding: '2vh' }}>
+										<div className='overview-card__overview__block__text' style={{ width: '100%', paddingLeft: '2vh' }}>
+											<p>{data.roomInformation?.all_rooms}</p>
+											<p>Номеров</p>
+										</div>
+										<div>
+											<img src='image/3.png' alt='img' style={{ width: '8vh', height: '8vh' }} />
+										</div>
 									</div>
 								</div>
 							</div>
-							<div className='d-f jc-sb overview-card__overview__block' style={{ width: '100%', marginLeft: '6vh' }}>
-								<div className='d-f jc-sb ai-c' style={{ backgroundColor: '#3B92FF', padding: '2vh' }}>
-									<div className='overview-card__overview__block__text' style={{ width: '100%', paddingLeft: '2vh' }}>
-										<p>{data.visitorsInThreeMonths?.count_guests}</p>
-										<p>Новых гостей</p>
-									</div>
-									<div>
-										<img src='image/2.png' alt='img' style={{ width: '8vh', height: '8vh' }} />
-									</div>
-								</div>
-								<div className='d-f jc-sb ai-c' style={{ backgroundColor: '#5571C9', padding: '2vh' }}>
-									<div className='overview-card__overview__block__text' style={{ width: '100%', paddingLeft: '2vh' }}>
-										<p>{data.roomInformation?.all_rooms}</p>
-										<p>Номеров</p>
-									</div>
-									<div>
-										<img src='image/3.png' alt='img' style={{ width: '8vh', height: '8vh' }} />
-									</div>
-								</div>
-							</div>
-						</div>
-					</Card>
+						</Card>
+					) : null}
 					<div className='d-f overview-card__room__container'>
 						<Card style={{ width: '60%' }}>
 							<div className='overview-card__room'>
@@ -203,6 +218,18 @@ const OverviewPage = () => {
 						</Card>
 					</div>
 				</div>
+			</div>
+			<div style={{ display: 'flex', justifyContent: 'space-between' }}>
+				<Button>
+					<a href='/docs/operator.pdf' target='_blank'>
+						Руководство оператора
+					</a>
+				</Button>
+				<Button>
+					<a href='/docs/programmer.pdf' target='_blank'>
+						Руководство программиста
+					</a>
+				</Button>
 			</div>
 		</>
 	)

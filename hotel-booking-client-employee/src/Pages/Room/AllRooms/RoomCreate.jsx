@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useLayoutEffect } from 'react'
 import { ArrowLeftOutlined } from '@ant-design/icons'
 import { Button, Card, Col, Row, Select, Transfer, message, InputNumber, Collapse } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import { resetMessagesAction, roomCreateAction, roomEditAction, roomGetAction } from '../../../store/actions/roomAction'
+import { hotelPropertiesGetAction } from '../../../store/actions/hotelSettingsAction'
 
 import './Room.scss'
 import Loading from '../../../components/Loading/Loading'
@@ -10,6 +11,11 @@ import Loading from '../../../components/Loading/Loading'
 const RoomCreate = (props) => {
 	//Notification
 	const [messageApi, contextHolder] = message.useMessage()
+
+	const { hotelProperties } = useSelector((state) => state.hotelSettingsStore)
+	useLayoutEffect(() => {
+		dispatch(hotelPropertiesGetAction())
+	}, [])
 
 	//Transfer
 	const [mockData, setMockData] = useState([])
@@ -24,7 +30,7 @@ const RoomCreate = (props) => {
 
 	//Data
 	//Количество этажей
-	const [floorCount, setFloorCount] = useState(5)
+	const [floorCount, setFloorCount] = useState(hotelProperties[0].hotel_count_floor)
 	//Вспомогательная переменная для типов номеров
 	const [typeRoomIndex, setTypeRoomIndex] = useState(10)
 

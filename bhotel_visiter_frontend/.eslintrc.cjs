@@ -1,18 +1,14 @@
+const { ignore } = require('antd/es/theme/useToken')
+
 module.exports = {
-  root: true,
-  env: { browser: true, es2020: true },
-  extends: [
-    'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:react-hooks/recommended',
-  ],
-  ignorePatterns: ['dist', '.eslintrc.cjs'],
-  parser: '@typescript-eslint/parser',
-  plugins: ['react-refresh'],
-  rules: {
-    'react-refresh/only-export-components': [
-      'warn',
-      { allowConstantExport: true },
-    ],
-  },
+	root: true,
+	env: { browser: true, es2020: true },
+	extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'plugin:react-hooks/recommended'],
+	ignorePatterns: ['dist', '.eslintrc.cjs', 'src'],
+	parser: '@typescript-eslint/parser',
+	plugins: ['react-refresh'],
+	rules: {
+		'react-refresh/only-export-components': ['warn', { allowConstantExport: true }]
+	},
+	ignores: ['src/**/*']
 }

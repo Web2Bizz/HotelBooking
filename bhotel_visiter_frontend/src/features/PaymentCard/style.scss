@@ -1,0 +1,26 @@
+.PaymentCard-container {
+  background-color: #d9d9d9;
+  padding: 17px 15px;
+  width: 560px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+
+  p {
+    font-size: 24px;
+  }
+}
+
+.PaymentCard-img {
+  width: 69px;
+  height: 46px;
+  background-color: #a3a3a3;
+  border-radius: 5px;
+  margin-right: 25px;
+
+  img {
+    width: 69px;
+    height: 46px;
+  }
+}

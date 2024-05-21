@@ -1,0 +1,32 @@
+.RoomsImg-container {
+  max-width: 850px;
+  overflow-x: hidden;
+  margin-top: 16px;
+}
+
+.RoomsImg-mainImg {
+  img {
+    border-radius: 15px;
+    width: 850px;
+    height: 730px;
+    aspect-ratio: 1;
+  }
+}
+
+.RoomsImg-miniImg {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  img {
+    width: 190px !important;
+    border-radius: 15px;
+    margin-top: 5px;
+  }
+
+  .ant-btn {
+    border: none;
+    box-shadow: none;
+    background-color: #f8f8f8;
+    padding: 0;
+  }
+}

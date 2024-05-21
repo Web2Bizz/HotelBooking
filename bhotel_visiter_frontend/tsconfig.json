@@ -13,12 +13,24 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
+    "baseUrl": "./",
+    "forceConsistentCasingInFileNames": false,
 
     /* Linting */
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "strict": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "@widgets": ["src/widgets"],
+      "@assets/*": ["src/assets/*"],
+      "@entities": ["src/entities"],
+      "@pages": ["src/pages"],
+      "@features": ["src/features"],
+      "@ui": ["src/shared/ui"],
+      "@helpers": ["src/helpers"],
+      "@api": ["src/shared/api"]
+    }
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]

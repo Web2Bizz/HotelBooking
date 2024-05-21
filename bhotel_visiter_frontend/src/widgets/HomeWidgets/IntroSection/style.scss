@@ -1,0 +1,32 @@
+.IntroSection-container {
+	display: flex;
+}
+
+.IntroSection-img {
+	height: 675px;
+	width: 555px;
+	border-radius: 15px;
+	background-color: #a3a3a3;
+}
+
+.IntroSection-text {
+	padding: 10px 20px;
+	width: 50%;
+
+	h1 {
+		width: 380px;
+		font-size: 36px;
+		font-weight: 700;
+		margin-bottom: 65px;
+	}
+
+	div {
+		display: flex;
+		flex-direction: column;
+		gap: 40px;
+	}
+
+	p {
+		text-align: justify;
+	}
+}

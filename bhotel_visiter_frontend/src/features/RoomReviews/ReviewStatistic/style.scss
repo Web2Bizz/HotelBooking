@@ -1,0 +1,34 @@
+.ReviewStatistic-container {
+  width: 560px;
+  padding: 25px;
+  background-color: white;
+  margin-left: 20px;
+}
+
+.ReviewStatistic-rating-row {
+  display: flex;
+  margin-bottom: 15px;
+  justify-content: space-between;
+}
+
+.ReviewStatistic-rating-row-rate {
+  display: flex;
+
+  span {
+    width: 40px;
+    margin-left: 20px;
+  }
+
+  .ant-progress-bg {
+    background-color: #a3a3a3;
+  }
+  .ant-progress-bg::after {
+    background-color: #a3a3a3;
+  }
+}
+
+.ReviewStatistic-statistic {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
