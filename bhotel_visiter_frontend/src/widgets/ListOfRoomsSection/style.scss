@@ -1,0 +1,53 @@
+.ListOfRoomsSection-container {
+	display: flex;
+	justify-content: space-between;
+	flex-direction: row;
+	align-items: flex-start;
+
+	.ant-btn {
+		width: 250px;
+		height: 70px;
+		padding: 20px 10px;
+		// margin-bottom: 40px;
+		margin-top: 10px;
+	}
+}
+
+.ListOfRoomsSection-collapse {
+	width: 250px;
+	// margin-right: 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.ListOfRoomsSection-rooms-container {
+	display: flex;
+	flex-direction: column;
+}
+
+.ListOfRoomsSection-rooms {
+	// display: flex;
+	// flex-wrap: wrap;
+	// gap: 10px;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 10px;
+}
+
+.ListOfRoomsSection-rooms-item {
+	flex: 0 0 50%;
+	max-width: 540px;
+	height: 360px;
+	// margin: 10px;
+
+	// &:nth-child(odd) {
+	//   margin-right: 30px;
+	// }
+}
+
+.ListOfRoomsSection-pagination {
+	display: flex;
+	justify-content: center;
+	margin-top: 10px;
+}

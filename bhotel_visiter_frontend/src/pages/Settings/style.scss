@@ -1,0 +1,36 @@
+.Settings-container {
+  display: flex;
+
+  .ant-input {
+    font-size: 20px;
+  }
+
+  .ant-input-password {
+    font-size: 20px;
+  }
+
+  .ant-form-item-label label {
+    font-size: 20px;
+  }
+
+  .ant-picker input {
+    font-size: 20px;
+  }
+
+  .ant-btn {
+    height: 47px;
+    margin-bottom: 45px;
+  }
+}
+
+.Settings-form {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.Settings-info {
+  p {
+    margin-bottom: 50px;
+  }
+}

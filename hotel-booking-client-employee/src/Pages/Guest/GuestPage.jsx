@@ -72,6 +72,17 @@ const GuestPage = () => {
 	//serach
 	const [searchText, setSearchText] = useState('')
 
+	const [role, setRole] = useState()
+	useEffect(() => {
+		const userInfo = localStorage.getItem('userInfo')
+		if (userInfo) {
+			const role = JSON.parse(userInfo).role
+			setRole(role)
+		} else {
+			console.log('В localStorage нет значения для userInfo')
+		}
+	}, [])
+
 	//
 	// Notification
 	//
@@ -129,8 +140,7 @@ const GuestPage = () => {
 	const [selectedRow, setSelectedRow] = useState()
 	const [items, setItems] = useState([])
 	useEffect(() => {
-		const userData = JSON.parse(localStorage.getItem('userInfo'))
-		if (userData.role === 'admin') {
+		if (role === 'admin') {
 			setItems([
 				{
 					label: 'Отметить выезд',
@@ -139,6 +149,13 @@ const GuestPage = () => {
 				{
 					label: 'Удалить',
 					key: 'delete'
+				}
+			])
+		} else {
+			setItems([
+				{
+					label: 'Отметить выезд',
+					key: 'departure'
 				}
 			])
 		}

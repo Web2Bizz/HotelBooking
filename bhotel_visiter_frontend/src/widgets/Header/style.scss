@@ -1,0 +1,55 @@
+.Header-wrapper {
+  height: 100px;
+  background-color: #d9d9d9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Header-container {
+  display: flex;
+  align-items: center;
+}
+
+.Header-logo {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-right: 94px;
+
+  font-size: 24px;
+}
+
+.Header-search {
+  margin-right: 20px;
+  .ant-input,
+  span {
+    padding: 15px 23px;
+    font-size: 20px !important;
+  }
+}
+
+.Header-booking_button {
+  margin-right: 100px;
+
+  .ant-btn {
+    height: 60px;
+    font-size: 20px !important;
+    padding: 15px 23px;
+  }
+}
+
+.Header-user_profile {
+  display: flex;
+
+  .Header-user_profile__name {
+    margin-right: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: center;
+    span {
+      color: #838383;
+    }
+  }
+}
