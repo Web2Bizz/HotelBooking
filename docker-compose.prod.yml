@@ -12,44 +12,41 @@ services:
     volumes:
       - './hotel-booking-gateway/nginx/nginx.conf:/etc/nginx/nginx.conf:ro'
     depends_on:
-      - pgadmin
       - app-admin
     networks:
       network:
         ipv4_address: 27.51.1.22
 
-  postgres-admin:
+  postgres-hotel:
     image: postgres:latest
     ports:
-      - '5432:5432'
+      - '5439:5432'
     restart: unless-stopped
     volumes:
-      - postgres-data:/var/lib/postgresql/data/
-      - './hotel-booking-postgres/data-set:/docker-entrypoint-initdb.d'
+      - postgres-data-hotel:/var/lib/postgresql/data/
+      - './postgres/data-set/hotel:/docker-entrypoint-initdb.d'
     environment:
-      - POSTGRES_DB=BHotel
+      - POSTGRES_DB=booking_hotel
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=password
+      - POSTGRES_PASSWORD=fuckin_password
       - MAX_LOGIN_ATTEMPTS=0
     networks:
       network:
         ipv4_address: 27.51.1.4
 
-  pgadmin:
-    image: dpage/pgadmin4
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=pgadmin@pgadmin.org
-      - PGADMIN_DEFAULT_PASSWORD=password
-      - PGADMIN_LISTEN_PORT=4789
-      - PGADMIN_CONFIG_SERVER_MODE=False
-    restart: unless-stopped
-    depends_on:
-      - postgres-admin
+  postgres-client:
+    image: postgres:latest
     ports:
-      - '5050:4789'
+      - '5440:5432'
+    restart: unless-stopped
     volumes:
-      - pgadmin:/var/lib/pgadmin
-      - './hotel-booking-pgadmin/configs:/var/lib/pgadmin/storage/pgadmin_pgadmin.org:ro'
+      - postgres-data-client:/var/lib/postgresql/data/
+      - './postgres/data-set/client:/docker-entrypoint-initdb.d'
+    environment:
+      - POSTGRES_DB=booking_client
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=fuckin_password
+      - MAX_LOGIN_ATTEMPTS=0
     networks:
       network:
         ipv4_address: 27.51.1.5
@@ -57,9 +54,9 @@ services:
   app-admin:
     build:
       context: hotel-booking-client-employee
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
     ports:
-      - '8000:5002'
+      - '8000:7699'
     restart: always
     environment:
       - VITE_API_URL=http://localhost:9090/api
@@ -78,13 +75,13 @@ services:
     restart: always
     environment:
       - CLIENT_URL=http://0.0.0.0:5002
-      - POSTGRES_HOST=postgres-admin
+      - POSTGRES_HOST=postgres
       - POSTGRES_PORT=5432
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=password
-      - POSTGRES_DB=BHotel
+      - POSTGRES_PASSWORD=fuckin_password
+      - POSTGRES_DB=booking_hotel
     depends_on:
-      - postgres-admin
+      - postgres-hotel
     networks:
       network:
         ipv4_address: 27.51.1.54
@@ -94,8 +91,10 @@ services:
       context: bhotel_visiter_console
       dockerfile: Dockerfile.dev
     ports:
-      - '8802:5171'
+      - '8802:5501'
     restart: always
+    volumes:
+      - './packages/:/app/packages'
     environment:
       - VITE_APP_ADMIN_API=http://localhost:9090/api
       - VITE_APP_TRPC_API=http://localhost:9090/api
@@ -121,27 +120,9 @@ services:
       network:
         ipv4_address: 27.51.2.90
 
-  postgres-client:
-    image: postgres:latest
-    ports:
-      - '5433:5432'
-    restart: unless-stopped
-    volumes:
-      - postgres-client-data:/var/lib/postgresql/data/
-      # - './hotel-booking-postgres/data-set:/docker-entrypoint-initdb.d'
-    environment:
-      # - POSTGRES_DB=BHotel
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=password
-      - MAX_LOGIN_ATTEMPTS=0
-    networks:
-      network:
-        ipv4_address: 27.51.2.4
-
 volumes:
-  postgres-data:
-  postgres-client-data:
-  pgadmin:
+  postgres-data-hotel:
+  postgres-data-client:
 
 networks:
   network:

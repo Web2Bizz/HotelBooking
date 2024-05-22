@@ -4,6 +4,10 @@ import path from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+	server: {
+		port: 5501,
+		host: '0.0.0.0'
+	},
 	resolve: {
 		alias: {
 			'@assets': path.resolve(__dirname, './src/assets'),

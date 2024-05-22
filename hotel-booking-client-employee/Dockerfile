@@ -18,6 +18,6 @@ WORKDIR /
 COPY ./nginx/nginx.conf /etc/nginx
 COPY --chmod=765 --from=vite-app ./app/dist /usr/share/nginx/html
 
-EXPOSE 7699
+EXPOSE 5503
 
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
