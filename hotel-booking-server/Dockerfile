@@ -1,4 +1,4 @@
-FROM node as vite-app
+FROM node
 
 WORKDIR /app
 COPY . .
@@ -7,4 +7,4 @@ RUN ["npm", "i"]
 
 EXPOSE 5001
 
-ENTRYPOINT ["npm", "run", "dev"]
+ENTRYPOINT ["npm", "run", "prod"]
