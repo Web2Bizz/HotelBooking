@@ -59,7 +59,7 @@ services:
       - '8000:7699'
     restart: always
     environment:
-      - VITE_API_URL=http://localhost:9090/api
+      - VITE_API_URL=http://87.242.117.193:9090/api
     depends_on:
       - backend-admin
     networks:
@@ -97,8 +97,8 @@ services:
   #   volumes:
   #     - './packages/:/app/packages'
   #   environment:
-  #     - VITE_APP_ADMIN_API=http://localhost:9090/api
-  #     - VITE_APP_TRPC_API=http://localhost:9090/api
+  #     - VITE_APP_ADMIN_API=http://87.242.117.193:9090/api
+  #     - VITE_APP_TRPC_API=http://87.242.117.193:9090/api
   #   depends_on:
   #     - backend-admin
   #   networks:
@@ -113,8 +113,8 @@ services:
   #     - '8803:5170'
   #   restart: always
   #   environment:
-  #     - VITE_APP_ADMIN_API=http://localhost:9090/api
-  #     - VITE_APP_TRPC_API=http://localhost:9090/api
+  #     - VITE_APP_ADMIN_API=http://87.242.117.193:9090/api
+  #     - VITE_APP_TRPC_API=http://87.242.117.193:9090/api
   #   depends_on:
   #     - backend-admin
   #   networks:
