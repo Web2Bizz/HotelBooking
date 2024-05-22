@@ -60,7 +60,10 @@ app.use(errorMiddleware)
 
 const start = () => {
 	try {
-		app.listen(PORT, () => console.log(`server started on port ${PORT}`))
+		app.listen(PORT, () => {
+			console.log(`server started at ${process.env.NODE_ENV} mode`)
+			console.log(`server started on port ${PORT}`)
+		})
 	} catch (e) {
 		console.log(e)
 	}

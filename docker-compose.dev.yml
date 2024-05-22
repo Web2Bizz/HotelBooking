@@ -35,25 +35,6 @@ services:
       network:
         ipv4_address: 27.51.1.4
 
-  pgadmin:
-    image: dpage/pgadmin4
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=pgadmin@pgadmin.org
-      - PGADMIN_DEFAULT_PASSWORD=password
-      - PGADMIN_LISTEN_PORT=4789
-      - PGADMIN_CONFIG_SERVER_MODE=False
-    restart: unless-stopped
-    depends_on:
-      - postgres-admin
-    ports:
-      - '5050:4789'
-    volumes:
-      - pgadmin:/var/lib/pgadmin
-      - './hotel-booking-pgadmin/configs:/var/lib/pgadmin/storage/pgadmin_pgadmin.org:ro'
-    networks:
-      network:
-        ipv4_address: 27.51.1.5
-
   app-admin:
     build:
       context: hotel-booking-client-employee
@@ -141,7 +122,6 @@ services:
 volumes:
   postgres-data:
   postgres-client-data:
-  pgadmin:
 
 networks:
   network:
