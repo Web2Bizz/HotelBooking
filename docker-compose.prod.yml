@@ -15,7 +15,7 @@ services:
       - app-admin
     networks:
       network:
-        ipv4_address: 82.88.1.22
+        ipv4_address: 24.16.1.22
 
   postgres-hotel:
     image: postgres:latest
@@ -32,7 +32,7 @@ services:
       - MAX_LOGIN_ATTEMPTS=0
     networks:
       network:
-        ipv4_address: 82.88.1.4
+        ipv4_address: 24.16.1.4
 
   # postgres-client:
   #   image: postgres:latest
@@ -49,7 +49,7 @@ services:
   #     - MAX_LOGIN_ATTEMPTS=0
   #   networks:
   #     network:
-  #       ipv4_address: 82.88.1.5
+  #       ipv4_address: 24.16.1.5
 
   app-admin:
     build:
@@ -64,7 +64,7 @@ services:
       - backend-admin
     networks:
       network:
-        ipv4_address: 82.88.1.64
+        ipv4_address: 24.16.1.64
 
   backend-admin:
     build:
@@ -85,7 +85,7 @@ services:
       - postgres-hotel
     networks:
       network:
-        ipv4_address: 82.88.1.54
+        ipv4_address: 24.16.1.54
 
   # app-console:
   #   build:
@@ -103,7 +103,7 @@ services:
   #     - backend-admin
   #   networks:
   #     network:
-  #       ipv4_address: 82.88.2.77
+  #       ipv4_address: 24.16.2.77
 
   # app-client:
   #   build:
@@ -119,7 +119,7 @@ services:
   #     - backend-admin
   #   networks:
   #     network:
-  #       ipv4_address: 82.88.2.90
+  #       ipv4_address: 24.16.2.90
 
 volumes:
   postgres-data-hotel:
@@ -130,5 +130,5 @@ networks:
     driver: bridge
     ipam:
       config:
-        - subnet: 82.88.0.0/16
-          gateway: 82.88.0.1
+        - subnet: 24.16.0.0/16
+          gateway: 24.16.0.1
