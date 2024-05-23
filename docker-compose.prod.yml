@@ -34,22 +34,22 @@ services:
       network:
         ipv4_address: 24.16.1.4
 
-  # postgres-client:
-  #   image: postgres:latest
-  #   ports:
-  #     - '5440:5432'
-  #   restart: unless-stopped
-  #   volumes:
-  #     - postgres-data-client:/var/lib/postgresql/data/
-  #     - './postgres/data-set/client:/docker-entrypoint-initdb.d'
-  #   environment:
-  #     - POSTGRES_DB=booking_client
-  #     - POSTGRES_USER=postgres
-  #     - POSTGRES_PASSWORD=fuckin_password
-  #     - MAX_LOGIN_ATTEMPTS=0
-  #   networks:
-  #     network:
-  #       ipv4_address: 24.16.1.5
+  postgres-client:
+    image: postgres:latest
+    ports:
+      - '5440:5432'
+    restart: unless-stopped
+    volumes:
+      - postgres-data-client:/var/lib/postgresql/data/
+      - './postgres/data-set/client:/docker-entrypoint-initdb.d'
+    environment:
+      - POSTGRES_DB=booking_client
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=fuckin_password
+      - MAX_LOGIN_ATTEMPTS=0
+    networks:
+      network:
+        ipv4_address: 24.16.1.5
 
   app-admin:
     build:
