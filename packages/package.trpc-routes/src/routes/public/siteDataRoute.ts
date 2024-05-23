@@ -14,7 +14,7 @@ export const siteDataRouter = router({
 			})
 
 		return await fetch(
-			`${ADMIN_API_HOSTNAME}/api/hotelSettings/getHotelProperties`,
+			`${ADMIN_API_HOSTNAME}/hotelSettings/getHotelProperties`,
 			{
 				method: 'GET',
 				redirect: 'follow'

@@ -9,8 +9,9 @@ const RoomInfo = () => {
 	}
 
 	const data: ListItem[] = [
-		{ id: 1, content: 'Пункт 1' },
-		{ id: 2, content: 'Пункт 2' }
+		{ id: 1, content: 'Вайфай' },
+		{ id: 2, content: 'Туалет' },
+		{ id: 3, content: 'Холодильник' }
 	]
 
 	const onBooking = () => {
@@ -20,16 +21,17 @@ const RoomInfo = () => {
 	return (
 		<div className='RoomInfo-container'>
 			<div>
+				{/* можно убрать название города + иконку поменять на геолокацию */}
 				<div className='RoomInfo-city'>
 					<div></div>
 					<p>Димитровград</p>
 				</div>
 				<div className='RoomInfo-name'>
-					<h1>Отель Черемшан</h1>
+					<h1>Номер - 32</h1>
 					<p>Двухкомнатный номер</p>
 				</div>
 				<div className='RoomInfo-rate'>
-					<Rate disabled={true} />
+					<Rate value={5} disabled={true} />
 					<span className='RoomInfo-rate-span'>(12 отзывов)</span>
 				</div>
 				<div>

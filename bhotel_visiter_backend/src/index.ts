@@ -22,13 +22,13 @@ const getCurrentHotelData = async (): Promise<
 	}
 
 	return await fetch(
-		`${process.env.ADMIN_API_HOSTNAME}/api/hotelSettings/getHotelProperties`,
+		`${process.env.ADMIN_API_HOSTNAME}/hotelSettings/getHotelProperties`,
 		requestOptions
 	)
 		.then((response) => response.json())
 		.then((result) => result as Array<THotelData>)
 		.catch((error) => {
-			error(error)
+			console.error(error)
 			return undefined
 		})
 }

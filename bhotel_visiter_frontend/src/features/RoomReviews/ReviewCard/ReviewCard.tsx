@@ -1,26 +1,33 @@
 import { Avatar, Rate } from "antd";
 import "./style.scss";
 
-const ReviewCard = () => {
+export type TReviews = {
+  avatarUrl: string
+  name: string
+  surname: string
+  message: string
+  rating: number
+}
+
+const ReviewCard = (props: TReviews) => {
+
+  const { avatarUrl, name, surname, rating, message } = props 
+
   return (
     <div className="ReviewCard-container">
       <div className="ReviewCard-header">
         <div className="ReviewCard-header__user">
-          <Avatar size={40} src={null} />
+          <Avatar size={40} src={avatarUrl} />
           <div>
-            <p>Мария Н.</p>
+            <p>{name} {surname[0]}.</p>
             <span>22.03.2023</span>
           </div>
         </div>
-        <Rate disabled={true} />
+        <Rate value={rating} disabled={true} />
       </div>
       <div className="ReviewCard-text">
         <p>
-          Ножки очень туго прикручиваются на саморезы, приготовьте шуруповёрт
-          или хорошую отвёртку. У передних ножек внешний "чехол" надевается на
-          прикрученную к креслу основу, и ничем, кроме веса самого кресла, там
-          не крепится. Может доставить неудобства при перемещении. В остальном -
-          отличная вещь.
+          {message}
         </p>
       </div>
     </div>

@@ -17,20 +17,20 @@ const getItems: (panelStyle: CSSProperties) => CollapseProps["items"] = (
 ) => [
   {
     key: "1",
-    label: "This is panel header 1",
-    children: <p>{text}</p>,
+    label: "Часто задаваемый вопрос №1",
+    children: <p>Тут какой-то ответ на часто задаваемый вопрос №1</p>,
     style: panelStyle,
   },
   {
     key: "2",
-    label: "This is panel header 2",
-    children: <p>{text}</p>,
+    label: "Часто задаваемый вопрос №2",
+    children: <p>Тараканы прибегают иногда, но они очень быстро уходят сами</p>,
     style: panelStyle,
   },
   {
     key: "3",
-    label: "This is panel header 3",
-    children: <p>{text}</p>,
+    label: "Часто задаваемый вопрос №3",
+    children: <p>Соседи не шумные, правда</p>,
     style: panelStyle,
   },
 ];

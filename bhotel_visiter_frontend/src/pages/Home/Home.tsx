@@ -7,7 +7,8 @@ import {
 	ServiceSection,
 	FAQSection,
 	ListOfRoomsSection,
-	Header
+	Header,
+	Footer
 } from '../../widgets'
 import { useEffect, useState } from 'react'
 
@@ -49,10 +50,11 @@ const Home = () => {
 				{data?.isDisplayPopular && <PopularRooms />}
 				<IntroSection />
 				{data?.isDisplayDiscount && <SalesSection />}
-				<ServiceSection />
+				{/* <ServiceSection /> */}
 				{data?.isDisplayFAQ && <FAQSection />}
 				<ListOfRoomsSection />
 			</div>
+			<Footer/>
 		</div>
 	)
 }

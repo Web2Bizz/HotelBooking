@@ -1,20 +1,23 @@
 import { StarFilled } from "@ant-design/icons";
 import { Divider, Tag } from "antd";
 import "./style.scss";
+import { useNavigate } from "react-router-dom";
 
 const RoomCard = () => {
+
+  const navigate = useNavigate()
+
   return (
     <div className="RoomCard-wrapper">
       <div className="RoomCard-container">
         <div className="RoomCard-img">
-          <img src="" alt="room-img" />
+          <img src="https://placehold.co/268x360" alt="room-img" />
         </div>
         <div className="RoomCard-info">
-          <p style={{ fontSize: "16px" }}>
+          <p onClick={() => navigate('/room/0')} style={{ fontSize: "16px" }}>
             Двухкомнатный номер в городе Димитровград
           </p>
           <div className="RoomCard-info__rate">
-            <p>Черемшан</p>
             <div>
               <StarFilled />
               <span>4.56</span>

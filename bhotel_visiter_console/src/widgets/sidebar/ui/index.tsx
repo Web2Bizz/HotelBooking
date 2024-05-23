@@ -6,6 +6,7 @@ import { SideBarItem } from './../../sidebar-item'
 export function SideBar() {
 	const btnRef1 = useRef(null)
 	const btnRef5 = useRef(null)
+	const btnRef6 = useRef(null)
 
 	return (
 		<div className='min-h-screen flex fixed col-2 p-0 surface-ground'>
@@ -54,6 +55,36 @@ export function SideBar() {
 									</li>
 									<li>
 										<SideBarItem iconClass='' navigatePath='/gui/main' label='Главная страница' />
+									</li>
+								</ul>
+							</li>
+							<li>
+								<StyleClass
+									nodeRef={btnRef6}
+									selector='@next'
+									enterClassName='hidden'
+									enterActiveClassName='slidedown'
+									leaveToClassName='hidden'
+									leaveActiveClassName='slideup'
+								>
+									<div
+										ref={btnRef6}
+										className='p-ripple p-3 flex align-items-center justify-content-between text-600 cursor-pointer'
+									>
+										<span className='font-medium'>Услуги и опции</span>
+										<i className='pi pi-chevron-down'></i>
+										<Ripple />
+									</div>
+								</StyleClass>
+								<ul className='list-none p-0 m-0 overflow-hidden'>
+									<li>
+										<SideBarItem iconClass='' navigatePath='/options' label='Список услуг' />
+									</li>
+									<li>
+										<SideBarItem iconClass='' navigatePath='/options/add' label='Добавить услуги' />
+									</li>
+									<li>
+										<SideBarItem iconClass='' navigatePath='/system/state' label='Журнал услуг' />
 									</li>
 								</ul>
 							</li>
