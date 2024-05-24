@@ -75,7 +75,7 @@ services:
     restart: always
     environment:
       - NODE_ENV=production
-      - CLIENT_URL=http://0.0.0.0:5002
+      - CLIENT_URL=*
       - POSTGRES_HOST=postgres-hotel
       - POSTGRES_PORT=5432
       - POSTGRES_USER=postgres

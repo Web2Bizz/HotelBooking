@@ -5,11 +5,7 @@ import { publicRouter } from './public'
 import { authRouter } from './auth'
 import { useState } from 'react'
 import { trpc } from '@helpers'
-import {
-	initialUserData,
-	TUserContext,
-	UserContext
-} from '../contexts/userContext'
+import { initialUserData, TUserContext, UserContext } from '../contexts/userContext'
 
 export const RouterApp = () => {
 	const router = createBrowserRouter([...publicRouter, ...authRouter])

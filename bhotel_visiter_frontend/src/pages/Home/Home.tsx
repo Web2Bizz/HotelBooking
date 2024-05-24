@@ -21,11 +21,7 @@ interface IMainPageFormData {
 }
 
 const Home = () => {
-	const [getSettings] = trpc.useQueries((t) => [
-		t.consoleRoute.mainPageRouter.getSettings(
-			'67342c88-fd1e-425b-99b1-3cdc427b914a'
-		)
-	])
+	const [getSettings] = trpc.useQueries((t) => [t.getFrontendHeader('67342c88-fd1e-425b-99b1-3cdc427b914a')])
 
 	const [data, setData] = useState<IMainPageFormData>()
 
@@ -54,7 +50,7 @@ const Home = () => {
 				{data?.isDisplayFAQ && <FAQSection />}
 				<ListOfRoomsSection />
 			</div>
-			<Footer/>
+			<Footer />
 		</div>
 	)
 }

@@ -13,18 +13,15 @@ interface IFormFooterSettings {
 
 export const FooterPage = () => {
 	const [getSettings] = trpc.useQueries((t) => [
-		t.consoleRoute.footerRouter.getSettings(
-			'67342c88-fd1e-425b-99b1-3cdc427b914a'
-		)
+		t.consoleRoute.footerRouter.getSettings('67342c88-fd1e-425b-99b1-3cdc427b914a')
 	])
 
-	const { control, handleSubmit, formState, reset } =
-		useForm<IFormFooterSettings>({
-			defaultValues: async () => {
-				return getSettings.data!
-			},
-			mode: 'all'
-		})
+	const { control, handleSubmit, formState, reset } = useForm<IFormFooterSettings>({
+		defaultValues: async () => {
+			return getSettings.data!
+		},
+		mode: 'all'
+	})
 
 	const mutation = trpc.consoleRoute.footerRouter.setSettings.useMutation()
 
@@ -52,43 +49,29 @@ export const FooterPage = () => {
 				<Controller
 					control={control}
 					name='isDisplayLogo'
-					render={({ field }) => (
-						<CustomCheckbox label='Отображать логотип' {...field} />
-					)}
+					render={({ field }) => <CustomCheckbox label='Отображать логотип' {...field} />}
 				/>
 				<Controller
 					control={control}
 					name='isDisplayName'
-					render={({ field }) => (
-						<CustomCheckbox label='Отображать название' {...field} />
-					)}
+					render={({ field }) => <CustomCheckbox label='Отображать название' {...field} />}
 				/>
 				<Controller
 					control={control}
 					name='isDisplaySocialBlock'
-					render={({ field }) => (
-						<CustomCheckbox label='Ссылки на социальные сети' {...field} />
-					)}
+					render={({ field }) => <CustomCheckbox label='Ссылки на социальные сети' {...field} />}
 				/>
 				<h3>Социальные сети</h3>
 				<div className='flex flex-column gap-2'>
-					<SocialLink
-						domain={'https://vk.com/'}
-						link={'group_name'}
-						name={'ВКонтакте'}
-					/>
-					<SocialLink
-						domain={'https://t.me/'}
-						link={'group_name'}
-						name={'Телеграм'}
-					/>
+					<SocialLink domain={'https://vk.com/'} link={''} name={'ВКонтакте'} />
+					<SocialLink domain={'https://t.me/'} link={''} name={'Телеграм'} />
+					<SocialLink domain={'https://dzen.ru/'} link={''} name={'Дзен'} />
+					<SocialLink domain={'https://pikabu.ru/'} link={''} name={'Пикабу'} />
+					<SocialLink domain={'https://youtube.com/'} link={''} name={'YouTube'} />
+					<SocialLink domain={'https://vimeo.com/'} link={''} name={'Vimeo'} />
+					<SocialLink domain={'https://tiktok.com/'} link={''} name={'TikTok'} />
 				</div>
-				<Button
-					disabled={!formState.isDirty}
-					label='Сохранить'
-					severity='success'
-					className='col-12 mt-3'
-				/>
+				<Button disabled={!formState.isDirty} label='Сохранить' severity='success' className='col-12 mt-3' />
 			</form>
 		</>
 	)
