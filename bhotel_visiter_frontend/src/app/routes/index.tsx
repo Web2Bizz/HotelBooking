@@ -5,6 +5,7 @@ import { publicRouter } from './public'
 import { authRouter } from './auth'
 import { useState } from 'react'
 import { trpc } from '@helpers'
+import { initialUserData, TUserContext, UserContext } from '../contexts/userContext'
 
 export const RouterApp = () => {
 	const router = createBrowserRouter([...publicRouter, ...authRouter])
@@ -20,10 +21,14 @@ export const RouterApp = () => {
 		})
 	)
 
+	const [userData, setUserData] = useState<TUserContext>(initialUserData)
+
 	return (
 		<trpc.Provider client={trpcClient} queryClient={queryClient}>
 			<QueryClientProvider client={queryClient}>
-				<RouterProvider router={router}></RouterProvider>
+				<UserContext.Provider value={userData}>
+					<RouterProvider router={router}></RouterProvider>
+				</UserContext.Provider>
 			</QueryClientProvider>
 		</trpc.Provider>
 	)

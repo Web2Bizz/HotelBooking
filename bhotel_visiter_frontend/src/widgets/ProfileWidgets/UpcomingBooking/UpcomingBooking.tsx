@@ -7,7 +7,7 @@ const UpcomingBooking = () => {
 			<div className='UpcomingBooking-title' style={{ marginTop: 0 }}>
 				<p>Ближайшая бронь</p>
 			</div>
-			<BookingCard type={'upcoming'} />
+			<BookingCard image='url.jpg' type={'upcoming'} />
 		</div>
 	)
 }

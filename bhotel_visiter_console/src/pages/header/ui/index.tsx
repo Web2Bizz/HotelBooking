@@ -6,30 +6,25 @@ import { useEffect, useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 
 interface IFormHeaderSettings {
-	isDisplayLogo: boolean
-	isDisplayName: boolean
-	isDisplaySearch: boolean
-	isDisplayBooking: boolean
-	isDisplayProfileDetails: boolean
-	backgroundColor: string
+	display_logo: boolean
+	display_label: boolean
+	display_search: boolean
+	display_booking_button: boolean
+	display_details: boolean
+	background_color: string
 }
 
 export const HeaderPage = () => {
-	const [getHeaderSettings] = trpc.useQueries((t) => [
-		t.consoleRoute.headerRouter.getSettings(
-			'67342c88-fd1e-425b-99b1-3cdc427b914a'
-		)
-	])
+	const [getHeaderSettings] = trpc.useQueries((t) => [t.getFrontendHeader('67342c88-fd1e-425b-99b1-3cdc427b914a')])
 
-	const { control, handleSubmit, formState, reset } =
-		useForm<IFormHeaderSettings>({
-			defaultValues: async () => {
-				return getHeaderSettings.data!
-			},
-			mode: 'all'
-		})
+	const { control, handleSubmit, formState, reset } = useForm<IFormHeaderSettings>({
+		defaultValues: async () => {
+			return getHeaderSettings.data!
+		},
+		mode: 'all'
+	})
 
-	const mutation = trpc.consoleRoute.headerRouter.setSettings.useMutation()
+	const mutation = trpc.setFrontendHeader.useMutation()
 
 	const [data, setData] = useState<IFormHeaderSettings>()
 
@@ -46,8 +41,9 @@ export const HeaderPage = () => {
 	const onSubmit: SubmitHandler<IFormHeaderSettings> = (formData) => {
 		mutation.mutate({
 			...formData,
-			backgroundColor: `#${formData.backgroundColor}`,
-			id: '67342c88-fd1e-425b-99b1-3cdc427b914a'
+			background_color: `#${formData.background_color}`,
+			id: '67342c88-fd1e-425b-99b1-3cdc427b914a',
+			frontend_id: '67342c88-fd1e-425b-99b1-3cdc427b914a'
 		})
 	}
 
@@ -57,66 +53,39 @@ export const HeaderPage = () => {
 			<form className='col-4' onSubmit={handleSubmit(onSubmit)}>
 				<h3>Цвет фона</h3>
 				<Controller
-					name='backgroundColor'
+					name='background_color'
 					control={control}
-					render={({ field }) => (
-						<ColorPicker
-							format='hex'
-							onChange={field.onChange}
-							value={field.value}
-						/>
-					)}
+					render={({ field }) => <ColorPicker format='hex' onChange={field.onChange} value={field.value} />}
 				/>
 				<h3>Логотип и бренд</h3>
 				<Controller
-					name='isDisplayLogo'
+					name='display_logo'
 					control={control}
-					render={({ field }) => (
-						<CustomCheckbox label='Отображать логотип' {...field} />
-					)}
+					render={({ field }) => <CustomCheckbox label='Отображать логотип' {...field} />}
 				/>
 				<Controller
-					name='isDisplayName'
+					name='display_label'
 					control={control}
-					render={({ field }) => (
-						<CustomCheckbox label='Отображать название' {...field} />
-					)}
+					render={({ field }) => <CustomCheckbox label='Отображать название' {...field} />}
 				/>
 				<Controller
-					name='isDisplaySearch'
+					name='display_search'
 					control={control}
-					render={({ field }) => (
-						<CustomCheckbox label='Отображать поиск' {...field} />
-					)}
+					render={({ field }) => <CustomCheckbox label='Отображать поиск' {...field} />}
 				/>
 				<h3>Действие</h3>
 				<Controller
-					name='isDisplayBooking'
+					name='display_booking_button'
 					control={control}
-					render={({ field }) => (
-						<CustomCheckbox
-							label='Отображать кнопку Забронировать номер'
-							{...field}
-						/>
-					)}
+					render={({ field }) => <CustomCheckbox label='Отображать кнопку Забронировать номер' {...field} />}
 				/>
 				<h3>Аккаунт и пользователь</h3>
 				<Controller
-					name='isDisplayProfileDetails'
+					name='display_details'
 					control={control}
-					render={({ field }) => (
-						<CustomCheckbox
-							label='Отображать фамилию и имя для пользователей'
-							{...field}
-						/>
-					)}
+					render={({ field }) => <CustomCheckbox label='Отображать фамилию и имя для пользователей' {...field} />}
 				/>
-				<Button
-					disabled={!formState.isDirty}
-					label='Сохранить'
-					severity='success'
-					className='col-12 mt-3'
-				/>
+				<Button disabled={!formState.isDirty} label='Сохранить' severity='success' className='col-12 mt-3' />
 			</form>
 		</>
 	)

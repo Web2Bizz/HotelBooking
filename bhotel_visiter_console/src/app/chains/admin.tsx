@@ -1,4 +1,14 @@
-import { ApiPage, FooterPage, GeneralPage, HeaderPage, HomePage, MainPage, MenuPage } from '@pages'
+import {
+	ApiPage,
+	FooterPage,
+	GeneralPage,
+	HeaderPage,
+	HomePage,
+	MainPage,
+	MenuPage,
+	OptionsAddPage,
+	OptionsListPage
+} from '@pages'
 import { AdminLayout } from '@ui'
 import { RouteObject } from 'react-router-dom'
 
@@ -56,6 +66,27 @@ export const adminRouter: RouteObject[] = [
 				element: (
 					<AdminLayout>
 						<HeaderPage />
+					</AdminLayout>
+				)
+			}
+		]
+	},
+	{
+		path: 'options',
+		children: [
+			{
+				path: '',
+				element: (
+					<AdminLayout>
+						<OptionsListPage />
+					</AdminLayout>
+				)
+			},
+			{
+				path: 'add',
+				element: (
+					<AdminLayout>
+						<OptionsAddPage />
 					</AdminLayout>
 				)
 			}

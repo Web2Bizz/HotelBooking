@@ -8,9 +8,9 @@ const HistoryBooking = () => {
 				<p>История бронирований</p>
 			</div>
 			<div className='UpcomingBooking-list'>
-				<BookingCard type={'history'} />
-				<BookingCard type={'history'} />
-				<BookingCard type={'history'} />
+				<BookingCard image='d1.jpg' type={'history'} />
+				<BookingCard image='d2.jpg' type={'history'} />
+				<BookingCard image='d3.jpg' type={'history'} />
 			</div>
 		</div>
 	)

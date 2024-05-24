@@ -4,13 +4,13 @@ name: 'bhotel_employee'
 services:
   gateway:
     build:
-      context: hotel-booking-gateway
+      context: gateway
       dockerfile: Dockerfile
     ports:
       - '9090:9090'
     restart: always
     volumes:
-      - './hotel-booking-gateway/nginx/nginx.conf:/etc/nginx/nginx.conf:ro'
+      - './gateway/nginx/nginx.conf:/etc/nginx/nginx.conf:ro'
     depends_on:
       - app-admin
     networks:
@@ -75,7 +75,7 @@ services:
     restart: always
     environment:
       - NODE_ENV=production
-      - CLIENT_URL=http://0.0.0.0:5002
+      - CLIENT_URL=*
       - POSTGRES_HOST=postgres-hotel
       - POSTGRES_PORT=5432
       - POSTGRES_USER=postgres

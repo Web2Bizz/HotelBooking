@@ -12,7 +12,7 @@ type PeculiaritiesRoomsProps = {
 const PeculiaritiesRooms: React.FC<PeculiaritiesRoomsProps> = ({ items }) => {
   return (
     <div className="PeculiaritiesRooms-container">
-      <p>Особенности номера:</p>
+      <p>Удобства:</p>
       <ul className="PeculiaritiesRooms-custom-list">
         {items.map((item) => (
           <li key={item.id} className="PeculiaritiesRooms-custom-list-item">

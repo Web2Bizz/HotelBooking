@@ -1,27 +1,35 @@
 import { Button } from 'antd'
 import { PaymentCard } from './../../features'
 import './style.scss'
+import { Header } from '@widgets'
+import { useNavigate } from 'react-router-dom'
 
 const Payment = () => {
+
+	const navigate = useNavigate()
+
 	return (
-		<div
-			className='Payment-container'
-			style={{
-				margin: '100px 250px'
-			}}
-		>
-			<div className='Payment-button'>
-				<Button>{'<< Обратно в профиль'}</Button>
-			</div>
-			<div>
-				<p>Платежные данные</p>
+		<>
+			<Header />
+			<div
+				className='Payment-container'
+				style={{
+					margin: '100px 250px'
+				}}
+			>
+				<div className='Payment-button'>
+					<Button onClick={() => navigate('/profile')}>{'<< Обратно в профиль'}</Button>
+				</div>
 				<div>
-					<PaymentCard />
-					<PaymentCard />
-					<PaymentCard />
+					<p>Платежные данные</p>
+					<div>
+						<PaymentCard />
+						<PaymentCard />
+						<PaymentCard />
+					</div>
 				</div>
 			</div>
-		</div>
+		</>
 	)
 }
 
