@@ -1,11 +1,5 @@
 import { Button } from 'antd'
-import {
-	Header,
-	RoomInfo,
-	RoomReviews,
-	RoomsImg,
-	SimilarRooms
-} from '../../widgets'
+import { Header, RoomInfo, RoomReviews, RoomsImg, SimilarRooms } from '../../widgets'
 import './style.scss'
 import { useNavigate } from 'react-router-dom'
 
@@ -43,7 +37,7 @@ const RoomPreview = () => {
 					<RoomInfo />
 				</div>
 				<RoomReviews />
-				{/* <SimilarRooms /> */}
+				<SimilarRooms />
 			</div>
 		</>
 	)

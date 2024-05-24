@@ -1,10 +1,19 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ListOfRoomsFilter, RoomCard } from '../../features'
 import { RadioChangeEvent, Collapse, Pagination, Button } from 'antd'
 import { CheckboxValueType } from 'antd/lib/checkbox/Group'
 import './style.scss'
 
 const ListOfRoomsSection = () => {
+	const [rooms, setRooms] = useState<Array<any>>()
+
+	useEffect(() => {
+		fetch('http://87.242.117.193:9090/api/room/getRoom')
+			.then((response) => response.json())
+			.then((result) => setRooms(result))
+			.catch((error) => console.error(error))
+	}, [])
+
 	const handlePriceChange = (value: number[]) => {
 		console.log('Selected Price:', value)
 	}
@@ -36,25 +45,28 @@ const ListOfRoomsSection = () => {
 		console.log('booking')
 	}
 
-	const ComponentToRender = () => {
+	const ComponentToRender = (props: { id: string; facility: Array<string> }) => {
 		return (
 			<div className='ListOfRoomsSection-rooms-item'>
-				<RoomCard />
+				<RoomCard id={props.id} facility={props.facility} />
 			</div>
 		)
 	}
 
 	const [currentPage, setCurrentPage] = useState(1)
-	const totalComponents = 7
+	const avalibleItems = Array.isArray(rooms) && rooms.filter((o) => o.status === 'Доступно')
+	const totalComponents = avalibleItems.length
 	const onPageChange = (page: number) => {
 		setCurrentPage(page)
 	}
 
 	// Вычисляем диапазон компонентов для текущей страницы
-	const pageSize = 6 // Максимум 6 компонентов на странице
-	const currentComponents = [...Array(totalComponents)]
-		.slice((currentPage - 1) * pageSize, currentPage * pageSize)
-		.map((_, index) => <ComponentToRender key={index} />)
+	const maxDisplayItemsPerPage = 6 // Максимум 6 компонентов на странице
+	const currentComponents =
+		Array.isArray(avalibleItems) &&
+		avalibleItems
+			.slice((currentPage - 1) * maxDisplayItemsPerPage, currentPage * maxDisplayItemsPerPage)
+			.map((item, index) => <ComponentToRender id={item.id_room} facility={item.facility} key={index} />)
 
 	const collapseItems = [
 		{
@@ -136,7 +148,7 @@ const ListOfRoomsSection = () => {
 						current={currentPage}
 						onChange={onPageChange}
 						total={totalComponents}
-						pageSize={pageSize}
+						pageSize={maxDisplayItemsPerPage}
 						showSizeChanger={false}
 					/>
 				</div>

@@ -13,23 +13,23 @@ import {
 import { useEffect, useState } from 'react'
 
 interface IMainPageFormData {
-	coverType: string
-	isDisplayDiscount: boolean
-	isDisplayBooking: boolean
-	isDisplayPopular: boolean
-	isDisplayFAQ: boolean
+	cover_type: string
+	display_discount: boolean
+	display_booking: boolean
+	display_popular: boolean
+	display_faq: boolean
 }
 
 const Home = () => {
-	const [getSettings] = trpc.useQueries((t) => [t.getFrontendHeader('67342c88-fd1e-425b-99b1-3cdc427b914a')])
+	const [getMainPageSettings] = trpc.useQueries((t) => [t.getFrontendMainPage('67342c88-fd1e-425b-99b1-3cdc427b914a')])
 
 	const [data, setData] = useState<IMainPageFormData>()
+	const [mainPageSettings, setMainPageSettings] = useState()
 
 	useEffect(() => {
-		console.log(getSettings.data)
-
-		setData(getSettings.data as IMainPageFormData)
-	}, [getSettings.data])
+		setData(getMainPageSettings.data as IMainPageFormData)
+		setMainPageSettings(getMainPageSettings.data)
+	}, [getMainPageSettings.data])
 
 	return (
 		<div>
@@ -43,11 +43,11 @@ const Home = () => {
 					gap: '150px'
 				}}
 			>
-				{data?.isDisplayPopular && <PopularRooms />}
+				{data?.display_popular && <PopularRooms />}
 				<IntroSection />
-				{data?.isDisplayDiscount && <SalesSection />}
+				{data?.display_discount && <SalesSection />}
 				{/* <ServiceSection /> */}
-				{data?.isDisplayFAQ && <FAQSection />}
+				{data?.display_faq && <FAQSection />}
 				<ListOfRoomsSection />
 			</div>
 			<Footer />

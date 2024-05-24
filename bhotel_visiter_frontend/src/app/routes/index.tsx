@@ -3,9 +3,9 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { httpBatchLink } from '@trpc/client'
 import { publicRouter } from './public'
 import { authRouter } from './auth'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { trpc } from '@helpers'
-import { initialUserData, TUserContext, UserContext } from '../contexts/userContext'
+import { initialUserData, TUserContext, UserContext, AppContext, IHotelData, initialHotelData } from '../contexts'
 
 export const RouterApp = () => {
 	const router = createBrowserRouter([...publicRouter, ...authRouter])
@@ -22,13 +22,25 @@ export const RouterApp = () => {
 	)
 
 	const [userData, setUserData] = useState<TUserContext>(initialUserData)
+	const [appData, setAppData] = useState<IHotelData>(initialHotelData)
+
+	useEffect(() => {
+		fetch('http://87.242.117.193:9090/api/hotelSettings/getHotelProperties', {
+			method: 'GET'
+		})
+			.then((response) => response.json())
+			.then((result) => setAppData(result))
+			.catch((error) => console.error(error))
+	}, [])
 
 	return (
 		<trpc.Provider client={trpcClient} queryClient={queryClient}>
 			<QueryClientProvider client={queryClient}>
-				<UserContext.Provider value={userData}>
-					<RouterProvider router={router}></RouterProvider>
-				</UserContext.Provider>
+				<AppContext.Provider value={appData}>
+					<UserContext.Provider value={userData}>
+						<RouterProvider router={router}></RouterProvider>
+					</UserContext.Provider>
+				</AppContext.Provider>
 			</QueryClientProvider>
 		</trpc.Provider>
 	)

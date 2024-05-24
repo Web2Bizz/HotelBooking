@@ -9,29 +9,24 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 // import { InputTextarea } from 'primereact/inputtextarea'
 
 interface IMainPageFormData {
-	coverType: string
-	isDisplayDiscount: boolean
-	isDisplayBooking: boolean
-	isDisplayPopular: boolean
-	isDisplayFAQ: boolean
+	cover_type: string
+	display_discount: boolean
+	display_booking: boolean
+	display_popular: boolean
+	display_faq: boolean
 }
 
 export const MainPage = () => {
-	const [getSettings] = trpc.useQueries((t) => [
-		t.consoleRoute.mainPageRouter.getSettings(
-			'67342c88-fd1e-425b-99b1-3cdc427b914a'
-		)
-	])
+	const [getSettings] = trpc.useQueries((t) => [t.getFrontendMainPage('67342c88-fd1e-425b-99b1-3cdc427b914a')])
 
-	const mutation = trpc.consoleRoute.mainPageRouter.setSettings.useMutation()
+	const mutation = trpc.setFrontendMainPage.useMutation()
 
-	const { control, handleSubmit, formState, reset } =
-		useForm<IMainPageFormData>({
-			defaultValues: async () => {
-				return getSettings.data!
-			},
-			mode: 'all'
-		})
+	const { control, handleSubmit, formState, reset } = useForm<IMainPageFormData>({
+		defaultValues: async () => {
+			return getSettings.data!
+		},
+		mode: 'all'
+	})
 
 	const [data, setData] = useState<IMainPageFormData>()
 
@@ -48,7 +43,11 @@ export const MainPage = () => {
 	}, [data, reset])
 
 	const onSubmit: SubmitHandler<IMainPageFormData> = (formData) => {
-		mutation.mutate({ ...formData, id: '67342c88-fd1e-425b-99b1-3cdc427b914a' })
+		mutation.mutate({
+			...formData,
+			id: '67342c88-fd1e-425b-99b1-3cdc427b914a',
+			frontend_id: '67342c88-fd1e-425b-99b1-3cdc427b914a'
+		})
 	}
 
 	return (
@@ -56,11 +55,7 @@ export const MainPage = () => {
 			<AdminPageTitle title={'Главная страница'} />
 			<form className='col-4' onSubmit={handleSubmit(onSubmit)}>
 				<h3>Приветствие</h3>
-				<Dropdown
-					className='col-12'
-					placeholder='Выберете поведение фона'
-					options={['Статичный фон', 'Карусель']}
-				/>
+				<Dropdown className='col-12' placeholder='Выберете поведение фона' options={['Статичный фон', 'Карусель']} />
 				<div className='my-5'>
 					{/* @ts-ignore */}
 					{/* <FloatLabel>
@@ -69,48 +64,26 @@ export const MainPage = () => {
 					</FloatLabel> */}
 				</div>
 				<Controller
-					name='isDisplayDiscount'
+					name='display_discount'
 					control={control}
-					render={({ field }) => (
-						<CustomCheckbox label='Отображать блок Скидок' {...field} />
-					)}
+					render={({ field }) => <CustomCheckbox label='Отображать блок Скидок' {...field} />}
 				/>
 				<Controller
-					name='isDisplayBooking'
+					name='display_booking'
 					control={control}
-					render={({ ...field }) => (
-						<CustomCheckbox
-							label='Отображать кнопку Забронировать номер'
-							{...field}
-						/>
-					)}
+					render={({ ...field }) => <CustomCheckbox label='Отображать кнопку Забронировать номер' {...field} />}
 				/>
 				<Controller
-					name='isDisplayPopular'
+					name='display_popular'
 					control={control}
-					render={({ field }) => (
-						<CustomCheckbox
-							label='Отображать блок Сейчас популярно'
-							{...field}
-						/>
-					)}
+					render={({ field }) => <CustomCheckbox label='Отображать блок Сейчас популярно' {...field} />}
 				/>
 				<Controller
-					name='isDisplayFAQ'
+					name='display_faq'
 					control={control}
-					render={({ field }) => (
-						<CustomCheckbox
-							label='Отображать блок Часто задаваемые вопросы'
-							{...field}
-						/>
-					)}
+					render={({ field }) => <CustomCheckbox label='Отображать блок Часто задаваемые вопросы' {...field} />}
 				/>
-				<Button
-					disabled={!formState.isDirty}
-					label='Сохранить'
-					severity='success'
-					className='col-12 mt-3'
-				/>
+				<Button disabled={!formState.isDirty} label='Сохранить' severity='success' className='col-12 mt-3' />
 			</form>
 		</>
 	)

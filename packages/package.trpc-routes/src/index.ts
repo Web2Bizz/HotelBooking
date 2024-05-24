@@ -158,7 +158,7 @@ const setFrontendHeader = t.procedure
 // Procedure for frontend_main_page
 const getFrontendMainPage = t.procedure.input(z.string().uuid()).query(async ({ input }) => {
 	const client = await PgClient()
-	const res = await client.query('SELECT * FROM frontend_main_page WHERE id = $1', [input])
+	const res = await client.query('SELECT * FROM frontend_main_page WHERE frontend_id = $1', [input])
 	await client.end()
 	return res.rows[0]
 })
@@ -178,16 +178,8 @@ const setFrontendMainPage = t.procedure
 	.mutation(async ({ input }) => {
 		const client = await PgClient()
 		const res = await client.query(
-			'UPDATE frontend_main_page SET frontend_id = $1, cover_type = $2, display_discount = $3, display_booking = $4, display_popular = $5, display_faq = $6 WHERE id = $7 RETURNING *',
-			[
-				input.frontend_id,
-				input.cover_type,
-				input.display_discount,
-				input.display_booking,
-				input.display_popular,
-				input.display_faq,
-				input.id
-			]
+			'UPDATE frontend_main_page SET display_discount = $1, display_booking = $2, display_popular = $3, display_faq = $4 WHERE frontend_id = $5 RETURNING *',
+			[input.display_discount, input.display_booking, input.display_popular, input.display_faq, input.frontend_id]
 		)
 		await client.end()
 		return res.rows[0]

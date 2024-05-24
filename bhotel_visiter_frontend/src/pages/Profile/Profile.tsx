@@ -1,9 +1,4 @@
-import {
-	ProfileCard,
-	UpcomingBooking,
-	HistoryBooking,
-	Header
-} from '../../widgets'
+import { Header, HistoryBooking, ProfileCard, UpcomingBooking } from '../../widgets'
 
 const Profile = () => {
 	return (
