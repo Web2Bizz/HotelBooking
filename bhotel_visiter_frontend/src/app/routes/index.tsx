@@ -1,11 +1,11 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { trpc } from '@helpers'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { httpBatchLink } from '@trpc/client'
-import { publicRouter } from './public'
-import { authRouter } from './auth'
 import { useEffect, useState } from 'react'
-import { trpc } from '@helpers'
-import { initialUserData, TUserContext, UserContext, AppContext, IHotelData, initialHotelData } from '../contexts'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { AppContext, IHotelData, initialHotelData, initialUserData, TUserContext, UserContext } from '../contexts'
+import { authRouter } from './auth'
+import { publicRouter } from './public'
 
 export const RouterApp = () => {
 	const router = createBrowserRouter([...publicRouter, ...authRouter])

@@ -1,0 +1,9 @@
+.chat {
+  display: flex;
+  flex-direction: column;
+  /* height: 100svh; */
+  position: relative;
+  z-index: 999;
+  background: #f9f9f9;
+  /* padding: 30px 25px; */
+}

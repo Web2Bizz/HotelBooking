@@ -2,6 +2,7 @@ import './style.scss'
 import { ReviewCard, ReviewStatistic } from '../../../features'
 import { TReviews } from 'src/features/RoomReviews/ReviewCard/ReviewCard'
 import { useEffect, useState } from 'react'
+import { ReviewForm } from './../../../pages/RoomPreview/ReviewForm'
 
 type Rating = {
 	stars: number
@@ -16,8 +17,6 @@ const ratings: Rating[] = [
 	{ stars: 1, count: 20 }
 ]
 
-
-
 const RoomReviews = () => {
 	const [reviews, setReviews] = useState<Array<TReviews>>()
 	useEffect(() => {
@@ -27,21 +26,21 @@ const RoomReviews = () => {
 				name: 'Мария',
 				surname: 'Иванова',
 				message: 'Тараканы прибежали и унесли мою люстру, обратно не вернули',
-				rating: 2,
+				rating: 2
 			},
 			{
 				avatarUrl: 'https://webgradients.com/public/webgradients_png/001%20Warm%20Flame.png',
 				name: 'Алексей',
 				surname: 'Смирнов',
 				message: 'Не могу войти в номер',
-				rating: 1,
+				rating: 1
 			},
 			{
 				avatarUrl: 'https://webgradients.com/public/webgradients_png/005%20Young%20Passion.png',
 				name: 'Дмитрий',
 				surname: 'Маслеников',
 				message: 'Номер классный, две люстры зачем-то, но да ладно',
-				rating: 5,
+				rating: 5
 			}
 		])
 	}, [])
@@ -49,10 +48,9 @@ const RoomReviews = () => {
 		<div className='RoomReviews-wrapper'>
 			<h1>Отзывы</h1>
 			<div className='RoomReviews-container'>
-				<div className='RoomReviews-reviews'>
-					{reviews && reviews.map(item => (
-						<ReviewCard {...item}/>
-					))}
+				<div>
+					<div className='RoomReviews-reviews'>{reviews && reviews.map((item) => <ReviewCard {...item} />)}</div>
+					<ReviewForm />
 				</div>
 				<ReviewStatistic ratings={ratings} />
 			</div>

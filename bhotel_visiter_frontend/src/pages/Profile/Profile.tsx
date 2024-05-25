@@ -1,13 +1,11 @@
-import { Header, HistoryBooking, ProfileCard, UpcomingBooking } from '../../widgets'
+import { Container, Header, HistoryBooking, ProfileCard, UpcomingBooking } from '../../widgets'
 
 const Profile = () => {
 	return (
-		<>
-			<Header />
+		<Container>
 			<div
 				className='Profile-container'
 				style={{
-					margin: '100px 250px',
 					display: 'flex',
 					gap: '20px'
 				}}
@@ -18,7 +16,7 @@ const Profile = () => {
 					<HistoryBooking />
 				</div>
 			</div>
-		</>
+		</Container>
 	)
 }
 

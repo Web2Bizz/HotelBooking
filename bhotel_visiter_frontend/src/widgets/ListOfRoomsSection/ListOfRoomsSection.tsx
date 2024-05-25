@@ -14,6 +14,42 @@ const ListOfRoomsSection = () => {
 			.catch((error) => console.error(error))
 	}, [])
 
+	const images = [
+		'/d1.jpg',
+		'/d2.jpg',
+		'/d3.jpg',
+		'/d4.jpg',
+		'/d5.jpg',
+		'/d6.jpg',
+		'/d1.jpg',
+		'/d1.jpg',
+		'/d1.jpg',
+		'/d1.jpg',
+		'/d1.jpg',
+		'/d1.jpg',
+		'/d1.jpg',
+		'/d1.jpg',
+		'/d1.jpg',
+		'/d1.jpg',
+		'/d1.jpg',
+		'/d1.jpg',
+		'/d1.jpg',
+		'/d1.jpg',
+		'/d1.jpg',
+		'/d1.jpg',
+		'/d1.jpg',
+		'/d1.jpg',
+		'/d1.jpg',
+		'/d1.jpg',
+		'/d1.jpg',
+		'/d1.jpg',
+		'/d1.jpg',
+		'/d1.jpg',
+		'/d1.jpg',
+		'/d1.jpg',
+		'/d1.jpg'
+	]
+
 	const handlePriceChange = (value: number[]) => {
 		console.log('Selected Price:', value)
 	}
@@ -45,10 +81,10 @@ const ListOfRoomsSection = () => {
 		console.log('booking')
 	}
 
-	const ComponentToRender = (props: { id: string; facility: Array<string> }) => {
+	const ComponentToRender = (props: { id: string; facility: Array<string>; image: string }) => {
 		return (
 			<div className='ListOfRoomsSection-rooms-item'>
-				<RoomCard id={props.id} facility={props.facility} />
+				<RoomCard image={props.image} id={props.id} facility={props.facility} />
 			</div>
 		)
 	}
@@ -66,7 +102,9 @@ const ListOfRoomsSection = () => {
 		Array.isArray(avalibleItems) &&
 		avalibleItems
 			.slice((currentPage - 1) * maxDisplayItemsPerPage, currentPage * maxDisplayItemsPerPage)
-			.map((item, index) => <ComponentToRender id={item.id_room} facility={item.facility} key={index} />)
+			.map((item, index) => (
+				<ComponentToRender image={images[index]} id={item.id_room} facility={item.facility} key={index} />
+			))
 
 	const collapseItems = [
 		{

@@ -21,7 +21,6 @@ const RoomPreview = () => {
 
 	return (
 		<>
-			<Header />
 			<div
 				style={{
 					margin: '30px 250px 100px 250px',

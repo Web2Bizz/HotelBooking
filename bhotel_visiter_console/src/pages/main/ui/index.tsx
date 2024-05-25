@@ -5,6 +5,8 @@ import { Button } from 'primereact/button'
 import { Dropdown } from 'primereact/dropdown'
 import { useEffect, useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import { FAQForm } from './FAQForm'
+import { WrapperUpload } from './WrapperUpload'
 // import { FloatLabel } from 'primereact/floatlabel'
 // import { InputTextarea } from 'primereact/inputtextarea'
 
@@ -18,6 +20,8 @@ interface IMainPageFormData {
 
 export const MainPage = () => {
 	const [getSettings] = trpc.useQueries((t) => [t.getFrontendMainPage('67342c88-fd1e-425b-99b1-3cdc427b914a')])
+
+	const [behaviour, setBehaviour] = useState<string>('Статичный фон')
 
 	const mutation = trpc.setFrontendMainPage.useMutation()
 
@@ -55,14 +59,14 @@ export const MainPage = () => {
 			<AdminPageTitle title={'Главная страница'} />
 			<form className='col-4' onSubmit={handleSubmit(onSubmit)}>
 				<h3>Приветствие</h3>
-				<Dropdown className='col-12' placeholder='Выберете поведение фона' options={['Статичный фон', 'Карусель']} />
-				<div className='my-5'>
-					{/* @ts-ignore */}
-					{/* <FloatLabel>
-						<InputTextarea id='username' rows={5} cols={30} className='col-12' />
-						<label htmlFor='username'>Описание сайта</label>
-					</FloatLabel> */}
-				</div>
+				<Dropdown
+					value={behaviour}
+					onChange={(e) => setBehaviour(e.target.value)}
+					className='col-12'
+					placeholder='Выберете поведение фона'
+					options={['Статичный фон', 'Карусель']}
+				/>
+				<WrapperUpload />
 				<Controller
 					name='display_discount'
 					control={control}
@@ -83,6 +87,7 @@ export const MainPage = () => {
 					control={control}
 					render={({ field }) => <CustomCheckbox label='Отображать блок Часто задаваемые вопросы' {...field} />}
 				/>
+				<FAQForm />
 				<Button disabled={!formState.isDirty} label='Сохранить' severity='success' className='col-12 mt-3' />
 			</form>
 		</>

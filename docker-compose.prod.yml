@@ -87,6 +87,23 @@ services:
       network:
         ipv4_address: 24.16.1.54
 
+  # тут пока не собирается из-за пакета надо что-то придумать
+  # console-backend:
+  #   build: ./bhotel_visiter_backend
+  #   ports:
+  #     - '5001:5001'
+  #   restart: always
+  #   environment:
+  #     - NODE_ENV=production
+  #   depends_on:
+  #     - postgres-client
+  #     - backend-admin
+  #   volumes:
+  #     - './packages/:/app/packages'
+  #   networks:
+  #     network:
+  #       ipv4_address: 24.16.1.55
+
   # app-console:
   #   build:
   #     context: bhotel_visiter_console
@@ -95,7 +112,7 @@ services:
   #     - '8802:5501'
   #   restart: always
   #   volumes:
-  #     - './packages/:/app/packages'
+  #     - './packages:/app/packages'
   #   environment:
   #     - VITE_APP_ADMIN_API=http://87.242.117.193:9090/api
   #     - VITE_APP_TRPC_API=http://87.242.117.193:9090/api

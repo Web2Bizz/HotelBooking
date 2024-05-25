@@ -1,6 +1,6 @@
 import { Carousel } from 'antd'
 import './style.scss'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 type TDeals = {
 	id: string
@@ -20,6 +20,8 @@ const SalesSection = () => {
 	const [deals, setDeals] = useState<Array<TDeals>>([])
 	const [readyDeals, setReadyDeals] = useState<Array<TDeals>>([])
 
+	const viewPortRef = useRef(null)
+
 	useEffect(() => {
 		fetch('http://87.242.117.193:9090/api/deal/getDeal')
 			.then((response) => response.json())
@@ -36,7 +38,7 @@ const SalesSection = () => {
 		<div className='SalesSection-container'>
 			<Carousel autoplay>
 				{readyDeals.map((item) => (
-					<div className='SalesSection-carouselContent'>
+					<div className='SalesSection-carouselContent' ref={viewPortRef}>
 						<div className='SalesSection-example'>
 							<p>
 								<span>Скидка {item.discount}%</span> {item.deal_name}

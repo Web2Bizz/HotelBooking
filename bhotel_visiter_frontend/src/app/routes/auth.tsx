@@ -1,17 +1,30 @@
 import { Booking, Profile, ThanksPage, Settings, Payment } from '@pages'
+import { DefaultLayout } from '@ui'
 import { RouteObject } from 'react-router-dom'
 
 export const authRouter: RouteObject[] = [
 	{
 		path: '/profile',
-		element: <Profile />
+		element: (
+			<DefaultLayout>
+				<div style={{ paddingTop: 10 }}>
+					<Profile />
+				</div>
+			</DefaultLayout>
+		)
 	},
 	{
 		path: '/room',
 		children: [
 			{
 				path: ':id/booking',
-				element: <Booking />
+				element: (
+					<DefaultLayout>
+						<div style={{ paddingTop: 10 }}>
+							<Booking />
+						</div>
+					</DefaultLayout>
+				)
 			}
 		]
 	},
@@ -20,15 +33,23 @@ export const authRouter: RouteObject[] = [
 		element: <ThanksPage />
 	},
 	{
-		path: '/profile',
-		element: <Profile />
-	},
-	{
 		path: '/settings',
-		element: <Settings />
+		element: (
+			<DefaultLayout>
+				<div style={{ paddingTop: 10 }}>
+					<Settings />
+				</div>
+			</DefaultLayout>
+		)
 	},
 	{
 		path: '/payments',
-		element: <Payment />
+		element: (
+			<DefaultLayout>
+				<div style={{ paddingTop: 10 }}>
+					<Payment />
+				</div>
+			</DefaultLayout>
+		)
 	}
 ]

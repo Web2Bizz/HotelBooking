@@ -6,19 +6,20 @@ import { useNavigate } from 'react-router-dom'
 type RoomCardProps = {
 	id: string
 	facility: Array<string>
+	image: string
 }
 
 const RoomCard = (props: RoomCardProps) => {
 	const navigate = useNavigate()
 
 	const { Link } = Typography
-	const { id, facility } = props
+	const { id, facility, image } = props
 
 	return (
 		<div className='RoomCard-wrapper'>
 			<div className='RoomCard-container'>
 				<div className='RoomCard-img'>
-					<img src='https://placehold.co/268x360' alt='room-img' />
+					<img style={{ objectFit: 'cover', height: 360, width: 268 }} src={image} alt='room-img' />
 				</div>
 				<div className='RoomCard-info'>
 					<div className='RoomCard-info__rate'>

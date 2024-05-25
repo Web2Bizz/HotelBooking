@@ -1,0 +1,34 @@
+.chat__message-item_user,
+.chat__message-item_bot {
+  max-width: 90%;
+  text-wrap: wrap;
+  word-wrap: break-word;
+  word-break: keep-all;
+  display: flex;
+  list-style: none;
+  width: fit-content;
+  font-family: "Onest";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20.4px;
+  text-align: left;
+  padding: 13px 10px;
+  border-radius: 5px;
+  border: 1px solid #00000033;
+}
+
+.chat__message-item_user {
+  background: #caf05f;
+  margin-left: auto;
+}
+
+.chat__message-item_bot {
+  background: #ffffff;
+  margin-left: 0;
+}
+
+.chat__message-item_user a,
+.chat__message-item_bot a {
+  text-decoration: underline;
+  color: #caf05f;
+}
