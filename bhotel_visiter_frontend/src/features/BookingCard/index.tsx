@@ -10,6 +10,7 @@ type BookingCardProps = {
 export const BookingCard: React.FC<BookingCardProps> = ({ type, image }) => {
 	const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 	const [isDetailsOpen, setIsDetailsOpen] = useState<boolean>(false)
+	const [isBookingOpen, setIsBookingOpen] = useState<boolean>(false)
 
 	const showModal = () => {
 		setIsModalOpen(true)
@@ -29,6 +30,10 @@ export const BookingCard: React.FC<BookingCardProps> = ({ type, image }) => {
 
 	const handleDatailOk = () => {
 		setIsDetailsOpen(false)
+	}
+
+	const handleBookOk = () => {
+		setIsBookingOpen(true)
 	}
 
 	return (
@@ -51,7 +56,7 @@ export const BookingCard: React.FC<BookingCardProps> = ({ type, image }) => {
 								Отменить бронь
 							</Button>
 						)}
-						<Button type='primary' onClick={showDatailModal}>
+						<Button type='primary' onClick={handleBookOk}>
 							Детали
 						</Button>
 					</div>
@@ -77,6 +82,33 @@ export const BookingCard: React.FC<BookingCardProps> = ({ type, image }) => {
 				okButtonProps={{ style: { height: 'unset' } }}
 			>
 				<p>Сюда вписать все подробности брони</p>
+			</Modal>
+			<Modal
+				title='Статус заказа'
+				open={isBookingOpen}
+				onOk={handleDatailOk}
+				cancelButtonProps={{ style: { display: 'none' } }}
+				okText='Ок'
+				okButtonProps={{ style: { height: 'unset' } }}
+			>
+				<p>Заказаны следующие дополнительные услуги:</p>
+				<p style={{ display: 'flex', justifyContent: 'space-between' }}>
+					<span>Премиум завтрак</span>
+					<span>560 рублей</span>
+				</p>
+				<p style={{ display: 'flex', justifyContent: 'space-between' }}>
+					<span>Мини бар</span>
+					<span>1690 рублей</span>
+				</p>
+				<p style={{ display: 'flex', justifyContent: 'space-between' }}>
+					<span>Прачечная</span>
+					<span>400 рублей</span>
+				</p>
+				<hr />
+				<h6 style={{ display: 'flex', justifyContent: 'space-between', marginTop: 20 }}>
+					<span>Итого</span>
+					<span>2650 рублей</span>
+				</h6>
 			</Modal>
 		</>
 	)

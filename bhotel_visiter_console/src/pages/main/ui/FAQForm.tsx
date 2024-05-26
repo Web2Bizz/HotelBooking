@@ -2,9 +2,8 @@ import { Button } from 'primereact/button'
 import { InputText } from 'primereact/inputtext'
 import { InputTextarea } from 'primereact/inputtextarea'
 import { useEffect, useState } from 'react'
-import { v4 as uuidv4 } from 'uuid'
 
-type TFAQFormItem = {
+export type TFAQFormItem = {
 	id: string
 	title: string
 	description: string
@@ -65,66 +64,16 @@ const FAQList = (props: { items: Array<TFAQFormItem> } & THandlers) => {
 	return props.items.map((item, index) => <FAQItem key={index} item={item} {...props} />)
 }
 
-export const FAQForm = () => {
-	const [items, setItems] = useState<Array<TFAQFormItem>>([])
+type TFAQFormProps = {
+	handleCreate: () => void
+	handleUpdateTitle: (id: string, value: string) => void
+	handleUpdateDescription: (id: string, value: string) => void
+	handleDelete: (id: string) => void
+	items: Array<TFAQFormItem>
+}
 
-	const handleCreate = () => {
-		setItems((prev) => [...prev, { id: uuidv4(), title: '', description: '' }])
-	}
-
-	const handleUpdateTitle = (id: string, value: string) => {
-		const origin = items
-
-		const element = origin.find((o) => o.id === id)
-
-		if (element === undefined) return
-
-		const index = origin.indexOf(element)
-
-		if (index === -1) return
-
-		origin[index].title = value
-
-		setItems(origin)
-	}
-
-	const handleUpdateDescription = (id: string, value: string) => {
-		const origin = items
-
-		const element = origin.find((o) => o.id === id)
-
-		if (element === undefined) return
-
-		const index = origin.indexOf(element)
-
-		if (index === -1) return
-
-		origin[index].description = value
-
-		setItems(origin)
-	}
-
-	const handleDelete = (id: string) => {
-		const origin = items
-
-		console.log(id)
-
-		const element = origin.find((o) => o.id === id)
-
-		if (element === undefined) return
-
-		const index = origin.indexOf(element)
-
-		console.log(index)
-
-		if (index === -1) return
-
-		origin.splice(index, 1)
-
-		console.log(origin)
-
-		setItems(origin)
-	}
+export const FAQForm = (props: TFAQFormProps) => {
+	const { handleCreate, handleUpdateTitle, handleUpdateDescription, handleDelete, items } = props
 
 	return (
 		<div className='flex flex-column'>

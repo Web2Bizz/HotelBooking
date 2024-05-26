@@ -1,8 +1,11 @@
 import { inferProcedureOutput, initTRPC } from '@trpc/server'
 import { z } from 'zod'
 import { PgClient } from './utils/index'
+import { v4 } from 'uuid'
 
 const t = initTRPC.create()
+
+const frontend_id = '67342c88-fd1e-425b-99b1-3cdc427b914a'
 
 // Procedure for clean_journal
 const getCleanJournal = t.procedure.input(z.string().uuid()).query(async ({ input }) => {
@@ -437,37 +440,61 @@ const appendServiceReceiptItem = t.procedure
 		return res.rows[0]
 	})
 
-type ProcedureReturnType<TProcedure> = inferProcedureOutput<TProcedure>
+const appendFAQItem = t.procedure
+	.input(
+		z.array(
+			z.object({
+				title: z.string(),
+				description: z.string()
+			})
+		)
+	)
+	.mutation(async ({ input }) => {
+		const client = await PgClient()
 
-export type AppendToCleanJournalReturnType = ProcedureReturnType<typeof appendToCleanJournal>
-export type GetClientReturnType = ProcedureReturnType<typeof getClient>
-export type AppendClientReturnType = ProcedureReturnType<typeof appendClient>
-export type GetUserByIdReturnType = ProcedureReturnType<typeof getUserById>
-export type GetFrontendConfigReturnType = ProcedureReturnType<typeof getFrontendConfig>
-export type SetFrontendConfigReturnType = ProcedureReturnType<typeof setFrontendConfig>
-export type GetFrontendFooterReturnType = ProcedureReturnType<typeof getFrontendFooter>
-export type SetFrontendFooterReturnType = ProcedureReturnType<typeof setFrontendFooter>
-export type GetFrontendHeaderReturnType = ProcedureReturnType<typeof getFrontendHeader>
-export type SetFrontendHeaderReturnType = ProcedureReturnType<typeof setFrontendHeader>
-export type GetFrontendMainPageReturnType = ProcedureReturnType<typeof getFrontendMainPage>
-export type SetFrontendMainPageReturnType = ProcedureReturnType<typeof setFrontendMainPage>
-export type GetFrontendProfileReturnType = ProcedureReturnType<typeof getFrontendProfile>
-export type SetFrontendProfileReturnType = ProcedureReturnType<typeof setFrontendProfile>
-export type GetNotificationsReturnType = ProcedureReturnType<typeof getNotifications>
-export type PushNotificationReturnType = ProcedureReturnType<typeof pushNotification>
-export type GetPaymentReturnType = ProcedureReturnType<typeof getPayment>
-export type AppendPaymentMethodReturnType = ProcedureReturnType<typeof appendPaymentMethod>
-export type GetReviewRoomReturnType = ProcedureReturnType<typeof getReviewRoom>
-export type AppendReviewRoomReturnType = ProcedureReturnType<typeof appendReviewRoom>
-export type GetReviewsReturnType = ProcedureReturnType<typeof getReviews>
-export type AppendReviewReturnType = ProcedureReturnType<typeof appendReview>
-export type GetServiceReturnType = ProcedureReturnType<typeof getService>
-export type SetServiceReturnType = ProcedureReturnType<typeof setService>
-export type AppendServiceReturnType = ProcedureReturnType<typeof appendService>
-export type GetServiceReceiptReturnType = ProcedureReturnType<typeof getServiceReceipt>
-export type AppendServiceReceiptReturnType = ProcedureReturnType<typeof appendServiceReceipt>
-export type GetServiceReceiptItemReturnType = ProcedureReturnType<typeof getServiceReceiptItem>
-export type AppendServiceReceiptItemReturnType = ProcedureReturnType<typeof appendServiceReceiptItem>
+		let y = ''
+
+		for (let i = 0; i < input.length; i++) {
+			y += `INSERT INTO frontend_faq (id, frontend_id, title, description) VALUES ('${v4()}', '${frontend_id}', '${input[i].title}', '${input[i].description}');`
+		}
+
+		const res = await client.query(y)
+		await client.end()
+		return res.rows[0]
+	})
+
+export type TFaq = {
+	id: string
+	frontend_id: string
+	title: string
+	description: string
+}
+
+const getAllFAQ = t.procedure.query(async () => {
+	const client = await PgClient()
+		const res = await client.query<TFaq>('SELECT * FROM public.frontend_faq;')
+		await client.end()
+		return res.rows
+})
+
+const updateFAQItem = t.procedure
+	.input(
+		z.object({
+			id: z.string().uuid(),
+			title: z.string(),
+			description: z.string()
+		})
+	)
+	.query(async ({ input }) => {
+		const client = await PgClient()
+		const res = await client.query('UPDATE frontend_faq SET title=$2, description=$3 WHERE id=$1 RETURNING *', [
+			input.id,
+			input.title,
+			input.description
+		])
+		await client.end()
+		return res.rows[0]
+	})
 
 // Export the router
 export const appRouter = t.router({
@@ -500,7 +527,10 @@ export const appRouter = t.router({
 	getServiceReceipt,
 	appendServiceReceipt,
 	getServiceReceiptItem,
-	appendServiceReceiptItem
+	appendServiceReceiptItem,
+	appendFAQItem,
+	updateFAQItem,
+	getAllFAQ
 })
 
 export type AppRouter = typeof appRouter

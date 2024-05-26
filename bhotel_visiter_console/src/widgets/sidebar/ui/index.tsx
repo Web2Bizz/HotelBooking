@@ -7,6 +7,7 @@ export function SideBar() {
 	const btnRef1 = useRef(null)
 	const btnRef5 = useRef(null)
 	const btnRef6 = useRef(null)
+	const btnRef7 = useRef(null)
 
 	return (
 		<div className='min-h-screen flex fixed col-2 p-0 surface-ground'>
@@ -85,6 +86,9 @@ export function SideBar() {
 									</li>
 									<li>
 										<SideBarItem iconClass='' navigatePath='/system/state' label='Журнал услуг' />
+									</li>
+									<li>
+										<SideBarItem iconClass='' navigatePath='/booking' label='Бронирования' />
 									</li>
 								</ul>
 							</li>

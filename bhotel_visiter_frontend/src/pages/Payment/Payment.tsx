@@ -28,7 +28,6 @@ const Payment = () => {
 
 	return (
 		<>
-			<Header />
 			<div
 				className='Payment-container'
 				style={{

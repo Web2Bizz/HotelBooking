@@ -1,8 +1,8 @@
 import { Avatar, Modal } from 'antd'
-import './style.scss'
 import { useNavigate } from 'react-router-dom'
 import { useContext, useState } from 'react'
 import { UserContext } from '../../../app/contexts/userContext'
+import './style.scss'
 
 const ProfileCard = () => {
 	const navigate = useNavigate()
@@ -51,6 +51,12 @@ const ProfileCard = () => {
 							</li>
 							<li className='PeculiaritiesRooms-custom-list-item'>
 								<a onClick={() => navigate('/payments')}>Способы оплаты</a>
+							</li>
+							<li className='PeculiaritiesRooms-custom-list-item'>
+								<a onClick={() => navigate('/notifications')}>Уведомления</a>
+							</li>
+							<li className='PeculiaritiesRooms-custom-list-item'>
+								<a onClick={() => navigate('/profile')}>История брони</a>
 							</li>
 							<li className='PeculiaritiesRooms-custom-list-item'>
 								<a href=''>Справка</a>

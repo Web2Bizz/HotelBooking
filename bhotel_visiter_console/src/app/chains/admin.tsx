@@ -1,5 +1,6 @@
 import {
 	ApiPage,
+	BookingPage,
 	FooterPage,
 	GeneralPage,
 	HeaderPage,
@@ -91,6 +92,14 @@ export const adminRouter: RouteObject[] = [
 				)
 			}
 		]
+	},
+	{
+		path: 'booking',
+		element: (
+			<AdminLayout>
+				<BookingPage />
+			</AdminLayout>
+		)
 	},
 	{
 		path: 'system',

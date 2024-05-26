@@ -4,7 +4,9 @@ exports.appRouter = void 0;
 const server_1 = require("@trpc/server");
 const zod_1 = require("zod");
 const index_1 = require("./utils/index");
+const uuid_1 = require("uuid");
 const t = server_1.initTRPC.create();
+const frontend_id = '67342c88-fd1e-425b-99b1-3cdc427b914a';
 // Procedure for clean_journal
 const getCleanJournal = t.procedure.input(zod_1.z.string().uuid()).query(async ({ input }) => {
     const client = await (0, index_1.PgClient)();
@@ -340,6 +342,43 @@ const appendServiceReceiptItem = t.procedure
     await client.end();
     return res.rows[0];
 });
+const appendFAQItem = t.procedure
+    .input(zod_1.z.array(zod_1.z.object({
+    title: zod_1.z.string(),
+    description: zod_1.z.string()
+})))
+    .mutation(async ({ input }) => {
+    const client = await (0, index_1.PgClient)();
+    let y = '';
+    for (let i = 0; i < input.length; i++) {
+        y += `INSERT INTO frontend_faq (id, frontend_id, title, description) VALUES ('${(0, uuid_1.v4)()}', '${frontend_id}', '${input[i].title}', '${input[i].description}');`;
+    }
+    const res = await client.query(y);
+    await client.end();
+    return res.rows[0];
+});
+const getAllFAQ = t.procedure.query(async () => {
+    const client = await (0, index_1.PgClient)();
+    const res = await client.query('SELECT * FROM public.frontend_faq;');
+    await client.end();
+    return res.rows;
+});
+const updateFAQItem = t.procedure
+    .input(zod_1.z.object({
+    id: zod_1.z.string().uuid(),
+    title: zod_1.z.string(),
+    description: zod_1.z.string()
+}))
+    .query(async ({ input }) => {
+    const client = await (0, index_1.PgClient)();
+    const res = await client.query('UPDATE frontend_faq SET title=$2, description=$3 WHERE id=$1 RETURNING *', [
+        input.id,
+        input.title,
+        input.description
+    ]);
+    await client.end();
+    return res.rows[0];
+});
 // Export the router
 exports.appRouter = t.router({
     getCleanJournal,
@@ -371,5 +410,8 @@ exports.appRouter = t.router({
     getServiceReceipt,
     appendServiceReceipt,
     getServiceReceiptItem,
-    appendServiceReceiptItem
+    appendServiceReceiptItem,
+    appendFAQItem,
+    updateFAQItem,
+    getAllFAQ
 });

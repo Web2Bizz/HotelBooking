@@ -6,5 +6,6 @@ import Profile from './Profile/Profile'
 import Settings from './Settings/Settings'
 import Payment from './Payment/Payment'
 import Catalog from './Catalog/Catalog'
+import NotificationsPage from './Notifications'
 
-export { Home, RoomPreview, Booking, ThanksPage, Profile, Settings, Payment, Catalog }
+export { Home, RoomPreview, Booking, ThanksPage, Profile, Settings, Payment, Catalog, NotificationsPage }

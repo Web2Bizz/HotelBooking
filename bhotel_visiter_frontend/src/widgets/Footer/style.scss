@@ -1,69 +1,70 @@
 .Footer-wrapper {
-  background-color: black;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+	margin-top: 50px;
+	background-color: black;
+	color: white;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 
 .Footer-logo {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  margin-bottom: 50px;
-  margin-top: 85px;
+	display: flex;
+	align-items: center;
+	gap: 20px;
+	margin-bottom: 50px;
+	margin-top: 85px;
 
-  p {
-    font-size: 32px;
-  }
+	p {
+		font-size: 32px;
+	}
 
-  .ant-avatar {
-    background: white;
-  }
+	.ant-avatar {
+		background: white;
+	}
 }
 
 .Footer-links {
-  display: flex;
-  margin-bottom: 113px;
+	display: flex;
+	margin-bottom: 113px;
 
-  div {
-    max-width: 280px;
-    display: flex;
-    flex-direction: column;
-  }
+	div {
+		max-width: 280px;
+		display: flex;
+		flex-direction: column;
+	}
 
-  a {
-    color: white;
-    text-decoration: none;
-    font-weight: 200;
-    margin-top: 25px;
-  }
+	a {
+		color: white;
+		text-decoration: none;
+		font-weight: 200;
+		margin-top: 25px;
+	}
 
-  p {
-    font-weight: 700;
-    font-size: 24px;
-  }
+	p {
+		font-weight: 700;
+		font-size: 24px;
+	}
 
-  .Footer-button {
-    span {
-      font-weight: 200;
-      margin: 25px 0;
-    }
+	.Footer-button {
+		span {
+			font-weight: 200;
+			margin: 25px 0;
+		}
 
-    .ant-btn {
-      height: 50px;
-      font-size: 24px;
+		.ant-btn {
+			height: 50px;
+			font-size: 24px;
 
-      span {
-        margin: 0;
-      }
-    }
-  }
+			span {
+				margin: 0;
+			}
+		}
+	}
 }
 
 .Footer-copyright {
-  margin-bottom: 60px;
-  display: flex;
-  justify-content: center;
+	margin-bottom: 60px;
+	display: flex;
+	justify-content: center;
 }

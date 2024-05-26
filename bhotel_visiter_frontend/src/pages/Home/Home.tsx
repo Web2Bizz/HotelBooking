@@ -4,7 +4,6 @@ import {
 	PopularRooms,
 	IntroSection,
 	SalesSection,
-	ServiceSection,
 	FAQSection,
 	ListOfRoomsSection,
 	Header,
@@ -49,8 +48,6 @@ const Home = () => {
 	useEffect(() => {
 		setHeaderData(getHeaderSettings.data as IFormHeaderSettings)
 	}, [getHeaderSettings.data])
-
-	const hotelData = useContext(AppContext)
 
 	const [chatIsOpen, setChatIsOpen] = useState<boolean>(false)
 
