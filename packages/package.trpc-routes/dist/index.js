@@ -379,8 +379,14 @@ const updateFAQItem = t.procedure
     await client.end();
     return res.rows[0];
 });
+const getHotelProperties = t.procedure
+    .query(async () => {
+    const data = await fetch("http://87.242.117.193:9090/api/hotelSettings/getHotelProperties");
+    return (await data.json());
+});
 // Export the router
 exports.appRouter = t.router({
+    getHotelProperties,
     getCleanJournal,
     appendToCleanJournal,
     getClient,

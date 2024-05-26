@@ -1,19 +1,17 @@
 import { trpc } from '@helpers'
+import { Chat } from '@widgets'
+import { useEffect, useState } from 'react'
 import {
-	HeroSection,
-	PopularRooms,
-	IntroSection,
-	SalesSection,
 	FAQSection,
-	ListOfRoomsSection,
+	Footer,
 	Header,
-	Footer
+	HeroSection,
+	IntroSection,
+	ListOfRoomsSection,
+	PopularRooms,
+	SalesSection
 } from '../../widgets'
-import { useContext, useEffect, useState } from 'react'
 import './style.scss'
-import AppContext from 'antd/es/app/context'
-import { CloseOutlined, MessageOutlined, SendOutlined } from '@ant-design/icons'
-import { Button, Input } from 'antd'
 
 interface IMainPageFormData {
 	cover_type: string
@@ -49,8 +47,6 @@ const Home = () => {
 		setHeaderData(getHeaderSettings.data as IFormHeaderSettings)
 	}, [getHeaderSettings.data])
 
-	const [chatIsOpen, setChatIsOpen] = useState<boolean>(false)
-
 	return (
 		<div>
 			<Header />
@@ -69,44 +65,9 @@ const Home = () => {
 				{/* <ServiceSection /> */}
 				{data?.display_faq && <FAQSection />}
 				<ListOfRoomsSection />
-				<div className='chat'>
-					{chatIsOpen && (
-						<div className='chat-view'>
-							<div className='chat-title'>Чат поддержки</div>
-							<ul className='messages'>
-								<li className='chat-my'>
-									<span style={{ backgroundColor: headerData.background_color }}>
-										Здравствуйте, хочу узнать, есть ли у вас скидка по поводу дня рождения?
-									</span>
-								</li>
-								<li className='chat-bot'>
-									<span>Здравствуйте! Николай, да у нас имеется возможность скидки по случаю дня рождения</span>
-								</li>
-								<li className='chat-my'>
-									<span style={{ backgroundColor: headerData.background_color }}>Спасибо!</span>
-								</li>
-								<li className='chat-bot'>
-									<span>Всего хорошего</span>
-								</li>
-							</ul>
-							<div className='chat-form'>
-								<Input placeholder='Введите сообщение' />
-								<Button>
-									<SendOutlined />
-								</Button>
-							</div>
-						</div>
-					)}
-					<div
-						onClick={() => setChatIsOpen((prev) => !prev)}
-						className='button'
-						style={{ backgroundColor: headerData?.background_color }}
-					>
-						{!chatIsOpen ? <MessageOutlined /> : <CloseOutlined />}
-					</div>
-				</div>
 			</div>
 			<Footer />
+			<Chat />
 		</div>
 	)
 }

@@ -4,12 +4,34 @@ export type TFaq = {
     title: string;
     description: string;
 };
+export type THotelProperties = {
+    id_hotel_properties: string;
+    hotel_name: string;
+    hotel_logo: string;
+    hotel_country: string;
+    hotel_region: string;
+    hotel_city: string;
+    hotel_street: string;
+    hotel_number_house: string;
+    hotel_count_floor: string;
+    hotel_count_room: number;
+    contact_email: string;
+    contact_number_phone: string;
+    owner_name: string;
+    owner_number_phone: string;
+    owner_email: string;
+    id_personal_data_storage_policy: string;
+};
 export declare const appRouter: import("@trpc/server/unstable-core-do-not-import").BuiltRouter<{
     ctx: object;
     meta: object;
     errorShape: import("@trpc/server/unstable-core-do-not-import").DefaultErrorShape;
     transformer: false;
 }, {
+    getHotelProperties: import("@trpc/server").TRPCQueryProcedure<{
+        input: void;
+        output: THotelProperties;
+    }>;
     getCleanJournal: import("@trpc/server").TRPCQueryProcedure<{
         input: string;
         output: any;

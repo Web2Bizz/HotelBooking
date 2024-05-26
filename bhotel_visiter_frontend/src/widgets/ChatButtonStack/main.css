@@ -1,8 +1,0 @@
-.chat__button-stack {
-    display: flex;
-    flex-direction: column;
-}
-
-.chat__button {
-    padding-block: 10px;
-}

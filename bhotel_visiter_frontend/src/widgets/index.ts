@@ -20,7 +20,10 @@ import ProfileCard from './ProfileWidgets/ProfileCard/ProfileCard'
 
 import Container from './Container'
 
+import Chat from './Chat'
+
 export {
+	Chat,
 	Header,
 	Footer,
 	HeroSection,
