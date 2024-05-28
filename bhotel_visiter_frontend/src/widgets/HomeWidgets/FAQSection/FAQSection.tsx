@@ -1,66 +1,60 @@
-import { Collapse } from "antd";
-import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
+import { Collapse } from 'antd'
+import { MinusOutlined, PlusOutlined } from '@ant-design/icons'
 
-import type { CollapseProps } from "antd";
-import type { CSSProperties } from "react";
+import type { CollapseProps } from 'antd'
+import { useEffect, useState, type CSSProperties } from 'react'
+import { trpc } from '@helpers'
 
-import "./style.scss";
+import './style.scss'
+import { TFaq } from 'trpc-package'
 
-const text = `
-  A dog is a type of domesticated animal.
-  Known for its loyalty and faithfulness,
-  it can be found as a welcome guest in many households across the world.
-`;
-
-const getItems: (panelStyle: CSSProperties) => CollapseProps["items"] = (
-  panelStyle
-) => [
-  {
-    key: "1",
-    label: "Часто задаваемый вопрос №1",
-    children: <p>Тут какой-то ответ на часто задаваемый вопрос №1</p>,
-    style: panelStyle,
-  },
-  {
-    key: "2",
-    label: "Часто задаваемый вопрос №2",
-    children: <p>Тараканы прибегают иногда, но они очень быстро уходят сами</p>,
-    style: panelStyle,
-  },
-  {
-    key: "3",
-    label: "Часто задаваемый вопрос №3",
-    children: <p>Соседи не шумные, правда</p>,
-    style: panelStyle,
-  },
-];
+type TFaqItem = {
+	key: string
+	label: string
+	children: JSX.Element
+	style: CSSProperties
+}
 
 const FAQSection = () => {
-  const panelStyle: React.CSSProperties = {
-    marginBottom: 24,
-    background: "#A3A3A3",
-    borderRadius: 15,
-    border: "none",
-  };
+	const [faq, setFaq] = useState<Array<TFaqItem>>([])
 
-  return (
-    <div className="FAQSection-container">
-      <div>
-        <h1>Часто задаваемые вопросы</h1>
-      </div>
-      <div className="FAQSection-collapse">
-        <Collapse
-          bordered={false}
-          expandIconPosition="end"
-          expandIcon={({ isActive }) =>
-            isActive ? <MinusOutlined /> : <PlusOutlined />
-          }
-          items={getItems(panelStyle)}
-          style={{ background: "#A3A3A3" }}
-        />
-      </div>
-    </div>
-  );
-};
+	const panelStyle: React.CSSProperties = {
+		marginBottom: 24,
+		background: '#e9e9e9',
+		borderRadius: 15,
+		border: 'none'
+	}
 
-export default FAQSection;
+	const getAllFAQ = trpc.useQueries((t) => [t.getAllFAQ()])
+
+	const getItems = (panelStyle: CSSProperties) =>
+		getAllFAQ !== undefined &&
+		Array.isArray(getAllFAQ[0].data) &&
+		getAllFAQ[0].data.map((item, index) => ({
+			key: index.toString(),
+			label: item.title,
+			children: <p>{item.description}</p>,
+			style: panelStyle
+		}))
+
+	return (
+		faq !== undefined && (
+			<div className='FAQSection-container'>
+				<div>
+					<h1>Часто задаваемые вопросы</h1>
+				</div>
+				<div className='FAQSection-collapse'>
+					<Collapse
+						bordered={false}
+						expandIconPosition='end'
+						expandIcon={({ isActive }) => (isActive ? <MinusOutlined /> : <PlusOutlined />)}
+						items={getItems(panelStyle)}
+						style={{ background: '#e9e9e9' }}
+					/>
+				</div>
+			</div>
+		)
+	)
+}
+
+export default FAQSection

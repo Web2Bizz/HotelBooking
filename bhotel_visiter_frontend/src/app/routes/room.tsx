@@ -1,4 +1,5 @@
 import { RoomPreview } from '@pages'
+import { DefaultLayout } from '@ui'
 import { RouteObject } from 'react-router-dom'
 
 export const roomRouter: RouteObject[] = [
@@ -7,7 +8,13 @@ export const roomRouter: RouteObject[] = [
 		children: [
 			{
 				path: ':id',
-				element: <RoomPreview />
+				element: (
+					<DefaultLayout>
+						<div style={{ paddingTop: 10 }}>
+							<RoomPreview />
+						</div>
+					</DefaultLayout>
+				)
 			}
 		]
 	}

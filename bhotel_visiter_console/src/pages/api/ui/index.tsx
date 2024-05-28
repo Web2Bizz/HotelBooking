@@ -1,42 +1,42 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { AdminPageTitle } from '@widgets'
-import { Button } from 'primereact/button'
-import { FloatLabel } from 'primereact/floatlabel'
-import { InputText } from 'primereact/inputtext'
-import { trpc } from '@helpers'
+// import { AdminPageTitle } from '@widgets'
+// import { Button } from 'primereact/button'
+// import { FloatLabel } from 'primereact/floatlabel'
+// import { InputText } from 'primereact/inputtext'
+// import { trpc } from '@helpers'
 
 export const ApiPage = () => {
-	const [checkConnection] = trpc.useQueries((t) => [
-		t.publicRouter.pgConnectionaRouter.checkConnection()
-	])
+	// const [checkConnection] = trpc.useQueries((t) => [
+	// 	t.publicRouter.pgConnectionaRouter.checkConnection()
+	// ])
 
-	const onCheckDB = () => {
-		checkConnection.refetch()
-	}
+	// const onCheckDB = () => {
+	// 	checkConnection.refetch()
+	// }
 
-	const pgData = trpc.publicRouter.pgConnectionaRouter.getPgData.useQuery().data
+	// const pgData = trpc.publicRouter.pgConnectionaRouter.getPgData.useQuery().data
 
 	return (
 		<>
-			<AdminPageTitle title={'настройки API'} />
+			{/* <AdminPageTitle title={'настройки API'} />
 			<form className='col-4' onSubmit={(e) => e.preventDefault()}>
 				<h3>API административной части:</h3>
 				<div className='my-3'>
 					{/* @ts-ignore */}
-					<FloatLabel>
+			{/* <FloatLabel>
 						<InputText id='username' className='col-12' />
 						<label htmlFor='username'>api ссылка</label>
 					</FloatLabel>
-				</div>
-				<Button label='Проверить соединение' />
+				</div> */}
+			{/* <Button label='Проверить соединение' />
 				<h3>API backend:</h3>
-				<div className='my-3'>
-					{/* @ts-ignore */}
-					{/* <FloatLabel>
+				<div className='my-3'> */}
+			{/* @ts-ignore */}
+			{/* <FloatLabel>
 						<InputText id='username' className='col-12' />
 						<label htmlFor='username'>api ссылка</label>
 					</FloatLabel> */}
-				</div>
+			{/* </div>
 				<Button label='Проверить соединение' />
 				<Button label='Сохранить' severity='success' className='col-12 mt-3' />
 				<h3>Данные подключения к БД (Только для чтения):</h3>
@@ -78,7 +78,7 @@ export const ApiPage = () => {
 				</div>
 				<p>Статус: {checkConnection.status}</p>
 				<Button label='Проверить соединение' onClick={onCheckDB} />
-			</form>
+			</form> */}
 		</>
 	)
 }

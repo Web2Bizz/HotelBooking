@@ -1,5 +1,5 @@
-import './style.scss'
 import { BookingCard } from '../../../features'
+import './style.scss'
 
 const UpcomingBooking = () => {
 	return (

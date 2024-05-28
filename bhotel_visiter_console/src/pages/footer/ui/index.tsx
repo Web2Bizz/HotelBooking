@@ -12,9 +12,7 @@ interface IFormFooterSettings {
 }
 
 export const FooterPage = () => {
-	const [getSettings] = trpc.useQueries((t) => [
-		t.consoleRoute.footerRouter.getSettings('67342c88-fd1e-425b-99b1-3cdc427b914a')
-	])
+	const [getSettings] = trpc.useQueries((t) => [t.getFrontendFooter()])
 
 	const { control, handleSubmit, formState, reset } = useForm<IFormFooterSettings>({
 		defaultValues: async () => {
@@ -23,7 +21,7 @@ export const FooterPage = () => {
 		mode: 'all'
 	})
 
-	const mutation = trpc.consoleRoute.footerRouter.setSettings.useMutation()
+	// const mutation = trpc.setFrontendFooter.useMutation()
 
 	const [data, setData] = useState<IFormFooterSettings>()
 
@@ -37,8 +35,9 @@ export const FooterPage = () => {
 		}
 	}, [data, reset])
 
-	const onSubmit: SubmitHandler<IFormFooterSettings> = (formData) => {
-		mutation.mutate({ ...formData, id: '67342c88-fd1e-425b-99b1-3cdc427b914a' })
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	const onSubmit: SubmitHandler<IFormFooterSettings> = (_formData) => {
+		// mutation.mutate({ ...formData })
 	}
 
 	return (

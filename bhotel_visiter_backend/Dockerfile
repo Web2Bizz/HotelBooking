@@ -1,6 +1,6 @@
-FROM node:21-alpine3.18 as vite-app
+FROM node:21-alpine3.18
 
-WORKDIR /app
+WORKDIR /app/backend
 COPY . .
 
 RUN ["npm", "i"]

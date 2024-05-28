@@ -1,8 +1,11 @@
 import { inferProcedureOutput, initTRPC } from '@trpc/server'
 import { z } from 'zod'
 import { PgClient } from './utils/index'
+import { v4 } from 'uuid'
 
 const t = initTRPC.create()
+
+const frontend_id = '67342c88-fd1e-425b-99b1-3cdc427b914a'
 
 // Procedure for clean_journal
 const getCleanJournal = t.procedure.input(z.string().uuid()).query(async ({ input }) => {
@@ -89,9 +92,9 @@ const setFrontendConfig = t.procedure
 	})
 
 // Procedure for frontend_footer
-const getFrontendFooter = t.procedure.input(z.number()).query(async ({ input }) => {
+const getFrontendFooter = t.procedure.query(async () => {
 	const client = await PgClient()
-	const res = await client.query('SELECT * FROM frontend_footer WHERE id = $1', [input])
+	const res = await client.query('SELECT * FROM frontend_footer WHERE id = $1', [frontend_id])
 	await client.end()
 	return res.rows[0]
 })
@@ -99,7 +102,6 @@ const getFrontendFooter = t.procedure.input(z.number()).query(async ({ input }) 
 const setFrontendFooter = t.procedure
 	.input(
 		z.object({
-			id: z.number(),
 			display_logo: z.boolean().default(true),
 			display_label: z.boolean().default(true),
 			display_social_block: z.boolean().default(false),
@@ -110,7 +112,7 @@ const setFrontendFooter = t.procedure
 		const client = await PgClient()
 		const res = await client.query(
 			'UPDATE frontend_footer SET display_logo = $1, display_label = $2, display_social_block = $3, frontend_id = $4 WHERE id = $5 RETURNING *',
-			[input.display_logo, input.display_label, input.display_social_block, input.frontend_id, input.id]
+			[input.display_logo, input.display_label, input.display_social_block, input.frontend_id, frontend_id]
 		)
 		await client.end()
 		return res.rows[0]
@@ -158,7 +160,7 @@ const setFrontendHeader = t.procedure
 // Procedure for frontend_main_page
 const getFrontendMainPage = t.procedure.input(z.string().uuid()).query(async ({ input }) => {
 	const client = await PgClient()
-	const res = await client.query('SELECT * FROM frontend_main_page WHERE id = $1', [input])
+	const res = await client.query('SELECT * FROM frontend_main_page WHERE frontend_id = $1', [input])
 	await client.end()
 	return res.rows[0]
 })
@@ -178,16 +180,8 @@ const setFrontendMainPage = t.procedure
 	.mutation(async ({ input }) => {
 		const client = await PgClient()
 		const res = await client.query(
-			'UPDATE frontend_main_page SET frontend_id = $1, cover_type = $2, display_discount = $3, display_booking = $4, display_popular = $5, display_faq = $6 WHERE id = $7 RETURNING *',
-			[
-				input.frontend_id,
-				input.cover_type,
-				input.display_discount,
-				input.display_booking,
-				input.display_popular,
-				input.display_faq,
-				input.id
-			]
+			'UPDATE frontend_main_page SET display_discount = $1, display_booking = $2, display_popular = $3, display_faq = $4 WHERE frontend_id = $5 RETURNING *',
+			[input.display_discount, input.display_booking, input.display_popular, input.display_faq, input.frontend_id]
 		)
 		await client.end()
 		return res.rows[0]
@@ -445,40 +439,107 @@ const appendServiceReceiptItem = t.procedure
 		return res.rows[0]
 	})
 
-type ProcedureReturnType<TProcedure> = inferProcedureOutput<TProcedure>
+const appendFAQItem = t.procedure
+	.input(
+		z.array(
+			z.object({
+				title: z.string(),
+				description: z.string()
+			})
+		)
+	)
+	.mutation(async ({ input }) => {
+		const client = await PgClient()
 
-export type AppendToCleanJournalReturnType = ProcedureReturnType<typeof appendToCleanJournal>
-export type GetClientReturnType = ProcedureReturnType<typeof getClient>
-export type AppendClientReturnType = ProcedureReturnType<typeof appendClient>
-export type GetUserByIdReturnType = ProcedureReturnType<typeof getUserById>
-export type GetFrontendConfigReturnType = ProcedureReturnType<typeof getFrontendConfig>
-export type SetFrontendConfigReturnType = ProcedureReturnType<typeof setFrontendConfig>
-export type GetFrontendFooterReturnType = ProcedureReturnType<typeof getFrontendFooter>
-export type SetFrontendFooterReturnType = ProcedureReturnType<typeof setFrontendFooter>
-export type GetFrontendHeaderReturnType = ProcedureReturnType<typeof getFrontendHeader>
-export type SetFrontendHeaderReturnType = ProcedureReturnType<typeof setFrontendHeader>
-export type GetFrontendMainPageReturnType = ProcedureReturnType<typeof getFrontendMainPage>
-export type SetFrontendMainPageReturnType = ProcedureReturnType<typeof setFrontendMainPage>
-export type GetFrontendProfileReturnType = ProcedureReturnType<typeof getFrontendProfile>
-export type SetFrontendProfileReturnType = ProcedureReturnType<typeof setFrontendProfile>
-export type GetNotificationsReturnType = ProcedureReturnType<typeof getNotifications>
-export type PushNotificationReturnType = ProcedureReturnType<typeof pushNotification>
-export type GetPaymentReturnType = ProcedureReturnType<typeof getPayment>
-export type AppendPaymentMethodReturnType = ProcedureReturnType<typeof appendPaymentMethod>
-export type GetReviewRoomReturnType = ProcedureReturnType<typeof getReviewRoom>
-export type AppendReviewRoomReturnType = ProcedureReturnType<typeof appendReviewRoom>
-export type GetReviewsReturnType = ProcedureReturnType<typeof getReviews>
-export type AppendReviewReturnType = ProcedureReturnType<typeof appendReview>
-export type GetServiceReturnType = ProcedureReturnType<typeof getService>
-export type SetServiceReturnType = ProcedureReturnType<typeof setService>
-export type AppendServiceReturnType = ProcedureReturnType<typeof appendService>
-export type GetServiceReceiptReturnType = ProcedureReturnType<typeof getServiceReceipt>
-export type AppendServiceReceiptReturnType = ProcedureReturnType<typeof appendServiceReceipt>
-export type GetServiceReceiptItemReturnType = ProcedureReturnType<typeof getServiceReceiptItem>
-export type AppendServiceReceiptItemReturnType = ProcedureReturnType<typeof appendServiceReceiptItem>
+		let y = ''
+
+		for (let i = 0; i < input.length; i++) {
+			y += `INSERT INTO frontend_faq (id, frontend_id, title, description) VALUES ('${v4()}', '${frontend_id}', '${input[i].title}', '${input[i].description}');`
+		}
+
+		const res = await client.query(y)
+		await client.end()
+		return res.rows[0]
+	})
+
+export type TFaq = {
+	id: string
+	frontend_id: string
+	title: string
+	description: string
+}
+
+const getAllFAQ = t.procedure.query(async () => {
+	const client = await PgClient()
+		const res = await client.query<TFaq>('SELECT * FROM public.frontend_faq;')
+		await client.end()
+		return res.rows
+})
+
+const updateFAQItem = t.procedure
+	.input(
+		z.object({
+			id: z.string().uuid(),
+			title: z.string(),
+			description: z.string()
+		})
+	)
+	.query(async ({ input }) => {
+		const client = await PgClient()
+		const res = await client.query('UPDATE frontend_faq SET title=$2, description=$3 WHERE id=$1 RETURNING *', [
+			input.id,
+			input.title,
+			input.description
+		])
+		await client.end()
+		return res.rows[0]
+	})
+
+const deleteFAQItem = t.procedure.input(z.array(z.string().uuid())).mutation(async ({input}) => {
+	const client = await PgClient()
+	let y = ''
+
+	console.log(input.length);
+	
+
+	for (let i = 0; i < input.length; i++) {
+		y += `DELETE FROM frontend_faq WHERE id='${input[i]}';`
+	}
+
+	const res = await client.query(y)
+
+	await client.end()
+	return res.rows[0]
+})
+
+export type THotelProperties = {
+	id_hotel_properties: string
+	hotel_name: string
+	hotel_logo: string
+	hotel_country: string
+	hotel_region: string
+	hotel_city: string
+	hotel_street: string
+	hotel_number_house: string
+	hotel_count_floor: string
+	hotel_count_room: number
+	contact_email: string
+	contact_number_phone: string
+	owner_name: string
+	owner_number_phone: string
+	owner_email: string
+	id_personal_data_storage_policy: string
+}
+
+const getHotelProperties = t.procedure
+	.query(async () => {
+		const data = await fetch("http://87.242.117.193:9090/api/hotelSettings/getHotelProperties")
+		return (await data.json()) as THotelProperties
+	})
 
 // Export the router
 export const appRouter = t.router({
+	getHotelProperties,
 	getCleanJournal,
 	appendToCleanJournal,
 	getClient,
@@ -508,7 +569,11 @@ export const appRouter = t.router({
 	getServiceReceipt,
 	appendServiceReceipt,
 	getServiceReceiptItem,
-	appendServiceReceiptItem
+	appendServiceReceiptItem,
+	appendFAQItem,
+	updateFAQItem,
+	getAllFAQ,
+	deleteFAQItem
 })
 
 export type AppRouter = typeof appRouter

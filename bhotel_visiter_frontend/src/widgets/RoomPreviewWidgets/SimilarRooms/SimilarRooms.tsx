@@ -4,7 +4,7 @@ import './style.scss'
 const SimilarRooms = () => {
 	const currentComponents = [...Array(4)].map((_, index) => (
 		<div className='SimilarRooms-rooms-item'>
-			<RoomCard key={index} />
+			<RoomCard facility={[]} id={index.toString()} key={index} image={''} />
 		</div>
 	))
 

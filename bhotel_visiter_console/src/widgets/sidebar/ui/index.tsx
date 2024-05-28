@@ -86,6 +86,9 @@ export function SideBar() {
 									<li>
 										<SideBarItem iconClass='' navigatePath='/system/state' label='Журнал услуг' />
 									</li>
+									<li>
+										<SideBarItem iconClass='' navigatePath='/booking' label='Бронирования' />
+									</li>
 								</ul>
 							</li>
 							<li>

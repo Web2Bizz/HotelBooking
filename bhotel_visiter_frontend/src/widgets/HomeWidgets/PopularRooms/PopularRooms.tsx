@@ -13,9 +13,7 @@ const PopularRooms = () => {
 				<div className='PopularRooms-info'>
 					<div>
 						<h1>Сейчас популярно</h1>
-						<p>
-							Надо чат гпт попросить вписать суда что-то
-						</p>
+						<p>Надо чат гпт попросить вписать суда что-то</p>
 					</div>
 					<div>
 						<Button onClick={onBooking} type='primary'>
@@ -24,8 +22,8 @@ const PopularRooms = () => {
 					</div>
 				</div>
 				<div className='PopularRooms-rooms'>
-					<RoomCard />
-					<RoomCard />
+					<RoomCard id={''} facility={[]} image={''} />
+					<RoomCard id={''} facility={[]} image={''} />
 				</div>
 			</div>
 		</div>

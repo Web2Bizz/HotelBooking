@@ -2,23 +2,28 @@
 }
 
 .SalesSection-carouselContent {
-  height: 450px;
-  padding: 62px 52px;
-  background-color: #a3a3a3;
+	height: 450px;
+	padding: 62px 52px;
+	background-image: linear-gradient(rgba(85, 85, 85, 0.295), rgba(66, 66, 66, 0.288)), url('/d7.jpg');
+	object-fit: contain;
+	background-repeat: no-repeat;
+	background-position: 0 0;
+	background-size: cover;
+	color: #fff;
 }
 
 .SalesSection-example {
-  p,
-  span {
-    font-size: 48px;
-  }
+	p,
+	span {
+		font-size: 48px;
+	}
 
-  span {
-    font-weight: bold;
-  }
+	span {
+		font-weight: bold;
+	}
 
-  p:last-of-type {
-    margin-top: 50px;
-    font-size: 24px;
-  }
+	p:last-of-type {
+		margin-top: 50px;
+		font-size: 24px;
+	}
 }

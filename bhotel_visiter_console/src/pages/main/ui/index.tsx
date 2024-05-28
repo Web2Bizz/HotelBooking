@@ -5,39 +5,50 @@ import { Button } from 'primereact/button'
 import { Dropdown } from 'primereact/dropdown'
 import { useEffect, useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
-// import { FloatLabel } from 'primereact/floatlabel'
-// import { InputTextarea } from 'primereact/inputtextarea'
+import { FAQForm, TFAQFormItem } from './FAQForm'
+import { WrapperUpload } from './WrapperUpload'
+import { v4 as uuidv4 } from 'uuid'
 
 interface IMainPageFormData {
-	coverType: string
-	isDisplayDiscount: boolean
-	isDisplayBooking: boolean
-	isDisplayPopular: boolean
-	isDisplayFAQ: boolean
+	cover_type: string
+	display_discount: boolean
+	display_booking: boolean
+	display_popular: boolean
+	display_faq: boolean
 }
 
 export const MainPage = () => {
-	const [getSettings] = trpc.useQueries((t) => [
-		t.consoleRoute.mainPageRouter.getSettings(
-			'67342c88-fd1e-425b-99b1-3cdc427b914a'
-		)
-	])
+	const mutation = trpc.setFrontendMainPage.useMutation()
+	const appendFAQ = trpc.appendFAQItem.useMutation()
+	const removeFAQ = trpc.deleteFAQItem.useMutation()
 
-	const mutation = trpc.consoleRoute.mainPageRouter.setSettings.useMutation()
+	const [behaviour, setBehaviour] = useState<string>('Статичный фон')
+	const [items, setItems] = useState<Array<TFAQFormItem>>([])
 
-	const { control, handleSubmit, formState, reset } =
-		useForm<IMainPageFormData>({
-			defaultValues: async () => {
-				return getSettings.data!
-			},
-			mode: 'all'
-		})
+	const [addedItems] = useState<Array<TFAQFormItem>>([])
+	const [removedItems, setRemovedItems] = useState<Array<string>>([])
 
 	const [data, setData] = useState<IMainPageFormData>()
 
-	useEffect(() => {
-		console.log(getSettings.data)
+	const [getSettings] = trpc.useQueries((t) => [t.getFrontendMainPage('67342c88-fd1e-425b-99b1-3cdc427b914a')])
+	const getAllFAQ = trpc.useQueries((t) => [t.getAllFAQ()])
 
+	const { control, handleSubmit, reset } = useForm<IMainPageFormData>({
+		defaultValues: async () => {
+			return getSettings.data!
+		},
+		mode: 'all'
+	})
+
+	useEffect(() => {
+		const y = getAllFAQ[0].data
+
+		if (y === undefined) return
+
+		setItems(y)
+	}, [getAllFAQ])
+
+	useEffect(() => {
 		setData(getSettings.data as IMainPageFormData)
 	}, [getSettings.data])
 
@@ -48,7 +59,71 @@ export const MainPage = () => {
 	}, [data, reset])
 
 	const onSubmit: SubmitHandler<IMainPageFormData> = (formData) => {
-		mutation.mutate({ ...formData, id: '67342c88-fd1e-425b-99b1-3cdc427b914a' })
+		if (addedItems.length > 0) appendFAQ.mutate(addedItems)
+
+		if (removedItems.length > 0) removeFAQ.mutate(removedItems)
+
+		mutation.mutate({
+			...formData,
+			id: '67342c88-fd1e-425b-99b1-3cdc427b914a',
+			frontend_id: '67342c88-fd1e-425b-99b1-3cdc427b914a'
+		})
+	}
+
+	const handleCreate = () => {
+		const item = { id: uuidv4(), title: '', description: '' }
+
+		setItems((prev) => [...prev, item])
+		// setAddedItems((prev) => [...prev, item])
+	}
+
+	const handleUpdateTitle = (id: string, value: string) => {
+		const origin = items
+
+		const element = origin.find((o) => o.id === id)
+
+		if (element === undefined) return
+
+		const index = origin.indexOf(element)
+
+		if (index === -1) return
+
+		origin[index].title = value
+
+		setItems(origin)
+	}
+
+	const handleUpdateDescription = (id: string, value: string) => {
+		const origin = items
+
+		const element = origin.find((o) => o.id === id)
+
+		if (element === undefined) return
+
+		const index = origin.indexOf(element)
+
+		if (index === -1) return
+
+		origin[index].description = value
+
+		setItems(origin)
+	}
+
+	const handleDelete = (id: string) => {
+		const origin = items
+
+		const element = origin.find((o) => o.id === id)
+
+		if (element === undefined) return
+
+		const index = origin.indexOf(element)
+
+		if (index === -1) return
+
+		origin.splice(index, 1)
+
+		setRemovedItems((prev) => [...prev, id])
+		setItems(origin)
 	}
 
 	return (
@@ -57,60 +132,41 @@ export const MainPage = () => {
 			<form className='col-4' onSubmit={handleSubmit(onSubmit)}>
 				<h3>Приветствие</h3>
 				<Dropdown
+					value={behaviour}
+					onChange={(e) => setBehaviour(e.target.value)}
 					className='col-12'
 					placeholder='Выберете поведение фона'
 					options={['Статичный фон', 'Карусель']}
 				/>
-				<div className='my-5'>
-					{/* @ts-ignore */}
-					{/* <FloatLabel>
-						<InputTextarea id='username' rows={5} cols={30} className='col-12' />
-						<label htmlFor='username'>Описание сайта</label>
-					</FloatLabel> */}
-				</div>
+				<WrapperUpload />
 				<Controller
-					name='isDisplayDiscount'
+					name='display_discount'
 					control={control}
-					render={({ field }) => (
-						<CustomCheckbox label='Отображать блок Скидок' {...field} />
-					)}
+					render={({ field }) => <CustomCheckbox label='Отображать блок Скидок' {...field} />}
 				/>
 				<Controller
-					name='isDisplayBooking'
+					name='display_booking'
 					control={control}
-					render={({ ...field }) => (
-						<CustomCheckbox
-							label='Отображать кнопку Забронировать номер'
-							{...field}
-						/>
-					)}
+					render={({ ...field }) => <CustomCheckbox label='Отображать кнопку Забронировать номер' {...field} />}
 				/>
 				<Controller
-					name='isDisplayPopular'
+					name='display_popular'
 					control={control}
-					render={({ field }) => (
-						<CustomCheckbox
-							label='Отображать блок Сейчас популярно'
-							{...field}
-						/>
-					)}
+					render={({ field }) => <CustomCheckbox label='Отображать блок Сейчас популярно' {...field} />}
 				/>
 				<Controller
-					name='isDisplayFAQ'
+					name='display_faq'
 					control={control}
-					render={({ field }) => (
-						<CustomCheckbox
-							label='Отображать блок Часто задаваемые вопросы'
-							{...field}
-						/>
-					)}
+					render={({ field }) => <CustomCheckbox label='Отображать блок Часто задаваемые вопросы' {...field} />}
 				/>
-				<Button
-					disabled={!formState.isDirty}
-					label='Сохранить'
-					severity='success'
-					className='col-12 mt-3'
+				<FAQForm
+					items={items}
+					handleDelete={handleDelete}
+					handleUpdateDescription={handleUpdateDescription}
+					handleUpdateTitle={handleUpdateTitle}
+					handleCreate={handleCreate}
 				/>
+				<Button label='Сохранить' severity='success' className='col-12 mt-3' />
 			</form>
 		</>
 	)

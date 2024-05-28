@@ -1,5 +1,5 @@
 const Booking = () => {
-  return <div>Booking</div>;
-};
+	return <div>Booking</div>
+}
 
-export default Booking;
+export default Booking

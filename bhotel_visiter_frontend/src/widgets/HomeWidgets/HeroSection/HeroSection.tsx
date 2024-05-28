@@ -1,29 +1,36 @@
 import { Button } from 'antd'
 import { trpc } from '@helpers'
 import './style.scss'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import { THotelProperties } from 'trpc-package'
 
 const HeroSection = () => {
 	const onBooking = () => {
 		console.log('booking')
 	}
+	const data = trpc.getHotelProperties.useQuery().data
 
-	const data = trpc.publicRouter.siteDataRouter.getName.useQuery().data
+	const [properties, setProperties] = useState<any>({})
 
-	console.log(data)
+	useEffect(() => {
+		if (data === undefined) return
+	}, [])
 
 	return (
-		<div className='HeroSection-wrapper'>
-			<div className='HeroSection-container'>
-				<div>
-					<h1>Три сосны</h1>
-					<p>Крутая фраза чтобы привлечь аудиторию</p>
-				</div>
-				<div>
-					<Button onClick={onBooking}>Забронировать номер</Button>
+		Array.isArray(data) &&
+		data[0] !== undefined && (
+			<div className='HeroSection-wrapper'>
+				<div className='HeroSection-container'>
+					<div>
+						<h1>{data[0].hotel_name}</h1>
+						<p>Крутая фраза чтобы привлечь аудиторию</p>
+					</div>
+					<div>
+						<Button onClick={onBooking}>Забронировать номер</Button>
+					</div>
 				</div>
 			</div>
-		</div>
+		)
 	)
 }
 

@@ -1,35 +1,51 @@
 import { trpc } from '@helpers'
-import {
-	HeroSection,
-	PopularRooms,
-	IntroSection,
-	SalesSection,
-	ServiceSection,
-	FAQSection,
-	ListOfRoomsSection,
-	Header,
-	Footer
-} from '../../widgets'
+import { Chat } from '@widgets'
 import { useEffect, useState } from 'react'
+import {
+	FAQSection,
+	Footer,
+	Header,
+	HeroSection,
+	IntroSection,
+	ListOfRoomsSection,
+	PopularRooms,
+	SalesSection
+} from '../../widgets'
+import './style.scss'
 
 interface IMainPageFormData {
-	coverType: string
-	isDisplayDiscount: boolean
-	isDisplayBooking: boolean
-	isDisplayPopular: boolean
-	isDisplayFAQ: boolean
+	cover_type: string
+	display_discount: boolean
+	display_booking: boolean
+	display_popular: boolean
+	display_faq: boolean
+}
+
+interface IFormHeaderSettings {
+	display_logo: boolean
+	display_label: boolean
+	display_search: boolean
+	display_booking: boolean
+	display_details: boolean
+	background_color: string
 }
 
 const Home = () => {
-	const [getSettings] = trpc.useQueries((t) => [t.getFrontendHeader('67342c88-fd1e-425b-99b1-3cdc427b914a')])
+	const [getMainPageSettings] = trpc.useQueries((t) => [t.getFrontendMainPage('67342c88-fd1e-425b-99b1-3cdc427b914a')])
 
 	const [data, setData] = useState<IMainPageFormData>()
+	const [mainPageSettings, setMainPageSettings] = useState()
 
 	useEffect(() => {
-		console.log(getSettings.data)
+		setData(getMainPageSettings.data as IMainPageFormData)
+		setMainPageSettings(getMainPageSettings.data)
+	}, [getMainPageSettings.data])
 
-		setData(getSettings.data as IMainPageFormData)
-	}, [getSettings.data])
+	const [getHeaderSettings] = trpc.useQueries((t) => [t.getFrontendHeader('67342c88-fd1e-425b-99b1-3cdc427b914a')])
+	const [headerData, setHeaderData] = useState<IFormHeaderSettings>()
+	useEffect(() => {
+		setHeaderData(getHeaderSettings.data as IFormHeaderSettings)
+	}, [getHeaderSettings.data])
 
 	return (
 		<div>
@@ -43,14 +59,15 @@ const Home = () => {
 					gap: '150px'
 				}}
 			>
-				{data?.isDisplayPopular && <PopularRooms />}
+				{data?.display_popular && <PopularRooms />}
 				<IntroSection />
-				{data?.isDisplayDiscount && <SalesSection />}
+				{data?.display_discount && <SalesSection />}
 				{/* <ServiceSection /> */}
-				{data?.isDisplayFAQ && <FAQSection />}
+				{data?.display_faq && <FAQSection />}
 				<ListOfRoomsSection />
 			</div>
 			<Footer />
+			<Chat />
 		</div>
 	)
 }
