@@ -32,7 +32,6 @@ const FAQItem = (props: TFAQItem) => {
 
 	return (
 		<div className='p-2 flex flex-column'>
-			<>{props.item.id}</>
 			<label className='my-1'>Заголовок</label>
 			<InputText
 				value={title}
@@ -43,6 +42,7 @@ const FAQItem = (props: TFAQItem) => {
 			/>
 			<label className='my-1'>Описание</label>
 			<InputTextarea
+				rows={10}
 				value={description}
 				onChange={(e) => {
 					onDescriptionUpdate(props.item.id, e.target.value)

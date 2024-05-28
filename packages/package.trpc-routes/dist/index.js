@@ -79,15 +79,14 @@ const setFrontendConfig = t.procedure
     return res.rows[0];
 });
 // Procedure for frontend_footer
-const getFrontendFooter = t.procedure.input(zod_1.z.number()).query(async ({ input }) => {
+const getFrontendFooter = t.procedure.query(async () => {
     const client = await (0, index_1.PgClient)();
-    const res = await client.query('SELECT * FROM frontend_footer WHERE id = $1', [input]);
+    const res = await client.query('SELECT * FROM frontend_footer WHERE id = $1', [frontend_id]);
     await client.end();
     return res.rows[0];
 });
 const setFrontendFooter = t.procedure
     .input(zod_1.z.object({
-    id: zod_1.z.number(),
     display_logo: zod_1.z.boolean().default(true),
     display_label: zod_1.z.boolean().default(true),
     display_social_block: zod_1.z.boolean().default(false),
@@ -95,7 +94,7 @@ const setFrontendFooter = t.procedure
 }))
     .mutation(async ({ input }) => {
     const client = await (0, index_1.PgClient)();
-    const res = await client.query('UPDATE frontend_footer SET display_logo = $1, display_label = $2, display_social_block = $3, frontend_id = $4 WHERE id = $5 RETURNING *', [input.display_logo, input.display_label, input.display_social_block, input.frontend_id, input.id]);
+    const res = await client.query('UPDATE frontend_footer SET display_logo = $1, display_label = $2, display_social_block = $3, frontend_id = $4 WHERE id = $5 RETURNING *', [input.display_logo, input.display_label, input.display_social_block, input.frontend_id, frontend_id]);
     await client.end();
     return res.rows[0];
 });
@@ -379,6 +378,17 @@ const updateFAQItem = t.procedure
     await client.end();
     return res.rows[0];
 });
+const deleteFAQItem = t.procedure.input(zod_1.z.array(zod_1.z.string().uuid())).mutation(async ({ input }) => {
+    const client = await (0, index_1.PgClient)();
+    let y = '';
+    console.log(input.length);
+    for (let i = 0; i < input.length; i++) {
+        y += `DELETE FROM frontend_faq WHERE id='${input[i]}';`;
+    }
+    const res = await client.query(y);
+    await client.end();
+    return res.rows[0];
+});
 const getHotelProperties = t.procedure
     .query(async () => {
     const data = await fetch("http://87.242.117.193:9090/api/hotelSettings/getHotelProperties");
@@ -419,5 +429,6 @@ exports.appRouter = t.router({
     appendServiceReceiptItem,
     appendFAQItem,
     updateFAQItem,
-    getAllFAQ
+    getAllFAQ,
+    deleteFAQItem
 });

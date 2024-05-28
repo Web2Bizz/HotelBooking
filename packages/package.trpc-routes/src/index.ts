@@ -92,9 +92,9 @@ const setFrontendConfig = t.procedure
 	})
 
 // Procedure for frontend_footer
-const getFrontendFooter = t.procedure.input(z.number()).query(async ({ input }) => {
+const getFrontendFooter = t.procedure.query(async () => {
 	const client = await PgClient()
-	const res = await client.query('SELECT * FROM frontend_footer WHERE id = $1', [input])
+	const res = await client.query('SELECT * FROM frontend_footer WHERE id = $1', [frontend_id])
 	await client.end()
 	return res.rows[0]
 })
@@ -102,7 +102,6 @@ const getFrontendFooter = t.procedure.input(z.number()).query(async ({ input }) 
 const setFrontendFooter = t.procedure
 	.input(
 		z.object({
-			id: z.number(),
 			display_logo: z.boolean().default(true),
 			display_label: z.boolean().default(true),
 			display_social_block: z.boolean().default(false),
@@ -113,7 +112,7 @@ const setFrontendFooter = t.procedure
 		const client = await PgClient()
 		const res = await client.query(
 			'UPDATE frontend_footer SET display_logo = $1, display_label = $2, display_social_block = $3, frontend_id = $4 WHERE id = $5 RETURNING *',
-			[input.display_logo, input.display_label, input.display_social_block, input.frontend_id, input.id]
+			[input.display_logo, input.display_label, input.display_social_block, input.frontend_id, frontend_id]
 		)
 		await client.end()
 		return res.rows[0]
@@ -496,6 +495,23 @@ const updateFAQItem = t.procedure
 		return res.rows[0]
 	})
 
+const deleteFAQItem = t.procedure.input(z.array(z.string().uuid())).mutation(async ({input}) => {
+	const client = await PgClient()
+	let y = ''
+
+	console.log(input.length);
+	
+
+	for (let i = 0; i < input.length; i++) {
+		y += `DELETE FROM frontend_faq WHERE id='${input[i]}';`
+	}
+
+	const res = await client.query(y)
+
+	await client.end()
+	return res.rows[0]
+})
+
 export type THotelProperties = {
 	id_hotel_properties: string
 	hotel_name: string
@@ -556,7 +572,8 @@ export const appRouter = t.router({
 	appendServiceReceiptItem,
 	appendFAQItem,
 	updateFAQItem,
-	getAllFAQ
+	getAllFAQ,
+	deleteFAQItem
 })
 
 export type AppRouter = typeof appRouter

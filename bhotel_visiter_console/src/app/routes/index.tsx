@@ -1,9 +1,12 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { adminRouter } from '../chains'
-import { trpc } from '@helpers'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { httpBatchLink } from '@trpc/client'
 import { useState } from 'react'
+import { createTRPCReact } from '@trpc/react-query'
+import type { AppRouter } from 'trpc-package/dist'
+
+const trpc = createTRPCReact<AppRouter>()
 
 export const RouterApp = () => {
 	const router = createBrowserRouter([...adminRouter], { basename: '/console' })
@@ -13,7 +16,7 @@ export const RouterApp = () => {
 		trpc.createClient({
 			links: [
 				httpBatchLink({
-					url: 'http://192.168.0.105:8556/trpc'
+					url: 'http://127.0.0.1:8556/trpc'
 				})
 			]
 		})

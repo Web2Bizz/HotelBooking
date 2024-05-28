@@ -87,56 +87,66 @@ services:
       network:
         ipv4_address: 24.16.1.54
 
-  # тут пока не собирается из-за пакета надо что-то придумать
-  # console-backend:
-  #   build: ./bhotel_visiter_backend
-  #   ports:
-  #     - '5001:5001'
-  #   restart: always
-  #   environment:
-  #     - NODE_ENV=production
-  #   depends_on:
-  #     - postgres-client
-  #     - backend-admin
-  #   volumes:
-  #     - './packages/:/app/packages'
-  #   networks:
-  #     network:
-  #       ipv4_address: 24.16.1.55
+  file-uploader:
+    build: ./file-uploader
+    ports:
+      - 9867:9867
+    restart: always
+    volumes:
+      - './uploads:/app/uploads'
+    networks:
+      network:
+        ipv4_address: 24.16.2.63
 
-  # app-console:
-  #   build:
-  #     context: bhotel_visiter_console
-  #     dockerfile: Dockerfile.dev
-  #   ports:
-  #     - '8802:5501'
-  #   restart: always
-  #   volumes:
-  #     - './packages:/app/packages'
-  #   environment:
-  #     - VITE_APP_ADMIN_API=http://87.242.117.193:9090/api
-  #     - VITE_APP_TRPC_API=http://87.242.117.193:9090/api
-  #   depends_on:
-  #     - backend-admin
-  #   networks:
-  #     network:
-  #       ipv4_address: 24.16.2.77
+  console-backend:
+    build: ./bhotel_visiter_backend
+    ports:
+      - '5001:8556'
+    restart: always
+    environment:
+      - NODE_ENV=production
+    depends_on:
+      - postgres-client
+      - backend-admin
+    volumes:
+      - './packages:/app/packages'
+    networks:
+      network:
+        ipv4_address: 24.16.1.55
 
-  # app-client:
-  #   build:
-  #     context: bhotel_visiter_frontend
-  #     dockerfile: Dockerfile.dev
-  #   ports:
-  #     - '8803:5170'
-  #   restart: always
-  #   environment:
-  #     - VITE_APP_ADMIN_API=http://87.242.117.193:9090/api
-  #     - VITE_APP_TRPC_API=http://87.242.117.193:9090/api
-  #   depends_on:
-  #     - backend-admin
-  #   networks:
-  #     network:
-  #       ipv4_address: 24.16.2.90
+  app-console:
+    build:
+      context: bhotel_visiter_console
+      dockerfile: Dockerfile
+    ports:
+      - '5501:5501'
+    restart: always
+    volumes:
+      - './packages:/app/packages'
+    environment:
+      - VITE_APP_ADMIN_API=http://87.242.117.193:9090/api
+      - VITE_APP_TRPC_API=http://87.242.117.193:9090/api
+    depends_on:
+      - backend-admin
+    networks:
+      network:
+        ipv4_address: 24.16.2.77
+
+  app-client:
+    build:
+      context: bhotel_visiter_frontend
+      dockerfile: Dockerfile
+    ports:
+      - '5502:5502'
+    restart: always
+    environment:
+      - VITE_APP_ADMIN_API=http://87.242.117.193:9090/api
+      - VITE_APP_TRPC_API=http://87.242.117.193:9090/api
+    depends_on:
+      - backend-admin
+    networks:
+      network:
+        ipv4_address: 24.16.2.90
 
 volumes:
   postgres-data-hotel:
