@@ -12,8 +12,6 @@ export const CustomCheckbox = (props: CustomCheckboxProps) => {
 	const [isEnabled, setIsEnabled] = useState<boolean>(false)
 
 	useEffect(() => {
-		console.log(value)
-
 		setIsEnabled(value ?? false)
 	}, [value])
 

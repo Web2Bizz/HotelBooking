@@ -6,8 +6,9 @@ import { useNavigate } from 'react-router-dom'
 import { UserContext } from './../../app/contexts/userContext'
 import { AppContext } from './../../app/contexts'
 import Container from '../Container'
+import { UserOutlined } from '@ant-design/icons'
 
-interface IFormHeaderSettings {
+export interface IFormHeaderSettings {
 	display_logo: boolean
 	display_label: boolean
 	display_search: boolean
@@ -78,7 +79,7 @@ const Header = () => {
 								)}
 							</div>
 							<div>
-								<Avatar shape='square' size={60} src={context.avatar} />
+								<Avatar shape='square' size={60} icon={<UserOutlined />} />
 							</div>
 						</div>
 					</div>

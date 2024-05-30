@@ -1,29 +1,44 @@
 .PeculiaritiesRooms-container {
-  p {
-    margin-bottom: 20px;
-  }
+	p {
+		margin-bottom: 20px;
+	}
 }
 
 .PeculiaritiesRooms-custom-list {
-  list-style-type: none;
-  padding-left: 0;
+	list-style-type: none;
+	padding-left: 0;
 }
 
 .PeculiaritiesRooms-custom-list-item {
-  position: relative;
-  padding: 5px 0;
-  padding-left: 50px;
-  margin-bottom: 16px;
+	padding: 5px 0;
+	padding-left: 50px;
+	// margin-bottom: 16px;
+
+	a {
+		display: flex;
+		align-items: center;
+
+		i {
+			height: 40px;
+			display: flex;
+			align-items: center;
+		}
+
+		span {
+			margin-left: 20px;
+			line-height: 40px;
+		}
+	}
 }
 
-.PeculiaritiesRooms-custom-list-item::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 35px;
-  height: 35px;
-  background-color: #a3a3a3;
-  border-radius: 10px;
-}
+// .PeculiaritiesRooms-custom-list-item::before {
+//   content: "";
+//   position: absolute;
+//   left: 0;
+//   top: 50%;
+//   transform: translateY(-50%);
+//   width: 35px;
+//   height: 35px;
+//   background-color: #a3a3a3;
+//   border-radius: 10px;
+// }

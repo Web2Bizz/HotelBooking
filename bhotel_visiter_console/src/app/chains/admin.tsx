@@ -4,9 +4,8 @@ import {
 	FooterPage,
 	GeneralPage,
 	HeaderPage,
-	HomePage,
 	MainPage,
-	MenuPage,
+	// MenuPage,
 	OptionsAddPage,
 	OptionsListPage
 } from '@pages'
@@ -21,7 +20,7 @@ export const adminRouter: RouteObject[] = [
 				path: '',
 				element: (
 					<AdminLayout>
-						<HomePage />
+						<MainPage />
 					</AdminLayout>
 				)
 			}
@@ -38,14 +37,14 @@ export const adminRouter: RouteObject[] = [
 					</AdminLayout>
 				)
 			},
-			{
-				path: 'menu',
-				element: (
-					<AdminLayout>
-						<MenuPage />
-					</AdminLayout>
-				)
-			},
+			// {
+			// 	path: 'menu',
+			// 	element: (
+			// 		<AdminLayout>
+			// 			<MenuPage />
+			// 		</AdminLayout>
+			// 	)
+			// },
 			{
 				path: 'footer',
 				element: (

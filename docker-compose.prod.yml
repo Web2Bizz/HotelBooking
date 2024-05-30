@@ -99,7 +99,9 @@ services:
         ipv4_address: 24.16.2.63
 
   console-backend:
-    build: ./bhotel_visiter_backend
+    build:
+      context: .
+      dockerfile: 'console-backend.Dockerfile'
     ports:
       - '5001:8556'
     restart: always
@@ -108,21 +110,17 @@ services:
     depends_on:
       - postgres-client
       - backend-admin
-    volumes:
-      - './packages:/app/packages'
     networks:
       network:
         ipv4_address: 24.16.1.55
 
   app-console:
     build:
-      context: bhotel_visiter_console
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: 'console-frontend.Dockerfile'
     ports:
       - '5501:5501'
     restart: always
-    volumes:
-      - './packages:/app/packages'
     environment:
       - VITE_APP_ADMIN_API=http://87.242.117.193:9090/api
       - VITE_APP_TRPC_API=http://87.242.117.193:9090/api

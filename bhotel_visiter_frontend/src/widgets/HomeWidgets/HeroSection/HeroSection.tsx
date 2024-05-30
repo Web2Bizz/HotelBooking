@@ -23,7 +23,7 @@ const HeroSection = () => {
 				<div className='HeroSection-container'>
 					<div>
 						<h1>{data[0].hotel_name}</h1>
-						<p>Крутая фраза чтобы привлечь аудиторию</p>
+						<p>Добро пожаловать!</p>
 					</div>
 					<div>
 						<Button onClick={onBooking}>Забронировать номер</Button>

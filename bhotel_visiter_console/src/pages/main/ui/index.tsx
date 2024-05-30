@@ -73,7 +73,11 @@ export const MainPage = () => {
 	const handleCreate = () => {
 		const item = { id: uuidv4(), title: '', description: '' }
 
-		setItems((prev) => [...prev, item])
+		const orign = items
+
+		orign.push(item)
+
+		setItems(orign)
 		// setAddedItems((prev) => [...prev, item])
 	}
 
@@ -122,7 +126,7 @@ export const MainPage = () => {
 
 		origin.splice(index, 1)
 
-		setRemovedItems((prev) => [...prev, id])
+		// setRemovedItems((prev) => [...prev, id])
 		setItems(origin)
 	}
 
@@ -147,7 +151,7 @@ export const MainPage = () => {
 				<Controller
 					name='display_booking'
 					control={control}
-					render={({ ...field }) => <CustomCheckbox label='Отображать кнопку Забронировать номер' {...field} />}
+					render={({ field }) => <CustomCheckbox label='Отображать кнопку Забронировать номер' {...field} />}
 				/>
 				<Controller
 					name='display_popular'
@@ -166,7 +170,7 @@ export const MainPage = () => {
 					handleUpdateTitle={handleUpdateTitle}
 					handleCreate={handleCreate}
 				/>
-				<Button label='Сохранить' severity='success' className='col-12 mt-3' />
+				<Button label='Сохранить' icon='pi pi-save' className='col-12 mt-3' />
 			</form>
 		</>
 	)

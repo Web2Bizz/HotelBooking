@@ -1,9 +1,9 @@
 import { Button } from 'antd'
 import { PaymentCard } from './../../features'
 import './style.scss'
-import { Header } from '@widgets'
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
+import { CardForm } from './CardForm'
 
 type TPayment = {
 	id: string
@@ -35,16 +35,25 @@ const Payment = () => {
 				}}
 			>
 				<div className='Payment-button'>
-					<Button onClick={() => navigate('/profile')}>{'<< Обратно в профиль'}</Button>
+					<Button
+						icon={<i style={{ position: 'relative', top: 5 }} className='fi fi-ss-angle-double-left'></i>}
+						onClick={() => navigate('/profile')}
+					>
+						{'Обратно в профиль'}
+					</Button>
 				</div>
-				<div>
-					<p>Платежные данные</p>
+				<div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
 					<div>
-						<PaymentCard />
-						<PaymentCard />
-						<PaymentCard />
+						<p>Платежные данные</p>
+						<div>
+							<PaymentCard />
+							<PaymentCard />
+							<PaymentCard />
+						</div>
 					</div>
-					<Button>Добавить</Button>
+					<div>
+						<CardForm />
+					</div>
 				</div>
 			</div>
 		</>

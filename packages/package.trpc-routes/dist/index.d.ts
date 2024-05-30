@@ -28,6 +28,20 @@ export declare const appRouter: import("@trpc/server").CreateRouterInner<import(
     errorShape: import("@trpc/server").DefaultErrorShape;
     transformer: import("@trpc/server").DefaultDataTransformer;
 }>, {
+    getAllServices: import("@trpc/server").BuildProcedure<"query", {
+        _config: import("@trpc/server").RootConfig<{
+            ctx: object;
+            meta: object;
+            errorShape: import("@trpc/server").DefaultErrorShape;
+            transformer: import("@trpc/server").DefaultDataTransformer;
+        }>;
+        _ctx_out: object;
+        _input_in: typeof import("@trpc/server").unsetMarker;
+        _input_out: typeof import("@trpc/server").unsetMarker;
+        _output_in: typeof import("@trpc/server").unsetMarker;
+        _output_out: typeof import("@trpc/server").unsetMarker;
+        _meta: object;
+    }, any[]>;
     getHotelProperties: import("@trpc/server").BuildProcedure<"query", {
         _config: import("@trpc/server").RootConfig<{
             ctx: object;
@@ -56,7 +70,7 @@ export declare const appRouter: import("@trpc/server").CreateRouterInner<import(
         _output_in: typeof import("@trpc/server").unsetMarker;
         _output_out: typeof import("@trpc/server").unsetMarker;
     }, any>;
-    appendToCleanJournal: import("@trpc/server").BuildProcedure<"mutation", {
+    addToCleanJournal: import("@trpc/server").BuildProcedure<"mutation", {
         _config: import("@trpc/server").RootConfig<{
             ctx: object;
             meta: object;
@@ -92,7 +106,7 @@ export declare const appRouter: import("@trpc/server").CreateRouterInner<import(
         _output_in: typeof import("@trpc/server").unsetMarker;
         _output_out: typeof import("@trpc/server").unsetMarker;
     }, any>;
-    appendClient: import("@trpc/server").BuildProcedure<"mutation", {
+    addClient: import("@trpc/server").BuildProcedure<"mutation", {
         _config: import("@trpc/server").RootConfig<{
             ctx: object;
             meta: object;
@@ -184,16 +198,32 @@ export declare const appRouter: import("@trpc/server").CreateRouterInner<import(
         _meta: object;
         _ctx_out: object;
         _input_in: {
-            frontend_id: string;
+            background_color: string;
+            vk_link: string;
+            dzen_link: string;
+            telegram_link: string;
+            youtube_link: string;
             display_logo?: boolean | undefined;
             display_label?: boolean | undefined;
             display_social_block?: boolean | undefined;
+            display_vk?: boolean | undefined;
+            display_dzen?: boolean | undefined;
+            display_telegram?: boolean | undefined;
+            display_youtube?: boolean | undefined;
         };
         _input_out: {
             display_logo: boolean;
             display_label: boolean;
             display_social_block: boolean;
-            frontend_id: string;
+            background_color: string;
+            display_vk: boolean;
+            vk_link: string;
+            display_dzen: boolean;
+            dzen_link: string;
+            display_telegram: boolean;
+            telegram_link: string;
+            display_youtube: boolean;
+            youtube_link: string;
         };
         _output_in: typeof import("@trpc/server").unsetMarker;
         _output_out: typeof import("@trpc/server").unsetMarker;
@@ -226,20 +256,20 @@ export declare const appRouter: import("@trpc/server").CreateRouterInner<import(
             frontend_id: string;
             display_logo?: boolean | undefined;
             display_label?: boolean | undefined;
+            background_color?: string | undefined;
             display_search?: boolean | undefined;
             display_details?: boolean | undefined;
             display_booking_button?: boolean | undefined;
-            background_color?: string | undefined;
         };
         _input_out: {
             id: string;
             display_logo: boolean;
             display_label: boolean;
+            background_color: string;
             frontend_id: string;
             display_search: boolean;
             display_details: boolean;
             display_booking_button: boolean;
-            background_color: string;
         };
         _output_in: typeof import("@trpc/server").unsetMarker;
         _output_out: typeof import("@trpc/server").unsetMarker;
@@ -380,7 +410,7 @@ export declare const appRouter: import("@trpc/server").CreateRouterInner<import(
         _output_in: typeof import("@trpc/server").unsetMarker;
         _output_out: typeof import("@trpc/server").unsetMarker;
     }, any>;
-    appendPaymentMethod: import("@trpc/server").BuildProcedure<"mutation", {
+    addPaymentMethod: import("@trpc/server").BuildProcedure<"mutation", {
         _config: import("@trpc/server").RootConfig<{
             ctx: object;
             meta: object;
@@ -390,16 +420,16 @@ export declare const appRouter: import("@trpc/server").CreateRouterInner<import(
         _meta: object;
         _ctx_out: object;
         _input_in: {
-            id: string;
             client_id: string;
             card_number: bigint;
             card_expire: string;
+            card_user: string;
         };
         _input_out: {
-            id: string;
             client_id: string;
             card_number: bigint;
             card_expire: string;
+            card_user: string;
         };
         _output_in: typeof import("@trpc/server").unsetMarker;
         _output_out: typeof import("@trpc/server").unsetMarker;
@@ -418,7 +448,7 @@ export declare const appRouter: import("@trpc/server").CreateRouterInner<import(
         _output_in: typeof import("@trpc/server").unsetMarker;
         _output_out: typeof import("@trpc/server").unsetMarker;
     }, any>;
-    appendReviewRoom: import("@trpc/server").BuildProcedure<"mutation", {
+    addReviewRoom: import("@trpc/server").BuildProcedure<"mutation", {
         _config: import("@trpc/server").RootConfig<{
             ctx: object;
             meta: object;
@@ -464,7 +494,7 @@ export declare const appRouter: import("@trpc/server").CreateRouterInner<import(
         _output_in: typeof import("@trpc/server").unsetMarker;
         _output_out: typeof import("@trpc/server").unsetMarker;
     }, any>;
-    appendReview: import("@trpc/server").BuildProcedure<"mutation", {
+    addReview: import("@trpc/server").BuildProcedure<"mutation", {
         _config: import("@trpc/server").RootConfig<{
             ctx: object;
             meta: object;
@@ -530,7 +560,7 @@ export declare const appRouter: import("@trpc/server").CreateRouterInner<import(
         _output_in: typeof import("@trpc/server").unsetMarker;
         _output_out: typeof import("@trpc/server").unsetMarker;
     }, any>;
-    appendService: import("@trpc/server").BuildProcedure<"mutation", {
+    addService: import("@trpc/server").BuildProcedure<"mutation", {
         _config: import("@trpc/server").RootConfig<{
             ctx: object;
             meta: object;
@@ -540,18 +570,14 @@ export declare const appRouter: import("@trpc/server").CreateRouterInner<import(
         _meta: object;
         _ctx_out: object;
         _input_in: {
-            id: string;
             name: string;
             description: string;
             price: number;
-            is_available?: boolean | undefined;
         };
         _input_out: {
-            id: string;
             name: string;
             description: string;
             price: number;
-            is_available: boolean;
         };
         _output_in: typeof import("@trpc/server").unsetMarker;
         _output_out: typeof import("@trpc/server").unsetMarker;
@@ -570,7 +596,7 @@ export declare const appRouter: import("@trpc/server").CreateRouterInner<import(
         _output_in: typeof import("@trpc/server").unsetMarker;
         _output_out: typeof import("@trpc/server").unsetMarker;
     }, any>;
-    appendServiceReceipt: import("@trpc/server").BuildProcedure<"mutation", {
+    addServiceReceipt: import("@trpc/server").BuildProcedure<"mutation", {
         _config: import("@trpc/server").RootConfig<{
             ctx: object;
             meta: object;
@@ -606,7 +632,7 @@ export declare const appRouter: import("@trpc/server").CreateRouterInner<import(
         _output_in: typeof import("@trpc/server").unsetMarker;
         _output_out: typeof import("@trpc/server").unsetMarker;
     }, any>;
-    appendServiceReceiptItem: import("@trpc/server").BuildProcedure<"mutation", {
+    addServiceReceiptItem: import("@trpc/server").BuildProcedure<"mutation", {
         _config: import("@trpc/server").RootConfig<{
             ctx: object;
             meta: object;
@@ -630,7 +656,7 @@ export declare const appRouter: import("@trpc/server").CreateRouterInner<import(
         _output_in: typeof import("@trpc/server").unsetMarker;
         _output_out: typeof import("@trpc/server").unsetMarker;
     }, any>;
-    appendFAQItem: import("@trpc/server").BuildProcedure<"mutation", {
+    addFAQItem: import("@trpc/server").BuildProcedure<"mutation", {
         _config: import("@trpc/server").RootConfig<{
             ctx: object;
             meta: object;

@@ -2,6 +2,7 @@ import { Button, Avatar, Form, Input, DatePicker, Row, Col } from 'antd'
 import './style.scss'
 import { useNavigate } from 'react-router-dom'
 import { Header } from '@widgets'
+import { UserOutlined } from '@ant-design/icons'
 
 const Settings = () => {
 	const [form] = Form.useForm()
@@ -22,16 +23,9 @@ const Settings = () => {
 				}}
 			>
 				<div className='Settings-info'>
-					<Button onClick={() => navigate('/profile')}>
-						{'<< Обратно в профиль'}
-					</Button>
+					<Button onClick={() => navigate('/profile')}>{'<< Обратно в профиль'}</Button>
 					<p>Редактировать профиль</p>
-					<Avatar
-						src={
-							'https://webgradients.com/public/webgradients_png/022%20Morpheus%20Den.png'
-						}
-						size={268}
-					/>
+					<Avatar shape='square' size={268} icon={<UserOutlined />} />
 				</div>
 				<div className='Settings-form'>
 					<div
@@ -53,11 +47,7 @@ const Settings = () => {
 					>
 						<Row gutter={[16, 16]}>
 							<Col span={8}>
-								<Form.Item
-									label='Имя'
-									name='firstName'
-									rules={[{ required: true, message: 'Введите ваше имя' }]}
-								>
+								<Form.Item label='Имя' name='firstName' rules={[{ required: true, message: 'Введите ваше имя' }]}>
 									<Input />
 								</Form.Item>
 							</Col>
@@ -85,9 +75,7 @@ const Settings = () => {
 								<Form.Item
 									label='Телефон'
 									name='phone'
-									rules={[
-										{ required: true, message: 'Введите ваш номер телефона' }
-									]}
+									rules={[{ required: true, message: 'Введите ваш номер телефона' }]}
 								>
 									<Input />
 								</Form.Item>
@@ -112,11 +100,7 @@ const Settings = () => {
 						</Row>
 						<Row gutter={[16, 16]}>
 							<Col span={12}>
-								<Form.Item
-									label='Пароль'
-									name='password'
-									rules={[{ required: true, message: 'Введите ваш пароль' }]}
-								>
+								<Form.Item label='Пароль' name='password' rules={[{ required: true, message: 'Введите ваш пароль' }]}>
 									<Input.Password />
 								</Form.Item>
 							</Col>
@@ -146,14 +130,9 @@ const Settings = () => {
 								<Form.Item
 									label='Дата рождения'
 									name='birthday'
-									rules={[
-										{ required: true, message: 'Введите вашу дату рождения' }
-									]}
+									rules={[{ required: true, message: 'Введите вашу дату рождения' }]}
 								>
-									<DatePicker
-										style={{ width: '100%' }}
-										placeholder='Выберите дату'
-									/>
+									<DatePicker style={{ width: '100%' }} placeholder='Выберите дату' />
 								</Form.Item>
 							</Col>
 						</Row>
