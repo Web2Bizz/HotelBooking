@@ -17,7 +17,7 @@ interface IFormHeaderSettings {
 export const HeaderPage = () => {
 	const [getHeaderSettings] = trpc.useQueries((t) => [t.getFrontendHeader('67342c88-fd1e-425b-99b1-3cdc427b914a')])
 
-	const { control, handleSubmit, formState, reset } = useForm<IFormHeaderSettings>({
+	const { control, handleSubmit, reset } = useForm<IFormHeaderSettings>({
 		defaultValues: async () => {
 			return getHeaderSettings.data!
 		},
@@ -51,7 +51,7 @@ export const HeaderPage = () => {
 		<>
 			<AdminPageTitle title={'Шапка'} />
 			<form className='col-4' onSubmit={handleSubmit(onSubmit)}>
-				<h3>Цвет фона</h3>
+				<h3>Цветовая схема</h3>
 				<Controller
 					name='background_color'
 					control={control}
@@ -85,7 +85,7 @@ export const HeaderPage = () => {
 					control={control}
 					render={({ field }) => <CustomCheckbox label='Отображать фамилию и имя для пользователей' {...field} />}
 				/>
-				<Button disabled={!formState.isDirty} label='Сохранить' severity='success' className='col-12 mt-3' />
+				<Button label='Сохранить' icon='pi pi-save' className='col-12 mt-3' />
 			</form>
 		</>
 	)

@@ -22,91 +22,282 @@ export type THotelProperties = {
     owner_email: string;
     id_personal_data_storage_policy: string;
 };
-export declare const appRouter: import("@trpc/server/unstable-core-do-not-import").BuiltRouter<{
+export declare const appRouter: import("@trpc/server").CreateRouterInner<import("@trpc/server").RootConfig<{
     ctx: object;
     meta: object;
-    errorShape: import("@trpc/server/unstable-core-do-not-import").DefaultErrorShape;
-    transformer: false;
-}, {
-    getHotelProperties: import("@trpc/server").TRPCQueryProcedure<{
-        input: void;
-        output: THotelProperties;
-    }>;
-    getCleanJournal: import("@trpc/server").TRPCQueryProcedure<{
-        input: string;
-        output: any;
-    }>;
-    appendToCleanJournal: import("@trpc/server").TRPCMutationProcedure<{
-        input: {
+    errorShape: import("@trpc/server").DefaultErrorShape;
+    transformer: import("@trpc/server").DefaultDataTransformer;
+}>, {
+    getAllServices: import("@trpc/server").BuildProcedure<"query", {
+        _config: import("@trpc/server").RootConfig<{
+            ctx: object;
+            meta: object;
+            errorShape: import("@trpc/server").DefaultErrorShape;
+            transformer: import("@trpc/server").DefaultDataTransformer;
+        }>;
+        _ctx_out: object;
+        _input_in: typeof import("@trpc/server").unsetMarker;
+        _input_out: typeof import("@trpc/server").unsetMarker;
+        _output_in: typeof import("@trpc/server").unsetMarker;
+        _output_out: typeof import("@trpc/server").unsetMarker;
+        _meta: object;
+    }, any[]>;
+    getHotelProperties: import("@trpc/server").BuildProcedure<"query", {
+        _config: import("@trpc/server").RootConfig<{
+            ctx: object;
+            meta: object;
+            errorShape: import("@trpc/server").DefaultErrorShape;
+            transformer: import("@trpc/server").DefaultDataTransformer;
+        }>;
+        _ctx_out: object;
+        _input_in: typeof import("@trpc/server").unsetMarker;
+        _input_out: typeof import("@trpc/server").unsetMarker;
+        _output_in: typeof import("@trpc/server").unsetMarker;
+        _output_out: typeof import("@trpc/server").unsetMarker;
+        _meta: object;
+    }, THotelProperties>;
+    getCleanJournal: import("@trpc/server").BuildProcedure<"query", {
+        _config: import("@trpc/server").RootConfig<{
+            ctx: object;
+            meta: object;
+            errorShape: import("@trpc/server").DefaultErrorShape;
+            transformer: import("@trpc/server").DefaultDataTransformer;
+        }>;
+        _meta: object;
+        _ctx_out: object;
+        _input_in: string;
+        _input_out: string;
+        _output_in: typeof import("@trpc/server").unsetMarker;
+        _output_out: typeof import("@trpc/server").unsetMarker;
+    }, any>;
+    addToCleanJournal: import("@trpc/server").BuildProcedure<"mutation", {
+        _config: import("@trpc/server").RootConfig<{
+            ctx: object;
+            meta: object;
+            errorShape: import("@trpc/server").DefaultErrorShape;
+            transformer: import("@trpc/server").DefaultDataTransformer;
+        }>;
+        _meta: object;
+        _ctx_out: object;
+        _input_in: {
             id: string;
             booking_id: string;
             date: string;
         };
-        output: any;
-    }>;
-    getClient: import("@trpc/server").TRPCQueryProcedure<{
-        input: string;
-        output: any;
-    }>;
-    appendClient: import("@trpc/server").TRPCMutationProcedure<{
-        input: {
+        _input_out: {
+            id: string;
+            booking_id: string;
+            date: string;
+        };
+        _output_in: typeof import("@trpc/server").unsetMarker;
+        _output_out: typeof import("@trpc/server").unsetMarker;
+    }, any>;
+    getClient: import("@trpc/server").BuildProcedure<"query", {
+        _config: import("@trpc/server").RootConfig<{
+            ctx: object;
+            meta: object;
+            errorShape: import("@trpc/server").DefaultErrorShape;
+            transformer: import("@trpc/server").DefaultDataTransformer;
+        }>;
+        _meta: object;
+        _ctx_out: object;
+        _input_in: string;
+        _input_out: string;
+        _output_in: typeof import("@trpc/server").unsetMarker;
+        _output_out: typeof import("@trpc/server").unsetMarker;
+    }, any>;
+    addClient: import("@trpc/server").BuildProcedure<"mutation", {
+        _config: import("@trpc/server").RootConfig<{
+            ctx: object;
+            meta: object;
+            errorShape: import("@trpc/server").DefaultErrorShape;
+            transformer: import("@trpc/server").DefaultDataTransformer;
+        }>;
+        _meta: object;
+        _ctx_out: object;
+        _input_in: {
             id: string;
             birthday: string;
         };
-        output: any;
-    }>;
-    getUserById: import("@trpc/server").TRPCQueryProcedure<{
-        input: string;
-        output: any;
-    }>;
-    getFrontendConfig: import("@trpc/server").TRPCQueryProcedure<{
-        input: string;
-        output: any;
-    }>;
-    setFrontendConfig: import("@trpc/server").TRPCMutationProcedure<{
-        input: {
+        _input_out: {
+            id: string;
+            birthday: string;
+        };
+        _output_in: typeof import("@trpc/server").unsetMarker;
+        _output_out: typeof import("@trpc/server").unsetMarker;
+    }, any>;
+    getUserById: import("@trpc/server").BuildProcedure<"query", {
+        _config: import("@trpc/server").RootConfig<{
+            ctx: object;
+            meta: object;
+            errorShape: import("@trpc/server").DefaultErrorShape;
+            transformer: import("@trpc/server").DefaultDataTransformer;
+        }>;
+        _meta: object;
+        _ctx_out: object;
+        _input_in: string;
+        _input_out: string;
+        _output_in: typeof import("@trpc/server").unsetMarker;
+        _output_out: typeof import("@trpc/server").unsetMarker;
+    }, any>;
+    getFrontendConfig: import("@trpc/server").BuildProcedure<"query", {
+        _config: import("@trpc/server").RootConfig<{
+            ctx: object;
+            meta: object;
+            errorShape: import("@trpc/server").DefaultErrorShape;
+            transformer: import("@trpc/server").DefaultDataTransformer;
+        }>;
+        _meta: object;
+        _ctx_out: object;
+        _input_in: string;
+        _input_out: string;
+        _output_in: typeof import("@trpc/server").unsetMarker;
+        _output_out: typeof import("@trpc/server").unsetMarker;
+    }, any>;
+    setFrontendConfig: import("@trpc/server").BuildProcedure<"mutation", {
+        _config: import("@trpc/server").RootConfig<{
+            ctx: object;
+            meta: object;
+            errorShape: import("@trpc/server").DefaultErrorShape;
+            transformer: import("@trpc/server").DefaultDataTransformer;
+        }>;
+        _meta: object;
+        _ctx_out: object;
+        _input_in: {
             id: string;
             hotel_id: string;
         };
-        output: any;
-    }>;
-    getFrontendFooter: import("@trpc/server").TRPCQueryProcedure<{
-        input: number;
-        output: any;
-    }>;
-    setFrontendFooter: import("@trpc/server").TRPCMutationProcedure<{
-        input: {
-            id: number;
-            frontend_id: string;
+        _input_out: {
+            id: string;
+            hotel_id: string;
+        };
+        _output_in: typeof import("@trpc/server").unsetMarker;
+        _output_out: typeof import("@trpc/server").unsetMarker;
+    }, any>;
+    getFrontendFooter: import("@trpc/server").BuildProcedure<"query", {
+        _config: import("@trpc/server").RootConfig<{
+            ctx: object;
+            meta: object;
+            errorShape: import("@trpc/server").DefaultErrorShape;
+            transformer: import("@trpc/server").DefaultDataTransformer;
+        }>;
+        _ctx_out: object;
+        _input_in: typeof import("@trpc/server").unsetMarker;
+        _input_out: typeof import("@trpc/server").unsetMarker;
+        _output_in: typeof import("@trpc/server").unsetMarker;
+        _output_out: typeof import("@trpc/server").unsetMarker;
+        _meta: object;
+    }, any>;
+    setFrontendFooter: import("@trpc/server").BuildProcedure<"mutation", {
+        _config: import("@trpc/server").RootConfig<{
+            ctx: object;
+            meta: object;
+            errorShape: import("@trpc/server").DefaultErrorShape;
+            transformer: import("@trpc/server").DefaultDataTransformer;
+        }>;
+        _meta: object;
+        _ctx_out: object;
+        _input_in: {
+            background_color: string;
+            vk_link: string;
+            dzen_link: string;
+            telegram_link: string;
+            youtube_link: string;
             display_logo?: boolean | undefined;
             display_label?: boolean | undefined;
             display_social_block?: boolean | undefined;
+            display_vk?: boolean | undefined;
+            display_dzen?: boolean | undefined;
+            display_telegram?: boolean | undefined;
+            display_youtube?: boolean | undefined;
         };
-        output: any;
-    }>;
-    getFrontendHeader: import("@trpc/server").TRPCQueryProcedure<{
-        input: string;
-        output: any;
-    }>;
-    setFrontendHeader: import("@trpc/server").TRPCMutationProcedure<{
-        input: {
+        _input_out: {
+            display_logo: boolean;
+            display_label: boolean;
+            display_social_block: boolean;
+            background_color: string;
+            display_vk: boolean;
+            vk_link: string;
+            display_dzen: boolean;
+            dzen_link: string;
+            display_telegram: boolean;
+            telegram_link: string;
+            display_youtube: boolean;
+            youtube_link: string;
+        };
+        _output_in: typeof import("@trpc/server").unsetMarker;
+        _output_out: typeof import("@trpc/server").unsetMarker;
+    }, any>;
+    getFrontendHeader: import("@trpc/server").BuildProcedure<"query", {
+        _config: import("@trpc/server").RootConfig<{
+            ctx: object;
+            meta: object;
+            errorShape: import("@trpc/server").DefaultErrorShape;
+            transformer: import("@trpc/server").DefaultDataTransformer;
+        }>;
+        _meta: object;
+        _ctx_out: object;
+        _input_in: string;
+        _input_out: string;
+        _output_in: typeof import("@trpc/server").unsetMarker;
+        _output_out: typeof import("@trpc/server").unsetMarker;
+    }, any>;
+    setFrontendHeader: import("@trpc/server").BuildProcedure<"mutation", {
+        _config: import("@trpc/server").RootConfig<{
+            ctx: object;
+            meta: object;
+            errorShape: import("@trpc/server").DefaultErrorShape;
+            transformer: import("@trpc/server").DefaultDataTransformer;
+        }>;
+        _meta: object;
+        _ctx_out: object;
+        _input_in: {
             id: string;
             frontend_id: string;
             display_logo?: boolean | undefined;
             display_label?: boolean | undefined;
+            background_color?: string | undefined;
             display_search?: boolean | undefined;
             display_details?: boolean | undefined;
             display_booking_button?: boolean | undefined;
-            background_color?: string | undefined;
         };
-        output: any;
-    }>;
-    getFrontendMainPage: import("@trpc/server").TRPCQueryProcedure<{
-        input: string;
-        output: any;
-    }>;
-    setFrontendMainPage: import("@trpc/server").TRPCMutationProcedure<{
-        input: {
+        _input_out: {
+            id: string;
+            display_logo: boolean;
+            display_label: boolean;
+            background_color: string;
+            frontend_id: string;
+            display_search: boolean;
+            display_details: boolean;
+            display_booking_button: boolean;
+        };
+        _output_in: typeof import("@trpc/server").unsetMarker;
+        _output_out: typeof import("@trpc/server").unsetMarker;
+    }, any>;
+    getFrontendMainPage: import("@trpc/server").BuildProcedure<"query", {
+        _config: import("@trpc/server").RootConfig<{
+            ctx: object;
+            meta: object;
+            errorShape: import("@trpc/server").DefaultErrorShape;
+            transformer: import("@trpc/server").DefaultDataTransformer;
+        }>;
+        _meta: object;
+        _ctx_out: object;
+        _input_in: string;
+        _input_out: string;
+        _output_in: typeof import("@trpc/server").unsetMarker;
+        _output_out: typeof import("@trpc/server").unsetMarker;
+    }, any>;
+    setFrontendMainPage: import("@trpc/server").BuildProcedure<"mutation", {
+        _config: import("@trpc/server").RootConfig<{
+            ctx: object;
+            meta: object;
+            errorShape: import("@trpc/server").DefaultErrorShape;
+            transformer: import("@trpc/server").DefaultDataTransformer;
+        }>;
+        _meta: object;
+        _ctx_out: object;
+        _input_in: {
             id: string;
             frontend_id: string;
             cover_type?: string | undefined;
@@ -115,26 +306,78 @@ export declare const appRouter: import("@trpc/server/unstable-core-do-not-import
             display_popular?: boolean | undefined;
             display_faq?: boolean | undefined;
         };
-        output: any;
-    }>;
-    getFrontendProfile: import("@trpc/server").TRPCQueryProcedure<{
-        input: string;
-        output: any;
-    }>;
-    setFrontendProfile: import("@trpc/server").TRPCMutationProcedure<{
-        input: {
+        _input_out: {
+            id: string;
+            frontend_id: string;
+            cover_type: string;
+            display_discount: boolean;
+            display_booking: boolean;
+            display_popular: boolean;
+            display_faq: boolean;
+        };
+        _output_in: typeof import("@trpc/server").unsetMarker;
+        _output_out: typeof import("@trpc/server").unsetMarker;
+    }, any>;
+    getFrontendProfile: import("@trpc/server").BuildProcedure<"query", {
+        _config: import("@trpc/server").RootConfig<{
+            ctx: object;
+            meta: object;
+            errorShape: import("@trpc/server").DefaultErrorShape;
+            transformer: import("@trpc/server").DefaultDataTransformer;
+        }>;
+        _meta: object;
+        _ctx_out: object;
+        _input_in: string;
+        _input_out: string;
+        _output_in: typeof import("@trpc/server").unsetMarker;
+        _output_out: typeof import("@trpc/server").unsetMarker;
+    }, any>;
+    setFrontendProfile: import("@trpc/server").BuildProcedure<"mutation", {
+        _config: import("@trpc/server").RootConfig<{
+            ctx: object;
+            meta: object;
+            errorShape: import("@trpc/server").DefaultErrorShape;
+            transformer: import("@trpc/server").DefaultDataTransformer;
+        }>;
+        _meta: object;
+        _ctx_out: object;
+        _input_in: {
             id: string;
             frontend_id: string;
             avatar_shape?: string | undefined;
         };
-        output: any;
-    }>;
-    getNotifications: import("@trpc/server").TRPCQueryProcedure<{
-        input: string;
-        output: any;
-    }>;
-    pushNotification: import("@trpc/server").TRPCMutationProcedure<{
-        input: {
+        _input_out: {
+            id: string;
+            frontend_id: string;
+            avatar_shape: string;
+        };
+        _output_in: typeof import("@trpc/server").unsetMarker;
+        _output_out: typeof import("@trpc/server").unsetMarker;
+    }, any>;
+    getNotifications: import("@trpc/server").BuildProcedure<"query", {
+        _config: import("@trpc/server").RootConfig<{
+            ctx: object;
+            meta: object;
+            errorShape: import("@trpc/server").DefaultErrorShape;
+            transformer: import("@trpc/server").DefaultDataTransformer;
+        }>;
+        _meta: object;
+        _ctx_out: object;
+        _input_in: string;
+        _input_out: string;
+        _output_in: typeof import("@trpc/server").unsetMarker;
+        _output_out: typeof import("@trpc/server").unsetMarker;
+    }, any>;
+    pushNotification: import("@trpc/server").BuildProcedure<"mutation", {
+        _config: import("@trpc/server").RootConfig<{
+            ctx: object;
+            meta: object;
+            errorShape: import("@trpc/server").DefaultErrorShape;
+            transformer: import("@trpc/server").DefaultDataTransformer;
+        }>;
+        _meta: object;
+        _ctx_out: object;
+        _input_in: {
             id: string;
             message: string;
             client_id: string;
@@ -142,119 +385,346 @@ export declare const appRouter: import("@trpc/server/unstable-core-do-not-import
             date?: string | undefined;
             is_readed?: boolean | undefined;
         };
-        output: any;
-    }>;
-    getPayment: import("@trpc/server").TRPCQueryProcedure<{
-        input: string;
-        output: any;
-    }>;
-    appendPaymentMethod: import("@trpc/server").TRPCMutationProcedure<{
-        input: {
+        _input_out: {
             id: string;
+            message: string;
+            client_id: string;
+            is_readed: boolean;
+            title: string;
+            date?: string | undefined;
+        };
+        _output_in: typeof import("@trpc/server").unsetMarker;
+        _output_out: typeof import("@trpc/server").unsetMarker;
+    }, any>;
+    getPayment: import("@trpc/server").BuildProcedure<"query", {
+        _config: import("@trpc/server").RootConfig<{
+            ctx: object;
+            meta: object;
+            errorShape: import("@trpc/server").DefaultErrorShape;
+            transformer: import("@trpc/server").DefaultDataTransformer;
+        }>;
+        _meta: object;
+        _ctx_out: object;
+        _input_in: string;
+        _input_out: string;
+        _output_in: typeof import("@trpc/server").unsetMarker;
+        _output_out: typeof import("@trpc/server").unsetMarker;
+    }, any>;
+    addPaymentMethod: import("@trpc/server").BuildProcedure<"mutation", {
+        _config: import("@trpc/server").RootConfig<{
+            ctx: object;
+            meta: object;
+            errorShape: import("@trpc/server").DefaultErrorShape;
+            transformer: import("@trpc/server").DefaultDataTransformer;
+        }>;
+        _meta: object;
+        _ctx_out: object;
+        _input_in: {
             client_id: string;
             card_number: bigint;
             card_expire: string;
+            card_user: string;
         };
-        output: any;
-    }>;
-    getReviewRoom: import("@trpc/server").TRPCQueryProcedure<{
-        input: string;
-        output: any;
-    }>;
-    appendReviewRoom: import("@trpc/server").TRPCMutationProcedure<{
-        input: {
+        _input_out: {
+            client_id: string;
+            card_number: bigint;
+            card_expire: string;
+            card_user: string;
+        };
+        _output_in: typeof import("@trpc/server").unsetMarker;
+        _output_out: typeof import("@trpc/server").unsetMarker;
+    }, any>;
+    getReviewRoom: import("@trpc/server").BuildProcedure<"query", {
+        _config: import("@trpc/server").RootConfig<{
+            ctx: object;
+            meta: object;
+            errorShape: import("@trpc/server").DefaultErrorShape;
+            transformer: import("@trpc/server").DefaultDataTransformer;
+        }>;
+        _meta: object;
+        _ctx_out: object;
+        _input_in: string;
+        _input_out: string;
+        _output_in: typeof import("@trpc/server").unsetMarker;
+        _output_out: typeof import("@trpc/server").unsetMarker;
+    }, any>;
+    addReviewRoom: import("@trpc/server").BuildProcedure<"mutation", {
+        _config: import("@trpc/server").RootConfig<{
+            ctx: object;
+            meta: object;
+            errorShape: import("@trpc/server").DefaultErrorShape;
+            transformer: import("@trpc/server").DefaultDataTransformer;
+        }>;
+        _meta: object;
+        _ctx_out: object;
+        _input_in: {
             id: string;
             message: string;
             date: string;
             client_id: string;
             rate: number;
         };
-        output: any;
-    }>;
-    getReviews: import("@trpc/server").TRPCQueryProcedure<{
-        input: {
-            date: string;
-            client_id: string;
-        };
-        output: any;
-    }>;
-    appendReview: import("@trpc/server").TRPCMutationProcedure<{
-        input: {
+        _input_out: {
             id: string;
             message: string;
             date: string;
             client_id: string;
             rate: number;
         };
-        output: any;
-    }>;
-    getService: import("@trpc/server").TRPCQueryProcedure<{
-        input: string;
-        output: any;
-    }>;
-    setService: import("@trpc/server").TRPCMutationProcedure<{
-        input: {
+        _output_in: typeof import("@trpc/server").unsetMarker;
+        _output_out: typeof import("@trpc/server").unsetMarker;
+    }, any>;
+    getReviews: import("@trpc/server").BuildProcedure<"query", {
+        _config: import("@trpc/server").RootConfig<{
+            ctx: object;
+            meta: object;
+            errorShape: import("@trpc/server").DefaultErrorShape;
+            transformer: import("@trpc/server").DefaultDataTransformer;
+        }>;
+        _meta: object;
+        _ctx_out: object;
+        _input_in: {
+            date: string;
+            client_id: string;
+        };
+        _input_out: {
+            date: string;
+            client_id: string;
+        };
+        _output_in: typeof import("@trpc/server").unsetMarker;
+        _output_out: typeof import("@trpc/server").unsetMarker;
+    }, any>;
+    addReview: import("@trpc/server").BuildProcedure<"mutation", {
+        _config: import("@trpc/server").RootConfig<{
+            ctx: object;
+            meta: object;
+            errorShape: import("@trpc/server").DefaultErrorShape;
+            transformer: import("@trpc/server").DefaultDataTransformer;
+        }>;
+        _meta: object;
+        _ctx_out: object;
+        _input_in: {
+            id: string;
+            message: string;
+            date: string;
+            client_id: string;
+            rate: number;
+        };
+        _input_out: {
+            id: string;
+            message: string;
+            date: string;
+            client_id: string;
+            rate: number;
+        };
+        _output_in: typeof import("@trpc/server").unsetMarker;
+        _output_out: typeof import("@trpc/server").unsetMarker;
+    }, any>;
+    getService: import("@trpc/server").BuildProcedure<"query", {
+        _config: import("@trpc/server").RootConfig<{
+            ctx: object;
+            meta: object;
+            errorShape: import("@trpc/server").DefaultErrorShape;
+            transformer: import("@trpc/server").DefaultDataTransformer;
+        }>;
+        _meta: object;
+        _ctx_out: object;
+        _input_in: string;
+        _input_out: string;
+        _output_in: typeof import("@trpc/server").unsetMarker;
+        _output_out: typeof import("@trpc/server").unsetMarker;
+    }, any>;
+    setService: import("@trpc/server").BuildProcedure<"mutation", {
+        _config: import("@trpc/server").RootConfig<{
+            ctx: object;
+            meta: object;
+            errorShape: import("@trpc/server").DefaultErrorShape;
+            transformer: import("@trpc/server").DefaultDataTransformer;
+        }>;
+        _meta: object;
+        _ctx_out: object;
+        _input_in: {
             id: string;
             name: string;
             description: string;
             price: number;
             is_available?: boolean | undefined;
         };
-        output: any;
-    }>;
-    appendService: import("@trpc/server").TRPCMutationProcedure<{
-        input: {
+        _input_out: {
             id: string;
             name: string;
             description: string;
             price: number;
-            is_available?: boolean | undefined;
+            is_available: boolean;
         };
-        output: any;
-    }>;
-    getServiceReceipt: import("@trpc/server").TRPCQueryProcedure<{
-        input: string;
-        output: any;
-    }>;
-    appendServiceReceipt: import("@trpc/server").TRPCMutationProcedure<{
-        input: {
+        _output_in: typeof import("@trpc/server").unsetMarker;
+        _output_out: typeof import("@trpc/server").unsetMarker;
+    }, any>;
+    addService: import("@trpc/server").BuildProcedure<"mutation", {
+        _config: import("@trpc/server").RootConfig<{
+            ctx: object;
+            meta: object;
+            errorShape: import("@trpc/server").DefaultErrorShape;
+            transformer: import("@trpc/server").DefaultDataTransformer;
+        }>;
+        _meta: object;
+        _ctx_out: object;
+        _input_in: {
+            name: string;
+            description: string;
+            price: number;
+        };
+        _input_out: {
+            name: string;
+            description: string;
+            price: number;
+        };
+        _output_in: typeof import("@trpc/server").unsetMarker;
+        _output_out: typeof import("@trpc/server").unsetMarker;
+    }, any>;
+    getServiceReceipt: import("@trpc/server").BuildProcedure<"query", {
+        _config: import("@trpc/server").RootConfig<{
+            ctx: object;
+            meta: object;
+            errorShape: import("@trpc/server").DefaultErrorShape;
+            transformer: import("@trpc/server").DefaultDataTransformer;
+        }>;
+        _meta: object;
+        _ctx_out: object;
+        _input_in: string;
+        _input_out: string;
+        _output_in: typeof import("@trpc/server").unsetMarker;
+        _output_out: typeof import("@trpc/server").unsetMarker;
+    }, any>;
+    addServiceReceipt: import("@trpc/server").BuildProcedure<"mutation", {
+        _config: import("@trpc/server").RootConfig<{
+            ctx: object;
+            meta: object;
+            errorShape: import("@trpc/server").DefaultErrorShape;
+            transformer: import("@trpc/server").DefaultDataTransformer;
+        }>;
+        _meta: object;
+        _ctx_out: object;
+        _input_in: {
             id: string;
             date: string;
             client_id: string;
         };
-        output: any;
-    }>;
-    getServiceReceiptItem: import("@trpc/server").TRPCQueryProcedure<{
-        input: string;
-        output: any;
-    }>;
-    appendServiceReceiptItem: import("@trpc/server").TRPCMutationProcedure<{
-        input: {
+        _input_out: {
+            id: string;
+            date: string;
+            client_id: string;
+        };
+        _output_in: typeof import("@trpc/server").unsetMarker;
+        _output_out: typeof import("@trpc/server").unsetMarker;
+    }, any>;
+    getServiceReceiptItem: import("@trpc/server").BuildProcedure<"query", {
+        _config: import("@trpc/server").RootConfig<{
+            ctx: object;
+            meta: object;
+            errorShape: import("@trpc/server").DefaultErrorShape;
+            transformer: import("@trpc/server").DefaultDataTransformer;
+        }>;
+        _meta: object;
+        _ctx_out: object;
+        _input_in: string;
+        _input_out: string;
+        _output_in: typeof import("@trpc/server").unsetMarker;
+        _output_out: typeof import("@trpc/server").unsetMarker;
+    }, any>;
+    addServiceReceiptItem: import("@trpc/server").BuildProcedure<"mutation", {
+        _config: import("@trpc/server").RootConfig<{
+            ctx: object;
+            meta: object;
+            errorShape: import("@trpc/server").DefaultErrorShape;
+            transformer: import("@trpc/server").DefaultDataTransformer;
+        }>;
+        _meta: object;
+        _ctx_out: object;
+        _input_in: {
             id: string;
             price: number;
             service_id: string;
             service_receipt_id: string;
         };
-        output: any;
-    }>;
-    appendFAQItem: import("@trpc/server").TRPCMutationProcedure<{
-        input: {
+        _input_out: {
+            id: string;
+            price: number;
+            service_id: string;
+            service_receipt_id: string;
+        };
+        _output_in: typeof import("@trpc/server").unsetMarker;
+        _output_out: typeof import("@trpc/server").unsetMarker;
+    }, any>;
+    addFAQItem: import("@trpc/server").BuildProcedure<"mutation", {
+        _config: import("@trpc/server").RootConfig<{
+            ctx: object;
+            meta: object;
+            errorShape: import("@trpc/server").DefaultErrorShape;
+            transformer: import("@trpc/server").DefaultDataTransformer;
+        }>;
+        _meta: object;
+        _ctx_out: object;
+        _input_in: {
             title: string;
             description: string;
         }[];
-        output: any;
-    }>;
-    updateFAQItem: import("@trpc/server").TRPCQueryProcedure<{
-        input: {
+        _input_out: {
+            title: string;
+            description: string;
+        }[];
+        _output_in: typeof import("@trpc/server").unsetMarker;
+        _output_out: typeof import("@trpc/server").unsetMarker;
+    }, any>;
+    updateFAQItem: import("@trpc/server").BuildProcedure<"query", {
+        _config: import("@trpc/server").RootConfig<{
+            ctx: object;
+            meta: object;
+            errorShape: import("@trpc/server").DefaultErrorShape;
+            transformer: import("@trpc/server").DefaultDataTransformer;
+        }>;
+        _meta: object;
+        _ctx_out: object;
+        _input_in: {
             id: string;
             title: string;
             description: string;
         };
-        output: any;
-    }>;
-    getAllFAQ: import("@trpc/server").TRPCQueryProcedure<{
-        input: void;
-        output: TFaq[];
-    }>;
+        _input_out: {
+            id: string;
+            title: string;
+            description: string;
+        };
+        _output_in: typeof import("@trpc/server").unsetMarker;
+        _output_out: typeof import("@trpc/server").unsetMarker;
+    }, any>;
+    getAllFAQ: import("@trpc/server").BuildProcedure<"query", {
+        _config: import("@trpc/server").RootConfig<{
+            ctx: object;
+            meta: object;
+            errorShape: import("@trpc/server").DefaultErrorShape;
+            transformer: import("@trpc/server").DefaultDataTransformer;
+        }>;
+        _ctx_out: object;
+        _input_in: typeof import("@trpc/server").unsetMarker;
+        _input_out: typeof import("@trpc/server").unsetMarker;
+        _output_in: typeof import("@trpc/server").unsetMarker;
+        _output_out: typeof import("@trpc/server").unsetMarker;
+        _meta: object;
+    }, TFaq[]>;
+    deleteFAQItem: import("@trpc/server").BuildProcedure<"mutation", {
+        _config: import("@trpc/server").RootConfig<{
+            ctx: object;
+            meta: object;
+            errorShape: import("@trpc/server").DefaultErrorShape;
+            transformer: import("@trpc/server").DefaultDataTransformer;
+        }>;
+        _meta: object;
+        _ctx_out: object;
+        _input_in: string[];
+        _input_out: string[];
+        _output_in: typeof import("@trpc/server").unsetMarker;
+        _output_out: typeof import("@trpc/server").unsetMarker;
+    }, any>;
 }>;
 export type AppRouter = typeof appRouter;

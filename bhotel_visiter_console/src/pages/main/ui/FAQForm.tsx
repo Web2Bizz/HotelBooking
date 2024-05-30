@@ -32,7 +32,6 @@ const FAQItem = (props: TFAQItem) => {
 
 	return (
 		<div className='p-2 flex flex-column'>
-			<>{props.item.id}</>
 			<label className='my-1'>Заголовок</label>
 			<InputText
 				value={title}
@@ -43,6 +42,7 @@ const FAQItem = (props: TFAQItem) => {
 			/>
 			<label className='my-1'>Описание</label>
 			<InputTextarea
+				rows={10}
 				value={description}
 				onChange={(e) => {
 					onDescriptionUpdate(props.item.id, e.target.value)
@@ -53,6 +53,7 @@ const FAQItem = (props: TFAQItem) => {
 				onClick={() => onDelete(props.item.id)}
 				severity='danger'
 				outlined
+				icon='pi pi-trash'
 				className='mt-2'
 				label='Удалить пункт'
 			/>
@@ -77,7 +78,7 @@ export const FAQForm = (props: TFAQFormProps) => {
 
 	return (
 		<div className='flex flex-column'>
-			<h3>Часто задаваемые вопросы</h3>
+			<h3>Блок Часто задаваемые вопросы</h3>
 			{items.length > 0 ? (
 				<FAQList
 					onDelete={handleDelete}
@@ -88,7 +89,7 @@ export const FAQForm = (props: TFAQFormProps) => {
 			) : (
 				<p style={{ textAlign: 'center' }}>Пусто</p>
 			)}
-			<Button className='mt-4' onClick={handleCreate} label='Добавить ещё' />
+			<Button className='mt-4' icon='pi pi-plus' outlined onClick={handleCreate} label='Добавить ещё' />
 		</div>
 	)
 }

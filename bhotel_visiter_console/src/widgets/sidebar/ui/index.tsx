@@ -7,7 +7,6 @@ export function SideBar() {
 	const btnRef1 = useRef(null)
 	const btnRef5 = useRef(null)
 	const btnRef6 = useRef(null)
-	const btnRef7 = useRef(null)
 
 	return (
 		<div className='min-h-screen flex fixed col-2 p-0 surface-ground'>
@@ -42,14 +41,11 @@ export function SideBar() {
 									</div>
 								</StyleClass>
 								<ul className='list-none p-0 m-0 overflow-hidden'>
-									<li>
+									{/* <li>
 										<SideBarItem iconClass='' navigatePath='/gui/general' label='Основное' />
-									</li>
+									</li> */}
 									<li>
 										<SideBarItem iconClass='' navigatePath='/gui/header' label='Шапка' />
-									</li>
-									<li>
-										<SideBarItem iconClass='' navigatePath='/gui/menu' label='Меню' />
 									</li>
 									<li>
 										<SideBarItem iconClass='' navigatePath='/gui/footer' label='Футер' />
@@ -89,33 +85,6 @@ export function SideBar() {
 									</li>
 									<li>
 										<SideBarItem iconClass='' navigatePath='/booking' label='Бронирования' />
-									</li>
-								</ul>
-							</li>
-							<li>
-								<StyleClass
-									nodeRef={btnRef5}
-									selector='@next'
-									enterClassName='hidden'
-									enterActiveClassName='slidedown'
-									leaveToClassName='hidden'
-									leaveActiveClassName='slideup'
-								>
-									<div
-										ref={btnRef5}
-										className='p-ripple p-3 flex align-items-center justify-content-between text-600 cursor-pointer'
-									>
-										<span className='font-medium'>Система</span>
-										<i className='pi pi-chevron-down'></i>
-										<Ripple />
-									</div>
-								</StyleClass>
-								<ul className='list-none p-0 m-0 overflow-hidden'>
-									<li>
-										<SideBarItem iconClass='' navigatePath='/system/api' label='API' />
-									</li>
-									<li>
-										<SideBarItem iconClass='' navigatePath='/system/state' label='Состояние системы' />
 									</li>
 								</ul>
 							</li>

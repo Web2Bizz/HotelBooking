@@ -20,14 +20,20 @@ interface IMainPageFormData {
 export const MainPage = () => {
 	const mutation = trpc.setFrontendMainPage.useMutation()
 	const appendFAQ = trpc.appendFAQItem.useMutation()
+	const removeFAQ = trpc.deleteFAQItem.useMutation()
+
 	const [behaviour, setBehaviour] = useState<string>('Статичный фон')
 	const [items, setItems] = useState<Array<TFAQFormItem>>([])
+
+	const [addedItems] = useState<Array<TFAQFormItem>>([])
+	const [removedItems, setRemovedItems] = useState<Array<string>>([])
+
 	const [data, setData] = useState<IMainPageFormData>()
 
 	const [getSettings] = trpc.useQueries((t) => [t.getFrontendMainPage('67342c88-fd1e-425b-99b1-3cdc427b914a')])
 	const getAllFAQ = trpc.useQueries((t) => [t.getAllFAQ()])
 
-	const { control, handleSubmit, formState, reset } = useForm<IMainPageFormData>({
+	const { control, handleSubmit, reset } = useForm<IMainPageFormData>({
 		defaultValues: async () => {
 			return getSettings.data!
 		},
@@ -53,7 +59,9 @@ export const MainPage = () => {
 	}, [data, reset])
 
 	const onSubmit: SubmitHandler<IMainPageFormData> = (formData) => {
-		appendFAQ.mutate(items)
+		if (addedItems.length > 0) appendFAQ.mutate(addedItems)
+
+		if (removedItems.length > 0) removeFAQ.mutate(removedItems)
 
 		mutation.mutate({
 			...formData,
@@ -63,7 +71,14 @@ export const MainPage = () => {
 	}
 
 	const handleCreate = () => {
-		setItems((prev) => [...prev, { id: uuidv4(), title: '', description: '' }])
+		const item = { id: uuidv4(), title: '', description: '' }
+
+		const orign = items
+
+		orign.push(item)
+
+		setItems(orign)
+		// setAddedItems((prev) => [...prev, item])
 	}
 
 	const handleUpdateTitle = (id: string, value: string) => {
@@ -101,22 +116,17 @@ export const MainPage = () => {
 	const handleDelete = (id: string) => {
 		const origin = items
 
-		console.log(id)
-
 		const element = origin.find((o) => o.id === id)
 
 		if (element === undefined) return
 
 		const index = origin.indexOf(element)
 
-		console.log(index)
-
 		if (index === -1) return
 
 		origin.splice(index, 1)
 
-		console.log(origin)
-
+		// setRemovedItems((prev) => [...prev, id])
 		setItems(origin)
 	}
 
@@ -141,7 +151,7 @@ export const MainPage = () => {
 				<Controller
 					name='display_booking'
 					control={control}
-					render={({ ...field }) => <CustomCheckbox label='Отображать кнопку Забронировать номер' {...field} />}
+					render={({ field }) => <CustomCheckbox label='Отображать кнопку Забронировать номер' {...field} />}
 				/>
 				<Controller
 					name='display_popular'
@@ -160,7 +170,7 @@ export const MainPage = () => {
 					handleUpdateTitle={handleUpdateTitle}
 					handleCreate={handleCreate}
 				/>
-				<Button disabled={!formState.isDirty} label='Сохранить' severity='success' className='col-12 mt-3' />
+				<Button label='Сохранить' icon='pi pi-save' className='col-12 mt-3' />
 			</form>
 		</>
 	)

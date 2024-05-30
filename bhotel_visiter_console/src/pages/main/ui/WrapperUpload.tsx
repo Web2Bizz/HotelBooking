@@ -1,4 +1,5 @@
-import React, { useRef, useState } from 'react'
+/* eslint-disable @typescript-eslint/ban-types */
+import { useRef, useState } from 'react'
 import { Toast } from 'primereact/toast'
 import {
 	FileUpload,
@@ -19,7 +20,7 @@ export function WrapperUpload() {
 
 	const onTemplateSelect = (e: FileUploadSelectEvent) => {
 		let _totalSize = totalSize
-		let files = e.files
+		const files = e.files
 
 		for (let i = 0; i < files.length; i++) {
 			_totalSize += files[i].size || 0
@@ -72,7 +73,7 @@ export function WrapperUpload() {
 			<div className='flex align-items-center flex-wrap'>
 				<div className='flex align-items-center' style={{ width: '40%' }}>
 					// @ts-ignore
-					<img alt={file.name} role='presentation' src={file.objectURL} width={100} />
+					<img alt={file.name} role='presentation' src={URL.createObjectURL(file)} width={100} />
 					<span className='flex flex-column text-left ml-3'>
 						{file.name}
 						<small>{new Date().toLocaleDateString()}</small>

@@ -26,6 +26,7 @@
 
 .Footer-links {
 	display: flex;
+	justify-content: space-between;
 	margin-bottom: 113px;
 
 	div {
@@ -39,6 +40,22 @@
 		text-decoration: none;
 		font-weight: 200;
 		margin-top: 25px;
+		display: flex;
+		align-items: center;
+		transition: 0.5s;
+
+		i {
+			margin-right: 10px;
+			height: 30px;
+		}
+
+		span {
+			height: 30px;
+		}
+
+		&:hover {
+			color: #858585;
+		}
 	}
 
 	p {
