@@ -1,11 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.appRouter = exports.frontend_id = void 0;
+exports.t = exports.appRouter = exports.frontend_id = void 0;
 const uuid_1 = require("uuid");
 const zod_1 = require("zod");
 const routes_1 = require("./routes");
 const index_1 = require("./utils/index");
 const trpc_1 = require("./utils/trpc");
+Object.defineProperty(exports, "t", { enumerable: true, get: function () { return trpc_1.t; } });
 exports.frontend_id = '67342c88-fd1e-425b-99b1-3cdc427b914a';
 // Procedure for clean_journal
 const getCleanJournal = trpc_1.t.procedure.input(zod_1.z.string().uuid()).query(async ({ input }) => {

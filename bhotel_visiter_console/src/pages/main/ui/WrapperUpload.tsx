@@ -37,7 +37,11 @@ export function WrapperUpload() {
 		})
 
 		setTotalSize(_totalSize)
-		toast.current?.show({ severity: 'info', summary: 'Success', detail: 'File Uploaded' })
+		toast.current?.show({
+			severity: 'info',
+			summary: 'Success',
+			detail: 'File Uploaded'
+		})
 	}
 
 	const onTemplateRemove = (file: File, callback: Function) => {
@@ -52,16 +56,30 @@ export function WrapperUpload() {
 	const headerTemplate = (options: FileUploadHeaderTemplateOptions) => {
 		const { className, chooseButton, uploadButton, cancelButton } = options
 		const value = totalSize / 10000
-		const formatedValue = fileUploadRef && fileUploadRef.current ? fileUploadRef.current.formatSize(totalSize) : '0 B'
+		const formatedValue =
+			fileUploadRef && fileUploadRef.current
+				? fileUploadRef.current.formatSize(totalSize)
+				: '0 B'
 
 		return (
-			<div className={className} style={{ backgroundColor: 'transparent', display: 'flex', alignItems: 'center' }}>
+			<div
+				className={className}
+				style={{
+					backgroundColor: 'transparent',
+					display: 'flex',
+					alignItems: 'center'
+				}}
+			>
 				{chooseButton}
 				{uploadButton}
 				{cancelButton}
 				<div className='flex align-items-center gap-3 ml-auto'>
 					<span>{formatedValue} / 1 MB</span>
-					<ProgressBar value={value} showValue={false} style={{ width: '10rem', height: '12px' }}></ProgressBar>
+					<ProgressBar
+						value={value}
+						showValue={false}
+						style={{ width: '10rem', height: '12px' }}
+					></ProgressBar>
 				</div>
 			</div>
 		)
@@ -73,13 +91,22 @@ export function WrapperUpload() {
 			<div className='flex align-items-center flex-wrap'>
 				<div className='flex align-items-center' style={{ width: '40%' }}>
 					// @ts-ignore
-					<img alt={file.name} role='presentation' src={URL.createObjectURL(file)} width={100} />
+					<img
+						alt={file.name}
+						role='presentation'
+						src={URL.createObjectURL(file)}
+						width={100}
+					/>
 					<span className='flex flex-column text-left ml-3'>
 						{file.name}
 						<small>{new Date().toLocaleDateString()}</small>
 					</span>
 				</div>
-				<Tag value={props.formatSize} severity='warning' className='px-3 py-2' />
+				<Tag
+					value={props.formatSize}
+					severity='warning'
+					className='px-3 py-2'
+				/>
 				<Button
 					type='button'
 					icon='pi pi-times'
@@ -102,7 +129,10 @@ export function WrapperUpload() {
 						color: 'var(--surface-d)'
 					}}
 				></i>
-				<span style={{ fontSize: '1.2em', color: 'var(--text-color-secondary)' }} className='my-5'>
+				<span
+					style={{ fontSize: '1.2em', color: 'var(--text-color-secondary)' }}
+					className='my-5'
+				>
 					Переместите файл сюда
 				</span>
 			</div>
@@ -117,12 +147,14 @@ export function WrapperUpload() {
 	const uploadOptions = {
 		icon: 'pi pi-fw pi-cloud-upload',
 		iconOnly: true,
-		className: 'custom-upload-btn p-button-success p-button-rounded p-button-outlined'
+		className:
+			'custom-upload-btn p-button-success p-button-rounded p-button-outlined'
 	}
 	const cancelOptions = {
 		icon: 'pi pi-fw pi-times',
 		iconOnly: true,
-		className: 'custom-cancel-btn p-button-danger p-button-rounded p-button-outlined'
+		className:
+			'custom-cancel-btn p-button-danger p-button-rounded p-button-outlined'
 	}
 
 	return (

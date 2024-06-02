@@ -23,7 +23,7 @@ const updateFAQItem = t.procedure
 			description: z.string()
 		})
 	)
-	.query(async ({ input }) => {
+	.mutation(async ({ input }) => {
 		const client = await PgClient()
 		const res = await client.query('UPDATE frontend_faq SET title=$2, description=$3 WHERE id=$1 RETURNING *', [
 			input.id,

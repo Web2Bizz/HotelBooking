@@ -1,5 +1,6 @@
 import { inferRouterOutputs } from '@trpc/server';
 import { TFaq } from './routes/faq';
+import { t } from './utils/trpc';
 export declare const frontend_id = "67342c88-fd1e-425b-99b1-3cdc427b914a";
 export declare const appRouter: import("@trpc/server").CreateRouterInner<import("@trpc/server").RootConfig<{
     ctx: object;
@@ -677,7 +678,7 @@ export declare const appRouter: import("@trpc/server").CreateRouterInner<import(
         _output_in: typeof import("@trpc/server").unsetMarker;
         _output_out: typeof import("@trpc/server").unsetMarker;
     }, any>;
-    updateFAQItem: import("@trpc/server").BuildProcedure<"query", {
+    updateFAQItem: import("@trpc/server").BuildProcedure<"mutation", {
         _config: import("@trpc/server").RootConfig<{
             ctx: object;
             meta: object;
@@ -733,4 +734,4 @@ type RouterOutput = inferRouterOutputs<AppRouter>;
 export type HotelProperties = RouterOutput['getHotelProperties'];
 export type FrontendMainPageConfig = RouterOutput['getFrontendMainPage'];
 export type Faq = TFaq;
-export {};
+export { t };

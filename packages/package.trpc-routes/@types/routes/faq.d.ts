@@ -17,7 +17,7 @@ declare const getAllFAQ: import("@trpc/server").BuildProcedure<"query", {
     _output_out: typeof import("@trpc/server").unsetMarker;
     _meta: object;
 }, TFaq[]>;
-declare const updateFAQItem: import("@trpc/server").BuildProcedure<"query", {
+declare const updateFAQItem: import("@trpc/server").BuildProcedure<"mutation", {
     _config: import("@trpc/server").RootConfig<{
         ctx: object;
         meta: object;
