@@ -1,11 +1,12 @@
-import { inferRouterOutputs, initTRPC } from '@trpc/server'
-import { z } from 'zod'
-import { PgClient } from './utils/index'
+import { inferRouterOutputs } from '@trpc/server'
 import { v4 } from 'uuid'
+import { z } from 'zod'
+import { deleteFAQItem, getAllFAQ, getFrontendMainPage, getHotelProperties, setFrontendMainPage, updateFAQItem } from './routes'
+import { TFaq } from './routes/faq'
+import { PgClient } from './utils/index'
+import { t } from './utils/trpc'
 
-const t = initTRPC.create()
-
-const frontend_id = '67342c88-fd1e-425b-99b1-3cdc427b914a'
+export const frontend_id = '67342c88-fd1e-425b-99b1-3cdc427b914a'
 
 // Procedure for clean_journal
 const getCleanJournal = t.procedure.input(z.string().uuid()).query(async ({ input }) => {
@@ -187,36 +188,6 @@ const setFrontendHeader = t.procedure
 				input.display_label,
 				input.background_color
 			]
-		)
-		await client.end()
-		return res.rows[0]
-	})
-
-// Procedure for frontend_main_page
-const getFrontendMainPage = t.procedure.input(z.string().uuid()).query(async ({ input }) => {
-	const client = await PgClient()
-	const res = await client.query('SELECT * FROM frontend_main_page WHERE frontend_id = $1', [input])
-	await client.end()
-	return res.rows[0]
-})
-
-const setFrontendMainPage = t.procedure
-	.input(
-		z.object({
-			id: z.string().uuid(),
-			frontend_id: z.string().uuid(),
-			cover_type: z.string().default('static'),
-			display_discount: z.boolean().default(true),
-			display_booking: z.boolean().default(true),
-			display_popular: z.boolean().default(false),
-			display_faq: z.boolean().default(true)
-		})
-	)
-	.mutation(async ({ input }) => {
-		const client = await PgClient()
-		const res = await client.query(
-			'UPDATE frontend_main_page SET display_discount = $1, display_booking = $2, display_popular = $3, display_faq = $4 WHERE frontend_id = $5 RETURNING *',
-			[input.display_discount, input.display_booking, input.display_popular, input.display_faq, input.frontend_id]
 		)
 		await client.end()
 		return res.rows[0]
@@ -503,80 +474,7 @@ const addFAQItem = t.procedure
 		return res.rows[0]
 	})
 
-export type TFaq = {
-	id: string
-	frontend_id: string
-	title: string
-	description: string
-}
 
-const getAllFAQ = t.procedure.query(async () => {
-	const client = await PgClient()
-		const res = await client.query<TFaq>('SELECT * FROM public.frontend_faq;')
-		await client.end()
-		return res.rows
-})
-
-const updateFAQItem = t.procedure
-	.input(
-		z.object({
-			id: z.string().uuid(),
-			title: z.string(),
-			description: z.string()
-		})
-	)
-	.query(async ({ input }) => {
-		const client = await PgClient()
-		const res = await client.query('UPDATE frontend_faq SET title=$2, description=$3 WHERE id=$1 RETURNING *', [
-			input.id,
-			input.title,
-			input.description
-		])
-		await client.end()
-		return res.rows[0]
-	})
-
-const deleteFAQItem = t.procedure.input(z.array(z.string().uuid())).mutation(async ({input}) => {
-	const client = await PgClient()
-	let y = ''
-
-	console.log(input.length);
-	
-
-	for (let i = 0; i < input.length; i++) {
-		y += `DELETE FROM frontend_faq WHERE id='${input[i]}';`
-	}
-
-	const res = await client.query(y)
-
-	await client.end()
-	return res.rows[0]
-})
-
-export type THotelProperties = {
-	id_hotel_properties: string
-	hotel_name: string
-	hotel_logo: string
-	hotel_country: string
-	hotel_region: string
-	hotel_city: string
-	hotel_street: string
-	hotel_number_house: string
-	hotel_count_floor: string
-	hotel_count_room: number
-	contact_email: string
-	contact_number_phone: string
-	owner_name: string
-	owner_number_phone: string
-	owner_email: string
-	id_personal_data_storage_policy: string
-}
-
-const getHotelProperties = t.procedure
-	.query(async () => {
-		const data = await fetch("http://87.242.117.193:9090/api/hotelSettings/getHotelProperties")
-		return (await data.json()) as THotelProperties
-	})
 
 // Export the router
 export const appRouter = t.router({
@@ -623,3 +521,7 @@ export type AppRouter = typeof appRouter
 type RouterOutput = inferRouterOutputs<AppRouter>;
 
 export type HotelProperties = RouterOutput['getHotelProperties']
+export type FrontendMainPageConfig = RouterOutput['getFrontendMainPage']
+export type Faq = TFaq
+
+export { t }

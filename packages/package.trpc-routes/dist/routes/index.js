@@ -1,14 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.appRouter = void 0;
-const trpc_js_1 = require("../trpc.js");
-const index_js_1 = require("./admin/index.js");
-const index_js_2 = require("./client/index.js");
-const index_js_3 = require("./console/index.js");
-const index_js_4 = require("./public/index.js");
-exports.appRouter = (0, trpc_js_1.router)({
-    adminRouter: index_js_1.adminRouter,
-    clientRouter: index_js_2.clientRouter,
-    publicRouter: index_js_4.publicRouter,
-    consoleRoute: index_js_3.consoleRoute
-});
+exports.setFrontendMainPage = exports.getFrontendMainPage = exports.deleteFAQItem = exports.updateFAQItem = exports.getAllFAQ = exports.getHotelProperties = void 0;
+var hotelProperties_1 = require("./hotelProperties");
+Object.defineProperty(exports, "getHotelProperties", { enumerable: true, get: function () { return hotelProperties_1.getHotelProperties; } });
+var faq_1 = require("./faq");
+Object.defineProperty(exports, "getAllFAQ", { enumerable: true, get: function () { return faq_1.getAllFAQ; } });
+Object.defineProperty(exports, "updateFAQItem", { enumerable: true, get: function () { return faq_1.updateFAQItem; } });
+Object.defineProperty(exports, "deleteFAQItem", { enumerable: true, get: function () { return faq_1.deleteFAQItem; } });
+var mainPage_1 = require("./mainPage");
+Object.defineProperty(exports, "getFrontendMainPage", { enumerable: true, get: function () { return mainPage_1.getFrontendMainPage; } });
+Object.defineProperty(exports, "setFrontendMainPage", { enumerable: true, get: function () { return mainPage_1.setFrontendMainPage; } });

@@ -5,35 +5,29 @@ import { Button } from 'primereact/button'
 import { Dropdown } from 'primereact/dropdown'
 import { useEffect, useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
-import { FAQForm, TFAQFormItem } from './FAQForm'
-import { WrapperUpload } from './WrapperUpload'
+import { Faq, FrontendMainPageConfig } from 'trpc-package'
 import { v4 as uuidv4 } from 'uuid'
-
-interface IMainPageFormData {
-	cover_type: string
-	display_discount: boolean
-	display_booking: boolean
-	display_popular: boolean
-	display_faq: boolean
-}
+import { FAQForm } from './FAQForm'
+import { WrapperUpload } from './WrapperUpload'
+import { InputTextarea } from 'primereact/inputtextarea'
 
 export const MainPage = () => {
 	const mutation = trpc.setFrontendMainPage.useMutation()
-	const appendFAQ = trpc.appendFAQItem.useMutation()
+	const appendFAQ = trpc.addFAQItem.useMutation()
 	const removeFAQ = trpc.deleteFAQItem.useMutation()
 
 	const [behaviour, setBehaviour] = useState<string>('Статичный фон')
-	const [items, setItems] = useState<Array<TFAQFormItem>>([])
+	const [items, setItems] = useState<Array<Faq>>([])
 
-	const [addedItems] = useState<Array<TFAQFormItem>>([])
+	const [addedItems] = useState<Array<Faq>>([])
 	const [removedItems, setRemovedItems] = useState<Array<string>>([])
 
-	const [data, setData] = useState<IMainPageFormData>()
+	const [data, setData] = useState<FrontendMainPageConfig>()
 
-	const [getSettings] = trpc.useQueries((t) => [t.getFrontendMainPage('67342c88-fd1e-425b-99b1-3cdc427b914a')])
+	const [getSettings] = trpc.useQueries((t) => [t.getFrontendMainPage()])
 	const getAllFAQ = trpc.useQueries((t) => [t.getAllFAQ()])
 
-	const { control, handleSubmit, reset } = useForm<IMainPageFormData>({
+	const { control, handleSubmit, reset } = useForm<FrontendMainPageConfig>({
 		defaultValues: async () => {
 			return getSettings.data!
 		},
@@ -49,7 +43,7 @@ export const MainPage = () => {
 	}, [getAllFAQ])
 
 	useEffect(() => {
-		setData(getSettings.data as IMainPageFormData)
+		setData(getSettings.data)
 	}, [getSettings.data])
 
 	useEffect(() => {
@@ -58,15 +52,13 @@ export const MainPage = () => {
 		}
 	}, [data, reset])
 
-	const onSubmit: SubmitHandler<IMainPageFormData> = (formData) => {
+	const onSubmit: SubmitHandler<FrontendMainPageConfig> = (formData) => {
 		if (addedItems.length > 0) appendFAQ.mutate(addedItems)
 
 		if (removedItems.length > 0) removeFAQ.mutate(removedItems)
 
 		mutation.mutate({
-			...formData,
-			id: '67342c88-fd1e-425b-99b1-3cdc427b914a',
-			frontend_id: '67342c88-fd1e-425b-99b1-3cdc427b914a'
+			...formData
 		})
 	}
 
@@ -143,6 +135,7 @@ export const MainPage = () => {
 					options={['Статичный фон', 'Карусель']}
 				/>
 				<WrapperUpload />
+				<Controller name='welcome_message' control={control} render={({ field }) => <InputTextarea {...field} />} />
 				<Controller
 					name='display_discount'
 					control={control}

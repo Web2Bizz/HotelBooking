@@ -1,10 +1,10 @@
 {
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"name": "trpc-package",
-	"types": "./dist/index.d.ts",
+	"types": "./@types/index.d.ts",
 	"main": "./dist/index.js",
 	"scripts": {
-		"build": "rm -r dist && tsc"
+		"build": "rm -r dist && rm -r @types && tsc"
 	},
 	"dependencies": {
 		"@trpc/server": "^10.45.2",

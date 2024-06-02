@@ -15,7 +15,7 @@ export const RouterApp = () => {
 		trpc.createClient({
 			links: [
 				httpBatchLink({
-					url: 'http://192.168.0.105:8556/trpc'
+					url: 'http://localhost:8556/trpc'
 				})
 			]
 		})

@@ -1,20 +1,20 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.appRouter = void 0;
-const server_1 = require("@trpc/server");
-const zod_1 = require("zod");
-const index_1 = require("./utils/index");
+exports.appRouter = exports.frontend_id = void 0;
 const uuid_1 = require("uuid");
-const t = server_1.initTRPC.create();
-const frontend_id = '67342c88-fd1e-425b-99b1-3cdc427b914a';
+const zod_1 = require("zod");
+const routes_1 = require("./routes");
+const index_1 = require("./utils/index");
+const trpc_1 = require("./utils/trpc");
+exports.frontend_id = '67342c88-fd1e-425b-99b1-3cdc427b914a';
 // Procedure for clean_journal
-const getCleanJournal = t.procedure.input(zod_1.z.string().uuid()).query(async ({ input }) => {
+const getCleanJournal = trpc_1.t.procedure.input(zod_1.z.string().uuid()).query(async ({ input }) => {
     const client = await (0, index_1.PgClient)();
     const res = await client.query('SELECT * FROM clean_journal WHERE id = $1', [input]);
     await client.end();
     return res.rows[0];
 });
-const addToCleanJournal = t.procedure
+const addToCleanJournal = trpc_1.t.procedure
     .input(zod_1.z.object({
     id: zod_1.z.string().uuid(),
     booking_id: zod_1.z.string().uuid(),
@@ -31,13 +31,13 @@ const addToCleanJournal = t.procedure
     return res.rows[0];
 });
 // Procedure for client
-const getClient = t.procedure.input(zod_1.z.string().uuid()).query(async ({ input }) => {
+const getClient = trpc_1.t.procedure.input(zod_1.z.string().uuid()).query(async ({ input }) => {
     const client = await (0, index_1.PgClient)();
     const res = await client.query('SELECT * FROM client WHERE id = $1', [input]);
     await client.end();
     return res.rows[0];
 });
-const addClient = t.procedure
+const addClient = trpc_1.t.procedure
     .input(zod_1.z.object({
     id: zod_1.z.string().uuid(),
     birthday: zod_1.z.string().refine((val) => !isNaN(Date.parse(val)), { message: 'Invalid date' })
@@ -51,20 +51,20 @@ const addClient = t.procedure
     await client.end();
     return res.rows[0];
 });
-const getUserById = t.procedure.input(zod_1.z.string().uuid()).query(async ({ input }) => {
+const getUserById = trpc_1.t.procedure.input(zod_1.z.string().uuid()).query(async ({ input }) => {
     const client = await (0, index_1.PgClient)();
     const res = await client.query('SELECT * FROM client WHERE id = $1', [input]);
     await client.end();
     return res.rows[0];
 });
 // Procedure for frontend_config
-const getFrontendConfig = t.procedure.input(zod_1.z.string().uuid()).query(async ({ input }) => {
+const getFrontendConfig = trpc_1.t.procedure.input(zod_1.z.string().uuid()).query(async ({ input }) => {
     const client = await (0, index_1.PgClient)();
     const res = await client.query('SELECT * FROM frontend_config WHERE id = $1', [input]);
     await client.end();
     return res.rows[0];
 });
-const setFrontendConfig = t.procedure
+const setFrontendConfig = trpc_1.t.procedure
     .input(zod_1.z.object({
     id: zod_1.z.string().uuid(),
     hotel_id: zod_1.z.string().uuid()
@@ -79,13 +79,13 @@ const setFrontendConfig = t.procedure
     return res.rows[0];
 });
 // Procedure for frontend_footer
-const getFrontendFooter = t.procedure.query(async () => {
+const getFrontendFooter = trpc_1.t.procedure.query(async () => {
     const client = await (0, index_1.PgClient)();
-    const res = await client.query('SELECT * FROM frontend_footer WHERE frontend_id = $1', [frontend_id]);
+    const res = await client.query('SELECT * FROM frontend_footer WHERE frontend_id = $1', [exports.frontend_id]);
     await client.end();
     return res.rows[0];
 });
-const setFrontendFooter = t.procedure
+const setFrontendFooter = trpc_1.t.procedure
     .input(zod_1.z.object({
     display_logo: zod_1.z.boolean().default(true),
     display_label: zod_1.z.boolean().default(true),
@@ -119,7 +119,7 @@ const setFrontendFooter = t.procedure
         input.display_logo,
         input.display_label,
         input.display_social_block,
-        frontend_id,
+        exports.frontend_id,
         input.background_color,
         input.display_vk,
         input.vk_link,
@@ -134,13 +134,13 @@ const setFrontendFooter = t.procedure
     return res.rows[0];
 });
 // Procedure for frontend_header
-const getFrontendHeader = t.procedure.input(zod_1.z.string().uuid()).query(async ({ input }) => {
+const getFrontendHeader = trpc_1.t.procedure.input(zod_1.z.string().uuid()).query(async ({ input }) => {
     const client = await (0, index_1.PgClient)();
     const res = await client.query('SELECT * FROM frontend_header WHERE frontend_id = $1', [input]);
     await client.end();
     return res.rows[0];
 });
-const setFrontendHeader = t.procedure
+const setFrontendHeader = trpc_1.t.procedure
     .input(zod_1.z.object({
     id: zod_1.z.string().uuid(),
     frontend_id: zod_1.z.string().uuid(),
@@ -165,37 +165,14 @@ const setFrontendHeader = t.procedure
     await client.end();
     return res.rows[0];
 });
-// Procedure for frontend_main_page
-const getFrontendMainPage = t.procedure.input(zod_1.z.string().uuid()).query(async ({ input }) => {
-    const client = await (0, index_1.PgClient)();
-    const res = await client.query('SELECT * FROM frontend_main_page WHERE frontend_id = $1', [input]);
-    await client.end();
-    return res.rows[0];
-});
-const setFrontendMainPage = t.procedure
-    .input(zod_1.z.object({
-    id: zod_1.z.string().uuid(),
-    frontend_id: zod_1.z.string().uuid(),
-    cover_type: zod_1.z.string().default('static'),
-    display_discount: zod_1.z.boolean().default(true),
-    display_booking: zod_1.z.boolean().default(true),
-    display_popular: zod_1.z.boolean().default(false),
-    display_faq: zod_1.z.boolean().default(true)
-}))
-    .mutation(async ({ input }) => {
-    const client = await (0, index_1.PgClient)();
-    const res = await client.query('UPDATE frontend_main_page SET display_discount = $1, display_booking = $2, display_popular = $3, display_faq = $4 WHERE frontend_id = $5 RETURNING *', [input.display_discount, input.display_booking, input.display_popular, input.display_faq, input.frontend_id]);
-    await client.end();
-    return res.rows[0];
-});
 // Procedure for frontend_profile
-const getFrontendProfile = t.procedure.input(zod_1.z.string().uuid()).query(async ({ input }) => {
+const getFrontendProfile = trpc_1.t.procedure.input(zod_1.z.string().uuid()).query(async ({ input }) => {
     const client = await (0, index_1.PgClient)();
     const res = await client.query('SELECT * FROM frontend_profile WHERE id = $1', [input]);
     await client.end();
     return res.rows[0];
 });
-const setFrontendProfile = t.procedure
+const setFrontendProfile = trpc_1.t.procedure
     .input(zod_1.z.object({
     id: zod_1.z.string().uuid(),
     frontend_id: zod_1.z.string().uuid(),
@@ -208,13 +185,13 @@ const setFrontendProfile = t.procedure
     return res.rows[0];
 });
 // Procedure for notifications
-const getNotifications = t.procedure.input(zod_1.z.string().uuid()).query(async ({ input }) => {
+const getNotifications = trpc_1.t.procedure.input(zod_1.z.string().uuid()).query(async ({ input }) => {
     const client = await (0, index_1.PgClient)();
     const res = await client.query('SELECT * FROM notifications WHERE id = $1', [input]);
     await client.end();
     return res.rows[0];
 });
-const pushNotification = t.procedure
+const pushNotification = trpc_1.t.procedure
     .input(zod_1.z.object({
     id: zod_1.z.string().uuid(),
     client_id: zod_1.z.string().uuid(),
@@ -233,13 +210,13 @@ const pushNotification = t.procedure
     return res.rows[0];
 });
 // Procedure for payment
-const getPayment = t.procedure.input(zod_1.z.string().uuid()).query(async ({ input }) => {
+const getPayment = trpc_1.t.procedure.input(zod_1.z.string().uuid()).query(async ({ input }) => {
     const client = await (0, index_1.PgClient)();
     const res = await client.query('SELECT * FROM payment WHERE client_id = $1', [input]);
     await client.end();
     return res.rows[0];
 });
-const addPaymentMethod = t.procedure
+const addPaymentMethod = trpc_1.t.procedure
     .input(zod_1.z.object({
     client_id: zod_1.z.string().uuid(),
     card_number: zod_1.z.bigint(),
@@ -253,13 +230,13 @@ const addPaymentMethod = t.procedure
     return res.rows[0];
 });
 // Procedure for review_room
-const getReviewRoom = t.procedure.input(zod_1.z.string().uuid()).query(async ({ input }) => {
+const getReviewRoom = trpc_1.t.procedure.input(zod_1.z.string().uuid()).query(async ({ input }) => {
     const client = await (0, index_1.PgClient)();
     const res = await client.query('SELECT * FROM review_room WHERE id = $1', [input]);
     await client.end();
     return res.rows[0];
 });
-const addReviewRoom = t.procedure
+const addReviewRoom = trpc_1.t.procedure
     .input(zod_1.z.object({
     id: zod_1.z.string().uuid(),
     client_id: zod_1.z.string().uuid(),
@@ -274,7 +251,7 @@ const addReviewRoom = t.procedure
     return res.rows[0];
 });
 // Procedure for reviews
-const getReviews = t.procedure
+const getReviews = trpc_1.t.procedure
     .input(zod_1.z.object({
     client_id: zod_1.z.string().uuid(),
     date: zod_1.z.string().refine((val) => !isNaN(Date.parse(val)), { message: 'Invalid date' })
@@ -288,7 +265,7 @@ const getReviews = t.procedure
     await client.end();
     return res.rows[0];
 });
-const addReview = t.procedure
+const addReview = trpc_1.t.procedure
     .input(zod_1.z.object({
     id: zod_1.z.string().uuid(),
     client_id: zod_1.z.string().uuid(),
@@ -302,7 +279,7 @@ const addReview = t.procedure
     await client.end();
     return res.rows[0];
 });
-const getAllServices = t.procedure
+const getAllServices = trpc_1.t.procedure
     .query(async () => {
     const client = await (0, index_1.PgClient)();
     const res = await client.query('SELECT * FROM service');
@@ -310,13 +287,13 @@ const getAllServices = t.procedure
     return res.rows;
 });
 // Procedure for service
-const getService = t.procedure.input(zod_1.z.string().uuid()).query(async ({ input }) => {
+const getService = trpc_1.t.procedure.input(zod_1.z.string().uuid()).query(async ({ input }) => {
     const client = await (0, index_1.PgClient)();
     const res = await client.query('SELECT * FROM service WHERE id = $1', [input]);
     await client.end();
     return res.rows[0];
 });
-const setService = t.procedure
+const setService = trpc_1.t.procedure
     .input(zod_1.z.object({
     id: zod_1.z.string().uuid(),
     name: zod_1.z.string(),
@@ -330,7 +307,7 @@ const setService = t.procedure
     await client.end();
     return res.rows[0];
 });
-const addService = t.procedure
+const addService = trpc_1.t.procedure
     .input(zod_1.z.object({
     name: zod_1.z.string(),
     description: zod_1.z.string(),
@@ -343,13 +320,13 @@ const addService = t.procedure
     return res.rows[0];
 });
 // Procedure for service_receipt
-const getServiceReceipt = t.procedure.input(zod_1.z.string().uuid()).query(async ({ input }) => {
+const getServiceReceipt = trpc_1.t.procedure.input(zod_1.z.string().uuid()).query(async ({ input }) => {
     const client = await (0, index_1.PgClient)();
     const res = await client.query('SELECT * FROM service_receipt WHERE id = $1', [input]);
     await client.end();
     return res.rows[0];
 });
-const addServiceReceipt = t.procedure
+const addServiceReceipt = trpc_1.t.procedure
     .input(zod_1.z.object({
     id: zod_1.z.string().uuid(),
     client_id: zod_1.z.string().uuid(),
@@ -362,13 +339,13 @@ const addServiceReceipt = t.procedure
     return res.rows[0];
 });
 // Procedure for service_receipt_item
-const getServiceReceiptItem = t.procedure.input(zod_1.z.string().uuid()).query(async ({ input }) => {
+const getServiceReceiptItem = trpc_1.t.procedure.input(zod_1.z.string().uuid()).query(async ({ input }) => {
     const client = await (0, index_1.PgClient)();
     const res = await client.query('SELECT * FROM service_receipt_item WHERE id = $1', [input]);
     await client.end();
     return res.rows[0];
 });
-const addServiceReceiptItem = t.procedure
+const addServiceReceiptItem = trpc_1.t.procedure
     .input(zod_1.z.object({
     id: zod_1.z.string().uuid(),
     service_id: zod_1.z.string().uuid(),
@@ -381,7 +358,7 @@ const addServiceReceiptItem = t.procedure
     await client.end();
     return res.rows[0];
 });
-const addFAQItem = t.procedure
+const addFAQItem = trpc_1.t.procedure
     .input(zod_1.z.array(zod_1.z.object({
     title: zod_1.z.string(),
     description: zod_1.z.string()
@@ -390,54 +367,16 @@ const addFAQItem = t.procedure
     const client = await (0, index_1.PgClient)();
     let y = '';
     for (let i = 0; i < input.length; i++) {
-        y += `INSERT INTO frontend_faq (id, frontend_id, title, description) VALUES ('${(0, uuid_1.v4)()}', '${frontend_id}', '${input[i].title}', '${input[i].description}');`;
+        y += `INSERT INTO frontend_faq (id, frontend_id, title, description) VALUES ('${(0, uuid_1.v4)()}', '${exports.frontend_id}', '${input[i].title}', '${input[i].description}');`;
     }
     const res = await client.query(y);
     await client.end();
     return res.rows[0];
-});
-const getAllFAQ = t.procedure.query(async () => {
-    const client = await (0, index_1.PgClient)();
-    const res = await client.query('SELECT * FROM public.frontend_faq;');
-    await client.end();
-    return res.rows;
-});
-const updateFAQItem = t.procedure
-    .input(zod_1.z.object({
-    id: zod_1.z.string().uuid(),
-    title: zod_1.z.string(),
-    description: zod_1.z.string()
-}))
-    .query(async ({ input }) => {
-    const client = await (0, index_1.PgClient)();
-    const res = await client.query('UPDATE frontend_faq SET title=$2, description=$3 WHERE id=$1 RETURNING *', [
-        input.id,
-        input.title,
-        input.description
-    ]);
-    await client.end();
-    return res.rows[0];
-});
-const deleteFAQItem = t.procedure.input(zod_1.z.array(zod_1.z.string().uuid())).mutation(async ({ input }) => {
-    const client = await (0, index_1.PgClient)();
-    let y = '';
-    console.log(input.length);
-    for (let i = 0; i < input.length; i++) {
-        y += `DELETE FROM frontend_faq WHERE id='${input[i]}';`;
-    }
-    const res = await client.query(y);
-    await client.end();
-    return res.rows[0];
-});
-const getHotelProperties = t.procedure
-    .query(async () => {
-    const data = await fetch("http://87.242.117.193:9090/api/hotelSettings/getHotelProperties");
-    return (await data.json());
 });
 // Export the router
-exports.appRouter = t.router({
+exports.appRouter = trpc_1.t.router({
     getAllServices,
-    getHotelProperties,
+    getHotelProperties: routes_1.getHotelProperties,
     getCleanJournal,
     addToCleanJournal,
     getClient,
@@ -449,8 +388,8 @@ exports.appRouter = t.router({
     setFrontendFooter,
     getFrontendHeader,
     setFrontendHeader,
-    getFrontendMainPage,
-    setFrontendMainPage,
+    getFrontendMainPage: routes_1.getFrontendMainPage,
+    setFrontendMainPage: routes_1.setFrontendMainPage,
     getFrontendProfile,
     setFrontendProfile,
     getNotifications,
@@ -469,7 +408,7 @@ exports.appRouter = t.router({
     getServiceReceiptItem,
     addServiceReceiptItem,
     addFAQItem,
-    updateFAQItem,
-    getAllFAQ,
-    deleteFAQItem
+    updateFAQItem: routes_1.updateFAQItem,
+    getAllFAQ: routes_1.getAllFAQ,
+    deleteFAQItem: routes_1.deleteFAQItem
 });
