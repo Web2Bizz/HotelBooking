@@ -4,7 +4,7 @@ import ApiError from '../exceptions/api-error.js'
 class UserService {
 	async login(login, password) {
 		const response = await client.query(
-			`select id_user, login, role, email from public.users where (login = $1 or email = $1) and password = $2`,
+			`select * from public.users where (login = $1 or email = $1) and password = $2`,
 			[login, password]
 		)
 		if (response.rows[0] === null || response.rows[0] === undefined) {
@@ -46,6 +46,35 @@ class UserService {
 			[login, email, password]
 		)
 	}
+
+	async registrate(name, surname, fatherName, login, email, password) {
+		let hasAlreadyLogin = await client.query(
+			`select login from public.users where login = $1`,
+			[login]
+		)
+		let hasAlreadyEmail = await client.query(
+			`select email from public.users where email = $1`,
+			[email]
+		)
+		if (
+			hasAlreadyLogin.rows[0] !== null &&
+			hasAlreadyLogin.rows[0] !== undefined
+		) {
+			throw ApiError.BadRequest('Данный логин уже существует')
+		}
+		if (
+			hasAlreadyEmail.rows[0] !== null &&
+			hasAlreadyEmail.rows[0] !== undefined
+		) {
+			throw ApiError.BadRequest('Данная почта уже существует')
+		}
+		await client.query(
+			`insert into public.users (login, email, password, name, surname, father_name) 
+        values ($1, $2, $3, $4, $5, $6)`,
+			[login, email, password, name, surname, fatherName]
+		)
+	}
+
 	async editUser(id_user, login, password, role, email) {
 		await client.query(
 			`update public.users set login = $1, email = $2, password = $3, role = $4  

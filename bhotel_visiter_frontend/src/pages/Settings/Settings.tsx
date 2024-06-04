@@ -1,14 +1,51 @@
-import { Button, Avatar, Form, Input, DatePicker, Row, Col } from 'antd'
+import {
+	Button,
+	Avatar,
+	Form,
+	Input,
+	DatePicker,
+	Row,
+	Col,
+	FormProps
+} from 'antd'
 import './style.scss'
 import { useNavigate } from 'react-router-dom'
 import { Header } from '@widgets'
 import { UserOutlined } from '@ant-design/icons'
+import { UserContext } from '@contexts'
+import { useContext, useEffect } from 'react'
+
+type SettingsField = {
+	name: string
+	surname: string
+	father_name?: string
+	phone?: string
+	birthday?: string
+	email?: string
+	password?: string
+	confirm_password?: string
+}
 
 const Settings = () => {
 	const [form] = Form.useForm()
-	const onFinish = (values: any) => {
+	const onFinish: FormProps<SettingsField>['onFinish'] = async (
+		values: any
+	) => {
 		console.log('Received values:', values)
 	}
+
+	const context = useContext(UserContext)
+
+	useEffect(() => {
+		form.setFieldsValue({
+			name: context.name,
+			surname: context.surname,
+			father_name: context.father_name,
+			email: context.email,
+			phone: context.phone,
+            birthday: context.birthday
+		})
+	}, [])
 
 	const navigate = useNavigate()
 	return (
@@ -23,7 +60,9 @@ const Settings = () => {
 				}}
 			>
 				<div className='Settings-info'>
-					<Button onClick={() => navigate('/profile')}>{'<< Обратно в профиль'}</Button>
+					<Button onClick={() => navigate('/profile')}>
+						{'<< Обратно в профиль'}
+					</Button>
 					<p>Редактировать профиль</p>
 					<Avatar shape='square' size={268} icon={<UserOutlined />} />
 				</div>
@@ -47,23 +86,27 @@ const Settings = () => {
 					>
 						<Row gutter={[16, 16]}>
 							<Col span={8}>
-								<Form.Item label='Имя' name='firstName' rules={[{ required: true, message: 'Введите ваше имя' }]}>
+								<Form.Item<SettingsField>
+									label='Имя'
+									name='name'
+									rules={[{ required: true, message: 'Введите ваше имя' }]}
+								>
 									<Input />
 								</Form.Item>
 							</Col>
 							<Col span={8}>
-								<Form.Item
+								<Form.Item<SettingsField>
 									label='Фамилия'
-									name='lastName'
+									name='surname'
 									rules={[{ required: true, message: 'Введите вашу фамилию' }]}
 								>
 									<Input />
 								</Form.Item>
 							</Col>
 							<Col span={8}>
-								<Form.Item
+								<Form.Item<SettingsField>
 									label='Отчество'
-									name='fatherName'
+									name='father_name'
 									rules={[{ required: true, message: 'Введите ваше отчество' }]}
 								>
 									<Input />
@@ -72,10 +115,12 @@ const Settings = () => {
 						</Row>
 						<Row gutter={[16, 16]}>
 							<Col span={24}>
-								<Form.Item
+								<Form.Item<SettingsField>
 									label='Телефон'
 									name='phone'
-									rules={[{ required: true, message: 'Введите ваш номер телефона' }]}
+									rules={[
+										{ required: true, message: 'Введите ваш номер телефона' }
+									]}
 								>
 									<Input />
 								</Form.Item>
@@ -83,7 +128,7 @@ const Settings = () => {
 						</Row>
 						<Row gutter={[16, 16]}>
 							<Col span={24}>
-								<Form.Item
+								<Form.Item<SettingsField>
 									label='Почта'
 									name='email'
 									rules={[
@@ -100,14 +145,18 @@ const Settings = () => {
 						</Row>
 						<Row gutter={[16, 16]}>
 							<Col span={12}>
-								<Form.Item label='Пароль' name='password' rules={[{ required: true, message: 'Введите ваш пароль' }]}>
+								<Form.Item<SettingsField>
+									label='Пароль'
+									name='password'
+									rules={[{ required: true, message: 'Введите ваш пароль' }]}
+								>
 									<Input.Password />
 								</Form.Item>
 							</Col>
 							<Col span={12}>
-								<Form.Item
+								<Form.Item<SettingsField>
 									label='Повтор пароля'
-									name='confirmPassword'
+									name='confirm_password'
 									dependencies={['password']}
 									rules={[
 										{ required: true, message: 'Повторите ваш пароль' },
@@ -130,9 +179,15 @@ const Settings = () => {
 								<Form.Item
 									label='Дата рождения'
 									name='birthday'
-									rules={[{ required: true, message: 'Введите вашу дату рождения' }]}
+									rules={[
+										{ required: true, message: 'Введите вашу дату рождения' }
+									]}
 								>
-									<DatePicker style={{ width: '100%' }} placeholder='Выберите дату' />
+									<DatePicker
+										style={{ width: '100%' }}
+										placeholder='Выберите дату'
+										format='YYYY-MM-DDTHH:mm:ss'
+									/>
 								</Form.Item>
 							</Col>
 						</Row>

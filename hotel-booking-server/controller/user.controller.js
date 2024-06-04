@@ -30,6 +30,22 @@ class UserController {
 			next(e)
 		}
 	}
+	async RegistrateUser(req, res, next) {
+		try {
+			const { login, email, password, name, surname, fatherName } = req.body
+			await userService.registrate(
+				name,
+				surname,
+				fatherName,
+				login,
+				email,
+				password,
+			)
+			return res.json('success')
+		} catch (e) {
+			next(e)
+		}
+	}
 	async EditUser(req, res, next) {
 		try {
 			const { id_user, login, password, role, email } = req.body.id_user

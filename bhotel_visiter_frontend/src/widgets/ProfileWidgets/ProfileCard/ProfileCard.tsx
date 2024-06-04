@@ -18,6 +18,9 @@ const ProfileCard = () => {
 
 	const handleOk = () => {
 		setIsModalOpen(false)
+		localStorage.removeItem('userInfo')
+		context.setUserData(null)
+		navigate('/')
 	}
 
 	const handleCancel = () => {
@@ -44,7 +47,7 @@ const ProfileCard = () => {
 							<p>
 								{context.name} {context.surname}
 							</p>
-							<p>{context.fatherName}</p>
+							<p>{context.father_name}</p>
 						</div>
 					</div>
 					<div className='ProfileCard-buttons'>

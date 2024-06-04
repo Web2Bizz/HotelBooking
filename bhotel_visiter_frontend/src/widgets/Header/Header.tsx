@@ -1,12 +1,13 @@
-import { useState, ChangeEvent, useEffect, useContext } from 'react'
-import './style.scss'
-import { Avatar, Input, Button } from 'antd'
 import { trpc } from '@helpers'
+import { Avatar, Button, Input } from 'antd'
+import { ChangeEvent, useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { UserContext } from './../../app/contexts/userContext'
-import { AppContext } from './../../app/contexts'
 import Container from '../Container'
-import { UserOutlined } from '@ant-design/icons'
+import { AppContext } from './../../app/contexts'
+import { UserContext } from './../../app/contexts/userContext'
+import UserBlock from './UserBlock'
+import './style.scss'
+import UnlogginedBlock from './UnlogginedBlock'
 
 export interface IFormHeaderSettings {
 	display_logo: boolean
@@ -28,7 +29,9 @@ const Header = () => {
 		setSearchValue(e.target.value)
 	}
 
-	const [getHeaderSettings] = trpc.useQueries((t) => [t.getFrontendHeader('67342c88-fd1e-425b-99b1-3cdc427b914a')])
+	const [getHeaderSettings] = trpc.useQueries((t) => [
+		t.getFrontendHeader('67342c88-fd1e-425b-99b1-3cdc427b914a')
+	])
 
 	const navigate = useNavigate()
 
@@ -42,12 +45,21 @@ const Header = () => {
 
 	return (
 		Array.isArray(hotelData) && (
-			<div className='Header-wrapper' style={{ backgroundColor: headerData?.background_color }}>
+			<div
+				className='Header-wrapper'
+				style={{ backgroundColor: headerData?.background_color }}
+			>
 				<Container>
 					<div className='Header-container'>
 						<div className='Header-logo' onClick={() => navigate('/')}>
-							{headerData?.display_logo && <Avatar shape='square' size={60} src={hotelData[0].hotel_logo} />}
-							{headerData?.display_label && <p>{hotelData[0].hotel_name}</p>}
+							{headerData?.display_logo && (
+								<Avatar
+									shape='square'
+									size={60}
+									src={hotelData.hotel_logo}
+								/>
+							)}
+							{headerData?.display_label && <p>{hotelData.hotel_name}</p>}
 						</div>
 						{headerData?.display_search && (
 							<div className='Header-search'>
@@ -67,21 +79,11 @@ const Header = () => {
 								</Button>
 							)}
 						</div>
-						<div className='Header-user_profile' onClick={() => navigate('/profile')}>
-							<div className='Header-user_profile__name'>
-								{headerData?.display_details && (
-									<>
-										<p>
-											{context.name} {context.surname[0]}.
-										</p>
-										<span>{context.role}</span>
-									</>
-								)}
-							</div>
-							<div>
-								<Avatar shape='square' size={60} icon={<UserOutlined />} />
-							</div>
-						</div>
+						{context.isLoggined ? (
+							<UserBlock display_details={headerData?.display_details} />
+						) : (
+							<UnlogginedBlock />
+						)}
 					</div>
 				</Container>
 			</div>

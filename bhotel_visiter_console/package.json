@@ -22,7 +22,7 @@
 		"react-dom": "^18.2.0",
 		"react-hook-form": "^7.39.4",
 		"react-router-dom": "^6.22.3",
-		"trpc-package": "./../packages/package.trpc-routes",
+		"trpc-package": "file:../packages/package.trpc-routes",
 		"uuid": "^9.0.1"
 	},
 	"devDependencies": {

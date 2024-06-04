@@ -7,5 +7,19 @@ import Settings from './Settings/Settings'
 import Payment from './Payment/Payment'
 import Catalog from './Catalog/Catalog'
 import NotificationsPage from './Notifications'
+import Login from './Login'
+import RegistrationPage from './Registration'
 
-export { Home, RoomPreview, Booking, ThanksPage, Profile, Settings, Payment, Catalog, NotificationsPage }
+export {
+	Home,
+	RoomPreview,
+	Booking,
+	ThanksPage,
+	Profile,
+	Settings,
+	Payment,
+	Catalog,
+	NotificationsPage,
+    Login,
+    RegistrationPage
+}

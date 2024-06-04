@@ -18,7 +18,7 @@ services:
         ipv4_address: 24.16.1.22
 
   postgres-hotel:
-    image: postgres:latest
+    image: dockerhub1.beget.com/library/postgres:latest
     ports:
       - '5439:5432'
     restart: unless-stopped
@@ -35,7 +35,7 @@ services:
         ipv4_address: 24.16.1.4
 
   postgres-client:
-    image: postgres:latest
+    image: dockerhub1.beget.com/library/postgres:latest
     ports:
       - '5440:5432'
     restart: unless-stopped
@@ -87,26 +87,17 @@ services:
       network:
         ipv4_address: 24.16.1.54
 
-  file-uploader:
-    build: ./file-uploader
-    ports:
-      - 9867:9867
-    restart: always
-    volumes:
-      - './uploads:/app/uploads'
-    networks:
-      network:
-        ipv4_address: 24.16.2.63
-
   console-backend:
     build:
-      context: .
-      dockerfile: 'console-backend.Dockerfile'
+      context: './bhotel_visiter_backend'
+      dockerfile: 'Dockerfile'
     ports:
       - '5001:8556'
     restart: always
     environment:
       - NODE_ENV=production
+    volumes:
+      - './packages/package.trpc-routes:/app/packages/package.trpc-routes'
     depends_on:
       - postgres-client
       - backend-admin
@@ -116,8 +107,8 @@ services:
 
   app-console:
     build:
-      context: .
-      dockerfile: 'console-frontend.Dockerfile'
+      context: './bhotel_visiter_console'
+      dockerfile: 'Dockerfile'
     ports:
       - '5501:5501'
     restart: always
@@ -126,6 +117,8 @@ services:
       - VITE_APP_TRPC_API=http://87.242.117.193:9090/api
     depends_on:
       - backend-admin
+    volumes:
+      - './packages/package.trpc-routes:/app/packages/package.trpc-routes'
     networks:
       network:
         ipv4_address: 24.16.2.77
@@ -142,6 +135,8 @@ services:
       - VITE_APP_TRPC_API=http://87.242.117.193:9090/api
     depends_on:
       - backend-admin
+    volumes:
+      - './packages/package.trpc-routes:/app/packages/package.trpc-routes'
     networks:
       network:
         ipv4_address: 24.16.2.90

@@ -88,7 +88,7 @@ export const OptionsListPage = () => {
 	const availableEditor = (options: ColumnEditorOptions) => {
 		console.log(options.value)
 
-		return <Checkbox onChange={(e) => options.editorCallback!(e.target.value)} />
+		return <Checkbox checked={false} onChange={(e) => options.editorCallback!(e.target.value)} />
 	}
 
 	const show = () => {
@@ -120,7 +120,7 @@ export const OptionsListPage = () => {
 			<AdminPageTitle title={'Список услуг'} />
 			<Toast ref={toast} />
 			<div className='mt-3 flex flex-row gap-3'>
-				{/* <Button icon='pi pi-trash' severity='danger' label='Удалить (0)' disabled /> */}
+				<Button icon='pi pi-trash' severity='danger' label='Удалить (0)' disabled />
 				<Button icon='pi pi-refresh' onClick={refresh} severity='success' label='Обновить список' />
 			</div>
 			{getServices.isLoading && <p>Загрузка</p>}
