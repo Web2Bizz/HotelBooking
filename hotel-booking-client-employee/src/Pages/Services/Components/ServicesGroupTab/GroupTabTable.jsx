@@ -1,6 +1,6 @@
-import { useState } from 'react'
-import { Table, Space, Button, Dropdown } from 'antd'
 import { MoreOutlined } from '@ant-design/icons'
+import { Button, Dropdown, Space, Table } from 'antd'
+import { useState } from 'react'
 export default function GroupTabTable() {
 	const dataSource = [
 		{
@@ -50,7 +50,7 @@ export default function GroupTabTable() {
 		{
 			label: (
 				<div className='room-service__list-settings'>
-					<img src='image/edit.png' />
+					<img src='/image/edit.png' />
 					<p>Редактировать группу услуг</p>
 				</div>
 			),
@@ -59,7 +59,7 @@ export default function GroupTabTable() {
 		{
 			label: (
 				<div className='room-service__list-settings'>
-					<img src='image/delete.png' />
+					<img src='/image/delete.png' />
 					<p>Удалить группу услуг</p>
 				</div>
 			),

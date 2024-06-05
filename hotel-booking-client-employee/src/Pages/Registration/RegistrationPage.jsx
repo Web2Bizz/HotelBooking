@@ -1,10 +1,10 @@
+import { EyeInvisibleOutlined, EyeTwoTone, LockOutlined, UserOutlined } from '@ant-design/icons'
+import { Button, Form, Input } from 'antd'
 import React from 'react'
-import { Form, Input, Button } from 'antd'
-import { LockOutlined, UserOutlined, EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { userCreateAction } from '../../store/actions/userAction'
 import Loading from '../../components/Loading/Loading'
+import { userCreateAction } from '../../store/actions/userAction'
 
 const RegestrationPage = () => {
 	const navigation = useNavigate()
@@ -14,7 +14,7 @@ const RegestrationPage = () => {
 
 	const onFinish = (values) => {
 		dispatch(userCreateAction(values.login, values.email, values.password))
-		navigation('/login')
+		navigation('/')
 	}
 	return (
 		<>
@@ -110,7 +110,7 @@ const RegestrationPage = () => {
 									</Button>
 									<div className='d-flex justify-content-center' style={{ marginTop: '1vh' }}>
 										<span style={{ marginRight: '1vh' }}>Есть аккаунт?</span>
-										<a onClick={() => navigation('/login')}>Войти</a>
+										<a onClick={() => navigation('/')}>Войти</a>
 									</div>
 								</Form.Item>
 							</Form>

@@ -1,13 +1,11 @@
-import '../../style.scss'
-import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
-import { repairApplicationsStatisticGetAction, resetMessagesAction } from '../../../../../store/actions/repairRoomAction.js'
-import { messageGenerate } from '../../../../../services/functionService.js'
+import { useDispatch, useSelector } from 'react-redux'
+import { repairApplicationsStatisticGetAction } from '../../../../../store/actions/repairRoomAction.js'
+import '../../style.scss'
 
 export default function StatisticRepairRoom() {
-
 	const { repairApplicationsStatistic, isLoading, success, error } = useSelector((state) => state.repairRoomStore)
-	const dispatch = useDispatch();
+	const dispatch = useDispatch()
 
 	console.log(repairApplicationsStatistic)
 
@@ -20,7 +18,6 @@ export default function StatisticRepairRoom() {
 		dispatch(repairApplicationsStatisticGetAction())
 	}, [error, success, isLoading])
 
-
 	return (
 		<>
 			<div className='statistic-repair-room-container '>
@@ -30,7 +27,7 @@ export default function StatisticRepairRoom() {
 						<p>Новые заявки</p>
 					</div>
 					<div>
-						<img src='image/repair-new.png' alt='img' style={{ width: '8vh', height: '8vh' }} />
+						<img src='/image/repair-new.png' alt='img' style={{ width: '8vh', height: '8vh' }} />
 					</div>
 				</div>
 				<div className='d-f jc-sb ai-c card-statistic statistic-repair-room__inProgress'>
@@ -39,7 +36,7 @@ export default function StatisticRepairRoom() {
 						<p>В процессе</p>
 					</div>
 					<div>
-						<img src='image/repair-inProgress.png' alt='img' style={{ width: '8vh', height: '8vh' }} />
+						<img src='/image/repair-inProgress.png' alt='img' style={{ width: '8vh', height: '8vh' }} />
 					</div>
 				</div>
 				<div className='d-f jc-sb ai-c card-statistic statistic-repair-room__complete'>
@@ -48,7 +45,7 @@ export default function StatisticRepairRoom() {
 						<p>Завершены</p>
 					</div>
 					<div>
-						<img src='image/repair-complete.png' alt='img' style={{ width: '8vh', height: '8vh' }} />
+						<img src='/image/repair-complete.png' alt='img' style={{ width: '8vh', height: '8vh' }} />
 					</div>
 				</div>
 			</div>

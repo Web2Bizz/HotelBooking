@@ -1,12 +1,10 @@
-import React from 'react'
-import { Card, Button, Divider, Result } from 'antd'
 import { ArrowLeftOutlined } from '@ant-design/icons'
+import { Button, Card, Divider, Result } from 'antd'
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import { bookingCreateAction, guestsGetAction } from '../../store/actions/bookingAction'
 import { roomGetAction } from '../../store/actions/roomAction'
-import { isEmpty } from '../../services/functionService'
-import { resetMessages } from '../../store/reducers/bookingReducer'
-import { useNavigate } from 'react-router-dom'
 
 const StepThird = ({ dataBooking, onChangeStep, setOnCreateBooking }) => {
 	const dispatch = useDispatch()
@@ -14,11 +12,15 @@ const StepThird = ({ dataBooking, onChangeStep, setOnCreateBooking }) => {
 	const [openSuccess, setOpenSuccess] = React.useState(false)
 	const navigation = useNavigate()
 
-	let arrivalDateConverted = `${dataBooking.arrival_date.$D}.${dataBooking.arrival_date.$M}.${dataBooking.arrival_date.$y}`
-	let departureDateConverted = `${dataBooking.departure_date.$D}.${dataBooking.departure_date.$M}.${dataBooking.departure_date.$y}`
+	let arrivalDateConverted = `${String(dataBooking.arrival_date.$D).padStart(2, '0')}.${String(
+		dataBooking.arrival_date.$M
+	).padStart(2, '0')}.${dataBooking.arrival_date.$y}`
+	let departureDateConverted = `${String(dataBooking.departure_date.$D).padStart(2, '0')}.${String(
+		dataBooking.departure_date.$M
+	).padStart(2, '0')}.${dataBooking.departure_date.$y}`
 	let rateWithDiscount = dataBooking.rate.rate - (dataBooking.rate.rate / 100) * dataBooking.rate.discount
 	let justDays = dataBooking.arrival_date?.diff(dataBooking.departure_date, 'day') * -1
-	let justToPay = justDays * rateWithDiscount
+	let justToPay = (justDays * rateWithDiscount).toFixed(2)
 
 	const onBooking = () => {
 		dispatch(
@@ -106,7 +108,7 @@ const StepThird = ({ dataBooking, onChangeStep, setOnCreateBooking }) => {
 						<Divider></Divider>
 						<div className='d-f fd-c ai-e'>
 							<div className='desc-block d-f'>
-								<p>Стоимость номеар за сутки:ㅤ</p>
+								<p>Стоимость номера за сутки:ㅤ</p>
 								<p>{dataBooking.rate.rate} руб.</p>
 							</div>
 							<div className='desc-block d-f'>

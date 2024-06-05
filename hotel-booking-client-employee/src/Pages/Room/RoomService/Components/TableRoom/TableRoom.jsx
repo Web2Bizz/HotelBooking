@@ -1,8 +1,8 @@
-import { Dropdown, Space, Table, Button, Tag, Input, Checkbox } from 'antd'
-import { SearchOutlined, MoreOutlined } from '@ant-design/icons'
+import { MoreOutlined, SearchOutlined } from '@ant-design/icons'
+import { Button, Checkbox, Dropdown, Input, Space, Table, Tag } from 'antd'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { statusServiceRoomEditAction, roomForServiceGetAction } from '../../../../../store/actions/roomServiceService'
+import { roomForServiceGetAction, statusServiceRoomEditAction } from '../../../../../store/actions/roomServiceService'
 
 export default function TableRoom(props) {
 	//serach
@@ -166,7 +166,7 @@ export default function TableRoom(props) {
 		{
 			label: (
 				<div className='room-service__list-settings'>
-					<img src='image/roomService_cleaning.svg' />
+					<img src='/image/roomService_cleaning.svg' />
 					<p>Требует уборки</p>
 				</div>
 			),
@@ -175,7 +175,7 @@ export default function TableRoom(props) {
 		{
 			label: (
 				<div className='room-service__list-settings'>
-					<img src='image/roomService_cleanRoom.svg' />
+					<img src='/image/roomService_cleanRoom.svg' />
 
 					<p>Убран</p>
 				</div>
@@ -185,7 +185,7 @@ export default function TableRoom(props) {
 		{
 			label: (
 				<div className='room-service__list-settings'>
-					<img src='image/roomService_checked.svg' />
+					<img src='/image/roomService_checked.svg' />
 					<p>Проверить</p>
 				</div>
 			),
@@ -197,7 +197,7 @@ export default function TableRoom(props) {
 		{
 			label: (
 				<div className='room-service__list-settings'>
-					<img src='image/roomService_repair.svg' />
+					<img src='/image/roomService_repair.svg' />
 					<p>Ремонт</p>
 				</div>
 			),

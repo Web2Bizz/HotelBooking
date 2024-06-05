@@ -1,46 +1,46 @@
-import React, { useState, useContext, useEffect, useLayoutEffect } from 'react'
+import React, { useContext, useEffect, useLayoutEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './Layout.scss'
 
 import {
-	HomeOutlined,
-	EditOutlined,
-	AuditOutlined,
 	AppstoreOutlined,
-	FireOutlined,
+	AuditOutlined,
 	DollarOutlined,
+	EditOutlined,
+	FireOutlined,
 	FundOutlined,
-	MenuUnfoldOutlined,
-	MenuFoldOutlined,
+	HomeOutlined,
 	LogoutOutlined,
+	MenuFoldOutlined,
+	MenuUnfoldOutlined,
 	SettingOutlined,
 	UserOutlined
 } from '@ant-design/icons'
-import { Layout, Menu, theme, Button, message, Avatar, Dropdown, Divider } from 'antd'
-import { ContextBooking } from '../context/booking.context'
+import { Avatar, Button, Divider, Dropdown, Layout, Menu, message, theme } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
+import { ContextBooking } from '../context/booking.context'
+import { firstLetterNameUser, isEmpty } from '../services/functionService'
 import {
-	getFacilityAction,
-	getStatusAction,
-	getTypeAction,
-	getStatusDealAction,
 	getCancelPolicyAction,
+	getFacilityAction,
+	getPersonalDataStoragePolicyAction,
+	getStatusAction,
+	getStatusDealAction,
 	getStatusGuestAction,
 	getStatusGuestRoomAction,
 	getStatusRepairAction,
-	getPersonalDataStoragePolicyAction
+	getTypeAction
 } from '../store/actions/additionalsAction'
-import { LoadingAction, logoutAction, userGetAction } from '../store/actions/userAction'
-import { isEmpty, firstLetterNameUser } from '../services/functionService'
 import {
 	checkAndChangeStatusGuestAction,
 	checkPersonalDataStoragePolicyAction,
 	guestsGetAction
 } from '../store/actions/bookingAction'
-import { roomGetAction } from '../store/actions/roomAction'
 import { dealGetAction } from '../store/actions/dealAction'
-import { rateGetAction } from '../store/actions/rateAction'
 import { hotelPropertiesGetAction, resetMessagesAction } from '../store/actions/hotelSettingsAction.js'
+import { rateGetAction } from '../store/actions/rateAction'
+import { roomGetAction } from '../store/actions/roomAction'
+import { LoadingAction, logoutAction, userGetAction } from '../store/actions/userAction'
 
 const { Header, Content, Footer, Sider } = Layout
 const { useToken } = theme
@@ -52,7 +52,12 @@ export default function LayoutApp({ children }) {
 
 	const { isAuth, success } = useSelector((state) => state.userStore)
 	const { guests } = useSelector((state) => state.bookingStore)
-	const { hotelProperties, success: HotelSuccess, error: HotelError } = useSelector((state) => state.hotelSettingsStore)
+	const {
+		hotelProperties,
+		success: HotelSuccess,
+		error: HotelError,
+		isLoading: hotelLoading
+	} = useSelector((state) => state.hotelSettingsStore)
 	const dispatch = useDispatch()
 	const [user, setUser] = useState({})
 	const [hotel, setHotel] = useState({})
@@ -112,14 +117,18 @@ export default function LayoutApp({ children }) {
 	}, [])
 
 	useLayoutEffect(() => {
-		if (!load) return
-		if (user === undefined || user === null || Object.keys(user).length === 0) {
-			navigation('/login')
-		}
-		// Проверяем hotelProperties
-		else if (!hotelProperties || Object.keys(hotelProperties).length === 0) {
+		if (!hotelLoading && (!hotelProperties || Object.keys(hotelProperties).length === 0)) {
 			navigation('/registration-hotel')
 		}
+	}, [hotelLoading])
+
+	useEffect(() => {
+		if (!load) return
+		console.log(hotelLoading)
+		if (user === undefined || user === null || Object.keys(user).length === 0) {
+			navigation('/')
+		}
+
 		// Если оба условия не выполняются, переходим на '/overview'
 		else {
 			navigation(`/overview`)
@@ -249,7 +258,7 @@ export default function LayoutApp({ children }) {
 	const onClick = ({ key }) => {
 		if (key === 'exit') {
 			dispatch(logoutAction())
-			navigation('/login')
+			navigation('/')
 			messageSuccess('Вы успешно вышли из аккаунта')
 		}
 	}
@@ -330,7 +339,7 @@ export default function LayoutApp({ children }) {
 							{children}
 						</div>
 					</Content>
-					<Footer style={{ textAlign: 'center' }}>ДИТИ НИЯУ МИФИ ©2023 Сделано Мясниковым Денисом</Footer>
+					<Footer style={{ textAlign: 'center' }}>ДИТИ НИЯУ МИФИ ©2024 Сделано Мясниковым Денисом</Footer>
 				</Layout>
 			</Layout>
 		</>
