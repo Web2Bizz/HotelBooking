@@ -1,13 +1,13 @@
+import { ArrowLeftOutlined } from '@ant-design/icons'
+import { Button, Card, Col, InputNumber, Row, Select, message } from 'antd'
 import React, { useEffect, useState } from 'react'
-import { Button, Card, Col, Row, Select, InputNumber, message, DatePicker } from 'antd'
-import { ArrowLeftOutlined, InfoCircleOutlined } from '@ant-design/icons'
 import { useDispatch, useSelector } from 'react-redux'
 import { isEmpty } from '../../services/functionService'
 import {
-	rateCreateRoomAction,
 	rateCreateDealAction,
-	resetMessagesAction,
-	rateGetAction
+	rateCreateRoomAction,
+	rateGetAction,
+	resetMessagesAction
 } from '../../store/actions/rateAction'
 
 import { rateEditAction } from '../../store/actions/rateAction'
@@ -294,7 +294,7 @@ const RateCreate = (props) => {
 						onClick={() => setIsCreateRoom(true)}
 						hoverable
 						style={{ width: 340 }}
-						cover={<img className='img-card' src='image/price-list.png' />}
+						cover={<img className='img-card' src='/image/price-list.png' />}
 					>
 						<Meta title='Расценка номера' description='Добавить расценку на определенный тип номеров' />
 					</Card>
@@ -302,7 +302,7 @@ const RateCreate = (props) => {
 						onClick={() => setIsCreateDiscount(true)}
 						hoverable
 						style={{ width: 340 }}
-						cover={<img className='img-card' src='image/coupon.png' />}
+						cover={<img className='img-card' src='/image/coupon.png' />}
 					>
 						<Meta
 							title='Расценка со скидкой'

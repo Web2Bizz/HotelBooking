@@ -1,0 +1,151 @@
+"filename", "language", "Markdown", "Ignore", "Properties", "JavaScript", "XML", "SCSS", "JavaScript JSX", "CSS", "JSON", "HTML", "Docker", "comment", "blank", "total"
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\.dockerignore", "Ignore", 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\.eslintrc.cjs", "JavaScript", 0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 0, 1, 21
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\Dockerfile", "Docker", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 14, 0, 9, 23
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\README.md", "Markdown", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\index.html", "HTML", 0, 0, 0, 0, 0, 0, 0, 0, 0, 13, 0, 0, 1, 14
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\nginx\nginx.conf", "Properties", 0, 0, 37, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 43
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\package-lock.json", "JSON", 0, 0, 0, 0, 0, 0, 0, 0, 39077, 0, 0, 0, 1, 39078
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\package.json", "JSON", 0, 0, 0, 0, 0, 0, 0, 0, 49, 0, 0, 0, 1, 50
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\public\image\logo.svg", "XML", 0, 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 1, 22
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\public\image\roomService_checked.svg", "XML", 0, 0, 0, 0, 23, 0, 0, 0, 0, 0, 0, 0, 2, 25
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\public\image\roomService_cleanRoom.svg", "XML", 0, 0, 0, 0, 42, 0, 0, 0, 0, 0, 0, 0, 2, 44
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\public\image\roomService_cleaning.svg", "XML", 0, 0, 0, 0, 48, 0, 0, 0, 0, 0, 0, 0, 2, 50
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\public\image\roomService_repair.svg", "XML", 0, 0, 0, 0, 40, 0, 0, 0, 0, 0, 0, 0, 2, 42
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\public\image\services_without.svg", "XML", 0, 0, 0, 0, 11, 0, 0, 0, 0, 0, 0, 0, 1, 12
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\public\image\vip.svg", "XML", 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 1, 8
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\public\image\x1.svg", "XML", 0, 0, 0, 0, 35, 0, 0, 0, 0, 0, 0, 0, 1, 36
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\public\image\x2.svg", "XML", 0, 0, 0, 0, 35, 0, 0, 0, 0, 0, 0, 0, 1, 36
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\public\image\x3.svg", "XML", 0, 0, 0, 0, 35, 0, 0, 0, 0, 0, 0, 0, 1, 36
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Layout\Layout.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 298, 0, 0, 0, 0, 22, 28, 348
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Layout\Layout.scss", "SCSS", 0, 0, 0, 0, 0, 17, 0, 0, 0, 0, 0, 1, 4, 22
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Layout\WrapperLayout.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 22, 0, 0, 0, 0, 0, 2, 24
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Deal\DealCreate.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 263, 0, 0, 0, 0, 25, 10, 298
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Deal\DealInfoModal.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 43, 0, 0, 0, 0, 0, 4, 47
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Deal\DealPage.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 340, 0, 0, 0, 0, 33, 18, 391
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Deal\DealPage.scss", "SCSS", 0, 0, 0, 0, 0, 13, 0, 0, 0, 0, 0, 0, 3, 16
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Employee\AllEmployee.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 105, 0, 0, 0, 0, 2, 4, 111
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Employee\Employee.scss", "SCSS", 0, 0, 0, 0, 0, 140, 0, 0, 0, 0, 0, 7, 21, 168
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Employee\EmployeeCreate.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 227, 0, 0, 0, 0, 3, 4, 234
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Employee\SсheduleEmployee.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 197, 0, 0, 0, 0, 0, 3, 200
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Employee\TaskEmployee\TaskEmployee.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 52, 0, 0, 0, 0, 4, 4, 60
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Employee\TaskEmployee\components\ConfirmModal.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 17, 0, 0, 0, 0, 0, 3, 20
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Employee\TaskEmployee\components\TaskAdmin\AdminListComplaintModal.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 82, 0, 0, 0, 0, 0, 3, 85
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Employee\TaskEmployee\components\TaskAdmin\AdminReferenceModal.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 58, 0, 0, 0, 0, 0, 2, 60
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Employee\TaskEmployee\components\TaskAdmin\CardEmployee.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 0, 1, 22
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Employee\TaskEmployee\components\TaskAdmin\DataAdminListCancelReservation.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 45, 0, 0, 0, 0, 5, 3, 53
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Employee\TaskEmployee\components\TaskAdmin\DataAdminListСomplaint.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 47, 0, 0, 0, 0, 3, 2, 52
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Employee\TaskEmployee\components\TaskAdmin\ListTaskAdmin.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 17, 0, 0, 0, 0, 0, 3, 20
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Employee\TaskEmployee\components\TaskCleaner\ContentAddEmployeeTask.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 61, 0, 0, 0, 0, 0, 4, 65
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Employee\TaskEmployee\components\TaskCleaner\DataCleanerListTask.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 45, 0, 0, 0, 0, 0, 3, 48
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Employee\TaskEmployee\components\TaskCleaner\ListItemTask.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 57, 0, 0, 0, 0, 2, 5, 64
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Employee\TaskEmployee\components\TaskCleaner\ListTaskCleaner.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 20, 0, 0, 0, 0, 0, 4, 24
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Employee\TaskEmployee\components\TaskCleaner\ManualAddTaskCleaner.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 25, 0, 0, 0, 0, 0, 3, 28
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Frontdesk\FrontdeskCreate.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 144, 0, 0, 0, 0, 9, 11, 164
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Frontdesk\FrontdeskPage.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 104, 0, 0, 0, 0, 10, 8, 122
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Frontdesk\FrontdeskPage.scss", "SCSS", 0, 0, 0, 0, 0, 92, 0, 0, 0, 0, 0, 0, 22, 114
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Frontdesk\SelectRateModal.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 82, 0, 0, 0, 0, 0, 9, 91
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Frontdesk\StepOne.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 379, 0, 0, 0, 0, 22, 20, 421
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Frontdesk\StepSecond.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 158, 0, 0, 0, 0, 1, 7, 166
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Frontdesk\StepThird.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 142, 0, 0, 0, 0, 0, 7, 149
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Guest\GuestPage.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 309, 0, 0, 0, 0, 17, 14, 340
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Guest\GuestPage.scss", "SCSS", 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 1, 4
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Home\HomePage.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 57, 0, 0, 0, 0, 0, 5, 62
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Home\HomePage.scss", "SCSS", 0, 0, 0, 0, 0, 23, 0, 0, 0, 0, 0, 0, 3, 26
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Login\LoginPage.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 118, 0, 0, 0, 0, 14, 11, 143
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Login\LoginPage.scss", "SCSS", 0, 0, 0, 0, 0, 39, 0, 0, 0, 0, 0, 0, 6, 45
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Overview\OverviewPage.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 227, 0, 0, 0, 0, 4, 8, 239
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Overview\OverviewPage.scss", "SCSS", 0, 0, 0, 0, 0, 91, 0, 0, 0, 0, 0, 0, 22, 113
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Overview\optionsCharts.js", "JavaScript", 0, 0, 0, 195, 0, 0, 0, 0, 0, 0, 0, 0, 6, 201
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Rate\RateCreate.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 280, 0, 0, 0, 0, 26, 13, 319
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Rate\RatePage.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 301, 0, 0, 0, 0, 25, 13, 339
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Rate\RatePage.scss", "SCSS", 0, 0, 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 6, 27
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\RegistrationHotel\RegistrationHotel.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 32, 0, 0, 0, 0, 0, 5, 37
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\RegistrationHotel\components\StepsRegistration\StepFive.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 80, 0, 0, 0, 0, 0, 3, 83
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\RegistrationHotel\components\StepsRegistration\StepFour.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 29, 0, 0, 0, 0, 1, 2, 32
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\RegistrationHotel\components\StepsRegistration\StepOne.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 39, 0, 0, 0, 0, 1, 5, 45
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\RegistrationHotel\components\StepsRegistration\StepThree.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 27, 0, 0, 0, 0, 1, 2, 30
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\RegistrationHotel\components\StepsRegistration\StepTwo.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 28, 0, 0, 0, 0, 1, 2, 31
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\RegistrationHotel\components\StepsRegistration\StepsRegistration.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 138, 0, 0, 0, 0, 1, 12, 151
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\RegistrationHotel\style.scss", "SCSS", 0, 0, 0, 0, 0, 49, 0, 0, 0, 0, 0, 0, 9, 58
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Registration\RegistrationPage.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 120, 0, 0, 0, 0, 0, 6, 126
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Room\AllRooms\Room.scss", "SCSS", 0, 0, 0, 0, 0, 118, 0, 0, 0, 0, 0, 0, 15, 133
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Room\AllRooms\RoomCreate.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 356, 0, 0, 0, 0, 27, 23, 406
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Room\AllRooms\RoomPage.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 323, 0, 0, 0, 0, 30, 13, 366
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Room\RepairRoom\RepairRoom.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 40, 0, 0, 0, 0, 0, 3, 43
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Room\RepairRoom\components\PlaningRepairRoom\PlaningRepairRoom.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 92, 0, 0, 0, 0, 0, 8, 100
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Room\RepairRoom\components\RepairRoomTable\RepairRoomTable.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 180, 0, 0, 0, 0, 4, 11, 195
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Room\RepairRoom\components\StatisticRepairRoom\StatisticRepairRoom.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 49, 0, 0, 0, 0, 0, 6, 55
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Room\RepairRoom\style.scss", "SCSS", 0, 0, 0, 0, 0, 63, 0, 0, 0, 0, 0, 0, 9, 72
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Room\RoomService\Components\RoomServiceRepair\RoomServiceRepair.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 213, 0, 0, 0, 0, 7, 19, 239
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Room\RoomService\Components\RoomServiceStatistic\RoomServiceStatistic.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 45, 0, 0, 0, 0, 0, 3, 48
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Room\RoomService\Components\TableRoom\TableRoom.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 221, 0, 0, 0, 0, 2, 17, 240
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Room\RoomService\RoomService.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 90, 0, 0, 0, 0, 4, 8, 102
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Room\RoomService\RoomService.scss", "SCSS", 0, 0, 0, 0, 0, 53, 0, 0, 0, 0, 0, 0, 7, 60
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Room\index.js", "JavaScript", 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 2, 6
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Services\Components\ServicesGroupTab\GroupTabModal.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 32, 0, 0, 0, 0, 2, 2, 36
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Services\Components\ServicesGroupTab\GroupTabTable.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 81, 0, 0, 0, 0, 0, 1, 82
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Services\Components\ServicesGroupTab\ServicesGroupTab.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 18, 0, 0, 0, 0, 0, 3, 21
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Services\Components\ServicesTab\PageWithoutServices.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 12, 0, 0, 0, 0, 0, 1, 13
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Services\Components\ServicesTab\ServiceTabTable.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 92, 0, 0, 0, 0, 0, 6, 98
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Services\Components\ServicesTab\ServicesTab.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 1, 2, 18
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Services\Components\ServicesTab\ServicesTabCreate.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 77, 0, 0, 0, 0, 0, 1, 78
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Services\Components\ServicesTab\TabCreateStep1.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 41, 0, 0, 0, 0, 0, 2, 43
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Services\Components\ServicesTab\TabCreateStep2.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 52, 0, 0, 0, 0, 0, 3, 55
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Services\Components\ServicesTab\TabCreateStep3.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 62, 0, 0, 0, 0, 0, 3, 65
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Services\Services.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 30, 0, 0, 0, 0, 0, 2, 32
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Services\Services.scss", "SCSS", 0, 0, 0, 0, 0, 41, 0, 0, 0, 0, 0, 0, 4, 45
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\SettingsHotel\SettingsHotel.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 169, 0, 0, 0, 0, 4, 10, 183
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\SettingsHotel\style.scss", "SCSS", 0, 0, 0, 0, 0, 28, 0, 0, 0, 0, 0, 0, 5, 33
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\StatisticAndReports\StatisticAndReports.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 240, 0, 0, 0, 0, 13, 10, 263
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\StatisticAndReports\optionTables.js", "JavaScript", 0, 0, 0, 158, 0, 0, 0, 0, 0, 0, 0, 0, 6, 164
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Users\EditUser.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 72, 0, 0, 0, 0, 0, 6, 78
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\Users\Users.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 161, 0, 0, 0, 0, 4, 4, 169
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\Pages\index.js", "JavaScript", 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 2, 8
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\components\Calendar\Calendar.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 22, 0, 0, 0, 0, 2, 24
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\components\Calendar\Calendar.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 158, 0, 0, 0, 0, 11, 8, 177
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\components\Description\Description.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 13, 0, 0, 0, 0, 0, 3, 16
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\components\Loading\Loading.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 18, 0, 0, 0, 0, 3, 21
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\components\Loading\Loading.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 13, 0, 0, 0, 0, 0, 3, 16
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\components\NumericInput\NumericInput.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 37, 0, 0, 0, 0, 1, 2, 40
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\context\booking.context.js", "JavaScript", 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 4
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\css\bootstrap-grid.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 3865, 0, 0, 0, 7, 1130, 5002
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\css\bootstrap-reboot.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 346, 0, 0, 0, 16, 64, 426
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\css\bootstrap-utilities.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 3634, 0, 0, 0, 9, 1109, 4752
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\css\bootstrap.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 9102, 0, 0, 0, 27, 1708, 10837
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\css\fonts.scss", "SCSS", 0, 0, 0, 0, 0, 17, 0, 0, 0, 0, 0, 0, 5, 22
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\http\index.js", "JavaScript", 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 3, 9
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\main.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 2, 17
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\routes\routes.js", "JavaScript", 0, 0, 0, 129, 0, 0, 0, 0, 0, 0, 0, 3, 2, 134
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\services\additionalsService.js", "JavaScript", 0, 0, 0, 33, 0, 0, 0, 0, 0, 0, 0, 0, 2, 35
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\services\bookingService.js", "JavaScript", 0, 0, 0, 47, 0, 0, 0, 0, 0, 0, 0, 0, 6, 53
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\services\dealService.js", "JavaScript", 0, 0, 0, 57, 0, 0, 0, 0, 0, 0, 0, 0, 2, 59
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\services\functionService.js", "JavaScript", 0, 0, 0, 143, 0, 0, 0, 0, 0, 0, 0, 14, 12, 169
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\services\hotelSettingsService.js", "JavaScript", 0, 0, 0, 12, 0, 0, 0, 0, 0, 0, 0, 0, 2, 14
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\services\querysService.js", "JavaScript", 0, 0, 0, 33, 0, 0, 0, 0, 0, 0, 0, 0, 3, 36
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\services\rateService.js", "JavaScript", 0, 0, 0, 32, 0, 0, 0, 0, 0, 0, 0, 0, 2, 34
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\services\repairRoomService.js", "JavaScript", 0, 0, 0, 24, 0, 0, 0, 0, 0, 0, 0, 0, 2, 26
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\services\roomService.js", "JavaScript", 0, 0, 0, 31, 0, 0, 0, 0, 0, 0, 0, 0, 3, 34
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\services\roomServiceService.js", "JavaScript", 0, 0, 0, 12, 0, 0, 0, 0, 0, 0, 0, 0, 2, 14
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\services\userService.js", "JavaScript", 0, 0, 0, 18, 0, 0, 0, 0, 0, 0, 0, 0, 2, 20
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\store\actions\additionalsAction.js", "JavaScript", 0, 0, 0, 111, 0, 0, 0, 0, 0, 0, 0, 0, 4, 115
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\store\actions\bookingAction.js", "JavaScript", 0, 0, 0, 102, 0, 0, 0, 0, 0, 0, 0, 0, 8, 110
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\store\actions\dealAction.js", "JavaScript", 0, 0, 0, 101, 0, 0, 0, 0, 0, 0, 0, 0, 6, 107
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\store\actions\hotelSettingsAction.js", "JavaScript", 0, 0, 0, 44, 0, 0, 0, 0, 0, 0, 0, 0, 6, 50
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\store\actions\rateAction.js", "JavaScript", 0, 0, 0, 67, 0, 0, 0, 0, 0, 0, 0, 0, 7, 74
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\store\actions\repairRoomAction.js", "JavaScript", 0, 0, 0, 93, 0, 0, 0, 0, 0, 0, 0, 0, 9, 102
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\store\actions\roomAction.js", "JavaScript", 0, 0, 0, 68, 0, 0, 0, 0, 0, 0, 0, 0, 5, 73
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\store\actions\roomServiceService.js", "JavaScript", 0, 0, 0, 43, 0, 0, 0, 0, 0, 0, 0, 0, 5, 48
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\store\actions\userAction.js", "JavaScript", 0, 0, 0, 77, 0, 0, 0, 0, 0, 0, 0, 0, 9, 86
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\store\index.js", "JavaScript", 0, 0, 0, 28, 0, 0, 0, 0, 0, 0, 0, 0, 3, 31
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\store\reducers\additionalsReducer.js", "JavaScript", 0, 0, 0, 158, 0, 0, 0, 0, 0, 0, 0, 0, 11, 169
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\store\reducers\bookingReducer.js", "JavaScript", 0, 0, 0, 90, 0, 0, 0, 0, 0, 0, 0, 0, 9, 99
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\store\reducers\dealReducer.js", "JavaScript", 0, 0, 0, 76, 0, 0, 0, 0, 0, 0, 0, 0, 8, 84
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\store\reducers\hotelSettingsReducer.js", "JavaScript", 0, 0, 0, 62, 0, 0, 0, 0, 0, 0, 0, 0, 7, 69
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\store\reducers\rateReducer.js", "JavaScript", 0, 0, 0, 90, 0, 0, 0, 0, 0, 0, 0, 0, 9, 99
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\store\reducers\repairRoomReducer.js", "JavaScript", 0, 0, 0, 120, 0, 0, 0, 0, 0, 0, 0, 0, 11, 131
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\store\reducers\roomReducer.js", "JavaScript", 0, 0, 0, 90, 0, 0, 0, 0, 0, 0, 0, 0, 9, 99
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\store\reducers\roomServiceReducer.js", "JavaScript", 0, 0, 0, 63, 0, 0, 0, 0, 0, 0, 0, 0, 6, 69
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\src\store\reducers\userReducer.js", "JavaScript", 0, 0, 0, 103, 0, 0, 0, 0, 0, 0, 0, 0, 11, 114
+"p:\Programming\NowDevelop\HotelBooking\hotel-booking-client-employee\vite.config.js", "JavaScript", 0, 0, 0, 31, 0, 0, 0, 0, 0, 0, 0, 0, 4, 35
+"Total", "-", 0, 5, 37, 2579, 297, 808, 7835, 16987, 39126, 13, 14, 426, 4861, 72988

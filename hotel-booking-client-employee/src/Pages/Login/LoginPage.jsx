@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react'
-import { Form, Input, Checkbox, Button, message } from 'antd'
-import { LockOutlined, UserOutlined, EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
-import { useNavigate } from 'react-router-dom'
-import { messageGenerate } from '../../services/functionService'
+import { EyeInvisibleOutlined, EyeTwoTone, LockOutlined, UserOutlined } from '@ant-design/icons'
+import { Button, Checkbox, Form, Input, message } from 'antd'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { resetMessagesAction } from '../../store/actions/userAction'
-import './LoginPage.scss'
+import { useNavigate } from 'react-router-dom'
 import Loading from '../../components/Loading/Loading'
-import { userLoginAction } from '../../store/actions/userAction'
+import { messageGenerate } from '../../services/functionService'
+import { hotelPropertiesGetAction } from '../../store/actions/hotelSettingsAction.js'
+import { resetMessagesAction, userLoginAction } from '../../store/actions/userAction'
+import './LoginPage.scss'
 
 const LoginPage = () => {
 	// #region Вспомогательные переменные
@@ -22,6 +22,9 @@ const LoginPage = () => {
 
 	// #region UseEffect
 
+	useLayoutEffect(() => {
+		dispatch(hotelPropertiesGetAction())
+	}, [])
 	// При авторизации записывает данные
 	// о пользователе в localstorage и
 	// перенаправляет на главную страницу.
@@ -49,7 +52,7 @@ const LoginPage = () => {
 	const [messageApi, contextHolder] = message.useMessage()
 	useEffect(() => {
 		if (error === '' && success === '') return
-		// messageApi.open(messageGenerate(success, error))
+		messageApi.open(messageGenerate(success, error))
 		dispatch(resetMessagesAction())
 	}, [error, success])
 	// #endregion
@@ -66,7 +69,7 @@ const LoginPage = () => {
 							<div className='d-flex justify-content-center align-items-center'>
 								<img src='/image/logo.svg' alt='logo' style={{ width: '8vh' }} />
 								<div className='loginPage__logo'>
-									<p>RoomBook</p>
+									<p>BookRoom</p>
 								</div>
 							</div>
 							<div className='loginPage__text'>

@@ -1,70 +1,69 @@
-import client from "../db.js";
-import ApiError from "../exceptions/api-error.js";
+import client from '../db.js'
 
 class QueryController {
-  async getMostExpensiveBooking(req, res, next) {
-    const response = await client.query(
-      `select G.first_name, G.last_name, G.father_name, B.amount_paid
+	async getMostExpensiveBooking(req, res, next) {
+		const response = await client.query(
+			`select G.first_name, G.last_name, G.father_name, B.amount_paid
       from public.booking as B
       join public.guests as G on B.id_guest = G.id_guest 
       ORDER BY amount_paid DESC LIMIT 1`
-    );
-    return res.json(response.rows);
-  }
-  async getFrequentlySelectedRoomAllTime(req, res, next) {
-    const response = await client.query(
-      `select R.room_number, count(R.room_number) as countR
+		)
+		return res.json(response.rows)
+	}
+	async getFrequentlySelectedRoomAllTime(req, res, next) {
+		const response = await client.query(
+			`select R.room_number, count(R.room_number) as countR
       from public.booking as B
       join public.room as R on B.id_room = R.id_room
-      group by R.room_number having count(R.room_number)>1 order by countR desc limit 1;`
-    );
-    return res.json(response.rows);
-  }
-  async getFrequentlySelectedRoomForMonth(req, res, next) {
-    const response = await client.query(
-      `select R.room_number, count(R.room_number) as countR
+      group by R.room_number having count(R.room_number)>0 order by countR desc limit 1;`
+		)
+		return res.json(response.rows)
+	}
+	async getFrequentlySelectedRoomForMonth(req, res, next) {
+		const response = await client.query(
+			`select R.room_number, count(R.room_number) as countR
       from public.booking as B
       join public.room as R on B.id_room = R.id_room
       where DATE_PART('MONTH', B.arrival_date) = DATE_PART('MONTH', localtimestamp) AND DATE_PART('YEAR', arrival_date) = DATE_PART('YEAR', localtimestamp)
       group by R.room_number limit 1`
-    );
-    return res.json(response.rows);
-  }
-  async getAverageCheckPerDayThisMonth(req, res, next) {
-    const response = await client.query(
-      `select round(sum(amount_paid) / (SELECT extract(days FROM date_trunc('month', now()) + interval '1 month - 1 day')))
+		)
+		return res.json(response.rows)
+	}
+	async getAverageCheckPerDayThisMonth(req, res, next) {
+		const response = await client.query(
+			`select round(sum(amount_paid) / (SELECT extract(days FROM date_trunc('month', now()) + interval '1 month - 1 day')))
       from public.booking as B
       where DATE_PART('MONTH', B.arrival_date) = DATE_PART('MONTH', localtimestamp) AND DATE_PART('YEAR', arrival_date) = DATE_PART('YEAR', localtimestamp)`
-    );
-    return res.json(response.rows);
-  }
-  async getMostVisitedDay(req, res, next) {
-    const response = await client.query(
-      `select DATE_PART('DAY', arrival_date) as day, 
+		)
+		return res.json(response.rows)
+	}
+	async getMostVisitedDay(req, res, next) {
+		const response = await client.query(
+			`select DATE_PART('DAY', arrival_date) as day, 
       DATE_PART('MONTH', arrival_date) as month, 
       DATE_PART('YEAR', arrival_date) as year, 
       count(arrival_date) as rcount
       from public.booking
       group by arrival_date
       order by rcount desc limit 1`
-    );
-    return res.json(response.rows);
-  }
-  //Выручка За Месяц
-  async getRevenuePerMonth(req, res, next) {
-    const response = await client.query(
-      `select round(sum(amount_paid)) as current_month, (select round(sum(amount_paid))
+		)
+		return res.json(response.rows)
+	}
+	//Выручка За Месяц
+	async getRevenuePerMonth(req, res, next) {
+		const response = await client.query(
+			`select round(sum(amount_paid)) as current_month, (select round(sum(amount_paid))
       from public.booking as B
       where DATE_PART('MONTH', B.arrival_date) = DATE_PART('MONTH', localtimestamp)-1 AND DATE_PART('YEAR', arrival_date) = DATE_PART('YEAR', localtimestamp)) as last_month
       from public.booking as B
       where DATE_PART('MONTH', B.arrival_date) = DATE_PART('MONTH', localtimestamp) AND DATE_PART('YEAR', arrival_date) = DATE_PART('YEAR', localtimestamp)`
-    );
-    return res.json(response.rows);
-  }
-  //Информация о комнатах
-  async getRoomInformation(req, res, next) {
-    const response = await client.query(
-      `select 
+		)
+		return res.json(response.rows)
+	}
+	//Информация о комнатах
+	async getRoomInformation(req, res, next) {
+		const response = await client.query(
+			`select 
       count(id_room) as all_rooms,
       
       (select count(id_status) from public.room
@@ -92,13 +91,13 @@ class QueryController {
       where id_room_service_status = '76504da9-eff2-4fdd-becb-43b4ade0ef92' and id_status != '024e26c7-5e33-4f35-a88e-e6f5c9322e02') as count_wating_room_reserved
       
       from public.room`
-    );
-    return res.json(response.rows);
-  }
-  //Посетители За Три Месяца
-  async getVisitorsInThreeMonths(req, res, next) {
-    const response = await client.query(
-      `select 
+		)
+		return res.json(response.rows)
+	}
+	//Посетители За Три Месяца
+	async getVisitorsInThreeMonths(req, res, next) {
+		const response = await client.query(
+			`select 
       (select count(id_guest) as count_guests from public.guests),
       (sum(count_adults) + sum(count_children)) as count_guests_this_month, 
       (select 
@@ -111,13 +110,13 @@ class QueryController {
       where DATE_PART('MONTH', arrival_date) = DATE_PART('MONTH', localtimestamp)-2 AND DATE_PART('YEAR', arrival_date) = DATE_PART('YEAR', localtimestamp))
       from public.booking
       where DATE_PART('MONTH', arrival_date) = DATE_PART('MONTH', localtimestamp) AND DATE_PART('YEAR', arrival_date) = DATE_PART('YEAR', localtimestamp)`
-    );
-    return res.json(response.rows);
-  }
-  //Сколько Заехало
-  async getHowManyArrived(req, res, next) {
-    const response = await client.query(
-      `SELECT to_char(arrival_date, 'Day') as weekday, (sum(count_adults) + sum(count_children)) as count
+		)
+		return res.json(response.rows)
+	}
+	//Сколько Заехало
+	async getHowManyArrived(req, res, next) {
+		const response = await client.query(
+			`SELECT to_char(arrival_date, 'Day') as weekday, (sum(count_adults) + sum(count_children)) as count
       from public.booking
       where 
       arrival_date <= current_date
@@ -126,13 +125,13 @@ class QueryController {
       and 
       DATE_PART('YEAR', arrival_date) = DATE_PART('YEAR', localtimestamp)
       group by weekday, arrival_date`
-    );
-    return res.json(response.rows);
-  }
-  //Сколько Выехало
-  async getHowManyLeft(req, res, next) {
-    const response = await client.query(
-      `SELECT to_char(departure_date, 'Day') as weekday, (sum(count_adults) + sum(count_children)) as count
+		)
+		return res.json(response.rows)
+	}
+	//Сколько Выехало
+	async getHowManyLeft(req, res, next) {
+		const response = await client.query(
+			`SELECT to_char(departure_date, 'Day') as weekday, (sum(count_adults) + sum(count_children)) as count
       from public.booking
       where 
       departure_date <= current_date
@@ -141,9 +140,9 @@ class QueryController {
       and 
       DATE_PART('YEAR', departure_date) = DATE_PART('YEAR', localtimestamp)
       group by weekday, departure_date`
-    );
-    return res.json(response.rows);
-  }
+		)
+		return res.json(response.rows)
+	}
 }
 
-export default QueryController;
+export default QueryController

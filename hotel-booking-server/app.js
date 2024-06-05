@@ -20,6 +20,15 @@ const PORT = process.env.PORT || 8080
 
 const app = express()
 
+app.use(bodyParser.json({ limit: '50mb' }))
+app.use(
+	bodyParser.urlencoded({
+		limit: '50mb',
+		extended: true,
+		parameterLimit: 50000
+	})
+)
+
 app.use(
 	cors({
 		credentials: true,
@@ -35,15 +44,15 @@ app.use(
 	})
 )
 app.use(bodyParser.json())
-// app.use(function (req, res, next) {
-//   res.setHeader("Access-Control-Allow-Origin", process.env.CLIENT_URL);
-//   res.setHeader("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
-//   if (req.method === "OPTIONS") {
-//     return res.status(200).end();
-//   } else {
-//     next();
-//   }
-// });
+app.use(function (req, res, next) {
+	res.setHeader('Access-Control-Allow-Origin', process.env.CLIENT_URL)
+	res.setHeader('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+	if (req.method === 'OPTIONS') {
+		return res.status(200).end()
+	} else {
+		next()
+	}
+})
 
 app.use('/room', roomRouter)
 app.use('/additionals', additionalsRouter)

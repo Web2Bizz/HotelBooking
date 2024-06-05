@@ -2,7 +2,7 @@ import './../../Services.scss'
 export default function PageWithoutServices() {
 	return (
 		<div className='page-without-services'>
-			<img src='image/services_without.svg' />
+			<img src='/image/services_without.svg' />
 			<p>
 				<b>Услуги увеличивают средний чек</b>
 			</p>
