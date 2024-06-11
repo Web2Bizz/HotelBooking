@@ -1,25 +1,25 @@
+import { Button, Form, Steps, message } from 'antd'
 import React, { useEffect, useState } from 'react'
-import { Button, Form, message, Steps } from 'antd'
-import '../../style.scss'
-import StepFour from './StepFour'
-import StepOne from './StepOne'
-import StepThree from './StepThree'
-import StepTwo from './StepTwo'
-import StepFive from './StepFive'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import {
 	hotelPropertiesGetAction,
 	registrationHotelAction,
 	resetMessagesAction
 } from '../../../../store/actions/hotelSettingsAction.js'
-import { useNavigate } from 'react-router-dom'
+import '../../style.scss'
+import StepFive from './StepFive'
+import StepFour from './StepFour'
+import StepOne from './StepOne'
+import StepThree from './StepThree'
+import StepTwo from './StepTwo'
 
-export default function StepsRegistration() {
-	const [formOne] = Form.useForm();
-	const [formTwo] = Form.useForm();
-	const [formThree] = Form.useForm();
-	const [formFour] = Form.useForm();
-	const [formFive] = Form.useForm();
+export default function StepsRegistration({ setIsLoading }) {
+	const [formOne] = Form.useForm()
+	const [formTwo] = Form.useForm()
+	const [formThree] = Form.useForm()
+	const [formFour] = Form.useForm()
+	const [formFive] = Form.useForm()
 
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
@@ -41,46 +41,45 @@ export default function StepsRegistration() {
 		owner_name: '',
 		owner_number_phone: '',
 		owner_email: '',
-		id_personal_data_storage_policy: '',
+		id_personal_data_storage_policy: ''
 	})
 	const steps = [
 		{
 			title: 'Общие настройки',
-			content: <StepOne data={data} setData={setData} form={formOne}/>,
+			content: <StepOne data={data} setData={setData} form={formOne} />,
 			form: formOne
 		},
 		{
 			title: 'Данные пользователя',
-			content: <StepTwo data={data} setData={setData} form={formTwo}/>,
+			content: <StepTwo data={data} setData={setData} form={formTwo} />,
 			form: formTwo
 		},
 		{
 			title: 'Адрес',
-			content: <StepThree data={data} setData={setData} form={formThree}/>,
+			content: <StepThree data={data} setData={setData} form={formThree} />,
 			form: formThree
 		},
 		{
 			title: 'Контактная информация',
-			content: <StepFour data={data} setData={setData} form={formFour}/>,
+			content: <StepFour data={data} setData={setData} form={formFour} />,
 			form: formFour
 		},
 		{
 			title: 'Общие настройки отеля',
-			content: <StepFive data={data} setData={setData} form={formFive}/>,
+			content: <StepFive data={data} setData={setData} form={formFive} />,
 			form: formFive
 		}
 	]
-
 
 	const next = () => {
 		steps[current].form
 			.validateFields()
 			.then(() => {
-				setCurrent(current + 1);
+				setCurrent(current + 1)
 			})
 			.catch(() => {
 				message.error('Перед тем как продвинуться дальше заполните обязательные поля!')
-			});
+			})
 	}
 
 	const prev = () => {
@@ -97,19 +96,22 @@ export default function StepsRegistration() {
 			})
 			.catch(() => {
 				message.error('Перед тем как продвинуться дальше заполните обязательные поля!')
-			});
+			})
 	}
 
 	useEffect(() => {
-		if(success){
+		if (success) {
+			setIsLoading(true)
 			message.success(success)
+			dispatch(hotelPropertiesGetAction())
 			const timer = setTimeout(() => {
 				navigate('/overview')
-			}, 3000); // задержка в 3000 мс (3 секунды)
+			}, 5000) // задержка в 3000 мс (3 секунды)
 			// Очистка таймера при размонтировании компонента
-			return () => clearTimeout(timer);
+			setIsLoading(false)
+			return () => clearTimeout(timer)
 		}
-		if(error){
+		if (error) {
 			message.error(error)
 		}
 	}, [success, error])

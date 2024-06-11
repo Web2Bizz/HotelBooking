@@ -56,15 +56,15 @@ const OverviewPage = () => {
 				<div className='overview-day'>
 					<p style={{ fontSize: '2vh', paddingBottom: '3vh' }}>{getFullDate(dayjs())}</p>
 				</div>
+
 				<div className='overview-card__text'>
 					{role === 'admin' ? (
 						<Card style={{ marginBottom: '3vh' }}>
-							<p>Обзор</p>
 							<div className='d-f overview-card__overview'>
 								<div className='d-f'>
 									<div className='d-f' style={{ marginRight: '11vh' }}>
 										<div className='d-f ai-c'>
-											<img src='image/1.png' alt='img' style={{ width: '8vh', height: '8vh' }} />
+											<img src='/image/1.png' alt='img' style={{ width: '8vh', height: '8vh' }} />
 										</div>
 										<div className='overview-card__overview__text d-f fd-c jc-c' style={{ paddingLeft: '2vh' }}>
 											<p>₽{numberWithSpaces(data.revenuePerMonth?.current_month)}</p>
@@ -77,8 +77,8 @@ const OverviewPage = () => {
 												src={
 													profitThenLastMonth(data.revenuePerMonth?.current_month, data.revenuePerMonth?.last_month) >=
 													0
-														? 'image/plus.png'
-														: 'image/minus.png'
+														? '/image/plus.png'
+														: '/image/minus.png'
 												}
 												alt='img'
 												style={{ width: '20vh' }}
@@ -111,7 +111,7 @@ const OverviewPage = () => {
 											<p>Новых гостей</p>
 										</div>
 										<div>
-											<img src='image/2.png' alt='img' style={{ width: '8vh', height: '8vh' }} />
+											<img src='/image/2.png' alt='img' style={{ width: '8vh', height: '8vh' }} />
 										</div>
 									</div>
 									<div className='d-f jc-sb ai-c' style={{ backgroundColor: '#5571C9', padding: '2vh' }}>
@@ -120,7 +120,7 @@ const OverviewPage = () => {
 											<p>Номеров</p>
 										</div>
 										<div>
-											<img src='image/3.png' alt='img' style={{ width: '8vh', height: '8vh' }} />
+											<img src='/image/3.png' alt='img' style={{ width: '8vh', height: '8vh' }} />
 										</div>
 									</div>
 								</div>

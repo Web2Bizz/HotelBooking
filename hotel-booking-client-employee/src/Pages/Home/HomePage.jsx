@@ -1,9 +1,8 @@
+import { Button, Layout } from 'antd'
 import React from 'react'
-import { Layout, Button } from 'antd'
-import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons'
-const { Header, Footer, Content } = Layout
-import './HomePage.scss'
 import { useNavigate } from 'react-router-dom'
+import './HomePage.scss'
+const { Header, Footer, Content } = Layout
 
 const headerStyle = {
 	textAlign: 'center',
@@ -43,7 +42,7 @@ export default function HomePage() {
 						<p>Номера</p>
 						<p>Услуги</p>
 						<p>Расценки</p>
-						<Button type='primary' onClick={() => navigation('/login')}>
+						<Button type='primary' onClick={() => navigation('/')}>
 							Войти
 						</Button>
 					</div>

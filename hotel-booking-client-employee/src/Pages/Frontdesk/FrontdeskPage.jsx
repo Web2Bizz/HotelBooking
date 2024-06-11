@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useLayoutEffect } from 'react'
-import { Divider, Button, Space, Tag, message } from 'antd'
-import './FrontdeskPage.scss'
-import CalendarComp from '../../components/Calendar/Calendar'
-import FrontdeskCreate from './FrontdeskCreate'
+import { Button, Divider, Space, Tag, message } from 'antd'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { guestsGetAction, resetMessagesAction } from '../../store/actions/bookingAction'
+import CalendarComp from '../../components/Calendar/Calendar'
 import Loading from '../../components/Loading/Loading'
 import { messageGenerate } from '../../services/functionService'
+import { guestsGetAction, resetMessagesAction } from '../../store/actions/bookingAction'
+import FrontdeskCreate from './FrontdeskCreate'
+import './FrontdeskPage.scss'
 
 const FrontdeskPage = () => {
 	// #region Вспомогательные переменные
@@ -28,8 +28,10 @@ const FrontdeskPage = () => {
 
 	useEffect(() => {
 		if (error === '' && success === '') return
-		messageApi.open(messageGenerate(success, error))
-		dispatch(resetMessagesAction())
+		if (error || success) {
+			messageApi.open(messageGenerate(success, error))
+			dispatch(resetMessagesAction())
+		}
 	}, [error, success])
 	// #endregion
 

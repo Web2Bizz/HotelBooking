@@ -1,9 +1,9 @@
-import { Table, Space, Modal } from 'antd'
+import { Modal, Space, Table } from 'antd'
+import { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { useState, useRef, useEffect } from 'react'
 import ReactToPrint from 'react-to-print'
-import { columnsGuests, columnsRoom, columnsRate, columnsDeal, columnsUsers } from './optionTables'
 import QuerysService from '../../services/querysService'
+import { columnsDeal, columnsGuests, columnsRate, columnsRoom, columnsUsers } from './optionTables'
 
 export default function StatisticAndReports() {
 	// #region Redux
@@ -188,12 +188,14 @@ export default function StatisticAndReports() {
 		}
 		if (query === 'FrequentlySelectedRoomAllTime') {
 			let data = await QuerysService.getFrequentlySelectedRoomAllTime()
+			console.log(data)
 			setQueryData(`Самый выбираемый номер за все время: #${data.data[0].room_number}`)
 			setModalVisible(true)
 			return
 		}
 		if (query === 'FrequentlySelectedRoomForMonth') {
 			let data = await QuerysService.getFrequentlySelectedRoomForMonth()
+
 			setQueryData(`Самый выбираемый номер за этот месяц: #${data.data[0].room_number}`)
 			setModalVisible(true)
 			return

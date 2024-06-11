@@ -1,12 +1,12 @@
-import React, { useEffect, useState, useLayoutEffect } from 'react'
 import { ArrowLeftOutlined } from '@ant-design/icons'
-import { Button, Card, Col, Row, Select, Transfer, message, InputNumber, Collapse } from 'antd'
+import { Button, Card, Col, Collapse, InputNumber, Row, Select, Transfer, message } from 'antd'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { resetMessagesAction, roomCreateAction, roomEditAction, roomGetAction } from '../../../store/actions/roomAction'
 import { hotelPropertiesGetAction } from '../../../store/actions/hotelSettingsAction'
+import { resetMessagesAction, roomCreateAction, roomEditAction, roomGetAction } from '../../../store/actions/roomAction'
 
-import './Room.scss'
 import Loading from '../../../components/Loading/Loading'
+import './Room.scss'
 
 const RoomCreate = (props) => {
 	//Notification
@@ -274,25 +274,25 @@ const RoomCreate = (props) => {
 										className={typeRoomIndex === 0 ? 'roomType__card_selected' : ''}
 										onClick={() => onTypeRoomClick('vip')}
 									>
-										<img src='image/vip.svg' alt='vip' />
+										<img src='/image/vip.svg' alt='vip' />
 									</div>
 									<div
 										className={typeRoomIndex === 1 ? 'roomType__card_selected' : ''}
 										onClick={() => onTypeRoomClick('x1')}
 									>
-										<img src='image/x1.svg' alt='x1' />
+										<img src='/image/x1.svg' alt='x1' />
 									</div>
 									<div
 										className={typeRoomIndex === 2 ? 'roomType__card_selected' : ''}
 										onClick={() => onTypeRoomClick('x2')}
 									>
-										<img src='image/x2.svg' alt='x2' />
+										<img src='/image/x2.svg' alt='x2' />
 									</div>
 									<div
 										className={typeRoomIndex === 3 ? 'roomType__card_selected' : ''}
 										onClick={() => onTypeRoomClick('x3')}
 									>
-										<img src='image/x3.svg' alt='x3' />
+										<img src='/image/x3.svg' alt='x3' />
 									</div>
 								</div>
 							</div>
@@ -322,6 +322,7 @@ const RoomCreate = (props) => {
 			</div>
 
 			<Collapse
+				style={{ display: 'none' }}
 				size='large'
 				items={[
 					{

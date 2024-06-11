@@ -1,5 +1,5 @@
-import { Table, Button, Dropdown, Space } from 'antd'
 import { MoreOutlined } from '@ant-design/icons'
+import { Button, Dropdown, Space, Table } from 'antd'
 import { useState } from 'react'
 
 const data = [
@@ -18,7 +18,7 @@ export default function ServiceTabTable(props) {
 		{
 			label: (
 				<div className='room-service__list-settings'>
-					<img src='image/edit.png' />
+					<img src='/image/edit.png' />
 					<p>Редактировать услугу</p>
 				</div>
 			),
@@ -27,7 +27,7 @@ export default function ServiceTabTable(props) {
 		{
 			label: (
 				<div className='room-service__list-settings'>
-					<img src='image/delete.png' />
+					<img src='/image/delete.png' />
 					<p>Удалить услугу</p>
 				</div>
 			),

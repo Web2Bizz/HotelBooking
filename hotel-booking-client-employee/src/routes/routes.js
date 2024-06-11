@@ -1,18 +1,17 @@
 import { createBrowserRouter } from 'react-router-dom'
-import OverviewPage from '../Pages/Overview/OverviewPage'
+import LayoutApp from '../Layout/Layout'
+import { DealPage, RegistrationHotel, RepairRoom, RoomPage, RoomService, SettingsHotel, Users } from '../Pages'
 import FrontdeskPage from '../Pages/Frontdesk/FrontdeskPage'
 import GuestPage from '../Pages/Guest/GuestPage'
-import { DealPage, RoomPage, RoomService, RepairRoom, RegistrationHotel, SettingsHotel, Users } from '../Pages'
-import RatePage from '../Pages/Rate/RatePage.jsx'
 import LoginPage from '../Pages/Login/LoginPage'
+import OverviewPage from '../Pages/Overview/OverviewPage'
+import RatePage from '../Pages/Rate/RatePage.jsx'
 import RegistrationPage from './../Pages/Registration/RegistrationPage'
-import HomePage from './../Pages/Home/HomePage'
-import LayoutApp from '../Layout/Layout'
 // import AllEmployee from '../Pages/Employee/AllEmployee'
 // import TaskEmployee from '../Pages/Employee/TaskEmployee/TaskEmployee'
 // import SсheduleEmployee from '../Pages/Employee/SсheduleEmployee'
-import StatisticAndReports from '../Pages/StatisticAndReports/StatisticAndReports'
 import Services from '../Pages/Services/Services'
+import StatisticAndReports from '../Pages/StatisticAndReports/StatisticAndReports'
 
 export const routes = createBrowserRouter(
 	[
@@ -21,7 +20,7 @@ export const routes = createBrowserRouter(
 			children: [
 				{
 					path: '',
-					element: <HomePage />
+					element: <LoginPage />
 				},
 				{
 					path: 'overview',
@@ -118,10 +117,6 @@ export const routes = createBrowserRouter(
 							<Users />
 						</LayoutApp>
 					)
-				},
-				{
-					path: 'login',
-					element: <LoginPage />
 				},
 				{
 					path: 'registration',

@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import { Space, Dropdown, Table, Button, Tag, message, Input, Modal } from 'antd'
 import { ExclamationCircleFilled, MoreOutlined, SearchOutlined } from '@ant-design/icons'
+import { Button, Dropdown, Input, Modal, Space, Table, Tag, message } from 'antd'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { getConvertedDate, messageGenerate } from '../../../../../services/functionService'
 import {
 	repairApplicationDeleteAction,
 	repairApplicationsGetAction,
 	resetMessagesAction
 } from '../../../../../store/actions/repairRoomAction'
-import { getConvertedDate, messageGenerate } from '../../../../../services/functionService'
-import { roomEditStatusAction } from '../../../../../store/actions/roomAction.js'
 
 export default function RepairRoomTable({ setSelectedRoom, setIsRepair, data, setData, setIsEdit, setIsPlaning }) {
 	const [messageApi, contextHolder] = message.useMessage()
@@ -85,7 +84,7 @@ export default function RepairRoomTable({ setSelectedRoom, setIsRepair, data, se
 		{
 			label: (
 				<div className='room-service__list-settings'>
-					<img src='image/roomService_cleaning.svg' />
+					<img src='/image/roomService_cleaning.svg' />
 					<p>Добавить работу</p>
 				</div>
 			),
@@ -94,7 +93,7 @@ export default function RepairRoomTable({ setSelectedRoom, setIsRepair, data, se
 		{
 			label: (
 				<div className='room-service__list-settings'>
-					<img src='image/planing.png' />
+					<img src='/image/planing.png' />
 					<p>Планирование ремонта</p>
 				</div>
 			),
