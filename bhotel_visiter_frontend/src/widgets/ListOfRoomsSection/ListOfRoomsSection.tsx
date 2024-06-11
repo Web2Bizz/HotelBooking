@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { ListOfRoomsFilter, RoomCard } from '../../features'
 import { RadioChangeEvent, Collapse, Pagination, Button } from 'antd'
-import { CheckboxValueType } from 'antd/lib/checkbox/Group'
 import './style.scss'
 
 const ListOfRoomsSection = () => {
@@ -64,11 +63,11 @@ const ListOfRoomsSection = () => {
 		}
 	}
 
-	const handleAmenitiesChange = (checkedValues: CheckboxValueType[]) => {
+	const handleAmenitiesChange = (checkedValues: string[]) => {
 		console.log('Selected Amenities:', checkedValues)
 	}
 
-	const handleFloorChange = (checkedValues: CheckboxValueType[]) => {
+	const handleFloorChange = (checkedValues: string[]) => {
 		console.log('Selected Floors:', checkedValues)
 	}
 

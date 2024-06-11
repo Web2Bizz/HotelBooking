@@ -5,7 +5,6 @@ import { SideBarItem } from './../../sidebar-item'
 
 export function SideBar() {
 	const btnRef1 = useRef(null)
-	const btnRef5 = useRef(null)
 	const btnRef6 = useRef(null)
 
 	return (

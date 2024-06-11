@@ -19,7 +19,7 @@ export interface IFormHeaderSettings {
 }
 
 const Header = () => {
-	const [searchValue, setSearchValue] = useState<string>('')
+	const [, setSearchValue] = useState<string>('')
 	const hotelData = useContext(AppContext)
 
 	const onBooking = () => {

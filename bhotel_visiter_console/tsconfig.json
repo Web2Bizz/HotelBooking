@@ -28,8 +28,7 @@
       "@features": ["src/features"],
       "@ui": ["src/shared/ui"],
       "@helpers": ["src/helpers"],
-      "@contexts": ["src/app/contexts"],
-      "@api": ["src/shared/api"]
+      "@contexts": ["src/app/contexts"]
     }
   },
   "include": ["src"],
