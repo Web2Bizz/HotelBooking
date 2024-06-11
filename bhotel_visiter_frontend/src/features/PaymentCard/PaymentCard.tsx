@@ -1,24 +1,15 @@
+import { useContext, useEffect, useState } from 'react'
 import './style.scss'
+import { UserContext } from '@contexts'
+import { trpc } from '@helpers'
 
-const PaymentCard = () => {
+const PaymentCard = (props: { card_number: string }) => {	
 	return (
 		<div className='PaymentCard-container'>
 			<div className='PaymentCard-img'>
-				<img
-					style={{
-						marginTop: 10,
-						width: 69,
-						height: 26,
-						backgroundPosition: '0, 0',
-						backgroundRepeat: 'no-repeat',
-						backgroundSize: 'contain'
-					}}
-					src='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Mir-logo.SVG.svg/512px-Mir-logo.SVG.svg.png'
-					alt='payment-img'
-				/>
 			</div>
 			<div className='PaymentCard-text'>
-				<p>**** **** **** 1234</p>
+				<p>{props.card_number.substring(0, 4)} **** **** ****</p>
 			</div>
 		</div>
 	)

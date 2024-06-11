@@ -215,18 +215,18 @@ const getPayment = trpc_1.t.procedure.input(zod_1.z.string().uuid()).query(async
     const client = await (0, index_1.PgClient)();
     const res = await client.query('SELECT * FROM payment WHERE client_id = $1', [input]);
     await client.end();
-    return res.rows[0];
+    return res.rows;
 });
 const addPaymentMethod = trpc_1.t.procedure
     .input(zod_1.z.object({
     client_id: zod_1.z.string().uuid(),
-    card_number: zod_1.z.bigint(),
+    card_number: zod_1.z.string(),
     card_expire: zod_1.z.string(),
     card_user: zod_1.z.string()
 }))
     .mutation(async ({ input }) => {
     const client = await (0, index_1.PgClient)();
-    const res = await client.query(`INSERT INTO payment (client_id, card_number, card_expire, card_user) VALUES ('${(0, uuid_1.v4)()}', $2, $3, $4, $5) RETURNING *`, [input.client_id, input.card_number, input.card_expire, input.card_user]);
+    const res = await client.query(`INSERT INTO payment (id, client_id, card_number, card_expire, card_user) VALUES ('${(0, uuid_1.v4)()}', $1, $2, $3, $4) RETURNING *`, [input.client_id, input.card_number, input.card_expire, input.card_user]);
     await client.end();
     return res.rows[0];
 });

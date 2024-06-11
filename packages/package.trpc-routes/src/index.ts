@@ -256,14 +256,14 @@ const getPayment = t.procedure.input(z.string().uuid()).query(async ({ input }) 
 	const client = await PgClient()
 	const res = await client.query('SELECT * FROM payment WHERE client_id = $1', [input])
 	await client.end()
-	return res.rows[0]
+	return res.rows
 })
 
 const addPaymentMethod = t.procedure
 	.input(
 		z.object({
 			client_id: z.string().uuid(),
-			card_number: z.bigint(),
+			card_number: z.string(),
 			card_expire: z.string(),
 			card_user: z.string()
 		})
@@ -271,7 +271,7 @@ const addPaymentMethod = t.procedure
 	.mutation(async ({ input }) => {
 		const client = await PgClient()
 		const res = await client.query(
-			`INSERT INTO payment (client_id, card_number, card_expire, card_user) VALUES ('${v4()}', $2, $3, $4, $5) RETURNING *`,
+			`INSERT INTO payment (id, client_id, card_number, card_expire, card_user) VALUES ('${v4()}', $1, $2, $3, $4) RETURNING *`,
 			[input.client_id, input.card_number, input.card_expire, input.card_user]
 		)
 		await client.end()

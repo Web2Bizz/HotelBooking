@@ -411,7 +411,7 @@ export declare const appRouter: import("@trpc/server").CreateRouterInner<import(
         _input_out: string;
         _output_in: typeof import("@trpc/server").unsetMarker;
         _output_out: typeof import("@trpc/server").unsetMarker;
-    }, any>;
+    }, any[]>;
     addPaymentMethod: import("@trpc/server").BuildProcedure<"mutation", {
         _config: import("@trpc/server").RootConfig<{
             ctx: object;
@@ -423,13 +423,13 @@ export declare const appRouter: import("@trpc/server").CreateRouterInner<import(
         _ctx_out: object;
         _input_in: {
             client_id: string;
-            card_number: bigint;
+            card_number: string;
             card_expire: string;
             card_user: string;
         };
         _input_out: {
             client_id: string;
-            card_number: bigint;
+            card_number: string;
             card_expire: string;
             card_user: string;
         };

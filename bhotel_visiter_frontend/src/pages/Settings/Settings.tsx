@@ -43,7 +43,7 @@ const Settings = () => {
 			father_name: context.father_name,
 			email: context.email,
 			phone: context.phone,
-            birthday: context.birthday
+			birthday: context.birthday
 		})
 	}, [])
 
@@ -60,8 +60,16 @@ const Settings = () => {
 				}}
 			>
 				<div className='Settings-info'>
-					<Button onClick={() => navigate('/profile')}>
-						{'<< Обратно в профиль'}
+					<Button
+						icon={
+							<i
+								style={{ position: 'relative', top: 5 }}
+								className='fi fi-ss-angle-double-left'
+							></i>
+						}
+						onClick={() => navigate('/profile')}
+					>
+						{'Обратно в профиль'}
 					</Button>
 					<p>Редактировать профиль</p>
 					<Avatar shape='square' size={268} icon={<UserOutlined />} />
