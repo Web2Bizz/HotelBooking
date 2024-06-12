@@ -58,3 +58,13 @@
 		}
 	}
 }
+
+.unloggined-block {
+	display: flex;
+	flex-direction: row;
+	gap: 12px;
+
+	button {
+		height: 62px;
+	}
+}

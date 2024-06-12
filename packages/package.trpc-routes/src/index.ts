@@ -1,11 +1,12 @@
-import { inferProcedureOutput, initTRPC } from '@trpc/server'
-import { z } from 'zod'
-import { PgClient } from './utils/index'
+import { inferRouterOutputs } from '@trpc/server'
 import { v4 } from 'uuid'
+import { z } from 'zod'
+import { deleteFAQItem, getAllFAQ, getFrontendMainPage, getHotelProperties, setFrontendMainPage, updateFAQItem } from './routes'
+import { TFaq } from './routes/faq'
+import { PgClient } from './utils/index'
+import { t } from './utils/trpc'
 
-const t = initTRPC.create()
-
-const frontend_id = '67342c88-fd1e-425b-99b1-3cdc427b914a'
+export const frontend_id = '67342c88-fd1e-425b-99b1-3cdc427b914a'
 
 // Procedure for clean_journal
 const getCleanJournal = t.procedure.input(z.string().uuid()).query(async ({ input }) => {
@@ -15,7 +16,7 @@ const getCleanJournal = t.procedure.input(z.string().uuid()).query(async ({ inpu
 	return res.rows[0]
 })
 
-const appendToCleanJournal = t.procedure
+const addToCleanJournal = t.procedure
 	.input(
 		z.object({
 			id: z.string().uuid(),
@@ -42,7 +43,7 @@ const getClient = t.procedure.input(z.string().uuid()).query(async ({ input }) =
 	return res.rows[0]
 })
 
-const appendClient = t.procedure
+const addClient = t.procedure
 	.input(
 		z.object({
 			id: z.string().uuid(),
@@ -94,7 +95,7 @@ const setFrontendConfig = t.procedure
 // Procedure for frontend_footer
 const getFrontendFooter = t.procedure.query(async () => {
 	const client = await PgClient()
-	const res = await client.query('SELECT * FROM frontend_footer WHERE id = $1', [frontend_id])
+	const res = await client.query('SELECT * FROM frontend_footer WHERE frontend_id = $1', [frontend_id])
 	await client.end()
 	return res.rows[0]
 })
@@ -105,14 +106,49 @@ const setFrontendFooter = t.procedure
 			display_logo: z.boolean().default(true),
 			display_label: z.boolean().default(true),
 			display_social_block: z.boolean().default(false),
-			frontend_id: z.string().uuid()
+			background_color: z.string(),
+			display_vk: z.boolean().default(true),
+			vk_link: z.string(),
+			display_dzen: z.boolean().default(true),
+			dzen_link: z.string(),
+			display_telegram: z.boolean().default(true),
+			telegram_link: z.string(),
+			display_youtube: z.boolean().default(true),
+			youtube_link: z.string()
 		})
 	)
 	.mutation(async ({ input }) => {
 		const client = await PgClient()
 		const res = await client.query(
-			'UPDATE frontend_footer SET display_logo = $1, display_label = $2, display_social_block = $3, frontend_id = $4 WHERE id = $5 RETURNING *',
-			[input.display_logo, input.display_label, input.display_social_block, input.frontend_id, frontend_id]
+			`UPDATE frontend_footer SET 
+			display_logo=$1, 
+			display_label=$2, 
+			display_social_block=$3, 
+			background_color=$5, 
+			display_vk=$6, 
+			vk_link=$7, 
+			display_dzen=$8, 
+			dzen_link=$9, 
+			display_telegram=$10, 
+			telegram_link=$11, 
+			display_youtube=$12, 
+			youtube_link=$13 
+			WHERE frontend_id = $4;`,
+			[
+				input.display_logo, 
+				input.display_label, 
+				input.display_social_block, 
+				frontend_id,
+				input.background_color,
+				input.display_vk,
+				input.vk_link,
+				input.display_dzen,
+				input.dzen_link,
+				input.display_telegram,
+				input.telegram_link,
+				input.display_youtube,
+				input.youtube_link
+			]
 		)
 		await client.end()
 		return res.rows[0]
@@ -152,36 +188,6 @@ const setFrontendHeader = t.procedure
 				input.display_label,
 				input.background_color
 			]
-		)
-		await client.end()
-		return res.rows[0]
-	})
-
-// Procedure for frontend_main_page
-const getFrontendMainPage = t.procedure.input(z.string().uuid()).query(async ({ input }) => {
-	const client = await PgClient()
-	const res = await client.query('SELECT * FROM frontend_main_page WHERE frontend_id = $1', [input])
-	await client.end()
-	return res.rows[0]
-})
-
-const setFrontendMainPage = t.procedure
-	.input(
-		z.object({
-			id: z.string().uuid(),
-			frontend_id: z.string().uuid(),
-			cover_type: z.string().default('static'),
-			display_discount: z.boolean().default(true),
-			display_booking: z.boolean().default(true),
-			display_popular: z.boolean().default(false),
-			display_faq: z.boolean().default(true)
-		})
-	)
-	.mutation(async ({ input }) => {
-		const client = await PgClient()
-		const res = await client.query(
-			'UPDATE frontend_main_page SET display_discount = $1, display_booking = $2, display_popular = $3, display_faq = $4 WHERE frontend_id = $5 RETURNING *',
-			[input.display_discount, input.display_booking, input.display_popular, input.display_faq, input.frontend_id]
 		)
 		await client.end()
 		return res.rows[0]
@@ -248,25 +254,25 @@ const pushNotification = t.procedure
 // Procedure for payment
 const getPayment = t.procedure.input(z.string().uuid()).query(async ({ input }) => {
 	const client = await PgClient()
-	const res = await client.query('SELECT * FROM payment WHERE id = $1', [input])
+	const res = await client.query('SELECT * FROM payment WHERE client_id = $1', [input])
 	await client.end()
-	return res.rows[0]
+	return res.rows
 })
 
-const appendPaymentMethod = t.procedure
+const addPaymentMethod = t.procedure
 	.input(
 		z.object({
-			id: z.string().uuid(),
 			client_id: z.string().uuid(),
-			card_number: z.bigint(),
-			card_expire: z.string().refine((val) => !isNaN(Date.parse(val)), { message: 'Invalid date' })
+			card_number: z.string(),
+			card_expire: z.string(),
+			card_user: z.string()
 		})
 	)
 	.mutation(async ({ input }) => {
 		const client = await PgClient()
 		const res = await client.query(
-			'INSERT INTO payment (id, client_id, card_number, card_expire) VALUES ($1, $2, $3, $4) RETURNING *',
-			[input.id, input.client_id, input.card_number, input.card_expire]
+			`INSERT INTO payment (id, client_id, card_number, card_expire, card_user) VALUES ('${v4()}', $1, $2, $3, $4) RETURNING *`,
+			[input.client_id, input.card_number, input.card_expire, input.card_user]
 		)
 		await client.end()
 		return res.rows[0]
@@ -280,7 +286,7 @@ const getReviewRoom = t.procedure.input(z.string().uuid()).query(async ({ input 
 	return res.rows[0]
 })
 
-const appendReviewRoom = t.procedure
+const addReviewRoom = t.procedure
 	.input(
 		z.object({
 			id: z.string().uuid(),
@@ -318,7 +324,7 @@ const getReviews = t.procedure
 		return res.rows[0]
 	})
 
-const appendReview = t.procedure
+const addReview = t.procedure
 	.input(
 		z.object({
 			id: z.string().uuid(),
@@ -337,6 +343,14 @@ const appendReview = t.procedure
 		await client.end()
 		return res.rows[0]
 	})
+
+const getAllServices = t.procedure
+	.query(async () => {
+		const client = await PgClient()
+		const res = await client.query('SELECT * FROM service')
+		await client.end()
+		return res.rows
+})
 
 // Procedure for service
 const getService = t.procedure.input(z.string().uuid()).query(async ({ input }) => {
@@ -366,21 +380,19 @@ const setService = t.procedure
 		return res.rows[0]
 	})
 
-const appendService = t.procedure
+const addService = t.procedure
 	.input(
 		z.object({
-			id: z.string().uuid(),
 			name: z.string(),
 			description: z.string(),
-			price: z.number(),
-			is_available: z.boolean().default(true)
+			price: z.number()
 		})
 	)
 	.mutation(async ({ input }) => {
 		const client = await PgClient()
 		const res = await client.query(
-			'INSERT INTO service (id, name, description, price, is_available) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-			[input.id, input.name, input.description, input.price, input.is_available]
+			`INSERT INTO service (id, name, description, price) VALUES ('${v4()}', $1, $2, $3) RETURNING *`,
+			[input.name, input.description, input.price]
 		)
 		await client.end()
 		return res.rows[0]
@@ -394,7 +406,7 @@ const getServiceReceipt = t.procedure.input(z.string().uuid()).query(async ({ in
 	return res.rows[0]
 })
 
-const appendServiceReceipt = t.procedure
+const addServiceReceipt = t.procedure
 	.input(
 		z.object({
 			id: z.string().uuid(),
@@ -420,7 +432,7 @@ const getServiceReceiptItem = t.procedure.input(z.string().uuid()).query(async (
 	return res.rows[0]
 })
 
-const appendServiceReceiptItem = t.procedure
+const addServiceReceiptItem = t.procedure
 	.input(
 		z.object({
 			id: z.string().uuid(),
@@ -439,7 +451,7 @@ const appendServiceReceiptItem = t.procedure
 		return res.rows[0]
 	})
 
-const appendFAQItem = t.procedure
+const addFAQItem = t.procedure
 	.input(
 		z.array(
 			z.object({
@@ -462,88 +474,16 @@ const appendFAQItem = t.procedure
 		return res.rows[0]
 	})
 
-export type TFaq = {
-	id: string
-	frontend_id: string
-	title: string
-	description: string
-}
 
-const getAllFAQ = t.procedure.query(async () => {
-	const client = await PgClient()
-		const res = await client.query<TFaq>('SELECT * FROM public.frontend_faq;')
-		await client.end()
-		return res.rows
-})
-
-const updateFAQItem = t.procedure
-	.input(
-		z.object({
-			id: z.string().uuid(),
-			title: z.string(),
-			description: z.string()
-		})
-	)
-	.query(async ({ input }) => {
-		const client = await PgClient()
-		const res = await client.query('UPDATE frontend_faq SET title=$2, description=$3 WHERE id=$1 RETURNING *', [
-			input.id,
-			input.title,
-			input.description
-		])
-		await client.end()
-		return res.rows[0]
-	})
-
-const deleteFAQItem = t.procedure.input(z.array(z.string().uuid())).mutation(async ({input}) => {
-	const client = await PgClient()
-	let y = ''
-
-	console.log(input.length);
-	
-
-	for (let i = 0; i < input.length; i++) {
-		y += `DELETE FROM frontend_faq WHERE id='${input[i]}';`
-	}
-
-	const res = await client.query(y)
-
-	await client.end()
-	return res.rows[0]
-})
-
-export type THotelProperties = {
-	id_hotel_properties: string
-	hotel_name: string
-	hotel_logo: string
-	hotel_country: string
-	hotel_region: string
-	hotel_city: string
-	hotel_street: string
-	hotel_number_house: string
-	hotel_count_floor: string
-	hotel_count_room: number
-	contact_email: string
-	contact_number_phone: string
-	owner_name: string
-	owner_number_phone: string
-	owner_email: string
-	id_personal_data_storage_policy: string
-}
-
-const getHotelProperties = t.procedure
-	.query(async () => {
-		const data = await fetch("http://87.242.117.193:9090/api/hotelSettings/getHotelProperties")
-		return (await data.json()) as THotelProperties
-	})
 
 // Export the router
 export const appRouter = t.router({
+	getAllServices,
 	getHotelProperties,
 	getCleanJournal,
-	appendToCleanJournal,
+	addToCleanJournal,
 	getClient,
-	appendClient,
+	addClient,
 	getUserById,
 	getFrontendConfig,
 	setFrontendConfig,
@@ -558,22 +498,30 @@ export const appRouter = t.router({
 	getNotifications,
 	pushNotification,
 	getPayment,
-	appendPaymentMethod,
+	addPaymentMethod,
 	getReviewRoom,
-	appendReviewRoom,
+	addReviewRoom,
 	getReviews,
-	appendReview,
+	addReview,
 	getService,
 	setService,
-	appendService,
+	addService,
 	getServiceReceipt,
-	appendServiceReceipt,
+	addServiceReceipt,
 	getServiceReceiptItem,
-	appendServiceReceiptItem,
-	appendFAQItem,
+	addServiceReceiptItem,
+	addFAQItem,
 	updateFAQItem,
 	getAllFAQ,
 	deleteFAQItem
 })
 
 export type AppRouter = typeof appRouter
+
+type RouterOutput = inferRouterOutputs<AppRouter>;
+
+export type HotelProperties = RouterOutput['getHotelProperties']
+export type FrontendMainPageConfig = RouterOutput['getFrontendMainPage']
+export type Faq = TFaq
+
+export { t }

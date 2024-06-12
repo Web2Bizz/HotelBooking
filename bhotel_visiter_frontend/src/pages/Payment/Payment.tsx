@@ -1,30 +1,33 @@
 import { Button } from 'antd'
 import { PaymentCard } from './../../features'
 import './style.scss'
-import { Header } from '@widgets'
 import { useNavigate } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
+import { CardForm } from './CardForm'
+import { UserContext } from '@contexts'
+import { trpc } from '@helpers'
 
-type TPayment = {
-	id: string
-	type: 'MIR' | 'MASTER_CARD' | 'UNION_PAY' | 'MAESTRO' | 'VISA'
-	number: string
+type PaymentData = {
+	card_number: string
 }
 
 const Payment = () => {
 	const navigate = useNavigate()
-
-	const [payment, setPayment] = useState<Array<TPayment>>()
+	const context = useContext(UserContext)
+	const [payments, setPayments] = useState<Array<PaymentData>>()
+	const [getPayment] = trpc.useQueries((t) => [t.getPayment(context.id_user)])
 
 	useEffect(() => {
-		setPayment([
-			{
-				id: '0',
-				type: 'MIR',
-				number: '0000 0000 1224 1224'
-			}
-		])
+		getPayment.refetch()
 	}, [])
+
+	useEffect(() => {
+		if (context.id_user !== undefined && context.id_user !== '') {
+			setPayments(getPayment.data)
+			console.log(getPayment.data)
+			console.log(context.id_user)
+		}
+	}, [getPayment.data])
 
 	return (
 		<>
@@ -35,16 +38,36 @@ const Payment = () => {
 				}}
 			>
 				<div className='Payment-button'>
-					<Button onClick={() => navigate('/profile')}>{'<< Обратно в профиль'}</Button>
+					<Button
+						icon={
+							<i
+								style={{ position: 'relative', top: 5 }}
+								className='fi fi-ss-angle-double-left'
+							></i>
+						}
+						onClick={() => navigate('/profile')}
+					>
+						{'Обратно в профиль'}
+					</Button>
 				</div>
-				<div>
-					<p>Платежные данные</p>
+				<div
+					style={{
+						display: 'flex',
+						flexDirection: 'row',
+						justifyContent: 'space-between'
+					}}
+				>
 					<div>
-						<PaymentCard />
-						<PaymentCard />
-						<PaymentCard />
+						<p>Платежные данные</p>
+						<div>
+							{payments?.map((payment, index) => (
+								<PaymentCard key={index} card_number={payment.card_number} />
+							))}
+						</div>
 					</div>
-					<Button>Добавить</Button>
+					<div style={{ width: 400 }}>
+						<CardForm />
+					</div>
 				</div>
 			</div>
 		</>

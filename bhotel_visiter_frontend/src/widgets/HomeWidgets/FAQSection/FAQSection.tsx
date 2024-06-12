@@ -1,12 +1,8 @@
-import { Collapse } from 'antd'
 import { MinusOutlined, PlusOutlined } from '@ant-design/icons'
-
-import type { CollapseProps } from 'antd'
-import { useEffect, useState, type CSSProperties } from 'react'
+import { Collapse } from 'antd'
 import { trpc } from '@helpers'
-
+import { useState, type CSSProperties } from 'react'
 import './style.scss'
-import { TFaq } from 'trpc-package'
 
 type TFaqItem = {
 	key: string

@@ -53,6 +53,7 @@ const FAQItem = (props: TFAQItem) => {
 				onClick={() => onDelete(props.item.id)}
 				severity='danger'
 				outlined
+				icon='pi pi-trash'
 				className='mt-2'
 				label='Удалить пункт'
 			/>
@@ -77,7 +78,7 @@ export const FAQForm = (props: TFAQFormProps) => {
 
 	return (
 		<div className='flex flex-column'>
-			<h3>Часто задаваемые вопросы</h3>
+			<h3>Блок Часто задаваемые вопросы</h3>
 			{items.length > 0 ? (
 				<FAQList
 					onDelete={handleDelete}
@@ -88,7 +89,7 @@ export const FAQForm = (props: TFAQFormProps) => {
 			) : (
 				<p style={{ textAlign: 'center' }}>Пусто</p>
 			)}
-			<Button className='mt-4' onClick={handleCreate} label='Добавить ещё' />
+			<Button className='mt-4' icon='pi pi-plus' outlined onClick={handleCreate} label='Добавить ещё' />
 		</div>
 	)
 }

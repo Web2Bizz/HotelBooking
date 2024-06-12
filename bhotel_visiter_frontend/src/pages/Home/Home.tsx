@@ -12,14 +12,7 @@ import {
 	SalesSection
 } from '../../widgets'
 import './style.scss'
-
-interface IMainPageFormData {
-	cover_type: string
-	display_discount: boolean
-	display_booking: boolean
-	display_popular: boolean
-	display_faq: boolean
-}
+import { FrontendMainPageConfig } from '../../../../packages/package.trpc-routes/@types'
 
 interface IFormHeaderSettings {
 	display_logo: boolean
@@ -31,14 +24,12 @@ interface IFormHeaderSettings {
 }
 
 const Home = () => {
-	const [getMainPageSettings] = trpc.useQueries((t) => [t.getFrontendMainPage('67342c88-fd1e-425b-99b1-3cdc427b914a')])
+	const [getMainPageSettings] = trpc.useQueries((t) => [t.getFrontendMainPage()])
 
-	const [data, setData] = useState<IMainPageFormData>()
-	const [mainPageSettings, setMainPageSettings] = useState()
+	const [data, setData] = useState<FrontendMainPageConfig>()
 
 	useEffect(() => {
-		setData(getMainPageSettings.data as IMainPageFormData)
-		setMainPageSettings(getMainPageSettings.data)
+		setData(getMainPageSettings.data)
 	}, [getMainPageSettings.data])
 
 	const [getHeaderSettings] = trpc.useQueries((t) => [t.getFrontendHeader('67342c88-fd1e-425b-99b1-3cdc427b914a')])

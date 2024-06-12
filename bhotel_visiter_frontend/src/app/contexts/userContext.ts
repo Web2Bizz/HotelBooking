@@ -1,21 +1,29 @@
 import { createContext } from "react"
 
 export type TUserContext = {
+    id_user: string
     name: string
     surname: string
-    fatherName: string
+    father_name: string
     email: string
-    avatar: string
     role: string
+    phone?: string
+    birthday: string
+    isLoggined: boolean
+    setUserData: (value: TUserContext) => void
 }
 
 export const initialUserData: TUserContext = {
-    name: 'Николай',
-    surname: 'Николаев',
-    fatherName: 'Ниволаевич',
-    email: 'nikola@gmail.com',
-    role: 'Гость',
-    avatar: 'https://webgradients.com/public/webgradients_png/022%20Morpheus%20Den.png'
+    id_user: '',
+    name: '',
+    surname: '',
+    father_name: '',
+    email: '',
+    role: '',
+    phone: '',
+    birthday: '',
+    isLoggined: false,
+    setUserData: () => {},
 }
 
 export const UserContext = createContext(initialUserData)

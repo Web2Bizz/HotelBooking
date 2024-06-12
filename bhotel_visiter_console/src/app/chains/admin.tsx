@@ -4,11 +4,11 @@ import {
 	FooterPage,
 	GeneralPage,
 	HeaderPage,
-	HomePage,
 	MainPage,
-	MenuPage,
 	OptionsAddPage,
-	OptionsListPage
+	OptionsListPage,
+	RequestsPage,
+	RequestViewPage
 } from '@pages'
 import { AdminLayout } from '@ui'
 import { RouteObject } from 'react-router-dom'
@@ -16,101 +16,71 @@ import { RouteObject } from 'react-router-dom'
 export const adminRouter: RouteObject[] = [
 	{
 		path: '/',
+		element: <AdminLayout />,
 		children: [
 			{
 				path: '',
-				element: (
-					<AdminLayout>
-						<HomePage />
-					</AdminLayout>
-				)
-			}
-		]
-	},
-	{
-		path: 'gui',
-		children: [
-			{
-				path: 'general',
-				element: (
-					<AdminLayout>
-						<GeneralPage />
-					</AdminLayout>
-				)
+				element: <MainPage />
 			},
 			{
-				path: 'menu',
-				element: (
-					<AdminLayout>
-						<MenuPage />
-					</AdminLayout>
-				)
+				path: 'requests',
+				element: <RequestsPage />
 			},
 			{
-				path: 'footer',
-				element: (
-					<AdminLayout>
-						<FooterPage />
-					</AdminLayout>
-				)
+				path: 'request',
+				children: [
+					{
+						path: ':id',
+						element: <RequestViewPage />
+					}
+				]
 			},
 			{
-				path: 'main',
-				element: (
-					<AdminLayout>
-						<MainPage />
-					</AdminLayout>
-				)
+				path: 'gui',
+				children: [
+					{
+						path: 'general',
+						element: <GeneralPage />
+					},
+					{
+						path: 'footer',
+						element: <FooterPage />
+					},
+					{
+						path: 'main',
+						element: <MainPage />
+					},
+					{
+						path: 'header',
+						element: <HeaderPage />
+					}
+				]
 			},
 			{
-				path: 'header',
-				element: (
-					<AdminLayout>
-						<HeaderPage />
-					</AdminLayout>
-				)
-			}
-		]
-	},
-	{
-		path: 'options',
-		children: [
-			{
-				path: '',
-				element: (
-					<AdminLayout>
-						<OptionsListPage />
-					</AdminLayout>
-				)
+				path: 'options',
+				children: [
+					{
+						path: '',
+						element: <OptionsListPage />
+					},
+					{
+						path: 'add',
+						element: <OptionsAddPage />
+					}
+				]
 			},
 			{
-				path: 'add',
-				element: (
-					<AdminLayout>
-						<OptionsAddPage />
-					</AdminLayout>
-				)
-			}
-		]
-	},
-	{
-		path: 'booking',
-		element: (
-			<AdminLayout>
-				<BookingPage />
-			</AdminLayout>
-		)
-	},
-	{
-		path: 'system',
-		children: [
+				path: 'booking',
+				element: <BookingPage />
+			},
 			{
-				path: 'api',
-				element: (
-					<AdminLayout>
-						<ApiPage />
-					</AdminLayout>
-				)
+				path: 'system',
+				children: [
+					{
+						path: 'api',
+						element: <ApiPage />
+					}
+				]
 			}
 		]
 	}

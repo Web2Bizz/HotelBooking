@@ -1,10 +1,10 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import { adminRouter } from '../chains'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { httpBatchLink } from '@trpc/client'
-import { useState } from 'react'
 import { createTRPCReact } from '@trpc/react-query'
-import type { AppRouter } from 'trpc-package/dist'
+import { useState } from 'react'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import type { AppRouter } from 'trpc-package'
+import { adminRouter } from '../chains'
 
 const trpc = createTRPCReact<AppRouter>()
 
@@ -16,7 +16,7 @@ export const RouterApp = () => {
 		trpc.createClient({
 			links: [
 				httpBatchLink({
-					url: 'http://127.0.0.1:8556/trpc'
+					url: `${import.meta.env.VITE_APP_TRPC_API}`
 				})
 			]
 		})

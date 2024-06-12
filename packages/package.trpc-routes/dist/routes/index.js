@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.setFrontendMainPage = exports.getFrontendMainPage = exports.deleteFAQItem = exports.updateFAQItem = exports.getAllFAQ = exports.getHotelProperties = void 0;
+var hotelProperties_1 = require("./hotelProperties");
+Object.defineProperty(exports, "getHotelProperties", { enumerable: true, get: function () { return hotelProperties_1.getHotelProperties; } });
+var faq_1 = require("./faq");
+Object.defineProperty(exports, "getAllFAQ", { enumerable: true, get: function () { return faq_1.getAllFAQ; } });
+Object.defineProperty(exports, "updateFAQItem", { enumerable: true, get: function () { return faq_1.updateFAQItem; } });
+Object.defineProperty(exports, "deleteFAQItem", { enumerable: true, get: function () { return faq_1.deleteFAQItem; } });
+var mainPage_1 = require("./mainPage");
+Object.defineProperty(exports, "getFrontendMainPage", { enumerable: true, get: function () { return mainPage_1.getFrontendMainPage; } });
+Object.defineProperty(exports, "setFrontendMainPage", { enumerable: true, get: function () { return mainPage_1.setFrontendMainPage; } });

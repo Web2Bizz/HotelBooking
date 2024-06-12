@@ -87,19 +87,10 @@ services:
       network:
         ipv4_address: 24.16.1.54
 
-  file-uploader:
-    build: ./file-uploader
-    ports:
-      - 9867:9867
-    restart: always
-    volumes:
-      - './uploads:/app/uploads'
-    networks:
-      network:
-        ipv4_address: 24.16.2.63
-
   console-backend:
-    build: ./bhotel_visiter_backend
+    build:
+      context: ./
+      dockerfile: backend.Dockerfile
     ports:
       - '5001:8556'
     restart: always
@@ -108,21 +99,17 @@ services:
     depends_on:
       - postgres-client
       - backend-admin
-    volumes:
-      - './packages:/app/packages'
     networks:
       network:
         ipv4_address: 24.16.1.55
 
   app-console:
-    build:
-      context: bhotel_visiter_console
-      dockerfile: Dockerfile
+    build: 
+      context: ./
+      dockerfile: console.Dockerfile
     ports:
       - '5501:5501'
     restart: always
-    volumes:
-      - './packages:/app/packages'
     environment:
       - VITE_APP_ADMIN_API=http://87.242.117.193:9090/api
       - VITE_APP_TRPC_API=http://87.242.117.193:9090/api
@@ -133,9 +120,9 @@ services:
         ipv4_address: 24.16.2.77
 
   app-client:
-    build:
-      context: bhotel_visiter_frontend
-      dockerfile: Dockerfile
+    build: 
+      context: ./
+      dockerfile: frontend.Dockerfile
     ports:
       - '5502:5502'
     restart: always
@@ -147,6 +134,18 @@ services:
     networks:
       network:
         ipv4_address: 24.16.2.90
+
+  chatix:
+    build:
+      context: ./chat-engine
+      dockerfile: Dockerfile
+    ports:
+      - 7777
+    restart: always
+    environment:
+      - PORT=7777
+      - REDIS_PORT=12245
+      - NODE_ENV=production
 
 volumes:
   postgres-data-hotel:

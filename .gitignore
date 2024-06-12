@@ -21,7 +21,6 @@ dist
 dist-ssr
 *.local
 .vscode/*
-!.vscode/extensions.json
 .idea
 .DS_Store
 *.suo
@@ -29,4 +28,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-!/packages/**/dist
+!.vscode/extensions.json
+!/packages/**/*
+/packages/**/node_modules

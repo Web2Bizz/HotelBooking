@@ -14,6 +14,7 @@ import roomRouter from './routes/room.routes.js'
 import repairRoomRouter from './routes/roomRepair.routes.js'
 import roomServiceRouter from './routes/roomService.routes.js'
 import userRouter from './routes/user.routes.js'
+import v2Router from './v2/index.js'
 
 dotenv.config({ path: `.env.${process.env.NODE_ENV}` })
 const PORT = process.env.PORT || 8080
@@ -45,14 +46,14 @@ app.use(
 )
 app.use(bodyParser.json())
 app.use(function (req, res, next) {
-	res.setHeader('Access-Control-Allow-Origin', process.env.CLIENT_URL)
-	res.setHeader('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
-	if (req.method === 'OPTIONS') {
-		return res.status(200).end()
-	} else {
-		next()
-	}
-})
+  res.setHeader("Access-Control-Allow-Origin", process.env.CLIENT_URL);
+  res.setHeader("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
+  if (req.method === "OPTIONS") {
+    return res.status(200).end();
+  } else {
+    next();
+  }
+});
 
 app.use('/room', roomRouter)
 app.use('/additionals', additionalsRouter)
@@ -64,6 +65,7 @@ app.use('/querys', querysRouter)
 app.use('/roomService', roomServiceRouter)
 app.use('/repairRoom', repairRoomRouter)
 app.use('/hotelSettings', hotelSettingsRouter)
+app.use('/v2', v2Router)
 
 app.use(errorMiddleware)
 
