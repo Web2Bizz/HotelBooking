@@ -6,6 +6,8 @@ import { SideBarItem } from './../../sidebar-item'
 export function SideBar() {
 	const btnRef1 = useRef(null)
 	const btnRef6 = useRef(null)
+	const btnRef7 = useRef(null)
+	const btnRef8 = useRef(null)
 
 	return (
 		<div className='min-h-screen flex fixed col-2 p-0 surface-ground'>
@@ -84,6 +86,57 @@ export function SideBar() {
 									</li>
 									<li>
 										<SideBarItem iconClass='' navigatePath='/booking' label='Бронирования' />
+									</li>
+								</ul>
+							</li>
+							<li>
+								<StyleClass
+									nodeRef={btnRef7}
+									selector='@next'
+									enterClassName='hidden'
+									enterActiveClassName='slidedown'
+									leaveToClassName='hidden'
+									leaveActiveClassName='slideup'
+								>
+									<div
+										ref={btnRef7}
+										className='p-ripple p-3 flex align-items-center justify-content-between text-600 cursor-pointer'
+									>
+										<span className='font-medium'>Чат и поддержка</span>
+										<i className='pi pi-chevron-down'></i>
+										<Ripple />
+									</div>
+								</StyleClass>
+								<ul className='list-none p-0 m-0 overflow-hidden'>
+									<li>
+										<SideBarItem iconClass='' navigatePath='/requests' label='Обращения' />
+									</li>
+								</ul>
+							</li>
+							<li>
+								<StyleClass
+									nodeRef={btnRef8}
+									selector='@next'
+									enterClassName='hidden'
+									enterActiveClassName='slidedown'
+									leaveToClassName='hidden'
+									leaveActiveClassName='slideup'
+								>
+									<div
+										ref={btnRef8}
+										className='p-ripple p-3 flex align-items-center justify-content-between text-600 cursor-pointer'
+									>
+										<span className='font-medium'>Документация</span>
+										<i className='pi pi-chevron-down'></i>
+										<Ripple />
+									</div>
+								</StyleClass>
+								<ul className='list-none p-0 m-0 overflow-hidden'>
+									<li>
+										<SideBarItem iconClass='' navigatePath='/options' label='Руководство оператора' />
+									</li>
+									<li>
+										<SideBarItem iconClass='' navigatePath='/options' label='Руководство пользователя' />
 									</li>
 								</ul>
 							</li>

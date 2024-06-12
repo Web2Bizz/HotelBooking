@@ -13,17 +13,16 @@ import {
 } from '../contexts'
 import { authRouter } from './auth'
 import { publicRouter } from './public'
-import dayjs from 'dayjs'
 
 export const RouterApp = () => {
-	const router = createBrowserRouter([...publicRouter, ...authRouter])
+	const router = createBrowserRouter([...publicRouter, ...authRouter], { basename: '/client' })
 
 	const [queryClient] = useState(() => new QueryClient())
 	const [trpcClient] = useState(() =>
 		trpc.createClient({
 			links: [
 				httpBatchLink({
-					url: 'http://localhost:8556/trpc'
+					url: `${import.meta.env.VITE_APP_TRPC_API}`
 				})
 			]
 		})

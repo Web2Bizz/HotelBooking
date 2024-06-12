@@ -4,7 +4,10 @@ import { Button } from 'primereact/button'
 import { Checkbox } from 'primereact/checkbox'
 import { Column, ColumnEditorOptions } from 'primereact/column'
 import { DataTable, DataTableRowEditCompleteEvent } from 'primereact/datatable'
-import { InputNumber, InputNumberValueChangeEvent } from 'primereact/inputnumber'
+import {
+	InputNumber,
+	InputNumberValueChangeEvent
+} from 'primereact/inputnumber'
 import { InputText } from 'primereact/inputtext'
 import { InputTextarea } from 'primereact/inputtextarea'
 import { Tag } from 'primereact/tag'
@@ -54,20 +57,27 @@ export const OptionsListPage = () => {
 				type='text'
 				value={options.value}
 				style={{ width: '100%' }}
-				onChange={(e: React.ChangeEvent<HTMLInputElement>) => options.editorCallback!(e.target.value)}
+				onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+					options.editorCallback!(e.target.value)
+				}
 			/>
 		)
 	}
 
 	const priceBodyTemplate = (rowData: TService) => {
-		return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(rowData.price)
+		return new Intl.NumberFormat('en-US', {
+			style: 'currency',
+			currency: 'USD'
+		}).format(rowData.price)
 	}
 
 	const priceEditor = (options: ColumnEditorOptions) => {
 		return (
 			<InputNumber
 				value={options.value}
-				onValueChange={(e: InputNumberValueChangeEvent) => options.editorCallback!(e.value)}
+				onValueChange={(e: InputNumberValueChangeEvent) =>
+					options.editorCallback!(e.value)
+				}
 				mode='currency'
 				currency='USD'
 				locale='en-US'
@@ -88,14 +98,22 @@ export const OptionsListPage = () => {
 	const availableEditor = (options: ColumnEditorOptions) => {
 		console.log(options.value)
 
-		return <Checkbox checked={false} onChange={(e) => options.editorCallback!(e.target.value)} />
+		return (
+			<Checkbox
+				checked={false}
+				onChange={(e) => options.editorCallback!(e.target.value)}
+			/>
+		)
 	}
 
 	const show = () => {
-		toast.current?.show({ severity: 'success', summary: 'Успех!', detail: 'Данные успешно обновлены' })
+		toast.current?.show({
+			severity: 'success',
+			summary: 'Успех!',
+			detail: 'Данные успешно обновлены'
+		})
 	}
 
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const onRowEditComplete = async (e: DataTableRowEditCompleteEvent) => {
 		const { id, name, is_available, description, price } = e.newData as TService
 
@@ -120,11 +138,21 @@ export const OptionsListPage = () => {
 			<AdminPageTitle title={'Список услуг'} />
 			<Toast ref={toast} />
 			<div className='mt-3 flex flex-row gap-3'>
-				<Button icon='pi pi-trash' severity='danger' label='Удалить (0)' disabled />
-				<Button icon='pi pi-refresh' onClick={refresh} severity='success' label='Обновить список' />
+				<Button
+					icon='pi pi-trash'
+					severity='danger'
+					label='Удалить (0)'
+					disabled
+				/>
+				<Button
+					icon='pi pi-refresh'
+					onClick={refresh}
+					severity='success'
+					label='Обновить список'
+				/>
 			</div>
-			{getServices.isLoading && <p>Загрузка</p>}
-			{getServices.isSuccess && products && (
+			{getServices.isFetching && <p>Загрузка</p>}
+			{getServices.isSuccess && !getServices.isLoading && products && (
 				<DataTable
 					dataKey='id'
 					editMode='row'

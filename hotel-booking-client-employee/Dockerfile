@@ -16,7 +16,7 @@ RUN mkdir html
 WORKDIR /
 
 COPY ./nginx/nginx.conf /etc/nginx
-COPY --chmod=765 --from=vite-app ./app/dist /usr/share/nginx/html
+COPY --chmod=777 --from=vite-app ./app/dist /usr/share/nginx/html
 
 EXPOSE 5503
 

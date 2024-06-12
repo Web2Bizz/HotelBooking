@@ -4,6 +4,10 @@ import dayjs from "dayjs";
 
 class BookingService {
   //Add booking
+  // тут реализация бронирования можно взять для бронирования на клиенте
+  /**
+   * @description функция для бронирования
+  */
   async createBooking(
     firstName,
     lastName,
@@ -48,6 +52,9 @@ class BookingService {
     );
   }
 
+  /**
+   * @description получение всех гостей
+  */
   //get guests
   async getGuests() {
     const response = await client.query(
@@ -79,6 +86,10 @@ class BookingService {
   }
 
   //change guest status
+  /**
+   * @description функция для актуализации данных пользователей
+   * @param data 
+  */
   async checkAndChangeStatusGuest(data) {
     for (let i = 0; i < data.length; i++) {
       if (data[i].status_guest !== "Выехал") {
@@ -108,6 +119,10 @@ class BookingService {
   }
 
   // make the guest check out
+  /**
+   * @description функция для установки статуса ВЫЕХАЛ
+   * @param id_guest 
+   */
   async makeGuestCheckOut(id_guest) {
     await client.query(
       `update public.guests set id_status_guest = 'de86a967-0104-4c67-80be-8b119d34d9e0' where id_guest = $1`,

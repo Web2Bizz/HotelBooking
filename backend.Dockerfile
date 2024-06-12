@@ -16,6 +16,6 @@ RUN npm i
 
 COPY ./bhotel_visiter_backend .
 
-EXPOSE 5001
+EXPOSE 8556
 
 ENTRYPOINT ["npm", "run", "dev"]
