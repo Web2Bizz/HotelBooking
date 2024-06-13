@@ -140,7 +140,7 @@ services:
       context: ./chat-engine
       dockerfile: Dockerfile
     ports:
-      - 7777
+      - '7777:7777'
     restart: always
     environment:
       - PORT=7777
