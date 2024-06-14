@@ -48,6 +48,7 @@ const Settings = () => {
 	}, [])
 
 	const navigate = useNavigate()
+
 	return (
 		<>
 			<Header />

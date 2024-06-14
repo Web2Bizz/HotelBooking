@@ -20,6 +20,22 @@ const main = async () => {
 	app.use(cors())
 	console.log('cors mode enabled')
 
+	app.get('/messages', async (req, res) => {
+		const pgClient = new Client({
+            host: process.env.PG_ADDRESS,
+            port: process.env.PG_PORT,
+            user: process.env.PG_USER,
+            password:  process.env.PG_PASSWORD,
+            database: process.env.PG_DATABASE
+        })
+
+        await pgClient.connect()
+
+        const result = await pgClient.query('SELECT * FROM messages')
+
+        res.json(result.rows)
+	})
+
 	if (process.env.PG_ADDRESS === undefined)
 		throw Error('PG_ADDRESS is required')
 	if (process.env.PG_PORT === undefined) throw Error('PG_PORT is required')
