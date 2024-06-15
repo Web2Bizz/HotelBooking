@@ -1,0 +1,10 @@
+.chat-list {
+    height: calc(100svh - (56px + 39px + 55px + 40px));
+    background-color: aliceblue;
+    margin-right: 1.5rem;
+}
+
+.chat-form {
+    display: flex;
+    flex-direction: row;
+}

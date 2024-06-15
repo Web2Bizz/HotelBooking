@@ -1,22 +1,40 @@
 import {
 	ApiPage,
 	BookingPage,
+	DeniedPage,
 	FooterPage,
 	GeneralPage,
 	HeaderPage,
+	LoginPage,
 	MainPage,
 	OptionsAddPage,
 	OptionsListPage,
 	RequestsPage,
 	RequestViewPage
 } from '@pages'
-import { AdminLayout } from '@ui'
+import { AdminLayout, AuthenticatedLayout, UnauthenticatedLayout } from '@ui'
 import { RouteObject } from 'react-router-dom'
 
 export const adminRouter: RouteObject[] = [
 	{
+		path: 'login',
+		element: (
+			<UnauthenticatedLayout>
+				<LoginPage />
+			</UnauthenticatedLayout>
+		)
+	},
+	{
+		path: 'denied',
+		element: <DeniedPage />
+	},
+	{
 		path: '/',
-		element: <AdminLayout />,
+		element: (
+			<AuthenticatedLayout>
+				<AdminLayout />
+			</AuthenticatedLayout>
+		),
 		children: [
 			{
 				path: '',
@@ -24,11 +42,11 @@ export const adminRouter: RouteObject[] = [
 			},
 			{
 				path: 'requests',
-				element: <RequestsPage />
-			},
-			{
-				path: 'request',
 				children: [
+					{
+						path: '',
+						element: <RequestsPage />
+					},
 					{
 						path: ':id',
 						element: <RequestViewPage />

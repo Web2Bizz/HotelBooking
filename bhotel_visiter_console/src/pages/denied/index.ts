@@ -1,0 +1,1 @@
+export { DeniedPage } from './ui'
