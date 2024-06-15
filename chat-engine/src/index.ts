@@ -20,7 +20,7 @@ const main = async () => {
 	app.use(cors())
 	console.log('cors mode enabled')
 
-	app.get('/messages', async (req, res) => {
+	app.get('/messages', async (_, res) => {
 		const pgClient = new Client({
             host: process.env.PG_ADDRESS,
             port: process.env.PG_PORT,
@@ -32,6 +32,26 @@ const main = async () => {
         await pgClient.connect()
 
         const result = await pgClient.query('SELECT * FROM messages')
+
+		await pgClient.end()
+		
+        res.json(result.rows)
+	})
+	
+	app.get('/rooms', async (_, res) => {
+		const pgClient = new Client({
+            host: process.env.PG_ADDRESS,
+            port: process.env.PG_PORT,
+            user: process.env.PG_USER,
+            password:  process.env.PG_PASSWORD,
+            database: process.env.PG_DATABASE
+        })
+		
+        await pgClient.connect()
+		
+        const result = await pgClient.query('SELECT * FROM rooms')
+
+		await pgClient.end()
 
         res.json(result.rows)
 	})

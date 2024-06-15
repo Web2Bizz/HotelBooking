@@ -4,12 +4,12 @@ import './style.scss'
 import { useNavigate } from 'react-router-dom'
 
 const images = [
-	'http://localhost:5170/url1.jpg',
-	'http://localhost:5170/d1.jpg',
-	'http://localhost:5170/d2.jpg',
-	'http://localhost:5170/d3.jpg',
-	'http://localhost:5170/url1.jpg',
-	'http://localhost:5170/url1.jpg'
+	'/url1.jpg',
+	'/d1.jpg',
+	'/d2.jpg',
+	'/d3.jpg',
+	'/url1.jpg',
+	'/url1.jpg'
 ]
 
 const RoomPreview = () => {

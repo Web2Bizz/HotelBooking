@@ -21,7 +21,8 @@ export default defineConfig({
 			'@features': path.resolve(__dirname, './src/features'),
 			'@ui': path.resolve(__dirname, './src/shared/ui'),
 			'@helpers': path.resolve(__dirname, './src/helpers'),
-			'@contexts': path.resolve(__dirname, './src/app/contexts')
+			'@contexts': path.resolve(__dirname, './src/app/contexts'),
+			'@types': path.resolve(__dirname, './src/shared/types'),
 		}
 	},
 	plugins: [react()]

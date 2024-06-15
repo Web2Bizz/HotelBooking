@@ -42,11 +42,11 @@ export const adminRouter: RouteObject[] = [
 			},
 			{
 				path: 'requests',
-				element: <RequestsPage />
-			},
-			{
-				path: 'request',
 				children: [
+					{
+						path: '',
+						element: <RequestsPage />
+					},
 					{
 						path: ':id',
 						element: <RequestViewPage />
