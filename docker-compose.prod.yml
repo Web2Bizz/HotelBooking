@@ -145,6 +145,9 @@ services:
     ports:
       - '7777:7777'
     restart: always
+    depends_on:
+      - postgres-client
+    networks:
     environment:
       - PORT=7777
       - NODE_ENV=production
