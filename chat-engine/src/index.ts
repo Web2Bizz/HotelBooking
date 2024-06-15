@@ -44,8 +44,6 @@ const main = async () => {
 
 		const result = await pgClient.query('SELECT * FROM messages')
 
-		await pgClient.end()
-
 		res.json(result.rows)
 	})
 
@@ -61,8 +59,6 @@ const main = async () => {
 		await pgClient.connect()
 
 		const result = await pgClient.query('SELECT * FROM rooms')
-
-		await pgClient.end()
 
 		res.json(result.rows)
 	})
@@ -124,8 +120,6 @@ const main = async () => {
 			)
 
 			history.push(payload)
-
-			await pgClient.end()
 		})
 
 		socket.on('disconnect', () => {
