@@ -45,7 +45,7 @@ const main = async () => {
 
 		await pgClient.connect()
 
-		const result = await pgClient.query('SELECT * FROM messages')
+		const result = await pgClient.query(`SELECT * FROM messages WHERE room_id=${id}`)
 
 		res.json(result.rows)
 	})

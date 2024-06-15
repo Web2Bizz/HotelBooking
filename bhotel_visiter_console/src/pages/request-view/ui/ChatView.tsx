@@ -18,7 +18,7 @@ export const ChatView = () => {
 			{messages.map((message, item) => (
 				<li key={item}>
 					<div className='chat-list__item'>
-						<div className='chat-list__item-text'>{message.text}</div>
+						<div className='chat-list__item-text'>{message.message}</div>
 					</div>
 				</li>
 			))}
