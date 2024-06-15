@@ -13,11 +13,12 @@ export const UnauthenticatedLayout = (props: { children: ReactNode }) => {
 		
 		if (context.id_user !== '') {
 			navigate('/')
-		} else {
-			if (context.role !== 'admin') {
-				navigate('/denied')
-			}
-		}
+		} 
+		// else {
+		// 	if (context.role !== 'admin') {
+		// 		navigate('/denied')
+		// 	}
+		// }
 	}, [context, navigate])
 
 	return children
