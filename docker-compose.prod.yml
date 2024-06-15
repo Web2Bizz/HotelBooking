@@ -153,6 +153,9 @@ services:
       - SKT_PG_USER=postgres
       - SKT_PG_PASSWORD=fuckin_password
       - SKT_PG_DATABASE=booking_messages
+    networks:
+      network:
+        ipv4_address: 24.16.2.34
 
 volumes:
   postgres-data-hotel:
