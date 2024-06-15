@@ -1,5 +1,9 @@
 export type TMessage = {
-    text: string
+	id: string
+	author_id: string
+	room_id: string
+	date: string
+    message: string
 }
 
 export type TRequestItem = {
