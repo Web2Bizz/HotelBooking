@@ -145,6 +145,12 @@ services:
     environment:
       - PORT=7777
       - NODE_ENV=production
+      - PORT=7777
+      - PG_PORT=5440
+      - PG_ADDRESS=87.242.117.193
+      - PG_USER=postgres
+      - PG_PASSWORD=fuckin_password
+      - PG_DATABASE=booking_messages
 
 volumes:
   postgres-data-hotel:
