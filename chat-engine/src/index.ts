@@ -99,8 +99,7 @@ const main = async () => {
 				user: process.env.SKT_PG_USER,
 				password: process.env.SKT_PG_PASSWORD,
 				host: process.env.SKT_PG_ADDRESS,
-				port:
-					Number.parseInt(process.env?.SKT_PG_PORT?.toString() ?? '5432') ?? 5432,
+				port: 5440,
 				database: process.env.SKT_PG_DATABASE
 			})
 
