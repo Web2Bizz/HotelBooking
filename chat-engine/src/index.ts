@@ -20,51 +20,51 @@ const main = async () => {
 	app.use(cors())
 	console.log('cors mode enabled')
 
-	if (process.env.PG_ADDRESS === undefined)
-		throw Error('PG_ADDRESS is required')
-	if (process.env.PG_PORT === undefined) throw Error('PG_PORT is required')
-	if (process.env.PG_USER === undefined) throw Error('PG_USER is required')
-	if (process.env.PG_PASSWORD === undefined)
-		throw Error('PG_PASSWORD is required')
-	if (process.env.PG_DATABASE === undefined)
-		throw Error('PG_DATABASE is required')
+	if (process.env.SKT_PG_ADDRESS === undefined)
+		throw Error('SKT_PG_ADDRESS is required')
+	if (process.env.SKT_PG_PORT === undefined) throw Error('SKT_PG_PORT is required')
+	if (process.env.SKT_PG_USER === undefined) throw Error('SKT_PG_USER is required')
+	if (process.env.SKT_PG_PASSWORD === undefined)
+		throw Error('SKT_PG_PASSWORD is required')
+	if (process.env.SKT_PG_DATABASE === undefined)
+		throw Error('SKT_PG_DATABASE is required')
 
 	console.log('postgres client created')
 
 	app.get('/messages', async (_, res) => {
 		const pgClient = new Client({
-            host: process.env.PG_ADDRESS,
-            port: process.env.PG_PORT || 5440,
-            user: process.env.PG_USER,
-            password:  process.env.PG_PASSWORD,
-            database: process.env.PG_DATABASE
-        })
+			host: process.env.SKT_PG_ADDRESS,
+			user: process.env.SKT_PG_USER,
+			port: 5440,
+			password: process.env.SKT_PG_PASSWORD,
+			database: process.env.SKT_PG_DATABASE
+		})
 
-        await pgClient.connect()
+		await pgClient.connect()
 
-        const result = await pgClient.query('SELECT * FROM messages')
+		const result = await pgClient.query('SELECT * FROM messages')
 
 		await pgClient.end()
-		
-        res.json(result.rows)
+
+		res.json(result.rows)
 	})
-	
+
 	app.get('/rooms', async (_, res) => {
 		const pgClient = new Client({
-            host: process.env.PG_ADDRESS,
-            port: process.env.PG_PORT,
-            user: process.env.PG_USER,
-            password:  process.env.PG_PASSWORD,
-            database: process.env.PG_DATABASE
-        })
-		
-        await pgClient.connect()
-		
-        const result = await pgClient.query('SELECT * FROM rooms')
+			host: process.env.SKT_PG_ADDRESS,
+			user: process.env.SKT_PG_USER,
+			port: 5440,
+			password: process.env.SKT_PG_PASSWORD,
+			database: process.env.SKT_PG_DATABASE
+		})
+
+		await pgClient.connect()
+
+		const result = await pgClient.query('SELECT * FROM rooms')
 
 		await pgClient.end()
 
-        res.json(result.rows)
+		res.json(result.rows)
 	})
 
 	const server = createServer(app)
@@ -93,11 +93,12 @@ const main = async () => {
 			console.log(`user with id: ${payload.userId} sent message`)
 
 			const pgClient = new Client({
-				user: process.env.PG_USER,
-				password: process.env.PG_PASSWORD,
-				host: process.env.PG_ADDRESS,
-				port: Number.parseInt(process.env?.PG_PORT?.toString() ?? '5432') ?? 5432,
-				database: process.env.PG_DATABASE
+				user: process.env.SKT_PG_USER,
+				password: process.env.SKT_PG_PASSWORD,
+				host: process.env.SKT_PG_ADDRESS,
+				port:
+					Number.parseInt(process.env?.SKT_PG_PORT?.toString() ?? '5432') ?? 5432,
+				database: process.env.SKT_PG_DATABASE
 			})
 
 			await pgClient.connect()
