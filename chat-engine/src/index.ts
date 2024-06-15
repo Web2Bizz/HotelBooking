@@ -95,38 +95,38 @@ const main = async () => {
 			console.log('accepted new message in room: ' + roomId)
 			io.to(roomId).emit('message', payload)
 
-			// const pgClient = new Client({
-			// 	user: process.env.SKT_PG_USER,
-			// 	password: process.env.SKT_PG_PASSWORD,
-			// 	host: process.env.SKT_PG_ADDRESS,
-			// 	port:
-			// 		Number.parseInt(process.env?.SKT_PG_PORT?.toString() ?? '5432') ?? 5432,
-			// 	database: process.env.SKT_PG_DATABASE
-			// })
+			const pgClient = new Client({
+				user: process.env.SKT_PG_USER,
+				password: process.env.SKT_PG_PASSWORD,
+				host: process.env.SKT_PG_ADDRESS,
+				port:
+					Number.parseInt(process.env?.SKT_PG_PORT?.toString() ?? '5432') ?? 5432,
+				database: process.env.SKT_PG_DATABASE
+			})
 
-			// await pgClient.connect()
+			await pgClient.connect()
 
 			if (history.length === 0) {
-				// await pgClient.query(
-				// 	`INSERT INTO rooms 
-				// 	(id, client_id, status) 
-				// 	VALUES 
-				// 	($1, $2, $3)`,
-				// 	[roomId, payload.userId, 'ACTIVE']
-				// )
+				await pgClient.query(
+					`INSERT INTO rooms 
+					(id, client_id, status) 
+					VALUES 
+					($1, $2, $3)`,
+					[roomId, payload.userId, 'ACTIVE']
+				)
 			}
 
-			// await pgClient.query(
-			// 	`INSERT INTO messages 
-			// 		(id, author_id, message, room_id) 
-			// 		VALUES 
-			// 		($1, $2, $3, $4)`,
-			// 	[uuidv4(), payload.userId, payload.text, roomId]
-			// )
+			await pgClient.query(
+				`INSERT INTO messages 
+					(id, author_id, message, room_id) 
+					VALUES 
+					($1, $2, $3, $4)`,
+				[uuidv4(), payload.userId, payload.text, roomId]
+			)
 
 			history.push(payload)
 
-			// await pgClient.end()
+			await pgClient.end()
 		})
 
 		socket.on('disconnect', () => {
