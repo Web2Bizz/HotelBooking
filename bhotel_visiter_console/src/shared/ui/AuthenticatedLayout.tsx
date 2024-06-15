@@ -13,11 +13,12 @@ export const AuthenticatedLayout = (props: { children: ReactNode }) => {
 		
 		if (context.id_user === '') {
 			navigate('/login')
-		} else {
-			if (context.role === 'user') {
-				navigate('/denied')
-			}
 		}
+		//  else {
+		// 	if (context.role === 'user') {
+		// 		navigate('/denied')
+		// 	}
+		// }
 	}, [context, navigate])
 
 	return children
