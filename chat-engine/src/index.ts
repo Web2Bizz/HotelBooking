@@ -23,7 +23,7 @@ const main = async () => {
 	app.get('/messages', async (_, res) => {
 		const pgClient = new Client({
             host: process.env?.PG_ADDRESS ?? '',
-            port: process.env?.PG_PORT ?? 5432,
+            port: Number.parseInt(process.env.PG_PORT.toString()) ?? 5432,
             user: process.env?.PG_USER ?? '',
             password:  process.env?.PG_PASSWORD ?? '',
             database: process.env?.PG_DATABASE ?? ''
@@ -40,11 +40,11 @@ const main = async () => {
 	
 	app.get('/rooms', async (_, res) => {
 		const pgClient = new Client({
-            host: process.env.PG_ADDRESS,
-            port: process.env.PG_PORT,
-            user: process.env.PG_USER,
-            password:  process.env.PG_PASSWORD,
-            database: process.env.PG_DATABASE
+            host: process.env?.PG_ADDRESS ?? '',
+            port: Number.parseInt(process.env.PG_PORT.toString()) ?? 5432,
+            user: process.env?.PG_USER ?? '',
+            password:  process.env?.PG_PASSWORD ?? '',
+            database: process.env?.PG_DATABASE ?? ''
         })
 		
         await pgClient.connect()
