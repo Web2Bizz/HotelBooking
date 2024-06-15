@@ -16,8 +16,8 @@ COPY package.json package-lock.json ./
 RUN npm i
 COPY --from=build /app/chat-engine/source/dist ./dist
 
-EXPOSE 7777
-
 WORKDIR /app/chat-engine/dist
+
+EXPOSE 7777
 
 ENTRYPOINT [ "node", "./index.js" ]
