@@ -32,7 +32,7 @@ const Chat = () => {
 
 	const context = useContext(UserContext)
 
-	const socketIoRef = useRef<Socket>()
+	const socketIoRef = useRef<Socket>(null)
 	const inputMessageRef = useRef<InputRef>(null)
 	const ref = useClickAway<HTMLDivElement>(() => {
 		setChatIsOpen(false)
@@ -41,7 +41,7 @@ const Chat = () => {
 	useEffect(() => {
 		socketIoRef.current = io(import.meta.env.VITE_APP_SOCKET_DOMAIN)
 
-		if (socketIoRef.current === undefined) return
+		if (socketIoRef.current === null) return
 
 		socketIoRef.current?.on('message', (msg: Message) => {
 			console.log(JSON.stringify(msg))
