@@ -19,11 +19,24 @@ export const RequestItem = (props: TRequestItem) => {
 			<div className='flex flex-row gap-3'>
 				{isResolved ? (
 					<>
-						<Button outlined severity='secondary' onClick={() => navigate(`${id}`)} label='Перейти' />
+						<Button
+							outlined
+							severity='secondary'
+							onClick={() => navigate(`${id}`)}
+							label='Перейти'
+						/>
 						<Button outlined severity='success' label='Отметить как решённое' />
 					</>
 				) : (
-					'Вопрос решён'
+					<>
+						<Button
+							outlined
+							severity='secondary'
+							onClick={() => navigate(`${id}`)}
+							label='Перейти'
+						/>
+						'Вопрос решён'
+					</>
 				)}
 			</div>
 		</div>

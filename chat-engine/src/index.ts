@@ -1,4 +1,4 @@
-import express from 'express'
+import express, { Request, Response, NextFunction } from 'express'
 import * as dotenv from 'dotenv'
 import { createServer } from 'node:http'
 import cors from 'cors'
@@ -31,7 +31,10 @@ const main = async () => {
 
 	console.log('postgres client created')
 
-	app.get('/messages', async (_, res) => {
+	app.get('/messages/:id', async (req: Request, res: Response): Promise<void> => {
+
+		const { id } = req.params
+		
 		const pgClient = new Client({
 			host: process.env.SKT_PG_ADDRESS,
 			user: process.env.SKT_PG_USER,
