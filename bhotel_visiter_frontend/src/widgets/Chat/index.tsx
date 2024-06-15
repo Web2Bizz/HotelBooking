@@ -1,7 +1,7 @@
 import { CloseOutlined, MessageOutlined, SendOutlined } from '@ant-design/icons'
 import { trpc } from '@helpers'
 import { Button, Input, InputRef } from 'antd'
-import { useContext, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { MutableRefObject, useContext, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { io, Socket } from 'socket.io-client'
 import { useClickAway } from '@uidotdev/usehooks'
 import { ChatView } from './ChatView'
@@ -32,7 +32,7 @@ const Chat = () => {
 
 	const context = useContext(UserContext)
 
-	const socketIoRef = useRef<Socket>(null)
+	const socketIoRef: MutableRefObject<Socket> = useRef<Socket>(null)
 	const inputMessageRef = useRef<InputRef>(null)
 	const ref = useClickAway<HTMLDivElement>(() => {
 		setChatIsOpen(false)

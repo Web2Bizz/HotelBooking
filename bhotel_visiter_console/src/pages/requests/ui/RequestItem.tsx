@@ -21,21 +21,24 @@ export const RequestItem = (props: TRequestItem) => {
 					<>
 						<Button
 							outlined
-							severity='secondary'
 							onClick={() => navigate(`${id}`)}
 							label='Перейти'
 						/>
-						<Button outlined severity='success' label='Отметить как решённое' />
+						<Button outlined severity='success' label='Вопрос решён' />
 					</>
 				) : (
 					<>
 						<Button
 							outlined
-							severity='secondary'
 							onClick={() => navigate(`${id}`)}
 							label='Перейти'
 						/>
-						'Вопрос решён'
+						<Button
+							outlined
+							disabled
+							severity='secondary'
+							label='Вопрос решён'
+						/>
 					</>
 				)}
 			</div>

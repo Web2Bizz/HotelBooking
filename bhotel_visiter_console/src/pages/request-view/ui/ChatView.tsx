@@ -1,19 +1,14 @@
 import { TMessage } from '@types'
 import './style.css'
-import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
 
-export const ChatView = () => {
-	const [messages] = useState<Array<TMessage>>([])
-	const { id } = useParams()
+type TChatViewProps = {
+	messages: Array<TMessage>
+}
 
-	useEffect(() => {
-		if (id === undefined || id === null) return
+export const ChatView = (props: TChatViewProps) => {
+	const { messages } = props
 
-		fetch(`${import.meta.env.VITE_APP_SOCKET_DOMAIN}/messages/${id}`)
-	}, [id])
-
-	const messageList = (
+	return (
 		<ul className='chat-list'>
 			{messages.map((message, item) => (
 				<li key={item}>
@@ -24,6 +19,4 @@ export const ChatView = () => {
 			))}
 		</ul>
 	)
-
-	return messageList
 }

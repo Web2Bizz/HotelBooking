@@ -22,8 +22,10 @@ const main = async () => {
 
 	if (process.env.SKT_PG_ADDRESS === undefined)
 		throw Error('SKT_PG_ADDRESS is required')
-	if (process.env.SKT_PG_PORT === undefined) throw Error('SKT_PG_PORT is required')
-	if (process.env.SKT_PG_USER === undefined) throw Error('SKT_PG_USER is required')
+	if (process.env.SKT_PG_PORT === undefined)
+		throw Error('SKT_PG_PORT is required')
+	if (process.env.SKT_PG_USER === undefined)
+		throw Error('SKT_PG_USER is required')
 	if (process.env.SKT_PG_PASSWORD === undefined)
 		throw Error('SKT_PG_PASSWORD is required')
 	if (process.env.SKT_PG_DATABASE === undefined)
@@ -31,24 +33,28 @@ const main = async () => {
 
 	console.log('postgres client created')
 
-	app.get('/messages/:id', async (req: Request, res: Response): Promise<void> => {
+	app.get(
+		'/messages/:id',
+		async (req: Request, res: Response): Promise<void> => {
+			const { id } = req.params
 
-		const { id } = req.params
-		
-		const pgClient = new Client({
-			host: process.env.SKT_PG_ADDRESS,
-			user: process.env.SKT_PG_USER,
-			port: 5440,
-			password: process.env.SKT_PG_PASSWORD,
-			database: process.env.SKT_PG_DATABASE
-		})
+			const pgClient = new Client({
+				host: process.env.SKT_PG_ADDRESS,
+				user: process.env.SKT_PG_USER,
+				port: 5440,
+				password: process.env.SKT_PG_PASSWORD,
+				database: process.env.SKT_PG_DATABASE
+			})
 
-		await pgClient.connect()
+			await pgClient.connect()
 
-		const result = await pgClient.query(`SELECT * FROM messages WHERE room_id=${id}`)
+			const result = await pgClient.query(
+				`SELECT * FROM messages WHERE room_id='${id}'`
+			)
 
-		res.json(result.rows)
-	})
+			res.json(result.rows)
+		}
+	)
 
 	app.get('/rooms', async (_, res) => {
 		const pgClient = new Client({
@@ -131,6 +137,44 @@ const main = async () => {
 			console.log('socket left in room: ' + roomId)
 		})
 	})
+
+	app.put(
+		'/rooms/:id/status',
+		async (req: Request, res: Response): Promise<void> => {
+			const { id } = req.params
+			const { status } = req.body
+
+			if (status !== 'ACTIVE' && status !== 'RESOLVED') {
+				res
+					.status(400)
+					.json({
+						error: 'Invalid status. Status must be either ACTIVE or RESOLVED.'
+					})
+				return
+			}
+
+			const pgClient = new Client({
+				host: process.env.SKT_PG_ADDRESS,
+				user: process.env.SKT_PG_USER,
+				port: 5440,
+				password: process.env.SKT_PG_PASSWORD,
+				database: process.env.SKT_PG_DATABASE
+			})
+
+			await pgClient.connect()
+
+			const result = await pgClient.query(
+				`UPDATE rooms SET status=$1 WHERE id=$2 RETURNING *`,
+				[status, id]
+			)
+
+			if (result.rows.length === 0) {
+				res.status(404).json({ error: 'Room not found.' })
+			} else {
+				res.json(result.rows[0])
+			}
+		}
+	)
 
 	if (process.env.PORT === undefined)
 		throw new Error('PORT env-variable is undefined')
