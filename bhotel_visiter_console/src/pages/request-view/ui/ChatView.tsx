@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 export const ChatView = () => {
-	const [messages, setMesages] = useState<Array<TMessage>>([])
+	const [messages] = useState<Array<TMessage>>([])
 	const { id } = useParams()
 
 	useEffect(() => {
