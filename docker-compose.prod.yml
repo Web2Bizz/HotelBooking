@@ -150,6 +150,11 @@ services:
     environment:
       - PORT=7777
       - NODE_ENV=production
+      - SKT_PG_PORT=5440
+      - SKT_PG_ADDRESS=87.242.117.193
+      - SKT_PG_USER=postgres
+      - SKT_PG_PASSWORD=fuckin_password
+      - SKT_PG_DATABASE=booking_messages
     networks:
       network:
         ipv4_address: 24.16.2.34
