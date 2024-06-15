@@ -14,7 +14,7 @@ export const AuthenticatedLayout = (props: { children: ReactNode }) => {
 		if (context.id_user === '') {
 			navigate('/login')
 		} else {
-			if (context.role !== 'admin') {
+			if (context.role === 'user') {
 				navigate('/denied')
 			}
 		}
