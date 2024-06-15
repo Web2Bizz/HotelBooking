@@ -11,6 +11,7 @@ export const RequestViewPage = () => {
 		<>
 			<AdminPageTitle title={'Обращение №XXX'} />
 			<Button outlined label='К списку обращений' onClick={() => navigate('/requests')}/>
+			<Button outlined severity='success' label='Вопрос решён' onClick={() => navigate('/requests')}/>
 			<Chat />
 		</>
 	)

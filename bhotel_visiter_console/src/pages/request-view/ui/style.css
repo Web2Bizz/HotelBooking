@@ -2,6 +2,20 @@
     height: calc(100svh - (56px + 39px + 55px + 40px));
     background-color: aliceblue;
     margin-right: 1.5rem;
+    overflow-y: auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    list-style: none;
+}
+
+.chat-list__item {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    max-width: 45%;
+    width: fit-content;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 .chat-form {
