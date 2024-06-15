@@ -135,17 +135,17 @@ services:
       network:
         ipv4_address: 24.16.2.90
 
-  chatix:
-    build:
-      context: ./chat-engine
-      dockerfile: Dockerfile
-    ports:
-      - '7777:7777'
-    restart: always
-    environment:
-      - PORT=7777
-      - REDIS_PORT=12245
-      - NODE_ENV=production
+  # chatix:
+  #   build:
+  #     context: ./chat-engine
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - '7777:7777'
+  #   restart: always
+  #   environment:
+  #     - PORT=7777
+  #     - REDIS_PORT=12245
+  #     - NODE_ENV=production
 
 volumes:
   postgres-data-hotel:
