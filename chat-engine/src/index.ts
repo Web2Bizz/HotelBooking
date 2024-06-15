@@ -96,7 +96,7 @@ const main = async () => {
 				user: process.env.PG_USER,
 				password: process.env.PG_PASSWORD,
 				host: process.env.PG_ADDRESS,
-				port: process.env.PG_PORT,
+				port: Number.parseInt(process.env?.PG_PORT.toString() ?? '5432') ?? 5432,
 				database: process.env.PG_DATABASE
 			})
 
