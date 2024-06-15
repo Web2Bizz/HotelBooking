@@ -47,9 +47,9 @@ export const LoginPage = () => {
 			// console.log(userData[0], context)
 
 			localStorage.setItem('userInfo', JSON.stringify(userData[0]))
+			navigate('/')
 
 			// context.setUserData(userData[0])
-			navigate('/')
 		}
 	}
 
