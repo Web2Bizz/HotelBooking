@@ -12,7 +12,8 @@ FROM node:21-alpine3.18 as prod
 
 WORKDIR /app/chat-engine
 COPY package.json package-lock.json ./
-RUN npm ci --only=production
+# RUN npm ci --only=production
+RUN npm i
 COPY --from=build /app/chat-engine/source/dist ./dist
 
 EXPOSE 7777
