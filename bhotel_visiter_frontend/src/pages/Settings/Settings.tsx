@@ -54,6 +54,7 @@ const Settings = () => {
 		urlencoded.append('phone', data.phone)
 		urlencoded.append('email', data.email)
 		urlencoded.append('password', data.password)
+		urlencoded.append('birthday', data.birthday)
 
 		fetch(`${import.meta.env.VITE_APP_ADMIN_API}/v2/user`, {
 			method: 'PUT',
