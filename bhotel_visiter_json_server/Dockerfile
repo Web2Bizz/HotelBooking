@@ -5,6 +5,6 @@ COPY . .
 
 RUN ["npm", "i"]
 
-EXPOSE 7865
+EXPOSE 7887
 
-ENTRYPOINT ["npx", "json-server", "-p 7865", "-h 0.0.0.0", "db.json"]
+ENTRYPOINT ["npx", "json-server", "-p 7887", "-h 0.0.0.0", "db.json"]

@@ -162,7 +162,7 @@ services:
   room-images:
     build: ./bhotel_visiter_json_server
     ports:
-      - 7865:7865
+      - 7887:7887
     networks:
       network:
         ipv4_address: 26.16.2.62
