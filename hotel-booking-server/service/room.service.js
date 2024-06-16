@@ -21,7 +21,7 @@ class RoomService {
       from public.room as R 
       inner join public.roomtype as RT on R.id_room_type = RT.id_room_type
       inner join public.roomstatus as RS on R.id_status = RS.id_status 
-      order by R.id_room asc LIMIT 5 OFFSET 5`
+      order by R.id_room asc LIMIT 8 OFFSET 5`
 		)
 		return response
 	}
