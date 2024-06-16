@@ -31,17 +31,40 @@ type SettingsField = {
 
 const Settings = () => {
 	const [form] = Form.useForm()
+	const context = useContext(UserContext)
 
 	const onFinish: FormProps<SettingsField>['onFinish'] = async (
 		values: any
 	) => {
-		console.log('Received values:', {
+		const data = {
 			...values,
 			birthday: dayjs(values.birthday).format('YYYY-MM-DD')
-		})
-	}
+		}
 
-	const context = useContext(UserContext)
+		console.log('Received values:', data)
+
+		const myHeaders = new Headers()
+		myHeaders.append('Content-Type', 'application/x-www-form-urlencoded')
+
+		const urlencoded = new URLSearchParams()
+		urlencoded.append('id_user', context.id_user)
+		urlencoded.append('name', data.name)
+		urlencoded.append('surname', data.surname)
+		urlencoded.append('father_name', data.father_name)
+		urlencoded.append('phone', data.phone)
+		urlencoded.append('email', data.email)
+		urlencoded.append('password', data.password)
+
+		fetch(`${import.meta.env.VITE_APP_ADMIN_API}/v2/user`, {
+			method: 'PUT',
+			headers: myHeaders,
+			body: urlencoded
+		})
+			.then((response) => response.json())
+			.then((response) => {
+				console.log(response)
+			})
+	}
 
 	useEffect(() => {
 		form.setFieldsValue({

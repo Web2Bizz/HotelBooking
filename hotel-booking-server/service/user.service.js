@@ -84,17 +84,9 @@ class UserService {
 	}
 
 	async editV2User(id_user, login, password, email, birthday, name, surname, father_name, phone) {
+		console.log('editV2User is invoked');
 		await client.query(
-			`update public.users set 
-				login = $2, 
-				email = $3, 
-				password = $4,
-				birthday = $5,
-                name = $6,
-                surname = $7,
-                father_name = $8,
-                phone = $9
-      		where id_user = $1`,
+			`update public.users set login = $2, email = $3, password = $4, birthday = $5, name = $6, surname = $7, father_name = $8, phone = $9 where id_user = $1`,
 			[id_user, login, email, password, birthday, name, surname, father_name, phone]
 		)
 	}
