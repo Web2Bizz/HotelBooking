@@ -57,7 +57,7 @@ const RoomInfo = () => {
 				</div>
 				<div className='RoomInfo-button'>
 					<p>
-						<span>{roomInfo?.price}</span> / ночь
+						<span>{roomInfo?.price} рублей</span> / ночь
 					</p>
 					<div>
 						<Button onClick={onBooking} type='primary'>
