@@ -59,7 +59,7 @@ class UserController {
 				surname,
 				father_name,
 				phone
-			} = req.body.id_user
+			} = req.body
 			await userService.editV2User(
 				id_user,
 				login,
