@@ -28,10 +28,10 @@ const RoomsImg: React.FC<ImageGalleryProps> = ({ images }) => {
   const mainImage = images[currentIndex];
   const galleryImages = images.slice(currentIndex + 1, currentIndex + 5);
 
-  return (
+  return images.length > 0 && (
     <div className="RoomsImg-container">
       <div className="RoomsImg-mainImg">
-        <img src={mainImage} alt="Main" />
+        <img src={`http://87.242.117.193:9088/bucket/${mainImage}`} alt="Main" />
       </div>
       <div className="RoomsImg-miniImg">
         {images.length > 5 && (
@@ -43,7 +43,7 @@ const RoomsImg: React.FC<ImageGalleryProps> = ({ images }) => {
         {galleryImages.map((image, index) => (
           <img
             key={index}
-            src={image}
+            src={`http://87.242.117.193:9088/bucket/${image}`}
             alt={`Gallery ${index}`}
             style={{ width: "24%", aspectRatio: "1" }}
           />

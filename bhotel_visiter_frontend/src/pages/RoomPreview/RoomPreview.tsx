@@ -1,7 +1,14 @@
 import { Button } from 'antd'
-import { Header, RoomInfo, RoomReviews, RoomsImg, SimilarRooms } from '../../widgets'
+import {
+	Header,
+	RoomInfo,
+	RoomReviews,
+	RoomsImg,
+	SimilarRooms
+} from '../../widgets'
 import './style.scss'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 
 const images = [
 	'/url1.jpg',
@@ -19,6 +26,20 @@ const RoomPreview = () => {
 		navigate('/')
 	}
 
+	const [images, setImages] = useState<Array<string>>([])
+
+	const { id } = useParams()
+
+	useEffect(() => {
+		// http://87.242.117.193:9088/bucket/
+		fetch(`http://87.242.117.193:7887/images/${id}`)
+			.then((response) => response.json())
+			.then((response) => {
+				setImages(response.image_list)
+				console.log(response.image_list)
+			})
+	}, [])
+
 	return (
 		<>
 			<div
@@ -32,7 +53,7 @@ const RoomPreview = () => {
 					<Button onClick={onBack}>{'<< К списку номеров'}</Button>
 				</div>
 				<div className='RoomPreview-room'>
-					<RoomsImg images={images} />
+					{images && <RoomsImg images={images} />}
 					<RoomInfo />
 				</div>
 				{false && <RoomReviews />}
