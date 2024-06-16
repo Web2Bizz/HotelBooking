@@ -48,6 +48,7 @@
 .Header-user_profile {
 	display: flex;
 	cursor: pointer;
+	color: #ffffff;
 
 	.Header-user_profile__name {
 		margin-right: 15px;
@@ -55,9 +56,6 @@
 		flex-direction: column;
 		align-items: end;
 		justify-content: center;
-		span {
-			color: #e6e6e683;
-		}
 	}
 }
 
