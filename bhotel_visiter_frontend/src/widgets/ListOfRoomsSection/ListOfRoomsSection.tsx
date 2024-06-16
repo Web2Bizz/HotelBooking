@@ -92,14 +92,13 @@ const ListOfRoomsSection = () => {
 				method: 'POST'
 			})
 				.then((response) => response.json())
-				.then((response) => {
-					console.log(response)
-				})
+				.then((result) => setRooms(result))
+				.catch((error) => console.error(error))
 		} else {
 			fetch(`${import.meta.env.VITE_APP_ADMIN_API}/room/getRoom`)
-			.then((response) => response.json())
-			.then((result) => setRooms(result))
-			.catch((error) => console.error(error))
+				.then((response) => response.json())
+				.then((result) => setRooms(result))
+				.catch((error) => console.error(error))
 		}
 	}
 
