@@ -14,6 +14,19 @@ class RoomService {
     );
     return response;
   }
+
+  async getCurrentRoom(id) {
+    const response = await client.query(
+      `select 
+      R.id_room, R.room_number, R.room_floor, R.facility, RT.room_type, RS.status, RS.color
+      from public.room as R 
+      inner join public.roomtype as RT on R.id_room_type = RT.id_room_type
+      inner join public.roomstatus as RS on R.id_status = RS.id_status
+      WHERE id_room = ${id}
+      order by R.id_room asc `
+    );
+    return response;
+  }
   async createRoom(
     id_room_type,
     room_floor,

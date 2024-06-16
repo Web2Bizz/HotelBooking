@@ -1,6 +1,5 @@
 import { UserOutlined } from '@ant-design/icons'
-import { TUserContext, UserContext } from '@contexts'
-import { InputMask, useMask } from '@react-input/mask'
+import { UserContext } from '@contexts'
 import { Header } from '@widgets'
 import {
 	Avatar,
@@ -12,11 +11,11 @@ import {
 	Input,
 	Row
 } from 'antd'
+import MaskedInput from 'antd-mask-input'
+import dayjs from 'dayjs'
 import { useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './style.scss'
-import MaskedInput from 'antd-mask-input'
-import dayjs from 'dayjs'
 
 type SettingsField = {
 	name: string
