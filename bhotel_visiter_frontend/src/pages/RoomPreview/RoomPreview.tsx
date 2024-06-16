@@ -10,15 +10,6 @@ import './style.scss'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 
-const images = [
-	'/url1.jpg',
-	'/d1.jpg',
-	'/d2.jpg',
-	'/d3.jpg',
-	'/url1.jpg',
-	'/url1.jpg'
-]
-
 const RoomPreview = () => {
 	const navigate = useNavigate()
 
@@ -31,7 +22,6 @@ const RoomPreview = () => {
 	const { id } = useParams()
 
 	useEffect(() => {
-		// http://87.242.117.193:9088/bucket/
 		fetch(`http://87.242.117.193:7887/images/${id}`)
 			.then((response) => response.json())
 			.then((response) => {
