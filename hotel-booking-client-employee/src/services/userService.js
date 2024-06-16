@@ -10,6 +10,9 @@ export default class UserService {
   static async editUser(id_user, login, email, password, role) {
     return await $api.put('/user/editUser', { id_user, login, email, password, role });
   }
+  static async editV2User(id_user, login, email, password, role) {
+    return await $api.put('/user/editUser', { id_user, login, email, password, role });
+  }
   static async getUsers() {
     return await $api.get('/user/getUsers');
   }
