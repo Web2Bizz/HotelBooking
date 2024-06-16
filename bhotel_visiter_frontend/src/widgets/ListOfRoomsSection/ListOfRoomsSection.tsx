@@ -87,12 +87,17 @@ const ListOfRoomsSection = () => {
 
 	const onBooking = () => {
 		console.log('booking')
+		fetch(`${import.meta.env.VITE_APP_ADMIN_API}/v2/filter`)
+			.then((response) => response.json())
+			.then((response) => {
+				console.log(response)
+			})
 	}
 
 	const ComponentToRender = (props: {
 		id: string
 		facility: Array<string>
-		image: string,
+		image: string
 		price: number
 	}) => {
 		const [image, setImage] = useState<string>()
@@ -108,7 +113,12 @@ const ListOfRoomsSection = () => {
 
 		return (
 			<div className='ListOfRoomsSection-rooms-item'>
-				<RoomCard price={props.price} image={image} id={props.id} facility={props.facility} />
+				<RoomCard
+					price={props.price}
+					image={image}
+					id={props.id}
+					facility={props.facility}
+				/>
 			</div>
 		)
 	}
