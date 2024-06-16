@@ -17,25 +17,27 @@ export const Chat = () => {
 		fetch(`${import.meta.env.VITE_APP_SOCKET_DOMAIN}/messages/${id}`)
 			.then((response) => response.json())
 			.then(setMessages)
-			.then(() => {
-				socketIoRef.current = io(import.meta.env.VITE_APP_SOCKET_DOMAIN)
-
-				if (socketIoRef.current === null) return
-
-				socketIoRef.current?.on('message', (msg: TMessage) => {
-					console.log(JSON.stringify(msg))
-
-					setMessages((prev) => [...prev, msg])
-				})
-			})
 
 		if (id === undefined || id === null) return
+
+		socketIoRef.current = io(import.meta.env.VITE_APP_SOCKET_DOMAIN)
+
+		if (socketIoRef.current === null) return
+
+		socketIoRef.current?.emit('join room', id)
+
+		socketIoRef.current.on('message', (msg: TMessage) => {
+			console.log(JSON.stringify(msg))
+			setMessages((prev) => [...prev, msg])
+		})
 	}, [id])
 
 	return (
-		<>
-			<ChatView messages={messages} />
-			<ChatForm socketRef={socketIoRef} />
-		</>
+		id && (
+			<>
+				<ChatView messages={messages} />
+				<ChatForm roomId={id} socketRef={socketIoRef} />
+			</>
+		)
 	)
 }

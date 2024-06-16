@@ -52,6 +52,8 @@ const main = async () => {
 				`SELECT * FROM messages WHERE room_id='${id}'`
 			)
 
+			await pgClient.end()
+
 			res.json(result.rows)
 		}
 	)
@@ -69,73 +71,29 @@ const main = async () => {
 
 		const result = await pgClient.query('SELECT * FROM rooms')
 
+		await pgClient.end()
+
 		res.json(result.rows)
 	})
 
-	const server = createServer(app)
+	app.get('/rooms-user/:userId', async (req, res) => {
+		const { userId } = req.params
 
-	const io = new Server(server, {
-		connectionStateRecovery: {},
-		cors: {
-			origin: '*'
-		}
-	})
-
-	console.log('io server is up')
-
-	io.on('connection', async (socket) => {
-		console.log('accepted new connection')
-
-		const roomId = uuidv4()
-
-		console.log('created room with id: ' + roomId)
-		socket.join(roomId)
-		console.log('socket joined in room: ' + roomId)
-
-		const history = []
-
-		socket.on('message', async (payload) => {
-			console.log(`user with id: ${payload.userId} sent message`)
-
-			console.log('accepted new message in room: ' + roomId)
-			io.to(roomId).emit('message', payload)
-
-			const pgClient = new Client({
-				user: process.env.SKT_PG_USER,
-				password: process.env.SKT_PG_PASSWORD,
-				host: process.env.SKT_PG_ADDRESS,
-				port: 5440,
-				database: process.env.SKT_PG_DATABASE
-			})
-
-			await pgClient.connect()
-
-			if (history.length === 0) {
-				await pgClient.query(
-					`INSERT INTO rooms 
-					(id, client_id, status) 
-					VALUES 
-					($1, $2, $3)`,
-					[roomId, payload.userId, 'ACTIVE']
-				)
-			}
-
-			await pgClient.query(
-				`INSERT INTO messages 
-					(id, author_id, message, room_id) 
-					VALUES 
-					($1, $2, $3, $4)`,
-				[uuidv4(), payload.userId, payload.text, roomId]
-			)
-
-			history.push(payload)
+		const pgClient = new Client({
+			host: process.env.SKT_PG_ADDRESS,
+			user: process.env.SKT_PG_USER,
+			port: 5440,
+			password: process.env.SKT_PG_PASSWORD,
+			database: process.env.SKT_PG_DATABASE
 		})
 
-		socket.on('disconnect', () => {
-			console.log('user disconnected')
-			socket.leave(roomId)
-			console.log('socket left in room: ' + roomId)
-		})
+		await pgClient.connect()
+
+		const result = await pgClient.query('SELECT * FROM rooms WHERE client_id=$1', [userId])
+
+		await pgClient.end()
+
+		res.json(result.rows)
 	})
 
 	app.put(
@@ -145,11 +103,9 @@ const main = async () => {
 			const { status } = req.body
 
 			if (status !== 'ACTIVE' && status !== 'RESOLVED') {
-				res
-					.status(400)
-					.json({
-						error: 'Invalid status. Status must be either ACTIVE or RESOLVED.'
-					})
+				res.status(400).json({
+					error: 'Invalid status. Status must be either ACTIVE or RESOLVED.'
+				})
 				return
 			}
 
@@ -168,6 +124,8 @@ const main = async () => {
 				[status, id]
 			)
 
+			await pgClient.end()
+
 			if (result.rows.length === 0) {
 				res.status(404).json({ error: 'Room not found.' })
 			} else {
@@ -175,6 +133,93 @@ const main = async () => {
 			}
 		}
 	)
+
+	const server = createServer(app)
+
+	const io = new Server(server, {
+		connectionStateRecovery: {},
+		cors: {
+			origin: '*'
+		}
+	})
+
+	console.log('io server is up')
+
+	io.on('connection', async (socket) => {
+		console.log('accepted new connection')
+
+		socket.on('create room', async (payload, callback) => {
+			const roomId = uuidv4()
+
+			console.log('created room with id: ' + roomId)
+			socket.join(roomId)
+			console.log(`client id: ${payload.userId} joined to room ${roomId} `)
+
+			const pgClient = new Client({
+				user: process.env.SKT_PG_USER,
+				password: process.env.SKT_PG_PASSWORD,
+				host: process.env.SKT_PG_ADDRESS,
+				port: 5440,
+				database: process.env.SKT_PG_DATABASE
+			})
+
+			await pgClient.connect()
+
+			await pgClient.query(
+				`INSERT INTO rooms 
+				(id, client_id, status, title) 
+				VALUES 
+				($1, $2, $3, $4)`,
+				[roomId, payload.userId, 'ACTIVE', payload.title]
+			)
+
+			await pgClient.end()
+
+			callback({
+				roomId: roomId
+			})
+		})
+
+		socket.on('join room', async (roomId) => {
+			socket.join(roomId)
+			console.log('socket joined in room: ' + roomId)
+		})
+
+		socket.on('leave room', async (roomId) => {
+			socket.leave(roomId)
+			console.log('socket left in room: ' + roomId)
+		})
+
+		socket.on('message', async (payload) => {
+			console.log(`user with id: ${payload.userId} sent message`)
+
+			console.log('accepted new message in room: ' + payload.roomId)
+
+			io.to(payload.roomId).emit('message', payload)
+
+			const pgClient = new Client({
+				user: process.env.SKT_PG_USER,
+				password: process.env.SKT_PG_PASSWORD,
+				host: process.env.SKT_PG_ADDRESS,
+				port: 5440,
+				database: process.env.SKT_PG_DATABASE
+			})
+
+			await pgClient.connect()
+
+			await pgClient.query(
+				`INSERT INTO messages 
+					(id, author_id, message, room_id) 
+					VALUES 
+					($1, $2, $3, $4)`,
+				[uuidv4(), payload.userId, payload.message, payload.roomId]
+			)
+		})
+
+		socket.on('disconnect', () => {
+			console.log('user disconnected')
+		})
+	})
 
 	if (process.env.PORT === undefined)
 		throw new Error('PORT env-variable is undefined')

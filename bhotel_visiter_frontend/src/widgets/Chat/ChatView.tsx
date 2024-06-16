@@ -1,32 +1,38 @@
-import { LegacyRef, useLayoutEffect, useRef } from "react"
-import { Socket } from "socket.io-client"
-import { Message } from "."
+import { LegacyRef, useLayoutEffect, useRef } from 'react'
+import { Socket } from 'socket.io-client'
+import { Message } from '.'
 
 type TChatViewProps = {
-    messages: Array<Message>
-    backgroundColor: string
-    socket: LegacyRef<Socket>
+	messages: Array<Message>
+	backgroundColor: string
+	socket: LegacyRef<Socket>
+	currentUserId: string
 }
 
 export const ChatView = (props: TChatViewProps) => {
+	const { messages, backgroundColor, currentUserId } = props
 
-    const { messages, backgroundColor } = props
+	const messagesRef = useRef<HTMLUListElement>(null)
 
-    const messagesRef = useRef<HTMLUListElement>(null)
-    
-    useLayoutEffect(() => {
+	useLayoutEffect(() => {
 		messagesRef.current.scrollTo(0, messagesRef.current.scrollHeight)
 	}, [messages.length])
 
 	return (
 		<ul className='messages' ref={messagesRef}>
-			{messages.map((message, index) => (
-				<li className='chat-my' key={index}>
-					<span style={{ backgroundColor: backgroundColor }}>
-						{message.text}
-					</span>
-				</li>
-			))}
+			{messages.map((message, index) =>
+				currentUserId === message.author_id ? (
+					<li className={'chat-my'} key={index}>
+						<span style={{ backgroundColor: backgroundColor }}>
+							{message.message}
+						</span>
+					</li>
+				) : (
+					<li className={'chat-bot'} key={index}>
+						<span>{message.message}</span>
+					</li>
+				)
+			)}
 			{/* <li className='chat-my'>
 								<span style={{ backgroundColor: headerData.background_color }}>
 									Здравствуйте, хочу узнать, есть ли у вас скидка по поводу дня
