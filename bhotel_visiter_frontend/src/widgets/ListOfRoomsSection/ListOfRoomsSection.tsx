@@ -5,11 +5,20 @@ import './style.scss'
 
 const ListOfRoomsSection = () => {
 	const [rooms, setRooms] = useState<Array<any>>()
+	const [isFiltered, setIsFiltered] = useState<boolean>(false)
+	const [fa, setFa] = useState<Array<any>>([])
 
 	useEffect(() => {
 		fetch('http://87.242.117.193:9090/api/room/getRoom')
 			.then((response) => response.json())
 			.then((result) => setRooms(result))
+			.catch((error) => console.error(error))
+
+		fetch('http://87.242.117.193:9090/api/additionals/getFacility')
+			.then((response) => response.json())
+			.then((response) =>
+				setFa(response.map((i) => ({ label: i.facility, value: i.facility })))
+			)
 			.catch((error) => console.error(error))
 	}, [])
 
@@ -71,37 +80,42 @@ const ListOfRoomsSection = () => {
 		console.log('Selected Floors:', checkedValues)
 	}
 
-	const floorOptions = Array.from({ length: 5 }, (v, k) => ({
+	const floorOptions = Array.from({ length: 4 }, (v, k) => ({
 		label: `Этаж ${k + 1}`,
-		value: `floor_${k + 1}`
+		value: (k + 1).toString()
 	}))
 
 	const onBooking = () => {
 		console.log('booking')
 	}
 
-	const ComponentToRender = (props: { id: string; facility: Array<string>; image: string }) => {
-
+	const ComponentToRender = (props: {
+		id: string
+		facility: Array<string>
+		image: string,
+		price: number
+	}) => {
 		const [image, setImage] = useState<string>()
 
 		useEffect(() => {
 			fetch(`http://87.242.117.193:7887/images/${props.id}`)
-			.then((response) => response.json())
-			.then((response) => {
-				setImage(response.cover)
-				console.log(response.cover)
-			})
+				.then((response) => response.json())
+				.then((response) => {
+					setImage(response.cover)
+					console.log(response.cover)
+				})
 		}, [])
-		
+
 		return (
 			<div className='ListOfRoomsSection-rooms-item'>
-				<RoomCard image={image} id={props.id} facility={props.facility} />
+				<RoomCard price={props.price} image={image} id={props.id} facility={props.facility} />
 			</div>
 		)
 	}
 
 	const [currentPage, setCurrentPage] = useState(1)
-	const avalibleItems = Array.isArray(rooms) && rooms.filter((o) => o.status === 'Доступно')
+	const avalibleItems =
+		Array.isArray(rooms) && rooms.filter((o) => o.status === 'Доступно')
 	const totalComponents = avalibleItems.length
 	const onPageChange = (page: number) => {
 		setCurrentPage(page)
@@ -112,9 +126,18 @@ const ListOfRoomsSection = () => {
 	const currentComponents =
 		Array.isArray(avalibleItems) &&
 		avalibleItems
-			.slice((currentPage - 1) * maxDisplayItemsPerPage, currentPage * maxDisplayItemsPerPage)
+			.slice(
+				(currentPage - 1) * maxDisplayItemsPerPage,
+				currentPage * maxDisplayItemsPerPage
+			)
 			.map((item, index) => (
-				<ComponentToRender image={images[index]} id={item.id_room} facility={item.facility} key={index} />
+				<ComponentToRender
+					image={images[index]}
+					id={item.id_room}
+					price={item.price}
+					facility={item.facility}
+					key={index}
+				/>
 			))
 
 	const collapseItems = [
@@ -125,8 +148,8 @@ const ListOfRoomsSection = () => {
 				<ListOfRoomsFilter
 					type='price'
 					range={true}
-					min={0}
-					max={1000}
+					min={1000}
+					max={40000}
 					defaultValue={[100, 500]}
 					onAfterChange={handlePriceChange}
 				/>
@@ -150,7 +173,15 @@ const ListOfRoomsSection = () => {
 		{
 			key: '3',
 			label: 'Количество гостей',
-			children: <ListOfRoomsFilter type='guests' min={1} max={10} defaultValue={2} onChange={handleGuestsChange} />
+			children: (
+				<ListOfRoomsFilter
+					type='guests'
+					min={1}
+					max={10}
+					defaultValue={2}
+					onChange={handleGuestsChange}
+				/>
+			)
 		},
 		{
 			key: '4',
@@ -158,12 +189,7 @@ const ListOfRoomsSection = () => {
 			children: (
 				<ListOfRoomsFilter
 					type='amenities'
-					options={[
-						{ label: 'Кондиционер', value: 'ac' },
-						{ label: 'Ванна', value: 'bath' },
-						{ label: 'Туалет', value: 'toilet' },
-						{ label: 'Фен', value: 'hairdryer' }
-					]}
+					options={fa}
 					onChange={handleAmenitiesChange}
 				/>
 			)
@@ -185,9 +211,18 @@ const ListOfRoomsSection = () => {
 	return (
 		<div className='ListOfRoomsSection-container'>
 			<div className='ListOfRoomsSection-collapse'>
-				<Collapse items={collapseItems} defaultActiveKey={['1', '2', '3', '4']} />
-				<Button onClick={onBooking} type='primary'>
-					Забронировать номер
+				<Collapse
+					items={collapseItems}
+					defaultActiveKey={['1', '2', '3', '4']}
+				/>
+				<Button
+					onClick={() => {
+						onBooking()
+						setIsFiltered((prev) => !prev)
+					}}
+					type='primary'
+				>
+					{!isFiltered ? 'Фильтровать' : 'Сбросить фильтр'}
 				</Button>
 			</div>
 			<div className='ListOfRoomsSection-rooms-container'>
