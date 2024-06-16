@@ -9,6 +9,26 @@
                 "1ccface5-3346-4615-a9fb-a4c49e437322__508695804.jpg",
                 "b99bcd93-9c22-4e8c-8055-36cd54502fb6__496548725.jpg"
             ]
+        },
+        {
+            "room_id": "0bb547be-92ef-4dfb-a136-b364693bc48c",
+            "cover": "cdcaaad1-7d29-4e65-8751-ea52fb695ec4__555934025.jpg",
+            "image_list": [
+                "cdcaaad1-7d29-4e65-8751-ea52fb695ec4__555934025.jpg",
+                "39edf3ad-b05b-4983-942c-fa0d27311c55__555934014.jpg",
+                "29c09376-0ba4-4f9e-879c-aed9c85ff2f0__555934029.jpg",
+                "0f77046b-e5b4-4926-8853-302040d56397__555934021.jpg"
+            ]
+        },
+        {
+            "room_id": "11145a82-2400-4896-baa0-a0ab78ad2413",
+            "cover": "aaf70599-deb4-4bc3-b361-bd9ad4bed02c__536481281.jpg",
+            "image_list": [
+                "aaf70599-deb4-4bc3-b361-bd9ad4bed02c__536481281.jpg",
+                "fddc40ae-4b56-4d20-95e9-2285c5ed9f72__536299524.jpg",
+                "25a56140-4d72-43a2-abd9-b5e0856d1008__536481280.jpg",
+                "c2e19ec1-ed9e-4763-840e-8688826bd4eb__536481278.jpg"
+            ]
         }
     ]
 }
