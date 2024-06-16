@@ -1,4 +1,11 @@
-import { Booking, Profile, ThanksPage, Settings, Payment, NotificationsPage } from '@pages'
+import {
+	Booking,
+	Profile,
+	ThanksPage,
+	Settings,
+	Payment,
+	NotificationsPage
+} from '@pages'
 import { DefaultLayout } from '@ui'
 import { RouteObject } from 'react-router-dom'
 
@@ -57,6 +64,14 @@ export const authRouter: RouteObject[] = [
 		element: (
 			<DefaultLayout>
 				<NotificationsPage />
+			</DefaultLayout>
+		)
+	},
+	{
+		path: '/booking',
+		element: (
+			<DefaultLayout>
+				<Booking />
 			</DefaultLayout>
 		)
 	}

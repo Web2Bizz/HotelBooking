@@ -1,22 +1,17 @@
 import './style.scss'
 
-type ListItem = {
-	id: number
-	content: string
-}
-
 type PeculiaritiesRoomsProps = {
-	items: ListItem[]
+	items: Array<string>
 }
 
 const PeculiaritiesRooms: React.FC<PeculiaritiesRoomsProps> = ({ items }) => {
-	return (
+	return items && (
 		<div className='PeculiaritiesRooms-container'>
 			<p>Удобства:</p>
 			<ul className='PeculiaritiesRooms-custom-list'>
-				{items.map((item) => (
-					<li key={item.id} className='PeculiaritiesRooms-custom-list-item'>
-						{item.content}
+				{items.map((item, index) => (
+					<li key={index} className='PeculiaritiesRooms-custom-list-item'>
+						{item}
 					</li>
 				))}
 			</ul>
