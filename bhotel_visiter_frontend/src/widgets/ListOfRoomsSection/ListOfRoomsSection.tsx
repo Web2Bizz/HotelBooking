@@ -87,11 +87,20 @@ const ListOfRoomsSection = () => {
 
 	const onBooking = () => {
 		console.log('booking')
-		fetch(`${import.meta.env.VITE_APP_ADMIN_API}/v2/filter`, { method: 'POST' })
-			.then((response) => response.json())
-			.then((response) => {
-				console.log(response)
+		if (!isFiltered) {
+			fetch(`${import.meta.env.VITE_APP_ADMIN_API}/v2/filter`, {
+				method: 'POST'
 			})
+				.then((response) => response.json())
+				.then((response) => {
+					console.log(response)
+				})
+		} else {
+			fetch(`${import.meta.env.VITE_APP_ADMIN_API}/room/getRoom`)
+			.then((response) => response.json())
+			.then((result) => setRooms(result))
+			.catch((error) => console.error(error))
+		}
 	}
 
 	const ComponentToRender = (props: {
