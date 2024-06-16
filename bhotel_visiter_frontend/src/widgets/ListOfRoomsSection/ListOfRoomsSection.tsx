@@ -81,9 +81,21 @@ const ListOfRoomsSection = () => {
 	}
 
 	const ComponentToRender = (props: { id: string; facility: Array<string>; image: string }) => {
+
+		const [image, setImage] = useState<string>()
+
+		useEffect(() => {
+			fetch(`http://87.242.117.193:7887/images/${props.id}`)
+			.then((response) => response.json())
+			.then((response) => {
+				setImage(response.cover)
+				console.log(response.cover)
+			})
+		}, [])
+		
 		return (
 			<div className='ListOfRoomsSection-rooms-item'>
-				<RoomCard image={props.image} id={props.id} facility={props.facility} />
+				<RoomCard image={image} id={props.id} facility={props.facility} />
 			</div>
 		)
 	}
