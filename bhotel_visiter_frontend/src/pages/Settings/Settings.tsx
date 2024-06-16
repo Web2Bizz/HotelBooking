@@ -1,5 +1,5 @@
 import { UserOutlined } from '@ant-design/icons'
-import { UserContext } from '@contexts'
+import { TUserContext, UserContext } from '@contexts'
 import { InputMask, useMask } from '@react-input/mask'
 import { Header } from '@widgets'
 import {
@@ -26,6 +26,7 @@ type SettingsField = {
 	birthday?: string
 	email?: string
 	password?: string
+	login?: string
 	confirm_password?: string
 }
 
@@ -65,6 +66,27 @@ const Settings = () => {
 			.then((response) => response.json())
 			.then((response) => {
 				console.log(response)
+				context.email = data.email
+				context.name = data.name
+				context.surname = data.surname
+				context.father_name = data.father_name
+				context.phone = data.phone
+				context.birthday = data.birthday
+
+				localStorage.setItem(
+					'userInfo',
+					JSON.stringify({
+						id_user: context.id_user,
+						name: data.name,
+						surname: data.surname,
+						father_name: data.father_name,
+						phone: data.phone,
+						email: data.email,
+						login: data.login,
+						birthday: data.birthday,
+						role: context.role
+					})
+				)
 			})
 	}
 
@@ -155,7 +177,7 @@ const Settings = () => {
 							</Col>
 						</Row>
 						<Row gutter={[16, 16]}>
-							<Col span={12}>
+							<Col span={8}>
 								<Form.Item<SettingsField>
 									label='Телефон'
 									name='phone'
@@ -166,7 +188,7 @@ const Settings = () => {
 									<MaskedInput mask={'+7 (000) 000-00-00'} />
 								</Form.Item>
 							</Col>
-							<Col span={12}>
+							<Col span={8}>
 								<Form.Item<SettingsField>
 									label='Почта'
 									name='email'
@@ -175,6 +197,20 @@ const Settings = () => {
 											required: true,
 											type: 'email',
 											message: 'Введите вашу почту'
+										}
+									]}
+								>
+									<Input />
+								</Form.Item>
+							</Col>
+							<Col span={8}>
+								<Form.Item<SettingsField>
+									label='Логин'
+									name='login'
+									rules={[
+										{
+											required: true,
+											message: 'Введите ваш логин'
 										}
 									]}
 								>
