@@ -7,14 +7,15 @@ import { useEffect } from 'react'
 type RoomCardProps = {
 	id: string
 	facility: Array<string>
-	image: string
+	image: string,
+	price: number
 }
 
 const RoomCard = (props: RoomCardProps) => {
 	const navigate = useNavigate()
 
 	const { Link } = Typography
-	const { id, facility, image } = props
+	const { id, facility, image, price } = props
 
 	useEffect(() => {}, [])
 
@@ -47,11 +48,11 @@ const RoomCard = (props: RoomCardProps) => {
 							style={{ marginBottom: '10px' }}
 							className='RoomCard-info__price__tag'
 						>
-							<Tag>-15%</Tag>
+							{/* <Tag>-15%</Tag> */}
 						</div>
 						<div>
-							<p style={{ fontSize: '30px' }}>31$ / ночь</p>
-							<span>31$ / ночь</span>
+							<p style={{ fontSize: '30px' }}>{price}руб / ночь</p>
+							{/* <span>31$ / ночь</span> */}
 						</div>
 					</div>
 					<Divider />
