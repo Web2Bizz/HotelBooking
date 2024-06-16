@@ -22,7 +22,7 @@ class RoomService {
       from public.room as R 
       inner join public.roomtype as RT on R.id_room_type = RT.id_room_type
       inner join public.roomstatus as RS on R.id_status = RS.id_status
-      WHERE id_room = ${id}
+      WHERE id_room = '${id}'
       order by R.id_room asc `
     );
     return response;
