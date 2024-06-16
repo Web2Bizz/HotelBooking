@@ -49,7 +49,7 @@ const SimilarRooms = () => {
 		)
 	}
 
-	const currentComponents = rooms
+	const currentComponents = rooms && rooms
 		.splice(0, 4)
 		.map((item, index) => (
 			<ComponentToRender
