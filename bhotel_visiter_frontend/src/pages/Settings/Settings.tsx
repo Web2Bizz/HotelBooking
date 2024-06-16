@@ -26,6 +26,7 @@ type SettingsField = {
 	birthday?: string
 	email?: string
 	password?: string
+	login?: string
 	confirm_password?: string
 }
 
@@ -155,7 +156,7 @@ const Settings = () => {
 							</Col>
 						</Row>
 						<Row gutter={[16, 16]}>
-							<Col span={12}>
+							<Col span={8}>
 								<Form.Item<SettingsField>
 									label='Телефон'
 									name='phone'
@@ -166,7 +167,7 @@ const Settings = () => {
 									<MaskedInput mask={'+7 (000) 000-00-00'} />
 								</Form.Item>
 							</Col>
-							<Col span={12}>
+							<Col span={8}>
 								<Form.Item<SettingsField>
 									label='Почта'
 									name='email'
@@ -175,6 +176,21 @@ const Settings = () => {
 											required: true,
 											type: 'email',
 											message: 'Введите вашу почту'
+										}
+									]}
+								>
+									<Input />
+								</Form.Item>
+							</Col>
+							<Col span={8}>
+								<Form.Item<SettingsField>
+									label='Логин'
+									name='login'
+									rules={[
+										{
+											required: true,
+											type: 'email',
+											message: 'Введите ваш логин'
 										}
 									]}
 								>
