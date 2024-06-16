@@ -1,5 +1,5 @@
 import { UserOutlined } from '@ant-design/icons'
-import { UserContext } from '@contexts'
+import { TUserContext, UserContext } from '@contexts'
 import { InputMask, useMask } from '@react-input/mask'
 import { Header } from '@widgets'
 import {
@@ -66,6 +66,27 @@ const Settings = () => {
 			.then((response) => response.json())
 			.then((response) => {
 				console.log(response)
+				context.email = data.email
+				context.name = data.name
+				context.surname = data.surname
+				context.father_name = data.father_name
+				context.phone = data.phone
+				context.birthday = data.birthday
+
+				localStorage.setItem(
+					'userInfo',
+					JSON.stringify({
+						id_user: context.id_user,
+						name: data.name,
+						surname: data.surname,
+						father_name: data.father_name,
+						phone: data.phone,
+						email: data.email,
+						login: data.login,
+						birthday: data.birthday,
+						role: context.role
+					})
+				)
 			})
 	}
 
@@ -189,7 +210,6 @@ const Settings = () => {
 									rules={[
 										{
 											required: true,
-											type: 'email',
 											message: 'Введите ваш логин'
 										}
 									]}
