@@ -10,6 +10,7 @@ type TRoomInfo = {
 	room_type: string
 	status: string
 	room_number: number
+	price: number
 	room_floor: number
 }
 
@@ -56,7 +57,7 @@ const RoomInfo = () => {
 				</div>
 				<div className='RoomInfo-button'>
 					<p>
-						<span>36$</span> / ночь
+						<span>{roomInfo?.price}</span> / ночь
 					</p>
 					<div>
 						<Button onClick={onBooking} type='primary'>
