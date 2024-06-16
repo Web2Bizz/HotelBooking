@@ -53,6 +53,7 @@ const Settings = () => {
 		urlencoded.append('father_name', data.father_name)
 		urlencoded.append('phone', data.phone)
 		urlencoded.append('email', data.email)
+		urlencoded.append('login', data.login)
 		urlencoded.append('password', data.password)
 		urlencoded.append('birthday', data.birthday)
 
