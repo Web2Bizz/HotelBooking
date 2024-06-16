@@ -39,13 +39,44 @@ class UserController {
 				fatherName,
 				login,
 				email,
-				password,
+				password
 			)
 			return res.json('success')
 		} catch (e) {
 			next(e)
 		}
 	}
+
+	async Editv2User(req, res, next) {
+		try {
+			const {
+				id_user,
+				login,
+				password,
+				email,
+				birthday,
+				name,
+				surname,
+				father_name,
+				phone
+			} = req.body.id_user
+			await userService.editV2User(
+				id_user,
+				login,
+				password,
+				email,
+				birthday,
+				name,
+				surname,
+				father_name,
+				phone
+			)
+			return res.json('Пользователь изменен')
+		} catch (e) {
+			next(e)
+		}
+	}
+
 	async EditUser(req, res, next) {
 		try {
 			const { id_user, login, password, role, email } = req.body.id_user

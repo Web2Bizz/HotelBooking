@@ -1,3 +1,4 @@
+// отсюда стащить механизм бронирования
 import React, { useState, useEffect } from 'react'
 import { isEmpty, getColorTag } from '../../services/functionService'
 import { PlusOutlined, MinusOutlined, MoreOutlined } from '@ant-design/icons'

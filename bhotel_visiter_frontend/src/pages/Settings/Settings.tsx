@@ -1,19 +1,22 @@
-import {
-	Button,
-	Avatar,
-	Form,
-	Input,
-	DatePicker,
-	Row,
-	Col,
-	FormProps
-} from 'antd'
-import './style.scss'
-import { useNavigate } from 'react-router-dom'
-import { Header } from '@widgets'
 import { UserOutlined } from '@ant-design/icons'
 import { UserContext } from '@contexts'
+import { InputMask, useMask } from '@react-input/mask'
+import { Header } from '@widgets'
+import {
+	Avatar,
+	Button,
+	Col,
+	DatePicker,
+	Form,
+	FormProps,
+	Input,
+	Row
+} from 'antd'
 import { useContext, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import './style.scss'
+import MaskedInput from 'antd-mask-input'
+import dayjs from 'dayjs'
 
 type SettingsField = {
 	name: string
@@ -28,10 +31,14 @@ type SettingsField = {
 
 const Settings = () => {
 	const [form] = Form.useForm()
+
 	const onFinish: FormProps<SettingsField>['onFinish'] = async (
 		values: any
 	) => {
-		console.log('Received values:', values)
+		console.log('Received values:', {
+			...values,
+			birthday: dayjs(values.birthday).format('YYYY-MM-DD')
+		})
 	}
 
 	const context = useContext(UserContext)
@@ -123,7 +130,7 @@ const Settings = () => {
 							</Col>
 						</Row>
 						<Row gutter={[16, 16]}>
-							<Col span={24}>
+							<Col span={12}>
 								<Form.Item<SettingsField>
 									label='Телефон'
 									name='phone'
@@ -131,12 +138,10 @@ const Settings = () => {
 										{ required: true, message: 'Введите ваш номер телефона' }
 									]}
 								>
-									<Input />
+									<MaskedInput mask={'+7 (000) 000-00-00'} />
 								</Form.Item>
 							</Col>
-						</Row>
-						<Row gutter={[16, 16]}>
-							<Col span={24}>
+							<Col span={12}>
 								<Form.Item<SettingsField>
 									label='Почта'
 									name='email'
@@ -195,7 +200,7 @@ const Settings = () => {
 									<DatePicker
 										style={{ width: '100%' }}
 										placeholder='Выберите дату'
-										format='YYYY-MM-DDTHH:mm:ss'
+										format='YYYY-MM-DD'
 									/>
 								</Form.Item>
 							</Col>

@@ -1,36 +1,61 @@
 .Settings-container {
-  display: flex;
+	display: flex;
 
-  .ant-input {
-    font-size: 20px;
-  }
+	.ant-input {
+		font-size: 20px;
+	}
 
-  .ant-input-password {
-    font-size: 20px;
-  }
+	.ant-input-password {
+		font-size: 20px;
+	}
 
-  .ant-form-item-label label {
-    font-size: 20px;
-  }
+	.ant-form-item-label label {
+		font-size: 20px;
+	}
 
-  .ant-picker input {
-    font-size: 20px;
-  }
+	.ant-picker input {
+		font-size: 20px;
+	}
 
-  .ant-btn {
-    height: 47px;
-    margin-bottom: 45px;
-  }
+	.ant-btn {
+		height: 47px;
+		margin-bottom: 45px;
+	}
 }
 
 .Settings-form {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
+	flex: 1;
+	display: flex;
+	flex-direction: column;
 }
 
 .Settings-info {
-  p {
-    margin-bottom: 50px;
-  }
+	p {
+		margin-bottom: 50px;
+	}
+}
+
+#registration_form_phone {
+	width: calc(100% - 14px);
+	padding: 7px;
+	background: #ffffff;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #d9d9d9;
+	font-size: 20px;
+	border-radius: 6px;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 4px 11px;
+	color: rgba(0, 0, 0, 0.88);
+	line-height: 1.5714285714285714;
+	list-style: none;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+		'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',
+		'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+	position: relative;
+	display: inline-block;
+	min-width: 0;
+	border-radius: 6px;
+	transition: all 0.2s;
 }
