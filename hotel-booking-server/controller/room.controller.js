@@ -14,7 +14,7 @@ class RoomController {
 	}
   async FilterRoom(req, res, next) {
     try {
-			const response = await roomService.getRoom()
+			const response = await roomService.getRandomRoom()
 			return res.json(response.rows)
 		} catch (e) {
 			next(e)
