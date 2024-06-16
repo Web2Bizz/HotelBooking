@@ -87,7 +87,7 @@ const ListOfRoomsSection = () => {
 
 	const onBooking = () => {
 		console.log('booking')
-		fetch(`${import.meta.env.VITE_APP_ADMIN_API}/v2/filter`)
+		fetch(`${import.meta.env.VITE_APP_ADMIN_API}/v2/filter`, { method: 'POST' })
 			.then((response) => response.json())
 			.then((response) => {
 				console.log(response)
