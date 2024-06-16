@@ -2,6 +2,8 @@ import { Rate, Button } from 'antd'
 import { PeculiaritiesRooms } from '../../../features'
 import './style.scss'
 
+
+
 const RoomInfo = () => {
 	type ListItem = {
 		id: number

@@ -35,7 +35,7 @@ const RoomPreview = () => {
 					<RoomsImg images={images} />
 					<RoomInfo />
 				</div>
-				<RoomReviews />
+				{false && <RoomReviews />}
 				<SimilarRooms />
 			</div>
 		</>

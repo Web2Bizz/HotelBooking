@@ -2,10 +2,24 @@ import { trpc } from '@helpers'
 import { Button } from 'antd'
 import { Parallax, ParallaxProvider } from 'react-scroll-parallax'
 import './style.scss'
+import { UserContext } from '@contexts'
+import { useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const HeroSection = () => {
+
+	const context = useContext(UserContext)
+	const navigate = useNavigate()
+	
 	const onBooking = () => {
 		console.log('booking')
+
+		if (context.isLoggined) {
+			navigate('/booking')
+		} else {
+			navigate('/login')
+		}
+		
 	}
 
 	const hotelData = trpc.getHotelProperties.useQuery().data

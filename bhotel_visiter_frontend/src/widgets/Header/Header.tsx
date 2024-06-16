@@ -64,6 +64,7 @@ const Header = () => {
 						{headerData?.display_search && (
 							<div className='Header-search'>
 								<Input
+									disabled
 									size='large'
 									placeholder='Найти номер'
 									style={{ width: 556 }}
