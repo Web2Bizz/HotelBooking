@@ -1,5 +1,7 @@
+import { Container } from '@widgets'
+
 const Booking = () => {
-	return <div>Booking</div>
+	return <Container><>Booking</></Container>
 }
 
 export default Booking

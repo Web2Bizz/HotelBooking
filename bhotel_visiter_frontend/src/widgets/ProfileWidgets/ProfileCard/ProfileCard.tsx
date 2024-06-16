@@ -52,38 +52,68 @@ const ProfileCard = () => {
 					</div>
 					<div className='ProfileCard-buttons'>
 						<ul className='PeculiaritiesRooms-custom-list'>
-							<li className='PeculiaritiesRooms-custom-list-item'>
-								<a className='profile__link' onClick={() => navigate('/settings')}>
+							<li
+								className='PeculiaritiesRooms-custom-list-item'
+								style={{ borderLeft: 'none' }}
+							>
+								<a
+									className='profile__link'
+									onClick={() => navigate('/settings')}
+								>
 									<i className='fi fi-rr-edit'></i>
 									<span>Редактировать профиль</span>
 								</a>
 							</li>
-							<li className='PeculiaritiesRooms-custom-list-item'>
-								<a className='profile__link' onClick={() => navigate('/payments')}>
+							<li
+								className='PeculiaritiesRooms-custom-list-item'
+								style={{ borderLeft: 'none' }}
+							>
+								<a
+									className='profile__link'
+									onClick={() => navigate('/payments')}
+								>
 									<i className='fi fi-rr-credit-card'></i>
 									<span>Способы оплаты</span>
 								</a>
 							</li>
-							<li className='PeculiaritiesRooms-custom-list-item'>
-								<a className='profile__link' onClick={() => navigate('/notifications')}>
+							<li
+								className='PeculiaritiesRooms-custom-list-item'
+								style={{ borderLeft: 'none' }}
+							>
+								<a
+									className='profile__link'
+									onClick={() => navigate('/notifications')}
+								>
 									<i className='fi fi-rr-bell-ring'></i>
 									<span>Уведомления</span>
 								</a>
 							</li>
-							<li className='PeculiaritiesRooms-custom-list-item'>
-								<a className='profile__link' onClick={() => navigate('/profile')}>
+							<li
+								className='PeculiaritiesRooms-custom-list-item'
+								style={{ borderLeft: 'none' }}
+							>
+								<a
+									className='profile__link'
+									onClick={() => navigate('/profile')}
+								>
 									<i className='fi fi-rr-database'></i>
 									<span>История брони</span>
 								</a>
 							</li>
 							<Divider />
-							<li className='PeculiaritiesRooms-custom-list-item'>
+							<li
+								className='PeculiaritiesRooms-custom-list-item'
+								style={{ borderLeft: 'none' }}
+							>
 								<a className='profile__link' href=''>
 									<i className='fi fi-rr-comment-info'></i>
 									<span>Справка</span>
 								</a>
 							</li>
-							<li className='PeculiaritiesRooms-custom-list-item'>
+							<li
+								className='PeculiaritiesRooms-custom-list-item'
+								style={{ borderLeft: 'none' }}
+							>
 								<a className='profile__link' type='button' onClick={showModal}>
 									<i className='fi fi-rr-exit'></i>
 									<span>Выйти</span>
