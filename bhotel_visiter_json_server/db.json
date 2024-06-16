@@ -1,7 +1,7 @@
 {
     "images": [
         {
-            "room_id": "0a41d70c-7a32-413f-b647-a3cbe32d0021",
+            "id": "0a41d70c-7a32-413f-b647-a3cbe32d0021",
             "cover": "b99bcd93-9c22-4e8c-8055-36cd54502fb6__496548725.jpg",
             "image_list": [
                 "fcc96510-0883-4277-9aa6-68866c63a31a__552038526.jpg",
@@ -11,7 +11,7 @@
             ]
         },
         {
-            "room_id": "0bb547be-92ef-4dfb-a136-b364693bc48c",
+            "id": "0bb547be-92ef-4dfb-a136-b364693bc48c",
             "cover": "cdcaaad1-7d29-4e65-8751-ea52fb695ec4__555934025.jpg",
             "image_list": [
                 "cdcaaad1-7d29-4e65-8751-ea52fb695ec4__555934025.jpg",
@@ -21,7 +21,7 @@
             ]
         },
         {
-            "room_id": "11145a82-2400-4896-baa0-a0ab78ad2413",
+            "id": "11145a82-2400-4896-baa0-a0ab78ad2413",
             "cover": "aaf70599-deb4-4bc3-b361-bd9ad4bed02c__536481281.jpg",
             "image_list": [
                 "aaf70599-deb4-4bc3-b361-bd9ad4bed02c__536481281.jpg",
