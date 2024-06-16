@@ -3,7 +3,7 @@ import ApiError from '../exceptions/api-error.js'
 import { v4 as uuidv4 } from 'uuid'
 
 class RoomService {
-	async getRandomRoomAndRange() {
+	async getRoom() {
 		const response = await client.query(
 			`select 
       R.id_room, R.room_number, R.room_floor, R.facility, RT.room_type, RS.status, RS.color, R.price 
